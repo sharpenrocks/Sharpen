@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!--The IDs for all the commands exposed by VisualStudio. -->
+  <Extern href="stdidcmd.h"/>
+
+  <!--The IDs for the menus provided by the shell. -->
+  <Extern href="vsshlids.h"/>
+
+  <Commands package="guidSharpenPackage">
+    <Groups>
+      <!-- Put the Sharpen group within the Tools menu. -->
+      <Group guid="guidSharpenPackageCmdSet" id="SharpenMenuGroup" priority="0x0600">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
+      </Group>
+    </Groups>
+
+    <Buttons>
+      <Button guid="guidSharpenPackageCmdSet" id="SharpenWholeSolutionId" priority="0x0100" type="Button">
+        <Parent guid="guidSharpenPackageCmdSet" id="SharpenMenuGroup" />
+        <Strings>
+          <ButtonText>Sharpen Whole Solution</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+  </Commands>
+
+  <Symbols>
+    <GuidSymbol name="guidSharpenPackage" value="{01263ec2-7232-4367-a2cd-3982380b3985}" />
+
+    <GuidSymbol name="guidSharpenPackageCmdSet" value="{b5e43671-9e80-4169-beb1-74b688b21375}">
+      <IDSymbol name="SharpenMenuGroup" value="0x1020" />
+      <IDSymbol name="SharpenWholeSolutionId" value="0x0100" />
+    </GuidSymbol>
+
+    </Symbols>
+</CommandTable>
