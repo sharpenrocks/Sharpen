@@ -10,11 +10,11 @@ namespace Sharpen.VisualStudioExtension.Commands
         public const int CommandId = 0x0100;
         public static readonly Guid CommandSet = new Guid("b5e43671-9e80-4169-beb1-74b688b21375");
 
-        private readonly Package package;
+        private IServiceProvider ServiceProvider { get; }
 
         private SharpenWholeSolutionCommand(Package package)
         {
-            this.package = package ?? throw new ArgumentNullException(nameof(package));
+            ServiceProvider = package ?? throw new ArgumentNullException(nameof(package));
 
             if (ServiceProvider.GetService(typeof(IMenuCommandService)) is OleMenuCommandService commandService)
             {
@@ -25,8 +25,6 @@ namespace Sharpen.VisualStudioExtension.Commands
         }
 
         public static SharpenWholeSolutionCommand Instance { get; private set; }
-
-        private IServiceProvider ServiceProvider => package;
 
         public static void Initialize(Package package)
         {
