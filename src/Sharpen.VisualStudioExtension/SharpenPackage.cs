@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
 using Sharpen.VisualStudioExtension.Commands;
+using Sharpen.VisualStudioExtension.ToolWindows;
 
 namespace Sharpen.VisualStudioExtension
 {
@@ -10,6 +11,7 @@ namespace Sharpen.VisualStudioExtension
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(PackageGuidString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms.")]
+    [ProvideToolWindow(typeof(SharpenResultsToolWindow))]
     public sealed class SharpenPackage : Package
     {
         public const string PackageGuidString = "01263ec2-7232-4367-a2cd-3982380b3985";
@@ -17,6 +19,8 @@ namespace Sharpen.VisualStudioExtension
         protected override void Initialize()
         {
             SharpenWholeSolutionCommand.Initialize(this);
+            ShowSharpenResultsToolWindowCommand.Initialize(this);
+
             base.Initialize();
         }
     }
