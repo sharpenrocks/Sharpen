@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 
 namespace Sharpen.VisualStudioExtension.Commands
 {
@@ -18,15 +17,7 @@ namespace Sharpen.VisualStudioExtension.Commands
 
         protected override void OnExecute()
         {
-            VsShellUtilities.ShowMessageBox(
-                ServiceProvider,
-                "Sharpen Whole Solution - coming soon :-)",
-                "Sharpen",
-                OLEMSGICON.OLEMSGICON_INFO,
-                OLEMSGBUTTON.OLEMSGBUTTON_OK,
-                OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
-
-            ShowSharpenResultsToolWindow();
+            ShowInformation("Analyzing solution is currently not implemented.");
         }
     }
 }

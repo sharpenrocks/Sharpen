@@ -19,6 +19,8 @@ namespace Sharpen.VisualStudioExtension
         protected override void Initialize()
         {
             AnalyzeSolutionCommand.Initialize(this);
+            AnalyzeSelectedProjectsCommand.Initialize(this);
+            ShowOptionsDialogCommand.Initialize(this);
             ShowSharpenResultsToolWindowCommand.Initialize(this);
 
             base.Initialize();

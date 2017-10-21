@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Design;
+using System.Windows;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Sharpen.VisualStudioExtension.ToolWindows;
@@ -31,6 +32,11 @@ namespace Sharpen.VisualStudioExtension.Commands
 
             IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
             Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
+        }
+
+        protected void ShowInformation(string message)
+        {
+            MessageBox.Show(message, "Sharpen", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         protected abstract void OnExecute();
