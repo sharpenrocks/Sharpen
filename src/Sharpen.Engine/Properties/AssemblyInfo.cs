@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Sharpen for Visual Studio")]
-[assembly: AssemblyDescription("Sharpen extension for Microsoft Visual Studio.")]
+[assembly: AssemblyTitle("Sharpen Engine")]
+[assembly: AssemblyDescription("Engine of the Sharpen C# static code analyzer.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Igor Rončević")]
 [assembly: AssemblyProduct("Sharpen")]

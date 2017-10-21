@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharpen.VisualStudioExtension", "Sharpen.VisualStudioExtension\Sharpen.VisualStudioExtension.csproj", "{C2A526B9-A814-4E6A-812C-2734B886DEC5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharpen.Engine", "Sharpen.Engine\Sharpen.Engine.csproj", "{8878CE22-DE17-4AB1-9309-871BC9EF2AD0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{C2A526B9-A814-4E6A-812C-2734B886DEC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2A526B9-A814-4E6A-812C-2734B886DEC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2A526B9-A814-4E6A-812C-2734B886DEC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8878CE22-DE17-4AB1-9309-871BC9EF2AD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8878CE22-DE17-4AB1-9309-871BC9EF2AD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8878CE22-DE17-4AB1-9309-871BC9EF2AD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8878CE22-DE17-4AB1-9309-871BC9EF2AD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

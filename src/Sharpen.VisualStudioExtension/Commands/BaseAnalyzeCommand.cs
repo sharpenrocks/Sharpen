@@ -1,12 +1,18 @@
 ﻿using System;
 using Microsoft.VisualStudio.Shell;
+using Sharpen.Engine;
 using Sharpen.VisualStudioExtension.Extensions;
 
 namespace Sharpen.VisualStudioExtension.Commands
 {
     internal abstract class BaseAnalyzeCommand<TAnalyseCommand> : BaseSharpenCommand<TAnalyseCommand> where TAnalyseCommand : BaseSharpenCommand<TAnalyseCommand>
     {
-        protected BaseAnalyzeCommand(Package package, int commandId, Guid commandSet) : base(package, commandId, commandSet) { }
+        protected SharpenEngine SharpenEngine { get; }
+
+        protected BaseAnalyzeCommand(Package package, SharpenEngine sharpenEngine, int commandId, Guid commandSet) : base(package, commandId, commandSet)
+        {
+            SharpenEngine = sharpenEngine;
+        }
 
         protected override void OnExecute()
         {
