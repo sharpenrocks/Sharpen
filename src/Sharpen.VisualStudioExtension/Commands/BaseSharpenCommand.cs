@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.Design;
 using System.Windows;
+using Microsoft.VisualStudio.ComponentModelHost;
+using Microsoft.VisualStudio.LanguageServices;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Sharpen.VisualStudioExtension.ToolWindows;
@@ -12,10 +14,17 @@ namespace Sharpen.VisualStudioExtension.Commands
         protected Package Package { get; }
         protected IServiceProvider ServiceProvider { get; }
 
+        protected VisualStudioWorkspace Workspace { get; }
+
         protected BaseSharpenCommand(Package package, int commandId, Guid commandSet)
         {
             Package = package ?? throw new ArgumentNullException(nameof(package));
+
             ServiceProvider = package;
+
+            var componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
+            Workspace = componentModel.GetService<VisualStudioWorkspace>();
+
 
             if (!(ServiceProvider.GetService(typeof(IMenuCommandService)) is OleMenuCommandService commandService)) return;
 
@@ -34,7 +43,7 @@ namespace Sharpen.VisualStudioExtension.Commands
             Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
         }
 
-        protected void ShowInformation(string message)
+        protected static void ShowInformation(string message)
         {
             MessageBox.Show(message, "Sharpen", MessageBoxButton.OK, MessageBoxImage.Information);
         }
