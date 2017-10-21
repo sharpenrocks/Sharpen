@@ -56,7 +56,7 @@
   <ItemGroup>
     <Compile Include="Commands\BaseSharpenCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Commands\SharpenWholeSolutionCommand.cs" />
+    <Compile Include="Commands\AnalyzeSolutionCommand.cs" />
     <Compile Include="SharpenPackage.cs" />
     <Compile Include="ToolWindows\SharpenResultsToolWindow.cs" />
     <Compile Include="Commands\ShowSharpenResultsToolWindowCommand.cs" />
