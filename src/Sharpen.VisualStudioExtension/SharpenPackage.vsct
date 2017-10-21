@@ -8,41 +8,97 @@
   <Extern href="vsshlids.h" />
 
   <Commands package="guidSharpenPackage">
+    <Menus>
+      <!-- Sharpen Menu on the Tools Menu. -->
+      <Menu guid="guidSharpenGroupOnTheToolsMenu" id="idSharpenGroupOnTheToolsMenu" type="Menu" priority="0x400">
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_TOOLS_OTHER2" />
+        <Strings>
+          <ButtonText>Sharpen</ButtonText>
+        </Strings>
+      </Menu>
+    </Menus>
+        
     <Groups>
-      <!-- Put the Sharpen group within the Tools menu. -->
-      <Group guid="guidSharpenPackageCmdSet" id="SharpenMenuGroup" priority="0x0600">
-        <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS" />
+      <Group guid="guidAnalyzeGroup" id="idAnalyzeGroup" priority="0x100">
+        <Parent guid="guidSharpenGroupOnTheToolsMenu" id="idSharpenGroupOnTheToolsMenu" />
+      </Group>
+      <Group guid="guidOptionsGroup" id="idOptionsGroup" priority="0x200">
+        <Parent guid="guidSharpenGroupOnTheToolsMenu" id="idSharpenGroupOnTheToolsMenu" />
+      </Group>
+      <Group guid="guidSharpenResultsGroup" id="idSharpenResultsGroup" priority="0x300">
+        <Parent guid="guidSharpenGroupOnTheToolsMenu" id="idSharpenGroupOnTheToolsMenu" />
       </Group>
     </Groups>
 
     <Buttons>
-      
-      <Button guid="guidSharpenPackageCmdSet" id="SharpenWholeSolutionId" priority="0x0100" type="Button">
-        <Parent guid="guidSharpenPackageCmdSet" id="SharpenMenuGroup" />
+      <!-- Analyze Group. -->
+      <Button guid="guidAnalyzeGroup" id="cmdidAnalyzeSolution" priority="0x0100" type="Button">
         <Strings>
-          <ButtonText>Sharpen Whole Solution</ButtonText>
+          <ButtonText>Analyze &amp;Solution</ButtonText>
         </Strings>
       </Button>
       
-      <Button guid="guidSharpenPackageCmdSet" id="cmdidSharpenResultsToolWindowCommand" priority="0x0100" type="Button">
-        <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1" />
+      <Button guid="guidAnalyzeGroup" id="cmdidAnalyzeSelectedProjects" priority="0x0200" type="Button">
         <Strings>
-          <ButtonText>Sharpen Results</ButtonText>
+          <ButtonText>Analyze Selected &amp;Projects...</ButtonText>
         </Strings>
       </Button>
-      
+
+      <!-- Options Group. -->
+      <Button guid="guidOptionsGroup" id="cmdidOptions" priority="0x0100" type="Button">
+        <Strings>
+          <ButtonText>&amp;Options...</ButtonText>
+        </Strings>
+      </Button>
+
+      <!-- Sharpen Results Group. -->
+      <Button guid="guidSharpenResultsGroup" id="cmdidSharpenResults" priority="0x0100" type="Button">
+        <Strings>
+          <ButtonText>Sharpen &amp;Results</ButtonText>
+        </Strings>
+      </Button>
     </Buttons>
   </Commands>
+  
+  <CommandPlacements>
+    <CommandPlacement guid="guidAnalyzeGroup" id="cmdidAnalyzeSolution" priority="0x100">
+      <Parent guid="guidAnalyzeGroup" id="idAnalyzeGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidAnalyzeGroup" id="cmdidAnalyzeSelectedProjects" priority="0x200">
+      <Parent guid="guidAnalyzeGroup" id="idAnalyzeGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidOptionsGroup" id="cmdidOptions" priority="0x100">
+      <Parent guid="guidOptionsGroup" id="idOptionsGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidSharpenResultsGroup" id="cmdidSharpenResults" priority="0x100">
+      <Parent guid="guidSharpenResultsGroup" id="idSharpenResultsGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidSharpenResultsGroup" id="cmdidSharpenResults" priority="0x600">
+      <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1" />
+    </CommandPlacement>
+  </CommandPlacements>
 
-  <Symbols>
-    
+  <Symbols>    
     <GuidSymbol name="guidSharpenPackage" value="{01263ec2-7232-4367-a2cd-3982380b3985}" />
 
-    <GuidSymbol name="guidSharpenPackageCmdSet" value="{b5e43671-9e80-4169-beb1-74b688b21375}">
-      <IDSymbol name="SharpenMenuGroup" value="0x1020" />
-      <IDSymbol name="SharpenWholeSolutionId" value="0x0100" />
-      <IDSymbol value="4129" name="cmdidSharpenResultsToolWindowCommand" />
+    <GuidSymbol name="guidSharpenGroupOnTheToolsMenu" value ="{b5e43671-9e80-4169-beb1-74b688b21375}">
+      <IDSymbol name="idSharpenGroupOnTheToolsMenu" value="0x100" />
     </GuidSymbol>
 
+    <GuidSymbol name="guidAnalyzeGroup" value ="{8E0186D5-53C8-4662-A6B7-BEC6CDDC08DD}">
+      <IDSymbol name="idAnalyzeGroup" value="0x100" />
+      <IDSymbol name="cmdidAnalyzeSolution" value="0x200" />
+      <IDSymbol name="cmdidAnalyzeSelectedProjects" value="0x300" />
+    </GuidSymbol>
+
+    <GuidSymbol name="guidOptionsGroup" value ="{B977FCAF-B5A3-49D8-9009-E0BDFDB1EFB6}">
+      <IDSymbol name="idOptionsGroup" value="0x100" />
+      <IDSymbol name="cmdidOptions" value="0x200" />
+    </GuidSymbol>
+
+    <GuidSymbol name="guidSharpenResultsGroup" value ="{89079AFD-E03C-46B1-A2F4-EE0C3611D9DB}">
+      <IDSymbol name="idSharpenResultsGroup" value="0x100" />
+      <IDSymbol name="cmdidSharpenResults" value="0x200" />
+    </GuidSymbol>
   </Symbols>
 </CommandTable>

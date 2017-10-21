@@ -6,8 +6,8 @@ namespace Sharpen.VisualStudioExtension.Commands
 {
     internal sealed class SharpenWholeSolutionCommand : BaseSharpenCommand<SharpenWholeSolutionCommand>
     {
-        public const int CommandId = 0x0100;
-        public static readonly Guid CommandSet = new Guid("b5e43671-9e80-4169-beb1-74b688b21375");
+        public const int CommandId = 0x200;
+        public static readonly Guid CommandSet = new Guid("8E0186D5-53C8-4662-A6B7-BEC6CDDC08DD");
 
         private SharpenWholeSolutionCommand(Package package) : base(package, CommandId, CommandSet) { }
 
