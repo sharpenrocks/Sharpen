@@ -20,9 +20,10 @@ namespace Sharpen.VisualStudioExtension
         protected override void Initialize()
         {
             var sharpenEngine = new SharpenEngine();
+            SharpenExtensionService.CreateSingleInstance(sharpenEngine);
 
-            AnalyzeSolutionCommand.Initialize(this, sharpenEngine);
-            AnalyzeSelectedProjectsCommand.Initialize(this, sharpenEngine);
+            AnalyzeSolutionCommand.Initialize(this, SharpenExtensionService.Instance);
+            AnalyzeSelectedProjectsCommand.Initialize(this, SharpenExtensionService.Instance);
             ShowOptionsDialogCommand.Initialize(this);
             ShowSharpenResultsToolWindowCommand.Initialize(this);
 
