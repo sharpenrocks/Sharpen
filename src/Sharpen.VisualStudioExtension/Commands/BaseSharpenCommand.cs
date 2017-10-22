@@ -43,11 +43,6 @@ namespace Sharpen.VisualStudioExtension.Commands
             Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
         }
 
-        protected static void ShowInformation(string message)
-        {
-            MessageBox.Show(message, "Sharpen", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-
         protected abstract void OnExecute();
 
         public static TSharpenCommand Instance { get; protected set; }

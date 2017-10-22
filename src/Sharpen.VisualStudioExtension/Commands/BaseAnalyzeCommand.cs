@@ -17,7 +17,7 @@ namespace Sharpen.VisualStudioExtension.Commands
         {
             if (!Workspace.IsSolutionOpen())
             {
-                ShowInformation("There is no solution open. To analyze code, open a solution that contains at least one C# project.");
+                UserInteraction.ShowInformation("There is no solution open. To start code analysis, open a solution that contains at least one C# project.");
                 return;
             }
             

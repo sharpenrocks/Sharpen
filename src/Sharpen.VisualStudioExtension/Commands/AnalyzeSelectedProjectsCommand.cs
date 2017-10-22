@@ -17,7 +17,7 @@ namespace Sharpen.VisualStudioExtension.Commands
 
         protected override void ExecuteAnalyzeCommand()
         {
-            ShowInformation("Analyzing selected projects is currently not implemented.");
+            UserInteraction.ShowInformation("Analyzing selected projects is currently not implemented.");
         }
     }
 }

@@ -64,11 +64,13 @@
     <Compile Include="Commands\AnalyzeSolutionCommand.cs" />
     <Compile Include="SharpenExtensionService.cs" />
     <Compile Include="SharpenPackage.cs" />
+    <Compile Include="ToolWindows\ISharpenResultsCommandHandler.cs" />
     <Compile Include="ToolWindows\SharpenResultsToolWindow.cs" />
     <Compile Include="Commands\ShowSharpenResultsToolWindowCommand.cs" />
     <Compile Include="ToolWindows\SharpenResultsToolWindowControl.xaml.cs">
       <DependentUpon>SharpenResultsToolWindowControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInteraction.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

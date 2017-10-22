@@ -17,7 +17,7 @@ namespace Sharpen.VisualStudioExtension.Commands
 
         protected override void OnExecute()
         {
-            ShowInformation("Setting Sharpen options is currently not implemented.");
+            UserInteraction.ShowInformation("Setting Sharpen options is currently not implemented.");
         }
     }
 }
