@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using EnvDTE;
 using Microsoft.CodeAnalysis;
 using Microsoft.VisualStudio.Shell;
+using TextDocument = EnvDTE.TextDocument;
 
 namespace Sharpen.VisualStudioExtension.ToolWindows
 {
@@ -29,7 +30,7 @@ namespace Sharpen.VisualStudioExtension.ToolWindows
             dte = (DTE)GetService(typeof(DTE));
         }
 
-        public void OpenResultFile(string filePath, Location location)
+        public void OpenResultFile(string filePath, FileLinePositionSpan position)
         {
             try
             {
@@ -50,7 +51,10 @@ namespace Sharpen.VisualStudioExtension.ToolWindows
                     return;
                 }
 
-                dte.ItemOperations.OpenFile(filePath);
+                var window = dte.ItemOperations.OpenFile(filePath, Constants.vsext_vk_Code);
+                var document = (TextDocument) window.Document.Object();
+                // Roslyn counts lines zero based, and the TextDocument as 1 based. Same with the characters.
+                document.Selection.MoveTo(position.StartLinePosition.Line + 1, position.StartLinePosition.Character + 1);
             }
             catch
             {

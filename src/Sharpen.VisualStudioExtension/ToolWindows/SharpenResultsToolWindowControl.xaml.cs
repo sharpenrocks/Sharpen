@@ -22,7 +22,7 @@ namespace Sharpen.VisualStudioExtension.ToolWindows
 
             if (resultsList.SelectedItem is AnalysisResult selectedAnalysisResult)
             {
-                commandHandler.OpenResultFile(selectedAnalysisResult.FilePath, Location.None);
+                commandHandler.OpenResultFile(selectedAnalysisResult.FilePath, selectedAnalysisResult.Position);
             }
         }
     }

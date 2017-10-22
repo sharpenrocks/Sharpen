@@ -1,4 +1,5 @@
 ﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Text;
 
 namespace Sharpen.VisualStudioExtension.ToolWindows
 {
@@ -11,6 +12,6 @@ namespace Sharpen.VisualStudioExtension.ToolWindows
     /// </remarks>
     internal interface ISharpenResultsCommandHandler
     {
-        void OpenResultFile(string filePath, Location location);
+        void OpenResultFile(string filePath, FileLinePositionSpan position);
     }
 }

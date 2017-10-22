@@ -48,7 +48,6 @@
                     <GridViewColumn Header="C#" Width="30" DisplayMemberBinding="{Binding Suggestion.MinimumLanguageVersion}"/>
                     <GridViewColumn Header="Suggestion" Width="300" DisplayMemberBinding="{Binding Suggestion.FriendlyName}" />
                     <GridViewColumn Header="File Path" Width="400" DisplayMemberBinding="{Binding FilePath}" />
-                    <GridViewColumn Header="Location" Width="150" DisplayMemberBinding="{Binding Location}" />
                 </GridView>
             </ListView.View>
         </ListView>

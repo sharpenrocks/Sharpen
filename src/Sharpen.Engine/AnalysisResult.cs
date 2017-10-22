@@ -1,4 +1,4 @@
-﻿using Microsoft.CodeAnalysis.Text;
+﻿using Microsoft.CodeAnalysis;
 
 namespace Sharpen.Engine
 {
@@ -8,13 +8,13 @@ namespace Sharpen.Engine
 
         public string FilePath { get; }
 
-        public TextSpan Location { get; }
+        public FileLinePositionSpan Position { get; }
 
-        public AnalysisResult(ISharpenSuggestion suggestion, string filePath, TextSpan location)
+        public AnalysisResult(ISharpenSuggestion suggestion, string filePath, SyntaxToken startingSyntaxToken)
         {
             Suggestion = suggestion;
             FilePath = filePath;
-            Location = location;
+            Position = startingSyntaxToken.GetLocation().GetLineSpan();
         }
     }
 }
