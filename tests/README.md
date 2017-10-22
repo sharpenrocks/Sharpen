@@ -1,0 +1,4 @@
+# Smoke Tests
+This folder contains a sample solution that is used for smoke tests. The solution contains one project per C# version. Each language usage suggestion that appears in that C# version has one or more sample source files that are located in a folder that has the same name as the related language suggestion class in the [SharpenEngine project](https://github.com/ironcev/Sharpen/tree/master/src/Sharpen.Engine).
+
+This solution is used not only for smoke testing but also for the development of suggestions. The source code snippets are used to get the insight into the syntax tree behind the language constructs analyzed in corresponding suggestions.
