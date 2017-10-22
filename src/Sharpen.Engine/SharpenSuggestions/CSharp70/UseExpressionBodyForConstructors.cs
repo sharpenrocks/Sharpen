@@ -23,6 +23,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70
             return syntaxTree.GetRoot()
                 .DescendantNodes()
                 .OfType<ConstructorDeclarationSyntax>()
+                .Where(constructor => constructor.Body != null && constructor.Body.Statements.Count == 1 && constructor.Body.Statements[0] is ExpressionStatementSyntax)
                 .Select(constructor => new AnalysisResult(this, syntaxTree.FilePath, constructor.Identifier));
         }
     }
