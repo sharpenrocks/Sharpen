@@ -1,9 +1,9 @@
 ﻿namespace Sharpen.Engine
 {
-    public enum CSharpLanguageVersion
+    public static class CSharpLanguageVersions
     {
-        CSharp60,
-        CSharp70,
-        CSharp71
+        public const string CSharp60 = "6.0";
+        public const string CSharp70 = "7.0";
+        public const string CSharp71 = "7.1";
     }
 }

@@ -9,7 +9,11 @@ namespace Sharpen.Engine
     {
         public IEnumerable<AnalysisResult> Analyze(VisualStudioWorkspace visualStudioWorkspace)
         {
-            var suggestions = new ISharpenSuggestion[] { UseExpressionBodyForConstructors.Instance };
+            var suggestions = new ISharpenSuggestion[]
+            {
+                UseExpressionBodyForConstructors.Instance,
+                UseExpressionBodyForFinalizers.Instance
+            };
 
             return AnalyzeSingleSyntaxTrees(visualStudioWorkspace, suggestions.OfType<ISingleSyntaxTreeAnalyzer>().ToArray());
         }

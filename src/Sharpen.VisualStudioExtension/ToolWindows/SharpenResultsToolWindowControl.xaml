@@ -3,14 +3,53 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             Background="{DynamicResource VsBrush.Window}"
-             Foreground="{DynamicResource VsBrush.WindowText}"
-             mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ListViewStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
-        <StackPanel Orientation="Vertical">
-            <TextBlock Margin="10" HorizontalAlignment="Center">Sharpen Results</TextBlock>
-            <Button Content="Click me!" Click="OnClickMeClick" Width="120" Height="80" Margin="90,0"/>
-        </StackPanel>
+        <ListView ItemsSource="{Binding}">
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Expander IsExpanded="True">
+                                            <Expander.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding Name}" Foreground="{DynamicResource VsBrush.WindowText}" FontWeight="Bold" />
+                                                    <TextBlock Text="{Binding ItemCount}" Foreground="{DynamicResource VsBrush.WindowText}" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0"/>
+                                                </StackPanel>
+                                            </Expander.Header>
+                                            <ItemsPresenter />
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>                    
+                </GroupStyle>
+            </ListView.GroupStyle>            
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="C#" Width="30" DisplayMemberBinding="{Binding Suggestion.MinimumLanguageVersion}"/>
+                    <GridViewColumn Header="Suggestion" Width="300" DisplayMemberBinding="{Binding Suggestion.FriendlyName}" />
+                    <GridViewColumn Header="File Path" Width="400" DisplayMemberBinding="{Binding FilePath}" />
+                    <GridViewColumn Header="Location" Width="150" DisplayMemberBinding="{Binding Location}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </UserControl>

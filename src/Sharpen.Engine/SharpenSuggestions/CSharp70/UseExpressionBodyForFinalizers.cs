@@ -6,23 +6,23 @@ using Sharpen.Engine.CSharpFeatures;
 
 namespace Sharpen.Engine.SharpenSuggestions.CSharp70
 {
-    public class UseExpressionBodyForConstructors : ISharpenSuggestion, ISingleSyntaxTreeAnalyzer
+    public class UseExpressionBodyForFinalizers : ISharpenSuggestion, ISingleSyntaxTreeAnalyzer
     {
-        private UseExpressionBodyForConstructors() { }
+        private UseExpressionBodyForFinalizers() { }
 
         public string MinimumLanguageVersion { get; } = CSharpLanguageVersions.CSharp70;
 
         public ICSharpFeature LanguageFeature { get; } = ExpressionBodiedMembers.Instance;
 
-        public string FriendlyName { get; } = "Use expression body for constructors";
+        public string FriendlyName { get; } = "Use expression body for finalizers";
 
-        public static readonly UseExpressionBodyForConstructors Instance = new UseExpressionBodyForConstructors();
+        public static readonly UseExpressionBodyForFinalizers Instance = new UseExpressionBodyForFinalizers();
 
         public IEnumerable<AnalysisResult> Analyze(SyntaxTree syntaxTree)
         {
             return syntaxTree.GetRoot()
                 .DescendantNodes()
-                .OfType<ConstructorDeclarationSyntax>()
+                .OfType<DestructorDeclarationSyntax>()
                 .Select(constructor => new AnalysisResult(this, syntaxTree.FilePath, constructor.FullSpan));
         }
     }

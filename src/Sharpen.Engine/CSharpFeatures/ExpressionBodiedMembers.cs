@@ -1,5 +1,5 @@
 ﻿using System.Collections.Immutable;
-using static Sharpen.Engine.CSharpLanguageVersion;
+using static Sharpen.Engine.CSharpLanguageVersions;
 
 namespace Sharpen.Engine.CSharpFeatures
 {
@@ -7,7 +7,7 @@ namespace Sharpen.Engine.CSharpFeatures
     {
         private ExpressionBodiedMembers() { }
 
-        public ImmutableArray<CSharpLanguageVersion> LanguageVersions { get; } = ImmutableArray.CreateRange(new[] { CSharp60, CSharp70 });
+        public ImmutableArray<string> LanguageVersions { get; } = ImmutableArray.CreateRange(new[] { CSharp60, CSharp70 });
 
         public string FriendlyName { get; } = "Expression-bodied members";
 

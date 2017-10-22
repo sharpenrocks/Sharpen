@@ -8,7 +8,7 @@
         /// <summary>
         /// Minimum language version in which the suggestion is applicable.
         /// </summary>
-        CSharpLanguageVersion MinimumLanguageVersion { get; }
+        string MinimumLanguageVersion { get; }
 
         /// <summary>
         /// Language feature to which the suggestion applies.

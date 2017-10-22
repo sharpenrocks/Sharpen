@@ -10,7 +10,7 @@ namespace Sharpen.Engine
         /// <summary>
         /// Language versions in which the feature appears.
         /// </summary>
-        ImmutableArray<CSharpLanguageVersion> LanguageVersions { get; }
+        ImmutableArray<string> LanguageVersions { get; }
 
         /// <summary>
         /// The widely accepted name for the feature.
