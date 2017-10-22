@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UseExpressionBodyForConstructors\ConstructorsThatAlreadyHaveExpressionBody.cs" />
+    <Compile Include="UseExpressionBodyForConstructors\ConstructorsThatAreNotCandidatesToHaveExpressionBody.cs" />
+    <Compile Include="UseExpressionBodyForConstructors\ConstructorsThatAreCandidatesToHaveExpressionBody.cs" />
     <Compile Include="UseExpressionBodyForConstructors\EmptyConstructors.cs" />
   </ItemGroup>
   <ItemGroup>
