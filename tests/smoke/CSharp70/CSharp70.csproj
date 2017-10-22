@@ -44,6 +44,10 @@
     <Compile Include="UseExpressionBodyForConstructors\ConstructorsThatAreNotCandidatesToHaveExpressionBody.cs" />
     <Compile Include="UseExpressionBodyForConstructors\ConstructorsThatAreCandidatesToHaveExpressionBody.cs" />
     <Compile Include="UseExpressionBodyForConstructors\EmptyConstructors.cs" />
+    <Compile Include="UseExpressionBodyForFinalizers\FinalizersThatAlreadyHaveExpressionBody.cs" />
+    <Compile Include="UseExpressionBodyForFinalizers\FinalizersThatAreCandidatesToHaveExpressionBody.cs" />
+    <Compile Include="UseExpressionBodyForFinalizers\FinalizersThatAreNotCandidatesToHaveExpressionBody.cs" />
+    <Compile Include="UseExpressionBodyForFinalizers\EmptyFinalizers.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
