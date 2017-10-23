@@ -24,8 +24,19 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70
             return syntaxTree.GetRoot()
                 .DescendantNodes()
                 .OfType<AccessorDeclarationSyntax>()
-                .Where(accessor => accessor.Keyword.IsKind(SyntaxKind.GetKeyword) && accessor.Body != null && accessor.Body.Statements.Count == 1 && accessor.Body.Statements[0] is ReturnStatementSyntax)
+                .Where
+                (accessor => 
+                    accessor.Keyword.IsKind(SyntaxKind.GetKeyword) &&
+                    accessor.Body != null &&
+                    accessor.Body.Statements.Count == 1 &&
+                    accessor.Body.Statements[0] is ReturnStatementSyntax &&
+                    ((AccessorListSyntax)accessor.Parent).Accessors.Count > 1 // We must have the set-accessor as well (see [1]).
+                )
                 .Select(accessor => new AnalysisResult(this, syntaxTree.FilePath, accessor.Keyword));
         }
     }
 }
+
+/* 
+    [1] If there is now set accessor then we do not want to have the get accessor with expression body but the get-only property with expression body.
+*/
