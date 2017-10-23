@@ -23,6 +23,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70
             return syntaxTree.GetRoot()
                 .DescendantNodes()
                 .OfType<DestructorDeclarationSyntax>()
+                .Where(destructor => destructor.Body != null && destructor.Body.Statements.Count == 1 && destructor.Body.Statements[0] is ExpressionStatementSyntax)
                 .Select(destructor => new AnalysisResult(this, syntaxTree.FilePath, destructor.TildeToken));
         }
     }
