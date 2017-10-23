@@ -13,7 +13,8 @@ namespace Sharpen.Engine
             {
                 UseExpressionBodyForConstructors.Instance,
                 UseExpressionBodyForDestructors.Instance,
-                UseExpressionBodyForGetAccessors.Instance
+                UseExpressionBodyForGetAccessors.Instance,
+                UseExpressionBodyForSetAccessors.Instance
             };
 
             return AnalyzeSingleSyntaxTrees(visualStudioWorkspace, suggestions.OfType<ISingleSyntaxTreeAnalyzer>().ToArray());
