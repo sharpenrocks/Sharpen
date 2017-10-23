@@ -9,6 +9,10 @@ namespace CSharp70.UseExpressionBodyForConstructors
         public string S { get; }
         private readonly int i;
 
+        static ConstructorsThatAreCandidatesToHaveExpressionBody()
+        {
+            Console.WriteLine(string.Empty);
+        }
         public ConstructorsThatAreCandidatesToHaveExpressionBody()
         {
             Console.WriteLine(string.Empty);

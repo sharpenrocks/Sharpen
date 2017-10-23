@@ -9,6 +9,7 @@ namespace CSharp70.UseExpressionBodyForConstructors
         public string S { get; }
         private readonly int i;
 
+        static ConstructorsThatAlreadyHaveExpressionBody() => Console.WriteLine(string.Empty);
         public ConstructorsThatAlreadyHaveExpressionBody() => Console.WriteLine(string.Empty);
         public ConstructorsThatAlreadyHaveExpressionBody(int i) => this.i = i;
         public ConstructorsThatAlreadyHaveExpressionBody(string s) => S = s;
@@ -22,6 +23,9 @@ namespace CSharp70.UseExpressionBodyForConstructors
         public string S { get; }
         private readonly int i;
 
+        static ConstructorsThatAlreadyHaveExpressionBodyBodyWithComments() =>
+            // This is some comment.
+            Console.WriteLine(string.Empty);
         public ConstructorsThatAlreadyHaveExpressionBodyBodyWithComments() =>
             // This is some comment.
             Console.WriteLine(string.Empty);

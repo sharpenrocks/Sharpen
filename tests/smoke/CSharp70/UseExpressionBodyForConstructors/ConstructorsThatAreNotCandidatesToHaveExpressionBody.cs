@@ -10,6 +10,11 @@ namespace CSharp70.UseExpressionBodyForConstructors
         public string S { get; }
         private readonly int i;
 
+        static ConstructorsThatAreNotCandidatesToHaveExpressionBody()
+        {
+            Console.WriteLine(string.Empty);
+            Console.WriteLine(string.Empty);
+        }
         public ConstructorsThatAreNotCandidatesToHaveExpressionBody()
         {
             Console.WriteLine(string.Empty);

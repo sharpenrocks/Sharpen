@@ -4,6 +4,9 @@ namespace CSharp70.UseExpressionBodyForConstructors
 {
     public class ClassWithEmptyConstructors
     {
+        static ClassWithEmptyConstructors()
+        {
+        }
         public ClassWithEmptyConstructors()
         {
         }
@@ -23,11 +26,15 @@ namespace CSharp70.UseExpressionBodyForConstructors
 
     public abstract class BaseClass
     {
+        static BaseClass() { }
         protected BaseClass(int i) { }
     }
 
     public class ClassWithEmptyConstructorsWithBaseClass : BaseClass
     {
+        static ClassWithEmptyConstructorsWithBaseClass()
+        {
+        }
         public ClassWithEmptyConstructorsWithBaseClass() : base(0)
         {    
         }
