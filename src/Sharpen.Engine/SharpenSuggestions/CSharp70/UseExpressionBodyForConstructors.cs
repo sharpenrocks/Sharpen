@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Sharpen.Engine.CSharpFeatures;
 
@@ -23,7 +24,12 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70
             return syntaxTree.GetRoot()
                 .DescendantNodes()
                 .OfType<ConstructorDeclarationSyntax>()
-                .Where(constructor => constructor.Body != null && constructor.Body.Statements.Count == 1 && constructor.Body.Statements[0] is ExpressionStatementSyntax)
+                .Where
+                (constructor =>
+                    constructor.Body != null &&
+                    constructor.Body.Statements.Count == 1
+                    && constructor.Body.Statements[0].IsKind(SyntaxKind.ExpressionStatement)
+                )
                 .Select(constructor => new AnalysisResult(this, syntaxTree.FilePath, constructor.Identifier));
         }
     }
