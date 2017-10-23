@@ -12,7 +12,7 @@ namespace Sharpen.Engine
             var suggestions = new ISharpenSuggestion[]
             {
                 UseExpressionBodyForConstructors.Instance,
-                UseExpressionBodyForFinalizers.Instance
+                UseExpressionBodyForDestructors.Instance
             };
 
             return AnalyzeSingleSyntaxTrees(visualStudioWorkspace, suggestions.OfType<ISingleSyntaxTreeAnalyzer>().ToArray());

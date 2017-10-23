@@ -6,17 +6,17 @@ using Sharpen.Engine.CSharpFeatures;
 
 namespace Sharpen.Engine.SharpenSuggestions.CSharp70
 {
-    public class UseExpressionBodyForFinalizers : ISharpenSuggestion, ISingleSyntaxTreeAnalyzer
+    public class UseExpressionBodyForDestructors : ISharpenSuggestion, ISingleSyntaxTreeAnalyzer
     {
-        private UseExpressionBodyForFinalizers() { }
+        private UseExpressionBodyForDestructors() { }
 
         public string MinimumLanguageVersion { get; } = CSharpLanguageVersions.CSharp70;
 
         public ICSharpFeature LanguageFeature { get; } = ExpressionBodiedMembers.Instance;
 
-        public string FriendlyName { get; } = "Use expression body for finalizers";
+        public string FriendlyName { get; } = "Use expression body for destructors";
 
-        public static readonly UseExpressionBodyForFinalizers Instance = new UseExpressionBodyForFinalizers();
+        public static readonly UseExpressionBodyForDestructors Instance = new UseExpressionBodyForDestructors();
 
         public IEnumerable<AnalysisResult> Analyze(SyntaxTree syntaxTree)
         {

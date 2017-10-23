@@ -3,66 +3,66 @@
 using System;
 using System.Linq;
 
-namespace CSharp70.UseExpressionBodyForFinalizers
+namespace CSharp70.UseExpressionBodyForDestructors
 {
-    public class FinalizersThatAreNotCandidatesToHaveExpressionBody01
+    public class DestructorsThatAreNotCandidatesToHaveExpressionBody01
     {
-        ~FinalizersThatAreNotCandidatesToHaveExpressionBody01()
+        ~DestructorsThatAreNotCandidatesToHaveExpressionBody01()
         {
             Console.WriteLine(string.Empty);
             Console.WriteLine(string.Empty);
         }
     }
 
-    public class FinalizersThatAreNotCandidatesToHaveExpressionBody02
+    public class DestructorsThatAreNotCandidatesToHaveExpressionBody02
     {
         private int i;
 
-        ~FinalizersThatAreNotCandidatesToHaveExpressionBody02()
+        ~DestructorsThatAreNotCandidatesToHaveExpressionBody02()
         {
             i = 0;
             Console.WriteLine(string.Empty);
         }
     }
 
-    public class FinalizersThatAreNotCandidatesToHaveExpressionBody03
+    public class DestructorsThatAreNotCandidatesToHaveExpressionBody03
     {
         public string S { get; private set; }
         private int i;
 
-        ~FinalizersThatAreNotCandidatesToHaveExpressionBody03()
+        ~DestructorsThatAreNotCandidatesToHaveExpressionBody03()
         {
             i = 0;
             S = string.Empty;
         }
     }
 
-    public class FinalizersThatAreNotCandidatesToHaveExpressionBody04
+    public class DestructorsThatAreNotCandidatesToHaveExpressionBody04
     {
         public string S { get; private set; }
         private int i;
 
-        ~FinalizersThatAreNotCandidatesToHaveExpressionBody04()
+        ~DestructorsThatAreNotCandidatesToHaveExpressionBody04()
         {
             S = string.Empty ?? throw new ArgumentNullException("");
             i = 0;
         }
     }
 
-    public class FinalizersThatAreNotCandidatesToHaveExpressionBody05
+    public class DestructorsThatAreNotCandidatesToHaveExpressionBody05
     {
-        ~FinalizersThatAreNotCandidatesToHaveExpressionBody05()
+        ~DestructorsThatAreNotCandidatesToHaveExpressionBody05()
         {
             foreach (var item in Enumerable.Empty<int>()) { }
         }
     }
 
-    public class FinalizersThatAreNotCandidatesToHaveExpressionBody06
+    public class DestructorsThatAreNotCandidatesToHaveExpressionBody06
     {
         public string S { get; private set; }
         private int i;
 
-        ~FinalizersThatAreNotCandidatesToHaveExpressionBody06()
+        ~DestructorsThatAreNotCandidatesToHaveExpressionBody06()
         {
             if (i == 0) S = string.Empty;
         }
