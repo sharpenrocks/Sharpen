@@ -26,7 +26,7 @@ namespace CSharp70.UseExpressionBodyForGetAccessors
         }
     }
 
-    public class ConstructorsThatAreCandidatesToHaveExpressionBodyWithComments
+    public class GetAccessorsThatAreCandidatesToHaveExpressionBodyWithComments
     {
         public string S { get; }
         private int i;

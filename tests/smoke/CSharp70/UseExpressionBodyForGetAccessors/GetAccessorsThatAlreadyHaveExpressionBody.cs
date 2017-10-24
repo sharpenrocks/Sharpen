@@ -52,15 +52,15 @@ namespace CSharp70.UseExpressionBodyForGetAccessors
                 Convert.ToDouble(S.ToUpper().ToLower());
             set { }
         }
+    }
 
-        public class GetOnlyPropertiesThatAlreadyHaveExpressionBody
-        {
-            public string S { get; }
-            private int i;
+    public class GetOnlyPropertiesThatAlreadyHaveExpressionBody
+    {
+        public string S { get; }
+        private int i;
 
-            public int IntProperty => i;
-            public string StringProperty => S ?? throw new ArgumentNullException(nameof(S));
-            public double DoubleProperty => Convert.ToDouble(S.ToUpper().ToLower());
-        }
+        public int IntProperty => i;
+        public string StringProperty => S ?? throw new ArgumentNullException(nameof(S));
+        public double DoubleProperty => Convert.ToDouble(S.ToUpper().ToLower());
     }
 }
