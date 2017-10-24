@@ -1,5 +1,7 @@
 ﻿// ReSharper disable All
 
+// Expected number of suggestions: 8
+
 using System;
 
 namespace CSharp70.UseExpressionBodyForDestructors
