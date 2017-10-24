@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.LanguageServices;
+using Sharpen.Engine.SharpenSuggestions.CSharp60;
 using Sharpen.Engine.SharpenSuggestions.CSharp70;
 
 namespace Sharpen.Engine
@@ -14,7 +15,8 @@ namespace Sharpen.Engine
                 UseExpressionBodyForConstructors.Instance,
                 UseExpressionBodyForDestructors.Instance,
                 UseExpressionBodyForGetAccessors.Instance,
-                UseExpressionBodyForSetAccessors.Instance
+                UseExpressionBodyForSetAccessors.Instance,
+                UseExpressionBodyForGetOnlyProperties.Instance,
             };
 
             return AnalyzeSingleSyntaxTrees(visualStudioWorkspace, suggestions.OfType<ISingleSyntaxTreeAnalyzer>().ToArray());
