@@ -27,18 +27,27 @@ namespace Sharpen.VisualStudioExtension
             private set
             {
                 analysisResults = value;
-                OnPropertyChanged();                
+                OnPropertyChanged();
             }
         }
 
         private CollectionView CreateAnalysisResultsViewFrom(IEnumerable<AnalysisResult> analysisResult)
         {
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(analysisResult);
-            PropertyGroupDescription languageVersionGroup = new PropertyGroupDescription("Suggestion.MinimumLanguageVersion");
-            view.GroupDescriptions.Add(languageVersionGroup);
+            var groupByLanguageVersion = new PropertyGroupDescription("Suggestion.MinimumLanguageVersion");
+            view.GroupDescriptions.Add(groupByLanguageVersion);
 
-            PropertyGroupDescription suggestionGroup = new PropertyGroupDescription("Suggestion.FriendlyName");
-            view.GroupDescriptions.Add(suggestionGroup);
+            var groupBySuggestion = new PropertyGroupDescription("Suggestion.FriendlyName");
+            view.GroupDescriptions.Add(groupBySuggestion);
+
+            var sortByLanguageVersion = new SortDescription("Suggestion.MinimumLanguageVersion", ListSortDirection.Ascending);
+            view.SortDescriptions.Add(sortByLanguageVersion);
+
+            var sortBySuggestion = new SortDescription("Suggestion.FriendlyName", ListSortDirection.Ascending);
+            view.SortDescriptions.Add(sortBySuggestion);
+
+            var sortByFilePath = new SortDescription("FilePath", ListSortDirection.Ascending);
+            view.SortDescriptions.Add(sortByFilePath);
 
             return view;
         }
