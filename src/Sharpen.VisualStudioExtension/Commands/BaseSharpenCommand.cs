@@ -1,11 +1,11 @@
 ﻿using System;
 using System.ComponentModel.Design;
-using System.Windows;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.LanguageServices;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Sharpen.VisualStudioExtension.ToolWindows;
+using Task = System.Threading.Tasks.Task;
 
 namespace Sharpen.VisualStudioExtension.Commands
 {
@@ -13,7 +13,6 @@ namespace Sharpen.VisualStudioExtension.Commands
     {
         protected Package Package { get; }
         protected IServiceProvider ServiceProvider { get; }
-
         protected VisualStudioWorkspace Workspace { get; }
 
         protected BaseSharpenCommand(Package package, int commandId, Guid commandSet)
@@ -25,11 +24,10 @@ namespace Sharpen.VisualStudioExtension.Commands
             var componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
             Workspace = componentModel.GetService<VisualStudioWorkspace>();
 
-
             if (!(ServiceProvider.GetService(typeof(IMenuCommandService)) is OleMenuCommandService commandService)) return;
 
             var menuCommandId = new CommandID(commandSet, commandId);
-            var menuItem = new MenuCommand((sender, e) => OnExecute(), menuCommandId);
+            var menuItem = new MenuCommand(async (sender, e) => await OnExecuteAsync(), menuCommandId);
             commandService.AddCommand(menuItem);
         }
 
@@ -39,11 +37,11 @@ namespace Sharpen.VisualStudioExtension.Commands
             if (window?.Frame == null)
                 throw new NotSupportedException($"Cannot create the '{typeof(SharpenResultsToolWindow)}' tool window.");
 
-            IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
+            var windowFrame = (IVsWindowFrame)window.Frame;
             Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
         }
 
-        protected abstract void OnExecute();
+        protected abstract Task OnExecuteAsync();
 
         public static TSharpenCommand Instance { get; protected set; }
     }

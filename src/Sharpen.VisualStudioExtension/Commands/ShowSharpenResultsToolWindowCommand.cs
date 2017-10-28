@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.Shell;
+using Task = System.Threading.Tasks.Task;
 
 namespace Sharpen.VisualStudioExtension.Commands
 {
@@ -15,9 +16,10 @@ namespace Sharpen.VisualStudioExtension.Commands
             Instance = new ShowSharpenResultsToolWindowCommand(package);
         }
 
-        protected override void OnExecute()
+        protected override Task OnExecuteAsync()
         {
             ShowSharpenResultsToolWindow();
+            return Task.CompletedTask;
         }
     }
 }

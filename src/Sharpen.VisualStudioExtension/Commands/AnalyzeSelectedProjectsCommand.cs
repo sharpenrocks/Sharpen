@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.Shell;
+using Task = System.Threading.Tasks.Task;
 
 namespace Sharpen.VisualStudioExtension.Commands
 {
@@ -15,9 +16,10 @@ namespace Sharpen.VisualStudioExtension.Commands
             Instance = new AnalyzeSelectedProjectsCommand(package, sharpenExtensionService);
         }
 
-        protected override void ExecuteAnalyzeCommand()
+        protected override async Task ExecuteAnalysisAsync()
         {
             UserInteraction.ShowInformation("Analyzing selected projects is currently not implemented.");
+            await Task.CompletedTask;
         }
     }
 }

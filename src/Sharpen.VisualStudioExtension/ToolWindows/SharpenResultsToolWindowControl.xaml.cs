@@ -1,6 +1,5 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
-using Microsoft.CodeAnalysis;
 using Sharpen.Engine;
 
 namespace Sharpen.VisualStudioExtension.ToolWindows

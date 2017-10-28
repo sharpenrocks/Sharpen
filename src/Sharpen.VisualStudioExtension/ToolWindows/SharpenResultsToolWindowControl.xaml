@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
              x:ClassModifier="internal">
     <UserControl.Resources>
@@ -12,44 +13,59 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <ListView ItemsSource="{Binding AnalysisResults}" MouseDoubleClick="OnResultListViewMouseDoubleClick">
-            <ListView.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate>
-                            <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
-                            <TextBlock Text="{Binding Name}"/>
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
-                    <GroupStyle.ContainerStyle>
-                        <Style TargetType="{x:Type GroupItem}">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate>
-                                        <Expander IsExpanded="True">
-                                            <Expander.Header>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Text="{Binding Name}" Foreground="{DynamicResource VsBrush.WindowText}" FontWeight="Bold" />
-                                                    <TextBlock Text="{Binding ItemCount}" Foreground="{DynamicResource VsBrush.WindowText}" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0"/>
-                                                </StackPanel>
-                                            </Expander.Header>
-                                            <ItemsPresenter />
-                                        </Expander>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </GroupStyle.ContainerStyle>                    
-                </GroupStyle>
-            </ListView.GroupStyle>            
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="C#" Width="30" DisplayMemberBinding="{Binding Suggestion.MinimumLanguageVersion}"/>
-                    <GridViewColumn Header="Suggestion" Width="300" DisplayMemberBinding="{Binding Suggestion.FriendlyName}" />
-                    <GridViewColumn Header="File Path" Width="400" DisplayMemberBinding="{Binding FilePath}" />
-                </GridView>
-            </ListView.View>
-        </ListView>
-    </Grid>
+    <!--
+        If the WpfToolkit is not used in the code, the compiler will ignore the references
+        and an exception will be thrown at runtime with the message:
+        "Could not load file or assembly 'Xceed.Wpf.Toolkit, PublicKeyToken=...' or one of its dependencies. [...]"
+        To force the referencing of the assembly, we add a dummy name here which creates a field in the code behind.
+        This workaround has been taken from the following answer on StackOverflow:
+            https://stackoverflow.com/a/41605335/7025570
+    -->
+    <xctk:BusyIndicator x:Name="DummyNameToGetAReferenceInTheCodeBehind"
+                        IsBusy="{Binding AnalysisIsRunning}"
+                        DisplayAfter="00:00:01.00"
+                        BusyContent="Analyzing code. Please wait..."
+                        Foreground="{DynamicResource VsBrush.WindowText}"
+                        Background="{DynamicResource VsBrush.Window}">
+        <Grid>
+            <ListView ItemsSource="{Binding AnalysisResults}" MouseDoubleClick="OnResultListViewMouseDoubleClick">
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                        <GroupStyle.ContainerStyle>
+                            <Style TargetType="{x:Type GroupItem}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <Expander IsExpanded="True">
+                                                <Expander.Header>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="{Binding Name}" Foreground="{DynamicResource VsBrush.WindowText}" FontWeight="Bold" />
+                                                        <TextBlock Text="{Binding ItemCount}" Foreground="{DynamicResource VsBrush.WindowText}" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0"/>
+                                                    </StackPanel>
+                                                </Expander.Header>
+                                                <ItemsPresenter />
+                                            </Expander>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </GroupStyle.ContainerStyle>
+                    </GroupStyle>
+                </ListView.GroupStyle>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="C#" Width="30" DisplayMemberBinding="{Binding Suggestion.MinimumLanguageVersion}"/>
+                        <GridViewColumn Header="Suggestion" Width="300" DisplayMemberBinding="{Binding Suggestion.FriendlyName}" />
+                        <GridViewColumn Header="File Path" Width="400" DisplayMemberBinding="{Binding FilePath}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </xctk:BusyIndicator>
 </UserControl>

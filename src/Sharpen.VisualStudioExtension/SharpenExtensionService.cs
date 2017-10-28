@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Data;
 using Microsoft.VisualStudio.LanguageServices;
 using Sharpen.Engine;
+using Task = System.Threading.Tasks.Task;
 
 namespace Sharpen.VisualStudioExtension
 {
@@ -19,7 +21,7 @@ namespace Sharpen.VisualStudioExtension
             AnalysisResults = CreateAnalysisResultsViewFrom(Enumerable.Empty<AnalysisResult>());
         }
 
-        // TODO-IG: Terrible and truly ugly :-( Mixing view aspects, logic, everything. But let's get the first analysis running and let's put the tool into practice and let's get some real life result :-)
+        // TODO-IG: Terrible and truly ugly :-( Mixing view aspects, logic, everything. But let's get the first analysis running and let's put the tool into practice and let's get some real-life results :-)
         private CollectionView analysisResults;
         public CollectionView AnalysisResults
         {
@@ -31,9 +33,21 @@ namespace Sharpen.VisualStudioExtension
             }
         }
 
+        private bool analysisIsRunning;
+        public bool AnalysisIsRunning
+        {
+            get => analysisIsRunning;
+            private set
+            {
+                analysisIsRunning = value;
+                OnPropertyChanged();
+            }
+        }
+
         private CollectionView CreateAnalysisResultsViewFrom(IEnumerable<AnalysisResult> analysisResult)
         {
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(analysisResult);
+            var view = (CollectionView)CollectionViewSource.GetDefaultView(analysisResult);
+
             var groupByLanguageVersion = new PropertyGroupDescription("Suggestion.MinimumLanguageVersion");
             view.GroupDescriptions.Add(groupByLanguageVersion);
 
@@ -59,9 +73,19 @@ namespace Sharpen.VisualStudioExtension
             Instance = new SharpenExtensionService(sharpenEngine);
         }
 
-        public void RunSolutionAnalysis(VisualStudioWorkspace visualStudioWorkspace)
+        public async Task RunSolutionAnalysisAsync(VisualStudioWorkspace visualStudioWorkspace)
         {
-            AnalysisResults = CreateAnalysisResultsViewFrom(sharpenEngine.Analyze(visualStudioWorkspace));
+            if (AnalysisIsRunning)
+                throw new InvalidOperationException("An analysis is already running. You cannot run a new analysis until the current one is not finished.");
+
+            AnalysisResults = CreateAnalysisResultsViewFrom(Enumerable.Empty<AnalysisResult>());
+
+            AnalysisIsRunning = true;
+
+            var analysisResult = await sharpenEngine.AnalyzeAsync(visualStudioWorkspace);
+            AnalysisResults = CreateAnalysisResultsViewFrom(analysisResult);
+
+            AnalysisIsRunning = false;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

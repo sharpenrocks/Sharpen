@@ -1,5 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.CodeAnalysis;
 using Microsoft.VisualStudio.LanguageServices;
 using Sharpen.Engine.SharpenSuggestions.CSharp60;
 using Sharpen.Engine.SharpenSuggestions.CSharp70;
@@ -8,37 +12,60 @@ namespace Sharpen.Engine
 {
     public class SharpenEngine
     {
-        public IEnumerable<AnalysisResult> Analyze(VisualStudioWorkspace visualStudioWorkspace)
+        private static readonly ISharpenSuggestion[] Suggestions =
         {
-            var suggestions = new ISharpenSuggestion[]
-            {
-                UseExpressionBodyForConstructors.Instance,
-                UseExpressionBodyForDestructors.Instance,
-                UseExpressionBodyForGetAccessors.Instance,
-                UseExpressionBodyForSetAccessors.Instance,
-                UseExpressionBodyForGetOnlyProperties.Instance,
-            };
+            UseExpressionBodyForConstructors.Instance,
+            UseExpressionBodyForDestructors.Instance,
+            UseExpressionBodyForGetAccessors.Instance,
+            UseExpressionBodyForSetAccessors.Instance,
+            UseExpressionBodyForGetOnlyProperties.Instance
+        };
 
-            return AnalyzeSingleSyntaxTrees(visualStudioWorkspace, suggestions.OfType<ISingleSyntaxTreeAnalyzer>().ToArray());
+        // We want to avoid creation of a huge number of temporary Action objects
+        // while invoking Parallel.Invoke().
+        // That's why we precreate these Action objects and at the beginning of the
+        // analysis create just once out of them Actions that are really used in
+        // the Parallel.Invoke().
+        private static Action<SyntaxTree, ConcurrentBag<AnalysisResult>>[] AnalyzeSingleSyntaxTreeAndCollectResultsActions { get; } =
+            Suggestions
+                .OfType<ISingleSyntaxTreeAnalyzer>()
+                .Select(analyzer => new Action<SyntaxTree, ConcurrentBag<AnalysisResult>>((syntaxTree, results) =>
+                {
+                    foreach (var analysisResult in analyzer.Analyze(syntaxTree))
+                    {
+                        results.Add(analysisResult);
+                    }
+                }))
+                .ToArray();
+
+        public Task<IEnumerable<AnalysisResult>> AnalyzeAsync(VisualStudioWorkspace visualStudioWorkspace)
+        {
+            return AnalyzeSingleSyntaxTreesAsync(visualStudioWorkspace);
         }
 
-        private IEnumerable<AnalysisResult> AnalyzeSingleSyntaxTrees(VisualStudioWorkspace visualStudioWorkspace, ISingleSyntaxTreeAnalyzer[] syntaxTreeAnalyzers)
+        private static async Task<IEnumerable<AnalysisResult>> AnalyzeSingleSyntaxTreesAsync(VisualStudioWorkspace visualStudioWorkspace)
         {
+            var analysisResults = new ConcurrentBag<AnalysisResult>();
+            SyntaxTree syntaxTree = null;
+
+            var analyseSyntaxTreeActions = AnalyzeSingleSyntaxTreeAndCollectResultsActions
+                // We intentionally access the modified closure here (syntaxTree),
+                // because we want to avoid creation of a huge number of temporary Action objects.
+
+                // ReSharper disable once AccessToModifiedClosure
+                .Select(action => new Action(() => action(syntaxTree, analysisResults)))
+                .ToArray();
+
             foreach (var project in visualStudioWorkspace.CurrentSolution.Projects.Where(project => project.Language == "C#"))
             { 
                 foreach (var document in project.Documents.Where(document => document.SupportsSyntaxTree))
                 {
-                    var syntaxTree = document.GetSyntaxTreeAsync().Result;
-
-                    foreach (var analyzer in syntaxTreeAnalyzers)
-                    {
-                        foreach (var analysisResult in analyzer.Analyze(syntaxTree))
-                        {
-                            yield return analysisResult;
-                        }
-                    }
+                    syntaxTree = await document.GetSyntaxTreeAsync().ConfigureAwait(false);
+                    // Each of the actions will operate on the same (current) syntaxTree.
+                    Parallel.Invoke(analyseSyntaxTreeActions);
                 }
             }
+            return analysisResults;
         }
     }
 }
