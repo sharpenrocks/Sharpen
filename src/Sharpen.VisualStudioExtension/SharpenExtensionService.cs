@@ -63,6 +63,12 @@ namespace Sharpen.VisualStudioExtension
             var sortByFilePath = new SortDescription("FilePath", ListSortDirection.Ascending);
             view.SortDescriptions.Add(sortByFilePath);
 
+            var sortByLine = new SortDescription("Position.StartLinePosition.Line", ListSortDirection.Ascending);
+            view.SortDescriptions.Add(sortByLine);
+
+            var sortByCharacter = new SortDescription("Position.StartLinePosition.Character", ListSortDirection.Ascending);
+            view.SortDescriptions.Add(sortByCharacter);
+
             return view;
         }
 
