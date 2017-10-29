@@ -27,6 +27,35 @@
                         BusyContent="Analyzing code. Please wait..."
                         Foreground="{DynamicResource VsBrush.WindowText}"
                         Background="{DynamicResource VsBrush.Window}">
+        <xctk:BusyIndicator.ProgressBarStyle>
+            <!--
+                The original styles are defined inside of a setter of setter of setter of... OMG!
+                See it here:
+                    https://github.com/xceedsoftware/wpftoolkit/blob/master/ExtendedWPFToolkitSolution/Src/Xceed.Wpf.Toolkit/BusyIndicator/Themes/Generic.xaml
+                I have no clue how to reference those nested nested whatever style definitions in
+                the BasedOn property. Nor I want to spend the rest of my life searching through
+                StackOverflow posts that might help me.
+                So I'm copying the original styles here below and extending and chaning them with my own.
+            -->
+            <Style TargetType="ProgressBar">
+                <!-- Copied. -->
+                <Setter Property="Height" Value="15" />
+                <Setter Property="Margin" Value="8,0,8,8" />
+                <!-- My stuff. -->
+                <Setter Property="IsIndeterminate" Value="False" />
+                <Setter Property="Minimum" Value="0" />
+                <Setter Property="Maximum" Value="{Binding AnalysisMaximumProgress}" />
+                <Setter Property="Value" Value="{Binding AnalysisCurrentProgress}" />
+            </Style>
+        </xctk:BusyIndicator.ProgressBarStyle>
+        <xctk:BusyIndicator.OverlayStyle>
+            <Style TargetType="Rectangle">
+                <!-- Copied. -->
+                <Setter Property="Opacity" Value="0.5" />
+                <!-- My stuff. -->
+                <Setter Property="Fill" Value="{DynamicResource VsBrush.Window}"/>
+            </Style>
+        </xctk:BusyIndicator.OverlayStyle>
         <Grid>
             <ListView ItemsSource="{Binding AnalysisResults}" MouseDoubleClick="OnResultListViewMouseDoubleClick">
                 <ListView.GroupStyle>

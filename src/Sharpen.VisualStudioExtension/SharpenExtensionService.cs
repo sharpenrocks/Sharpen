@@ -44,7 +44,29 @@ namespace Sharpen.VisualStudioExtension
             }
         }
 
-        private CollectionView CreateAnalysisResultsViewFrom(IEnumerable<AnalysisResult> analysisResult)
+        private int analysisMaximumProgress;
+        public int AnalysisMaximumProgress
+        {
+            get => analysisMaximumProgress;
+            set
+            {
+                analysisMaximumProgress = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int analysisCurrentProgress;
+        public int AnalysisCurrentProgress
+        {
+            get => analysisCurrentProgress;
+            set
+            {
+                analysisCurrentProgress = Math.Min(value, AnalysisMaximumProgress);
+                OnPropertyChanged();
+            }
+        }
+
+        private static CollectionView CreateAnalysisResultsViewFrom(IEnumerable<AnalysisResult> analysisResult)
         {
             var view = (CollectionView)CollectionViewSource.GetDefaultView(analysisResult);
 
@@ -86,12 +108,26 @@ namespace Sharpen.VisualStudioExtension
 
             AnalysisResults = CreateAnalysisResultsViewFrom(Enumerable.Empty<AnalysisResult>());
 
+            AnalysisMaximumProgress = sharpenEngine.GetAnalysisMaximumProgress(visualStudioWorkspace);
+            AnalysisCurrentProgress = 0;
+
+            var progress = new Progress<int>();
+            progress.ProgressChanged += UpdateAnalysisProgress;
+
             AnalysisIsRunning = true;
 
-            var analysisResult = await sharpenEngine.AnalyzeAsync(visualStudioWorkspace);
+            var analysisResult = await sharpenEngine.AnalyzeAsync(visualStudioWorkspace, progress);
             AnalysisResults = CreateAnalysisResultsViewFrom(analysisResult);
 
+            AnalysisMaximumProgress = 0;
+            AnalysisCurrentProgress = 0;
+
             AnalysisIsRunning = false;
+        }
+
+        private void UpdateAnalysisProgress(object sender, int progressValue)
+        {
+            AnalysisCurrentProgress = progressValue;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
