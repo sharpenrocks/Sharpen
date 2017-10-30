@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows.Data;
 using Microsoft.VisualStudio.LanguageServices;
 using Sharpen.Engine;
+using Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewBuilders;
+using Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems;
 using Task = System.Threading.Tasks.Task;
 
 namespace Sharpen.VisualStudioExtension
@@ -18,12 +19,12 @@ namespace Sharpen.VisualStudioExtension
         private SharpenExtensionService(SharpenEngine sharpenEngine)
         {
             this.sharpenEngine = sharpenEngine;
-            AnalysisResults = CreateAnalysisResultsViewFrom(Enumerable.Empty<AnalysisResult>());
+            AnalysisResults = Enumerable.Empty<BaseTreeViewItem>();
         }
 
         // TODO-IG: Terrible and truly ugly :-( Mixing view aspects, logic, everything. But let's get the first analysis running and let's put the tool into practice and let's get some real-life results :-)
-        private CollectionView analysisResults;
-        public CollectionView AnalysisResults
+        private IEnumerable<BaseTreeViewItem> analysisResults;
+        public IEnumerable<BaseTreeViewItem> AnalysisResults
         {
             get => analysisResults;
             private set
@@ -66,32 +67,10 @@ namespace Sharpen.VisualStudioExtension
             }
         }
 
-        private static CollectionView CreateAnalysisResultsViewFrom(IEnumerable<AnalysisResult> analysisResult)
+        private static IEnumerable<BaseTreeViewItem> CreateAnalysisResultsTreeViewItemsFrom(IEnumerable<AnalysisResult> analysisResult)
         {
-            var view = (CollectionView)CollectionViewSource.GetDefaultView(analysisResult);
-
-            var groupByLanguageVersion = new PropertyGroupDescription("Suggestion.MinimumLanguageVersion");
-            view.GroupDescriptions.Add(groupByLanguageVersion);
-
-            var groupBySuggestion = new PropertyGroupDescription("Suggestion.FriendlyName");
-            view.GroupDescriptions.Add(groupBySuggestion);
-
-            var sortByLanguageVersion = new SortDescription("Suggestion.MinimumLanguageVersion", ListSortDirection.Ascending);
-            view.SortDescriptions.Add(sortByLanguageVersion);
-
-            var sortBySuggestion = new SortDescription("Suggestion.FriendlyName", ListSortDirection.Ascending);
-            view.SortDescriptions.Add(sortBySuggestion);
-
-            var sortByFilePath = new SortDescription("FilePath", ListSortDirection.Ascending);
-            view.SortDescriptions.Add(sortByFilePath);
-
-            var sortByLine = new SortDescription("Position.StartLinePosition.Line", ListSortDirection.Ascending);
-            view.SortDescriptions.Add(sortByLine);
-
-            var sortByCharacter = new SortDescription("Position.StartLinePosition.Character", ListSortDirection.Ascending);
-            view.SortDescriptions.Add(sortByCharacter);
-
-            return view;
+            var treeViewBuilder = new CSharpVersionSuggestionFilePathTreeViewBuilder(analysisResult);
+            return treeViewBuilder.GetRootTreeViewItems();
         }
 
         public static SharpenExtensionService Instance { get; private set; }
@@ -106,7 +85,7 @@ namespace Sharpen.VisualStudioExtension
             if (AnalysisIsRunning)
                 throw new InvalidOperationException("An analysis is already running. You cannot run a new analysis until the current one is not finished.");
 
-            AnalysisResults = CreateAnalysisResultsViewFrom(Enumerable.Empty<AnalysisResult>());
+            AnalysisResults = Enumerable.Empty<BaseTreeViewItem>();
 
             AnalysisMaximumProgress = sharpenEngine.GetAnalysisMaximumProgress(visualStudioWorkspace);
             AnalysisCurrentProgress = 0;
@@ -117,7 +96,7 @@ namespace Sharpen.VisualStudioExtension
             AnalysisIsRunning = true;
 
             var analysisResult = await sharpenEngine.AnalyzeAsync(visualStudioWorkspace, progress);
-            AnalysisResults = CreateAnalysisResultsViewFrom(analysisResult);
+            AnalysisResults = CreateAnalysisResultsTreeViewItemsFrom(analysisResult);
 
             AnalysisMaximumProgress = 0;
             AnalysisCurrentProgress = 0;

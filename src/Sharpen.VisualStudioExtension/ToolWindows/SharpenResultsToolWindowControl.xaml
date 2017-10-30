@@ -4,15 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:vsp="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
              mc:Ignorable="d"
              x:ClassModifier="internal">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ListViewStyle.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
     <!--
         If the WpfToolkit is not used in the code, the compiler will ignore the references
         and an exception will be thrown at runtime with the message:
@@ -57,44 +51,39 @@
             </Style>
         </xctk:BusyIndicator.OverlayStyle>
         <Grid>
-            <ListView ItemsSource="{Binding AnalysisResults}" MouseDoubleClick="OnResultListViewMouseDoubleClick">
-                <ListView.GroupStyle>
-                    <GroupStyle>
-                        <GroupStyle.HeaderTemplate>
-                            <DataTemplate>
-                                <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
-                                <TextBlock Text="{Binding Name}"/>
-                            </DataTemplate>
-                        </GroupStyle.HeaderTemplate>
-                        <GroupStyle.ContainerStyle>
-                            <Style TargetType="{x:Type GroupItem}">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate>
-                                            <Expander IsExpanded="True">
-                                                <Expander.Header>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="{Binding Name}" Foreground="{DynamicResource VsBrush.WindowText}" FontWeight="Bold" />
-                                                        <TextBlock Text="{Binding ItemCount}" Foreground="{DynamicResource VsBrush.WindowText}" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0"/>
-                                                    </StackPanel>
-                                                </Expander.Header>
-                                                <ItemsPresenter />
-                                            </Expander>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </GroupStyle.ContainerStyle>
-                    </GroupStyle>
-                </ListView.GroupStyle>
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="C#" Width="30" DisplayMemberBinding="{Binding Suggestion.MinimumLanguageVersion}"/>
-                        <GridViewColumn Header="Suggestion" Width="300" DisplayMemberBinding="{Binding Suggestion.FriendlyName}" />
-                        <GridViewColumn Header="File Path" Width="400" DisplayMemberBinding="{Binding FilePath}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
+            <TreeView ItemsSource="{Binding AnalysisResults}"
+                      Background="{DynamicResource VsBrush.Window}">
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                        <Setter Property="Foreground" Value="{DynamicResource VsBrush.WindowText}" />
+                        <Setter Property="FontWeight" Value="Normal" />
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource {x:Static vsp:TreeViewColors.SelectedItemActiveBrushKey}}" />
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static vsp:TreeViewColors.SelectedItemActiveTextBrushKey}}" />
+                            </Trigger>
+                            <!-- Selected but not active (treeview control is not focused). -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="True" />
+                                    <Condition Property="Selector.IsSelectionActive" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Background" Value="{DynamicResource {x:Static vsp:TreeViewColors.SelectedItemInactiveBrushKey}}" />
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static vsp:TreeViewColors.SelectedItemInactiveTextBrushKey}}" />
+                            </MultiTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TreeView.ItemContainerStyle>
+
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                        <TextBlock Text="{Binding Text}"
+                                   Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}, Path=Foreground}" />
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
         </Grid>
     </xctk:BusyIndicator>
 </UserControl>

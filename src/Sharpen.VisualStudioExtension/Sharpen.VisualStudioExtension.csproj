@@ -63,12 +63,19 @@
     <Compile Include="Commands\AnalyzeSolutionCommand.cs" />
     <Compile Include="SharpenExtensionService.cs" />
     <Compile Include="SharpenPackage.cs" />
+    <Compile Include="ToolWindows\AnalysisResultTreeViewBuilders\BaseAnalysisResultTreeViewBuilder.cs" />
+    <Compile Include="ToolWindows\AnalysisResultTreeViewBuilders\CSharpVersionSuggestionFilePathTreeViewBuilder.cs" />
+    <Compile Include="ToolWindows\AnalysisResultTreeViewItems\FilePathTreeViewItem.cs" />
+    <Compile Include="ToolWindows\AnalysisResultTreeViewItems\SuggestionTreeViewItem.cs" />
+    <Compile Include="ToolWindows\AnalysisResultTreeViewItems\CSharpVersionTreeViewItem.cs" />
     <Compile Include="ToolWindows\ISharpenResultsCommandHandler.cs" />
+    <Compile Include="ToolWindows\AnalysisResultTreeViewBuilders\IAnalysisResultTreeViewBuilder.cs" />
     <Compile Include="ToolWindows\SharpenResultsToolWindow.cs" />
     <Compile Include="Commands\ShowSharpenResultsToolWindowCommand.cs" />
     <Compile Include="ToolWindows\SharpenResultsToolWindowControl.xaml.cs">
       <DependentUpon>SharpenResultsToolWindowControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ToolWindows\AnalysisResultTreeViewItems\BaseTreeViewItem.cs" />
     <Compile Include="UserInteraction.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -349,10 +356,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="ToolWindows\ListViewStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="ToolWindows\SharpenResultsToolWindowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
