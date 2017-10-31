@@ -1,5 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewBuilders;
 
@@ -11,14 +12,14 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
     /// </remarks>
     internal abstract class BaseTreeViewItem : INotifyPropertyChanged
     {
-        private class DummyTreeViewItem : BaseTreeViewItem { }
-
-        private static readonly BaseTreeViewItem DummyChild = new DummyTreeViewItem();
+        private class UnloadedChildrenTreeViewItem : BaseTreeViewItem { }
+        
+        private static readonly BaseTreeViewItem[] UnloadedChildrenMarker = { new UnloadedChildrenTreeViewItem() };
 
         private readonly IAnalysisResultTreeViewBuilder treeViewBuilder;
 
-        // This constructor is used only to create the DummyChild instance.
-        private BaseTreeViewItem() { }
+        // This constructor is used only to create the single UnloadedChildrenTreeViewItem instance.
+        private BaseTreeViewItem() {}
 
         protected BaseTreeViewItem(BaseTreeViewItem parent, IAnalysisResultTreeViewBuilder treeViewBuilder, bool isLeaf = false)
         {
@@ -26,15 +27,21 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
 
             Parent = parent;
 
-            Children = new ObservableCollection<BaseTreeViewItem>();
-
-            if (!isLeaf)
-                Children.Add(DummyChild);
+            children = isLeaf ? Enumerable.Empty<BaseTreeViewItem>() : UnloadedChildrenMarker;
         }
 
-        public ObservableCollection<BaseTreeViewItem> Children { get; }
+        private bool ChildrenAreNotLoaded => ReferenceEquals(Children, UnloadedChildrenMarker);
 
-        private bool ChildrenAreNotLoaded => Children.Count == 1 && Children[0] == DummyChild;
+        private IEnumerable<BaseTreeViewItem> children;
+        public IEnumerable<BaseTreeViewItem> Children
+        {
+            get => children;
+            set
+            {
+                children = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string Text { get; protected set; }
 
@@ -57,8 +64,7 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
                 // Lazy load the child items, if necessary.
                 if (ChildrenAreNotLoaded)
                 {
-                    Children.Remove(DummyChild);
-                    LoadChildren();
+                    Children = treeViewBuilder.GetChildrenTreeViewItemsOf(this);
                 }
             }
         }
@@ -74,14 +80,6 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
                     isSelected = value;
                     OnPropertyChanged();
                 }
-            }
-        }
-
-        private void LoadChildren()
-        {
-            foreach (var child in treeViewBuilder.GetChildrenTreeViewItemsOf(this))
-            {
-                Children.Add(child);
             }
         }
 
