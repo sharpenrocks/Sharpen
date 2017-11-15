@@ -70,7 +70,7 @@ namespace Sharpen.VisualStudioExtension
         private static IEnumerable<BaseTreeViewItem> CreateAnalysisResultsTreeViewItemsFrom(IEnumerable<AnalysisResult> analysisResult)
         {
             var treeViewBuilder = new CSharpVersionSuggestionFilePathTreeViewBuilder(analysisResult);
-            return treeViewBuilder.GetRootTreeViewItems();
+            return treeViewBuilder.BuildRootTreeViewItems();
         }
 
         public static SharpenExtensionService Instance { get; private set; }

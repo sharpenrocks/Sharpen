@@ -6,6 +6,7 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewBuilde
 {
     internal abstract class BaseAnalysisResultTreeViewBuilder : IAnalysisResultTreeViewBuilder
     {
+        // TODO-PERF: Replace the repeated enumeration over the ConcurrentBag with a custom made indexing structure optimized for fast access and low memory footprint.
         protected IEnumerable<AnalysisResult> AnalysisResults { get; }
 
         protected BaseAnalysisResultTreeViewBuilder(IEnumerable<AnalysisResult> analysisResults)
@@ -13,7 +14,7 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewBuilde
             AnalysisResults = analysisResults;
         }
 
-        public abstract IEnumerable<BaseTreeViewItem> GetRootTreeViewItems();
-        public abstract IEnumerable<BaseTreeViewItem> GetChildrenTreeViewItemsOf(BaseTreeViewItem parent);
+        public abstract IEnumerable<BaseTreeViewItem> BuildRootTreeViewItems();
+        public abstract IEnumerable<BaseTreeViewItem> BuildChildrenTreeViewItemsOf(BaseTreeViewItem parent);
     }
 }

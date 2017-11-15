@@ -5,7 +5,7 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewBuilde
 {
     internal interface IAnalysisResultTreeViewBuilder
     {
-        IEnumerable<BaseTreeViewItem> GetRootTreeViewItems();
-        IEnumerable<BaseTreeViewItem> GetChildrenTreeViewItemsOf(BaseTreeViewItem parent);
+        IEnumerable<BaseTreeViewItem> BuildRootTreeViewItems();
+        IEnumerable<BaseTreeViewItem> BuildChildrenTreeViewItemsOf(BaseTreeViewItem parent);
     }
 }

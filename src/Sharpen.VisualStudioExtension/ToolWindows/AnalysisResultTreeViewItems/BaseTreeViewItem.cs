@@ -64,7 +64,7 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
                 // Lazy load the child items, if necessary.
                 if (ChildrenAreNotLoaded)
                 {
-                    Children = treeViewBuilder.GetChildrenTreeViewItemsOf(this);
+                    Children = treeViewBuilder.BuildChildrenTreeViewItemsOf(this);
                 }
             }
         }

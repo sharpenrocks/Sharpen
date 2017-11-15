@@ -12,7 +12,7 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewBuilde
         {
         }
 
-        public override IEnumerable<BaseTreeViewItem> GetRootTreeViewItems()
+        public override IEnumerable<BaseTreeViewItem> BuildRootTreeViewItems()
         {
             return AnalysisResults
                 .Select(result => result.Suggestion.MinimumLanguageVersion)
@@ -26,7 +26,7 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewBuilde
                 ));
         }
 
-        public override IEnumerable<BaseTreeViewItem> GetChildrenTreeViewItemsOf(BaseTreeViewItem parent)
+        public override IEnumerable<BaseTreeViewItem> BuildChildrenTreeViewItemsOf(BaseTreeViewItem parent)
         {
             switch (parent)
             {
