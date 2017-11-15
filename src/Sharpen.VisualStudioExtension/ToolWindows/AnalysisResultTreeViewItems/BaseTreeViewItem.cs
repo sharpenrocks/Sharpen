@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Sharpen.Engine;
 using Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewBuilders;
 
 namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
@@ -21,13 +22,15 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
         // This constructor is used only to create the single UnloadedChildrenTreeViewItem instance.
         private BaseTreeViewItem() {}
 
-        protected BaseTreeViewItem(BaseTreeViewItem parent, IAnalysisResultTreeViewBuilder treeViewBuilder, bool isLeaf = false)
+        // Only the leaf nodes will have the analysis result set.
+        protected BaseTreeViewItem(BaseTreeViewItem parent, IAnalysisResultTreeViewBuilder treeViewBuilder, AnalysisResult analysisResult = null)
         {
             this.treeViewBuilder = treeViewBuilder;
 
             Parent = parent;
+            AnalysisResult = analysisResult;
 
-            children = isLeaf ? Enumerable.Empty<BaseTreeViewItem>() : UnloadedChildrenMarker;
+            children = analysisResult != null ? Enumerable.Empty<BaseTreeViewItem>() : UnloadedChildrenMarker;
         }
 
         private bool ChildrenAreNotLoaded => ReferenceEquals(Children, UnloadedChildrenMarker);
@@ -84,6 +87,7 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
         }
 
         public BaseTreeViewItem Parent { get; }
+        public AnalysisResult AnalysisResult { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

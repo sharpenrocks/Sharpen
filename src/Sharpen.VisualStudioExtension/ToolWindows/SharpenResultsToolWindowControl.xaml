@@ -52,7 +52,8 @@
         </xctk:BusyIndicator.OverlayStyle>
         <Grid>
             <TreeView ItemsSource="{Binding AnalysisResults}"
-                      Background="{DynamicResource VsBrush.Window}">
+                      Background="{DynamicResource VsBrush.Window}"
+                      MouseDoubleClick="OnResultTreeViewMouseDoubleClick">
                 <TreeView.ItemContainerStyle>
                     <Style TargetType="{x:Type TreeViewItem}">
                         <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />

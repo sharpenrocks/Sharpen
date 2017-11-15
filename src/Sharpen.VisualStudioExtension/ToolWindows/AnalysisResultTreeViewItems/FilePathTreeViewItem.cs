@@ -1,4 +1,5 @@
-﻿using Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewBuilders;
+﻿using Sharpen.Engine;
+using Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewBuilders;
 
 namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
 {
@@ -6,8 +7,8 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
     {
         public string FilePath { get; }
 
-        public FilePathTreeViewItem(BaseTreeViewItem parent, IAnalysisResultTreeViewBuilder treeViewBuilder, string filePath, bool isLeaf = false)
-            : base(parent, treeViewBuilder, isLeaf)
+        public FilePathTreeViewItem(BaseTreeViewItem parent, IAnalysisResultTreeViewBuilder treeViewBuilder, string filePath, AnalysisResult analysisResult = null)
+            : base(parent, treeViewBuilder, analysisResult)
         {
             FilePath = filePath;
             Text = filePath;

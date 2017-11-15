@@ -49,13 +49,12 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewBuilde
                         .OrderBy(suggestion => suggestion.FilePath)
                         .ThenBy(suggestion => suggestion.Position.StartLinePosition.Line)
                         .ThenBy(suggestion => suggestion.Position.StartLinePosition.Character)
-                        .Select(result => result.FilePath)
-                        .Select(filePath => new FilePathTreeViewItem
+                        .Select(result => new FilePathTreeViewItem
                         (
                             parent,
                             this,
-                            filePath,
-                            true
+                            result.FilePath,
+                            result
                         ));
 
                 default:
