@@ -22,6 +22,7 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewBuilde
                 (
                     null,
                     this,
+                    AnalysisResults.Count(result => result.Suggestion.MinimumLanguageVersion == version),
                     version
                 ));
         }
@@ -40,6 +41,7 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewBuilde
                         (
                             parent,
                             this,
+                            AnalysisResults.Count(result => result.Suggestion == suggestion),
                             suggestion
                         ));
 
@@ -54,6 +56,7 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewBuilde
                             parent,
                             this,
                             result.FilePath,
+                            0,
                             result
                         ));
 

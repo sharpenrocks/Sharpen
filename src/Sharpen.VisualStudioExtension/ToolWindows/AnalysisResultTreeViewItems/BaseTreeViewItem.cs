@@ -22,12 +22,14 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
         // This constructor is used only to create the single UnloadedChildrenTreeViewItem instance.
         private BaseTreeViewItem() {}
 
+        // TODO-DESIGN: Refactor the constructor parameters once when we see which need the upcoming builders have.
         // Only the leaf nodes will have the analysis result set.
-        protected BaseTreeViewItem(BaseTreeViewItem parent, IAnalysisResultTreeViewBuilder treeViewBuilder, AnalysisResult analysisResult = null)
+        protected BaseTreeViewItem(BaseTreeViewItem parent, IAnalysisResultTreeViewBuilder treeViewBuilder, int numberOfItems, AnalysisResult analysisResult = null)
         {
             this.treeViewBuilder = treeViewBuilder;
 
             Parent = parent;
+            NumberOfItems = numberOfItems == 0 ? null : numberOfItems == 1 ? $"({numberOfItems} item)" : $"({numberOfItems} items)";
             AnalysisResult = analysisResult;
 
             children = analysisResult != null ? Enumerable.Empty<BaseTreeViewItem>() : UnloadedChildrenMarker;
@@ -47,6 +49,7 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
         }
 
         public string Text { get; protected set; }
+        public string NumberOfItems { get; protected set; }
 
         private bool isExpanded;
         public bool IsExpanded

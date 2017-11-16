@@ -5,8 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:vsp="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+             xmlns:converters="clr-namespace:Sharpen.VisualStudioExtension.Converters"
              mc:Ignorable="d"
              x:ClassModifier="internal">
+    <UserControl.Resources>
+        <converters:NullToCollapsedConverter x:Key="NullToCollapsedConverter"/>
+    </UserControl.Resources>
     <!--
         If the WpfToolkit is not used in the code, the compiler will ignore the references
         and an exception will be thrown at runtime with the message:
@@ -80,8 +84,15 @@
 
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Children}">
-                        <TextBlock Text="{Binding Text}"
-                                   Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}, Path=Foreground}" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Text}"
+                                       Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}, Path=Foreground}" />
+                            <TextBlock Text="{Binding NumberOfItems}"
+                                       Visibility="{Binding NumberOfItems, Converter={StaticResource NullToCollapsedConverter}}"
+                                       Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}, Path=Foreground}"
+                                       FontStyle="Italic"
+                                       Margin="4,0,0,0"/>
+                        </StackPanel>
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
             </TreeView>

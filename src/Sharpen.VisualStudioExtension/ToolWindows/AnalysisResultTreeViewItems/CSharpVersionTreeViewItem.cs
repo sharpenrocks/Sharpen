@@ -6,8 +6,8 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
     {
         public string CSharpVersion { get; }
 
-        public CSharpVersionTreeViewItem(BaseTreeViewItem parent, IAnalysisResultTreeViewBuilder treeViewBuilder, string csharpVersion)
-            : base(parent, treeViewBuilder)
+        public CSharpVersionTreeViewItem(BaseTreeViewItem parent, IAnalysisResultTreeViewBuilder treeViewBuilder, int numberOfItems, string csharpVersion)
+            : base(parent, treeViewBuilder, numberOfItems)
         {
             CSharpVersion = csharpVersion;
             Text = "C# " + csharpVersion;
