@@ -41,7 +41,13 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp60
                         accessor.ExpressionBody != null
                     )
                 )
-                .Select(accessor => new AnalysisResult(this, syntaxTree.FilePath, accessor.Keyword));
+                .Select(accessor => new AnalysisResult
+                (
+                    this,
+                    syntaxTree.FilePath,
+                    accessor.Keyword,
+                    DisplayText.For(accessor.FirstAncestorOrSelf<PropertyDeclarationSyntax>())
+                ));
         }
     }
 }

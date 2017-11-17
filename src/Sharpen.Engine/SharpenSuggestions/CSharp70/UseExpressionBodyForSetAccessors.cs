@@ -31,7 +31,13 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70
                     accessor.Body.Statements.Count == 1 &&
                     accessor.Body.Statements[0].IsKind(SyntaxKind.ExpressionStatement)
                 )
-                .Select(accessor => new AnalysisResult(this, syntaxTree.FilePath, accessor.Keyword));
+                .Select(accessor => new AnalysisResult
+                (
+                    this,
+                    syntaxTree.FilePath,
+                    accessor.Keyword,
+                    DisplayText.For(accessor.FirstAncestorOrSelf<PropertyDeclarationSyntax>())
+                ));
         }
     }
 }

@@ -30,7 +30,13 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70
                     destructor.Body.Statements.Count == 1 &&
                     destructor.Body.Statements[0].IsKind(SyntaxKind.ExpressionStatement)
                 )
-                .Select(destructor => new AnalysisResult(this, syntaxTree.FilePath, destructor.TildeToken));
+                .Select(destructor => new AnalysisResult
+                (
+                    this,
+                    syntaxTree.FilePath,
+                    destructor.TildeToken,
+                    DisplayText.For(destructor)
+                ));
         }
     }
 }

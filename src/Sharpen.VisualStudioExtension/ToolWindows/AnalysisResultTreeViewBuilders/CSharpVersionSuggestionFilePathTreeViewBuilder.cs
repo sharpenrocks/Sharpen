@@ -48,15 +48,27 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewBuilde
                 case SuggestionTreeViewItem suggestionTreeViewItem:
                     return AnalysisResults
                         .Where(result => result.Suggestion == suggestionTreeViewItem.Suggestion)
-                        .OrderBy(suggestion => suggestion.FilePath)
-                        .ThenBy(suggestion => suggestion.Position.StartLinePosition.Line)
-                        .ThenBy(suggestion => suggestion.Position.StartLinePosition.Character)
-                        .Select(result => new FilePathTreeViewItem
+                        .Select(suggestion => suggestion.FilePath)
+                        .Distinct()
+                        .OrderBy(filePath => filePath)
+                        .Select(filePath => new FilePathTreeViewItem
                         (
                             parent,
                             this,
-                            result.FilePath,
-                            0,
+                            filePath,
+                            AnalysisResults.Count(result => result.Suggestion == suggestionTreeViewItem.Suggestion && result.FilePath == filePath)
+                        ));
+
+                case FilePathTreeViewItem filePathTreeViewItem:
+                    var parentSuggestion = ((SuggestionTreeViewItem) filePathTreeViewItem.Parent).Suggestion;
+                    return AnalysisResults
+                        .Where(result => result.Suggestion == parentSuggestion && result.FilePath == filePathTreeViewItem.FilePath)
+                        .OrderBy(suggestion => suggestion.Position.StartLinePosition.Line)
+                        .ThenBy(suggestion => suggestion.Position.StartLinePosition.Character)
+                        .Select(result => new SingleSuggestionTreeViewItem
+                        (
+                            parent,
+                            this,
                             result
                         ));
 

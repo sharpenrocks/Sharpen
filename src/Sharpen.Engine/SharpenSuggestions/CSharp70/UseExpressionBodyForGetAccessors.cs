@@ -32,7 +32,13 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70
                     accessor.Body.Statements[0].IsKind(SyntaxKind.ReturnStatement) &&
                     ((AccessorListSyntax)accessor.Parent).Accessors.Count > 1 // We must have the set-accessor as well (see [1]).
                 )
-                .Select(accessor => new AnalysisResult(this, syntaxTree.FilePath, accessor.Keyword));
+                .Select(accessor => new AnalysisResult
+                (
+                    this,
+                    syntaxTree.FilePath,
+                    accessor.Keyword,
+                    DisplayText.For(accessor.FirstAncestorOrSelf<PropertyDeclarationSyntax>())
+                ));
         }
     }
 }

@@ -8,12 +8,15 @@ namespace Sharpen.Engine
 
         public string FilePath { get; }
 
+        public string DisplayText { get; }
+
         public FileLinePositionSpan Position { get; }
 
-        public AnalysisResult(ISharpenSuggestion suggestion, string filePath, SyntaxToken startingSyntaxToken)
+        public AnalysisResult(ISharpenSuggestion suggestion, string filePath, SyntaxToken startingSyntaxToken, string displayText)
         {
             Suggestion = suggestion;
             FilePath = filePath;
+            DisplayText = displayText;
             Position = startingSyntaxToken.GetLocation().GetLineSpan();
         }
     }

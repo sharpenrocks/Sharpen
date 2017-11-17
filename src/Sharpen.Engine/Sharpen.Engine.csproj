@@ -176,6 +176,7 @@
     <Compile Include="AnalysisResult.cs" />
     <Compile Include="CSharpFeatures\ExpressionBodiedMembers.cs" />
     <Compile Include="CSharpLanguageVersion.cs" />
+    <Compile Include="DisplayText.cs" />
     <Compile Include="Extensions\VisualStudioWorkspaceExtensions.cs" />
     <Compile Include="ISharpenSuggestion.cs" />
     <Compile Include="ICSharpFeature.cs" />

@@ -66,6 +66,7 @@
     <Compile Include="SharpenPackage.cs" />
     <Compile Include="ToolWindows\AnalysisResultTreeViewBuilders\BaseAnalysisResultTreeViewBuilder.cs" />
     <Compile Include="ToolWindows\AnalysisResultTreeViewBuilders\CSharpVersionSuggestionFilePathTreeViewBuilder.cs" />
+    <Compile Include="ToolWindows\AnalysisResultTreeViewItems\SingleSuggestionTreeViewItem.cs" />
     <Compile Include="ToolWindows\AnalysisResultTreeViewItems\FilePathTreeViewItem.cs" />
     <Compile Include="ToolWindows\AnalysisResultTreeViewItems\SuggestionTreeViewItem.cs" />
     <Compile Include="ToolWindows\AnalysisResultTreeViewItems\CSharpVersionTreeViewItem.cs" />

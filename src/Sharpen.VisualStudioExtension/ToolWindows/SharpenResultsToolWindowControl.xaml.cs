@@ -29,9 +29,9 @@ namespace Sharpen.VisualStudioExtension.ToolWindows
 
         private void OpenResultFile(TreeView resultsTreeView)
         {
-            if (resultsTreeView.SelectedItem is BaseTreeViewItem treeViewItem && treeViewItem.AnalysisResult != null)
+            if (resultsTreeView.SelectedItem is SingleSuggestionTreeViewItem singleSuggestion)
             {
-                commandHandler.OpenResultFile(treeViewItem.AnalysisResult.FilePath, treeViewItem.AnalysisResult.Position);
+                commandHandler.OpenResultFile(singleSuggestion.AnalysisResult.FilePath, singleSuggestion.AnalysisResult.Position);
             }
         }
     }
