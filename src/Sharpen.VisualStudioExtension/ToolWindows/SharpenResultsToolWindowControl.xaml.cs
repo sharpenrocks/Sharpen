@@ -17,9 +17,19 @@ namespace Sharpen.VisualStudioExtension.ToolWindows
 
         private void OnResultTreeViewMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var resultsList = (TreeView)sender;
+            OpenResultFile((TreeView)sender);
+        }
 
-            if (resultsList.SelectedItem is BaseTreeViewItem treeViewItem && treeViewItem.AnalysisResult != null)
+        private void OnResultTreeViewKeyUp(object sender, KeyEventArgs e)
+        {
+            if (!(e.Key == Key.Return || e.Key == Key.Space)) return;
+
+            OpenResultFile((TreeView)sender);
+        }
+
+        private void OpenResultFile(TreeView resultsTreeView)
+        {
+            if (resultsTreeView.SelectedItem is BaseTreeViewItem treeViewItem && treeViewItem.AnalysisResult != null)
             {
                 commandHandler.OpenResultFile(treeViewItem.AnalysisResult.FilePath, treeViewItem.AnalysisResult.Position);
             }
