@@ -35,7 +35,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70
                     this,
                     syntaxTree.FilePath,
                     destructor.TildeToken,
-                    DisplayText.For(destructor)
+                    destructor
                 ));
         }
     }

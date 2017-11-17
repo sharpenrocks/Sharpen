@@ -48,7 +48,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp60
                     this,
                     syntaxTree.FilePath,
                     accessor.Keyword,
-                    DisplayText.For(accessor.FirstAncestorOrSelf<PropertyDeclarationSyntax>())
+                    accessor.FirstAncestorOrSelf<PropertyDeclarationSyntax>()
                 ));
         }
     }

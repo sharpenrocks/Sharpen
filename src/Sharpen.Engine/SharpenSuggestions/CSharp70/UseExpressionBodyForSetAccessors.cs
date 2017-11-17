@@ -31,19 +31,13 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70
                     accessor.Body.Statements.Count == 1 &&
                     accessor.Body.Statements[0].IsKind(SyntaxKind.ExpressionStatement)
                 )
-                .Select(accessor =>
-                {
-                    var parentPropertyDeclaration = accessor.FirstAncestorOrSelf<PropertyDeclarationSyntax>();
-                    return new AnalysisResult
-                    (
-                        this,
-                        syntaxTree.FilePath,
-                        accessor.Keyword,
-                        parentPropertyDeclaration != null
-                            ? DisplayText.For(parentPropertyDeclaration)
-                            : DisplayText.For(accessor.FirstAncestorOrSelf<IndexerDeclarationSyntax>())
-                    );
-                });
+                .Select(accessor => new AnalysisResult
+                (
+                    this,
+                    syntaxTree.FilePath,
+                    accessor.Keyword,
+                    accessor.FirstAncestorOrSelf<BasePropertyDeclarationSyntax>() // The common base class for both Properties and Indexers.
+                ));
         }
     }
 }

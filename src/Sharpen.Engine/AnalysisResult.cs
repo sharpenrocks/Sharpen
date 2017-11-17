@@ -4,20 +4,24 @@ namespace Sharpen.Engine
 {
     public class AnalysisResult
     {
+        private readonly SyntaxNode displayTextNode;
+        private string displayText;
+
         public ISharpenSuggestion Suggestion { get; }
 
         public string FilePath { get; }
 
-        public string DisplayText { get; }
-
         public FileLinePositionSpan Position { get; }
 
-        public AnalysisResult(ISharpenSuggestion suggestion, string filePath, SyntaxToken startingSyntaxToken, string displayText)
+        public AnalysisResult(ISharpenSuggestion suggestion, string filePath, SyntaxToken startingToken, SyntaxNode displayTextNode)
         {
+            this.displayTextNode = displayTextNode;
+
             Suggestion = suggestion;
-            FilePath = filePath;
-            DisplayText = displayText;
-            Position = startingSyntaxToken.GetLocation().GetLineSpan();
+            FilePath = filePath;            
+            Position = startingToken.GetLocation().GetLineSpan();
         }
+
+        public string DisplayText => displayText ?? (displayText = Engine.DisplayText.For(displayTextNode));
     }
 }
