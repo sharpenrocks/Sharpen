@@ -3,7 +3,7 @@
 using System;
 using System.Linq;
 
-namespace CSharp70.UseExpressionBodyForGetAccessors
+namespace CSharp70.UseExpressionBodyForGetAccessorsInProperties
 {
     public class GetAccessorsThatAreNotCandidatesToHaveExpressionBody
     {

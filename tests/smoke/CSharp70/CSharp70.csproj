@@ -48,14 +48,14 @@
     <Compile Include="UseExpressionBodyForDestructors\DestructorsThatAreCandidatesToHaveExpressionBody.cs" />
     <Compile Include="UseExpressionBodyForDestructors\DestructorsThatAreNotCandidatesToHaveExpressionBody.cs" />
     <Compile Include="UseExpressionBodyForDestructors\EmptyDestructors.cs" />
-    <Compile Include="UseExpressionBodyForSetAccessors\EmptySetAccessors.cs" />
-    <Compile Include="UseExpressionBodyForSetAccessors\SetAccessorsThatAlreadyHaveExpressionBody.cs" />
-    <Compile Include="UseExpressionBodyForSetAccessors\SetAccessorsThatAreCandidatesToHaveExpressionBody.cs" />
-    <Compile Include="UseExpressionBodyForSetAccessors\SetAccessorsThatAreNotCandidatesToHaveExpressionBody.cs" />
-    <Compile Include="UseExpressionBodyForGetAccessors\GetAccessorsThatAlreadyHaveExpressionBody.cs" />
-    <Compile Include="UseExpressionBodyForGetAccessors\GetAccessorsThatAreCandidatesToHaveExpressionBody.cs" />
-    <Compile Include="UseExpressionBodyForGetAccessors\GetAccessorsThatAreNotCandidatesToHaveExpressionBody.cs" />
-    <Compile Include="UseExpressionBodyForGetAccessors\EmptyGetAccessors.cs" />
+    <Compile Include="UseExpressionBodyForSetAccessorsInProperties\EmptySetAccessors.cs" />
+    <Compile Include="UseExpressionBodyForSetAccessorsInProperties\SetAccessorsThatAlreadyHaveExpressionBody.cs" />
+    <Compile Include="UseExpressionBodyForSetAccessorsInProperties\SetAccessorsThatAreCandidatesToHaveExpressionBody.cs" />
+    <Compile Include="UseExpressionBodyForSetAccessorsInProperties\SetAccessorsThatAreNotCandidatesToHaveExpressionBody.cs" />
+    <Compile Include="UseExpressionBodyForGetAccessorsInProperties\GetAccessorsThatAlreadyHaveExpressionBody.cs" />
+    <Compile Include="UseExpressionBodyForGetAccessorsInProperties\GetAccessorsThatAreCandidatesToHaveExpressionBody.cs" />
+    <Compile Include="UseExpressionBodyForGetAccessorsInProperties\GetAccessorsThatAreNotCandidatesToHaveExpressionBody.cs" />
+    <Compile Include="UseExpressionBodyForGetAccessorsInProperties\EmptyGetAccessors.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

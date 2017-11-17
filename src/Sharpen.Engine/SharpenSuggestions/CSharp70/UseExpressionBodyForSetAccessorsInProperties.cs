@@ -7,17 +7,17 @@ using Sharpen.Engine.CSharpFeatures;
 
 namespace Sharpen.Engine.SharpenSuggestions.CSharp70
 {
-    public class UseExpressionBodyForSetAccessors : ISharpenSuggestion, ISingleSyntaxTreeAnalyzer
+    public class UseExpressionBodyForSetAccessorsInProperties : ISharpenSuggestion, ISingleSyntaxTreeAnalyzer
     {
-        private UseExpressionBodyForSetAccessors() { }
+        private UseExpressionBodyForSetAccessorsInProperties() { }
 
         public string MinimumLanguageVersion { get; } = CSharpLanguageVersions.CSharp70;
 
         public ICSharpFeature LanguageFeature { get; } = ExpressionBodiedMembers.Instance;
 
-        public string FriendlyName { get; } = "Use expression body for set accessors";
+        public string FriendlyName { get; } = "Use expression body for set accessors in properties";
 
-        public static readonly UseExpressionBodyForSetAccessors Instance = new UseExpressionBodyForSetAccessors();
+        public static readonly UseExpressionBodyForSetAccessorsInProperties Instance = new UseExpressionBodyForSetAccessorsInProperties();
 
         public IEnumerable<AnalysisResult> Analyze(SyntaxTree syntaxTree)
         {
@@ -29,14 +29,15 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70
                     accessor.Keyword.IsKind(SyntaxKind.SetKeyword) &&
                     accessor.Body != null &&
                     accessor.Body.Statements.Count == 1 &&
-                    accessor.Body.Statements[0].IsKind(SyntaxKind.ExpressionStatement)
+                    accessor.Body.Statements[0].IsKind(SyntaxKind.ExpressionStatement) &&
+                    accessor.FirstAncestorOrSelf<PropertyDeclarationSyntax>() != null // We must be in a property and not in an indexer.
                 )
                 .Select(accessor => new AnalysisResult
                 (
                     this,
                     syntaxTree.FilePath,
                     accessor.Keyword,
-                    accessor.FirstAncestorOrSelf<BasePropertyDeclarationSyntax>() // The common base class for both Properties and Indexers.
+                    accessor.FirstAncestorOrSelf<PropertyDeclarationSyntax>()
                 ));
         }
     }

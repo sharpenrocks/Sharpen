@@ -7,17 +7,17 @@ using Sharpen.Engine.CSharpFeatures;
 
 namespace Sharpen.Engine.SharpenSuggestions.CSharp70
 {
-    public class UseExpressionBodyForGetAccessors : ISharpenSuggestion, ISingleSyntaxTreeAnalyzer
+    public class UseExpressionBodyForGetAccessorsInProperties : ISharpenSuggestion, ISingleSyntaxTreeAnalyzer
     {
-        private UseExpressionBodyForGetAccessors() { }
+        private UseExpressionBodyForGetAccessorsInProperties() { }
 
         public string MinimumLanguageVersion { get; } = CSharpLanguageVersions.CSharp70;
 
         public ICSharpFeature LanguageFeature { get; } = ExpressionBodiedMembers.Instance;
 
-        public string FriendlyName { get; } = "Use expression body for get accessors";
+        public string FriendlyName { get; } = "Use expression body for get accessors in properties";
 
-        public static readonly UseExpressionBodyForGetAccessors Instance = new UseExpressionBodyForGetAccessors();
+        public static readonly UseExpressionBodyForGetAccessorsInProperties Instance = new UseExpressionBodyForGetAccessorsInProperties();
 
         public IEnumerable<AnalysisResult> Analyze(SyntaxTree syntaxTree)
         {
@@ -30,14 +30,15 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70
                     accessor.Body != null &&
                     accessor.Body.Statements.Count == 1 &&
                     accessor.Body.Statements[0].IsKind(SyntaxKind.ReturnStatement) &&
-                    ((AccessorListSyntax)accessor.Parent).Accessors.Count > 1 // We must have the set-accessor as well (see [1]).
+                    ((AccessorListSyntax)accessor.Parent).Accessors.Count > 1 && // We must have the set-accessor as well (see [1]).
+                    accessor.FirstAncestorOrSelf<PropertyDeclarationSyntax>() != null // We must be in a property and not in an indexer.
                 )
                 .Select(accessor => new AnalysisResult
                 (
                     this,
                     syntaxTree.FilePath,
                     accessor.Keyword,
-                    accessor.FirstAncestorOrSelf<BasePropertyDeclarationSyntax>() // The common base class for both Properties and Indexers.
+                    accessor.FirstAncestorOrSelf<PropertyDeclarationSyntax>()
                 ));
         }
     }

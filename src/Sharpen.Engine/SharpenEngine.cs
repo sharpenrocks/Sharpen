@@ -17,8 +17,8 @@ namespace Sharpen.Engine
         {
             UseExpressionBodyForConstructors.Instance,
             UseExpressionBodyForDestructors.Instance,
-            UseExpressionBodyForGetAccessors.Instance,
-            UseExpressionBodyForSetAccessors.Instance,
+            UseExpressionBodyForGetAccessorsInProperties.Instance,
+            UseExpressionBodyForSetAccessorsInProperties.Instance,
             UseExpressionBodyForGetOnlyProperties.Instance
         };
 

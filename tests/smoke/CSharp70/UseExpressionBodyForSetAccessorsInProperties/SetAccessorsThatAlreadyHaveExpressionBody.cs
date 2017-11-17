@@ -2,7 +2,7 @@
 
 using System;
 
-namespace CSharp70.UseExpressionBodyForSetAccessors
+namespace CSharp70.UseExpressionBodyForSetAccessorsInProperties
 {
     public class SetAccessorsThatAlreadyHaveExpressionBody
     {

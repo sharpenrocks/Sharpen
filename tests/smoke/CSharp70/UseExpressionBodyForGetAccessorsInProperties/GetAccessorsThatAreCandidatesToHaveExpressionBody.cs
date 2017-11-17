@@ -4,7 +4,7 @@
 
 using System;
 
-namespace CSharp70.UseExpressionBodyForGetAccessors
+namespace CSharp70.UseExpressionBodyForGetAccessorsInProperties
 {
     public class GetAccessorsThatAreCandidatesToHaveExpressionBody
     {
