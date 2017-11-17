@@ -22,5 +22,11 @@ namespace Sharpen.Engine
             property = property.WithoutLeadingTrivia();
             return $"{property.Modifiers.ToFullString()}{property.Type.ToFullString()}{property.Identifier.ToFullString()}".Trim();
         }
+
+        public static string For(IndexerDeclarationSyntax indexer)
+        {
+            indexer = indexer.WithoutLeadingTrivia();
+            return $"{indexer.Modifiers.ToFullString()}{indexer.Type.ToFullString()}".Trim();
+        }
     }
 }

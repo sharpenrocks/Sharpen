@@ -29,6 +29,8 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp60
                     accessor.Keyword.IsKind(SyntaxKind.GetKeyword) &&
                     ((AccessorListSyntax)accessor.Parent).Accessors.Count == 1 // We must have only the get-accessor.
                     &&
+                    accessor.FirstAncestorOrSelf<PropertyDeclarationSyntax>() != null // We must be in a property and not in an indexer.
+                    &&
                     (
                         // We have a get accessor with a body.
                         (
