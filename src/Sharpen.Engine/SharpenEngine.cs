@@ -15,13 +15,16 @@ namespace Sharpen.Engine
     {
         private static readonly ISharpenSuggestion[] Suggestions =
         {
+            // C# 6.0.
+            UseExpressionBodyForGetOnlyProperties.Instance,
+            UseExpressionBodyForGetOnlyIndexers.Instance,
+            // C# 7.0.
             UseExpressionBodyForConstructors.Instance,
             UseExpressionBodyForDestructors.Instance,
             UseExpressionBodyForGetAccessorsInProperties.Instance,
             UseExpressionBodyForGetAccessorsInIndexers.Instance,
             UseExpressionBodyForSetAccessorsInProperties.Instance,
-            UseExpressionBodyForSetAccessorsInIndexers.Instance,
-            UseExpressionBodyForGetOnlyProperties.Instance
+            UseExpressionBodyForSetAccessorsInIndexers.Instance
         };
 
         // We want to avoid creation of a huge number of temporary Action objects

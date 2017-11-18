@@ -183,6 +183,8 @@
     <Compile Include="ISingleSyntaxTreeAnalyzer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SharpenEngine.cs" />
+    <Compile Include="SharpenSuggestions\CSharp60\BaseUseExpressionBodyForGetOnlyMembers.cs" />
+    <Compile Include="SharpenSuggestions\CSharp60\UseExpressionBodyForGetOnlyIndexers.cs" />
     <Compile Include="SharpenSuggestions\CSharp60\UseExpressionBodyForGetOnlyProperties.cs" />
     <Compile Include="SharpenSuggestions\CSharp70\BaseUseExpressionBodyForGetAccessors.cs" />
     <Compile Include="SharpenSuggestions\CSharp70\UseExpressionBodyForGetAccessorsInIndexers.cs" />

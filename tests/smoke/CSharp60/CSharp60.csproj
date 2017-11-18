@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UseExpressionBodyForGetOnlyIndexers\GetOnlyIndexersThatAlreadyHaveExpressionBody.cs" />
+    <Compile Include="UseExpressionBodyForGetOnlyIndexers\GetOnlyIndexersThatAreCandidatesToHaveExpressionBody.cs" />
+    <Compile Include="UseExpressionBodyForGetOnlyIndexers\GetOnlyIndexersThatAreNotCandidatesToHaveExpressionBody.cs" />
     <Compile Include="UseExpressionBodyForGetOnlyProperties\EmptyGetOnlyProperties.cs" />
     <Compile Include="UseExpressionBodyForGetOnlyProperties\GetOnlyPropertiesThatAlreadyHaveExpressionBody.cs" />
     <Compile Include="UseExpressionBodyForGetOnlyProperties\GetOnlyPropertiesThatAreCandidatesToHaveExpressionBody.cs" />
