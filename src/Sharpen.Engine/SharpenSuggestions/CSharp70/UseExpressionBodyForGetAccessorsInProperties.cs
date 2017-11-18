@@ -2,7 +2,7 @@
 
 namespace Sharpen.Engine.SharpenSuggestions.CSharp70
 {
-    internal class UseExpressionBodyForGetAccessorsInProperties : BaseUseExpressionBodyForGetAccessors<PropertyDeclarationSyntax>
+    internal sealed class UseExpressionBodyForGetAccessorsInProperties : BaseUseExpressionBodyForGetAccessors<PropertyDeclarationSyntax>
     {
         private UseExpressionBodyForGetAccessorsInProperties() { }
 

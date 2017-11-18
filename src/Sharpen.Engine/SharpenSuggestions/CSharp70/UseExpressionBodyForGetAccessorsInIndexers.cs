@@ -2,7 +2,7 @@
 
 namespace Sharpen.Engine.SharpenSuggestions.CSharp70
 {
-    internal class UseExpressionBodyForGetAccessorsInIndexers : BaseUseExpressionBodyForGetAccessors<IndexerDeclarationSyntax>
+    internal sealed class UseExpressionBodyForGetAccessorsInIndexers : BaseUseExpressionBodyForGetAccessors<IndexerDeclarationSyntax>
     {
         private UseExpressionBodyForGetAccessorsInIndexers() { }
 
