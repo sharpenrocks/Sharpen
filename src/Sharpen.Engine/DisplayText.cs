@@ -26,7 +26,7 @@ namespace Sharpen.Engine
         private static string For(DestructorDeclarationSyntax destructor)
         {
             destructor = destructor.WithoutLeadingTrivia();
-            return $"{destructor.Modifiers.ToFullString()}{destructor.TildeToken.ToFullString()}{destructor.Identifier}()".Trim();
+            return $"{destructor.Modifiers.ToFullString()}{destructor.TildeToken.ToFullString()}{destructor.Identifier.ToFullString()}{destructor.ParameterList.ToFullString()}".Trim();
         }
 
         private static string For(ConstructorDeclarationSyntax constructor)
