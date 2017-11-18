@@ -44,7 +44,7 @@ namespace Sharpen.Engine
         private static string For(IndexerDeclarationSyntax indexer)
         {
             indexer = indexer.WithoutLeadingTrivia();
-            return $"{indexer.Modifiers.ToFullString()}{indexer.Type.ToFullString()}".Trim();
+            return $"{indexer.Modifiers.ToFullString()}{indexer.Type.ToFullString()}{indexer.ThisKeyword.ToFullString()}{indexer.ParameterList.ToFullString()}".Trim();
         }
     }
 }

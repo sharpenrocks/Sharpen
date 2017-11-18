@@ -184,6 +184,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SharpenEngine.cs" />
     <Compile Include="SharpenSuggestions\CSharp60\UseExpressionBodyForGetOnlyProperties.cs" />
+    <Compile Include="SharpenSuggestions\CSharp70\BaseUseExpressionBodyForGetAccessors.cs" />
+    <Compile Include="SharpenSuggestions\CSharp70\UseExpressionBodyForGetAccessorsInIndexers.cs" />
+    <Compile Include="SharpenSuggestions\CSharp70\BaseUseExpressionBodyForSetAccessors.cs" />
+    <Compile Include="SharpenSuggestions\CSharp70\UseExpressionBodyForSetAccessorsInIndexers.cs" />
     <Compile Include="SharpenSuggestions\CSharp70\UseExpressionBodyForSetAccessorsInProperties.cs" />
     <Compile Include="SharpenSuggestions\CSharp70\UseExpressionBodyForGetAccessorsInProperties.cs" />
     <Compile Include="SharpenSuggestions\CSharp70\UseExpressionBodyForDestructors.cs" />

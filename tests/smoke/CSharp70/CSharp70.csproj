@@ -48,6 +48,12 @@
     <Compile Include="UseExpressionBodyForDestructors\DestructorsThatAreCandidatesToHaveExpressionBody.cs" />
     <Compile Include="UseExpressionBodyForDestructors\DestructorsThatAreNotCandidatesToHaveExpressionBody.cs" />
     <Compile Include="UseExpressionBodyForDestructors\EmptyDestructors.cs" />
+    <Compile Include="UseExpressionBodyForGetAccessorsInIndexers\GetAccessorsThatAlreadyHaveExpressionBody.cs" />
+    <Compile Include="UseExpressionBodyForGetAccessorsInIndexers\GetAccessorsThatAreCandidatesToHaveExpressionBody.cs" />
+    <Compile Include="UseExpressionBodyForGetAccessorsInIndexers\GetAccessorsThatAreNotCandidatesToHaveExpressionBody.cs" />
+    <Compile Include="UseExpressionBodyForSetAccessorsInIndexers\SetAccessorsThatAlreadyHaveExpressionBody.cs" />
+    <Compile Include="UseExpressionBodyForSetAccessorsInIndexers\SetAccessorsThatAreCandidatesToHaveExpressionBody.cs" />
+    <Compile Include="UseExpressionBodyForSetAccessorsInIndexers\SetAccessorsThatAreNotCandidatesToHaveExpressionBody.cs" />
     <Compile Include="UseExpressionBodyForSetAccessorsInProperties\EmptySetAccessors.cs" />
     <Compile Include="UseExpressionBodyForSetAccessorsInProperties\SetAccessorsThatAlreadyHaveExpressionBody.cs" />
     <Compile Include="UseExpressionBodyForSetAccessorsInProperties\SetAccessorsThatAreCandidatesToHaveExpressionBody.cs" />
