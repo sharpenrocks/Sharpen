@@ -2,7 +2,7 @@
 
 namespace Sharpen.Engine.SharpenSuggestions.CSharp60
 {
-    public class UseExpressionBodyForGetOnlyIndexers : BaseUseExpressionBodyForGetOnlyMembers<IndexerDeclarationSyntax>
+    internal class UseExpressionBodyForGetOnlyIndexers : BaseUseExpressionBodyForGetOnlyMembers<IndexerDeclarationSyntax>
     {
         private UseExpressionBodyForGetOnlyIndexers() { }
 

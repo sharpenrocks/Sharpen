@@ -7,7 +7,7 @@ using Sharpen.Engine.CSharpFeatures;
 
 namespace Sharpen.Engine.SharpenSuggestions.CSharp60
 {
-    public abstract class BaseUseExpressionBodyForGetOnlyMembers<TBasePropertyDeclarationSyntax> : ISharpenSuggestion, ISingleSyntaxTreeAnalyzer
+    internal abstract class BaseUseExpressionBodyForGetOnlyMembers<TBasePropertyDeclarationSyntax> : ISharpenSuggestion, ISingleSyntaxTreeAnalyzer
         where TBasePropertyDeclarationSyntax : BasePropertyDeclarationSyntax
     {
         public string MinimumLanguageVersion { get; } = CSharpLanguageVersions.CSharp60;

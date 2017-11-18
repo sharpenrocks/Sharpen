@@ -2,7 +2,7 @@
 
 namespace Sharpen.Engine.SharpenSuggestions.CSharp60
 {
-    public class UseExpressionBodyForGetOnlyProperties : BaseUseExpressionBodyForGetOnlyMembers<PropertyDeclarationSyntax>
+    internal class UseExpressionBodyForGetOnlyProperties : BaseUseExpressionBodyForGetOnlyMembers<PropertyDeclarationSyntax>
     {
         private UseExpressionBodyForGetOnlyProperties() { }
 

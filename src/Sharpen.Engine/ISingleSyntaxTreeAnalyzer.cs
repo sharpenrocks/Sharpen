@@ -3,7 +3,7 @@ using Microsoft.CodeAnalysis;
 
 namespace Sharpen.Engine
 {
-    public interface ISingleSyntaxTreeAnalyzer
+    internal interface ISingleSyntaxTreeAnalyzer
     {
         IEnumerable<AnalysisResult> Analyze(SyntaxTree syntaxTree);
     }

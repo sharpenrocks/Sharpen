@@ -7,7 +7,7 @@ using Sharpen.Engine.CSharpFeatures;
 
 namespace Sharpen.Engine.SharpenSuggestions.CSharp70
 {
-    public class UseExpressionBodyForConstructors : ISharpenSuggestion, ISingleSyntaxTreeAnalyzer
+    internal class UseExpressionBodyForConstructors : ISharpenSuggestion, ISingleSyntaxTreeAnalyzer
     {
         private UseExpressionBodyForConstructors() { }
 
