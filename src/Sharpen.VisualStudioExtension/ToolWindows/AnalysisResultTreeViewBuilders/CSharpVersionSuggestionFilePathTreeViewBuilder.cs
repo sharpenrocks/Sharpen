@@ -48,21 +48,24 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewBuilde
                 case SuggestionTreeViewItem suggestionTreeViewItem:
                     return AnalysisResults
                         .Where(result => result.Suggestion == suggestionTreeViewItem.Suggestion)
-                        .Select(suggestion => suggestion.FilePath)
-                        .Distinct()
-                        .OrderBy(filePath => filePath)
-                        .Select(filePath => new FilePathTreeViewItem
+                        .GroupBy(suggestion => new {suggestion.AnalysisContext.ProjectName, suggestion.FilePath})
+                        .OrderBy(group => group.Key.ProjectName)
+                        .ThenBy(group => group.Key.FilePath)
+                        .Select(group => new FilePathTreeViewItem
                         (
                             parent,
                             this,
-                            AnalysisResults.Count(result => result.Suggestion == suggestionTreeViewItem.Suggestion && result.FilePath == filePath),
-                            filePath
+                            group.Count(),
+                            // TODO: Inneficient and ugly workaround that will work so far.
+                            //       We will soon replace all the LINQ code in this method with an access to an optimized indexing structure.
+                            AnalysisResults.First(result => result.AnalysisContext.ProjectName == group.Key.ProjectName && result.FilePath == group.Key.FilePath).AnalysisContext,
+                            group.Key.FilePath
                         ));
 
                 case FilePathTreeViewItem filePathTreeViewItem:
                     var parentSuggestion = ((SuggestionTreeViewItem) filePathTreeViewItem.Parent).Suggestion;
                     return AnalysisResults
-                        .Where(result => result.Suggestion == parentSuggestion && result.FilePath == filePathTreeViewItem.FilePath)
+                        .Where(result => result.Suggestion == parentSuggestion && result.AnalysisContext.ProjectName == filePathTreeViewItem.ProjectName && result.FilePath == filePathTreeViewItem.FilePath)
                         .OrderBy(suggestion => suggestion.Position.StartLinePosition.Line)
                         .ThenBy(suggestion => suggestion.Position.StartLinePosition.Character)
                         .Select(result => new SingleSuggestionTreeViewItem
@@ -76,7 +79,7 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewBuilde
                     throw new ArgumentOutOfRangeException
                     (
                         nameof(parent),
-                        $"The parent of the type '{parent.GetType().Name}' is not supported as a parent in the '{GetType().Name}'."
+                        $"The parent of the type {parent.GetType().Name} is not supported as a parent in the {nameof(CSharpVersionSuggestionFilePathTreeViewBuilder)}."
                     );
             }
         }

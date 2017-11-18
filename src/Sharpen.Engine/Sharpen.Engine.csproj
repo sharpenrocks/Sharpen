@@ -173,6 +173,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SingleSyntaxTreeAnalysisContext.cs" />
     <Compile Include="AnalysisResult.cs" />
     <Compile Include="CSharpFeatures\ExpressionBodiedMembers.cs" />
     <Compile Include="CSharpLanguageVersion.cs" />

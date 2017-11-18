@@ -32,12 +32,12 @@ namespace Sharpen.Engine
         // That's why we precreate these Action objects and at the beginning of the
         // analysis create just once out of them Actions that are really used in
         // the Parallel.Invoke().
-        private static Action<SyntaxTree, ConcurrentBag<AnalysisResult>>[] AnalyzeSingleSyntaxTreeAndCollectResultsActions { get; } =
+        private static Action<SyntaxTree, SingleSyntaxTreeAnalysisContext, ConcurrentBag<AnalysisResult>>[] AnalyzeSingleSyntaxTreeAndCollectResultsActions { get; } =
             Suggestions
                 .OfType<ISingleSyntaxTreeAnalyzer>()
-                .Select(analyzer => new Action<SyntaxTree, ConcurrentBag<AnalysisResult>>((syntaxTree, results) =>
+                .Select(analyzer => new Action<SyntaxTree, SingleSyntaxTreeAnalysisContext, ConcurrentBag<AnalysisResult>>((syntaxTree, analysisContext, results) =>
                 {
-                    foreach (var analysisResult in analyzer.Analyze(syntaxTree))
+                    foreach (var analysisResult in analyzer.Analyze(syntaxTree, analysisContext))
                     {
                         results.Add(analysisResult);
                     }
@@ -68,13 +68,15 @@ namespace Sharpen.Engine
         {
             var analysisResults = new ConcurrentBag<AnalysisResult>();
             SyntaxTree syntaxTree = null;
+            SingleSyntaxTreeAnalysisContext analysisContext = null;
 
             var analyseSyntaxTreeActions = AnalyzeSingleSyntaxTreeAndCollectResultsActions
-                // We intentionally access the modified closure here (syntaxTree),
+                // We intentionally access the modified closure here (syntaxTree, analysisContext),
                 // because we want to avoid creation of a huge number of temporary Action objects.
 
-                // ReSharper disable once AccessToModifiedClosure
-                .Select(action => new Action(() => action(syntaxTree, analysisResults)))
+                // ReSharper disable AccessToModifiedClosure
+                .Select(action => new Action(() => action(syntaxTree, analysisContext, analysisResults)))
+                // ReSharper restore AccessToModifiedClosure
                 .ToArray();
 
             // WARNING:
@@ -82,9 +84,11 @@ namespace Sharpen.Engine
             // calculation of the maximum progress!
             int progressCounter = 0;
             foreach (var project in visualStudioWorkspace.CurrentSolution.Projects.Where(project => project.Language == "C#"))
-            { 
+            {                
                 foreach (var document in project.Documents.Where(document => document.SupportsSyntaxTree && !IsGenerated(document)))
                 {
+                    analysisContext = new SingleSyntaxTreeAnalysisContext(document);
+
                     syntaxTree = await document.GetSyntaxTreeAsync().ConfigureAwait(false);
                     // Each of the actions will operate on the same (current) syntaxTree.
                     Parallel.Invoke(analyseSyntaxTreeActions);

@@ -9,3 +9,6 @@ These projects are used not only for smoke testing but also for the development 
 
 ## GeneratedDocuments
 The `GeneratedDocuments` project contains some faked "generated" documents. These documents should be excluded from the analysis when the standard settings are used.
+
+## LinkedDocuments
+The `LinkedDocuments` project contains only the files which exist in other projects and are added to the `LinkedDocuments` project by using the *Add As Link* option. The goal is to smoke-test if those files will properly appear in the Sharpen Result window. They have to appear under the `LinkedDocuments` project and at the same time under their "real" projects, but in both cases with the proper logical path which must not necessary be the same as the corresponding file path on the disk.

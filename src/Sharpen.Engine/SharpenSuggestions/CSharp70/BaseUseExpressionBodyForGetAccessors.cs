@@ -16,7 +16,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70
 
         public abstract string FriendlyName { get; }
 
-        public IEnumerable<AnalysisResult> Analyze(SyntaxTree syntaxTree)
+        public IEnumerable<AnalysisResult> Analyze(SyntaxTree syntaxTree, SingleSyntaxTreeAnalysisContext analysisContext)
         {
             return syntaxTree.GetRoot()
                 .DescendantNodes()
@@ -33,6 +33,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70
                 .Select(accessor => new AnalysisResult
                 (
                     this,
+                    analysisContext,
                     syntaxTree.FilePath,
                     accessor.Keyword,
                     accessor.FirstAncestorOrSelf<TBasePropertyDeclarationSyntax>()

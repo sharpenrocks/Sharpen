@@ -19,7 +19,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70
 
         public static readonly UseExpressionBodyForConstructors Instance = new UseExpressionBodyForConstructors();
 
-        public IEnumerable<AnalysisResult> Analyze(SyntaxTree syntaxTree)
+        public IEnumerable<AnalysisResult> Analyze(SyntaxTree syntaxTree, SingleSyntaxTreeAnalysisContext analysisContext)
         {
             return syntaxTree.GetRoot()
                 .DescendantNodes()
@@ -33,6 +33,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70
                 .Select(constructor => new AnalysisResult
                 (
                     this,
+                    analysisContext,
                     syntaxTree.FilePath,
                     constructor.Identifier,
                     constructor
