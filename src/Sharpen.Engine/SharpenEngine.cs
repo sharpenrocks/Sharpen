@@ -83,7 +83,7 @@ namespace Sharpen.Engine
             int progressCounter = 0;
             foreach (var project in visualStudioWorkspace.CurrentSolution.Projects.Where(project => project.Language == "C#"))
             { 
-                foreach (var document in project.Documents.Where(document => document.SupportsSyntaxTree))
+                foreach (var document in project.Documents.Where(document => document.SupportsSyntaxTree && !IsGenerated(document)))
                 {
                     syntaxTree = await document.GetSyntaxTreeAsync().ConfigureAwait(false);
                     // Each of the actions will operate on the same (current) syntaxTree.
@@ -92,6 +92,13 @@ namespace Sharpen.Engine
                 }
             }
             return analysisResults;
+        }
+
+        // Hardcoded so far. In the future we will have this in Sharpen Settings, similar to the equivalent ReSharper settings.
+        private static readonly string[] GeneratedDocumentsEndings = { ".Designer.cs", ".Generated.cs" };
+        private static bool IsGenerated(Document document)
+        {
+            return GeneratedDocumentsEndings.Any(ending => document.FilePath.IndexOf(ending, StringComparison.OrdinalIgnoreCase) >= 0);
         }
     }
 }
