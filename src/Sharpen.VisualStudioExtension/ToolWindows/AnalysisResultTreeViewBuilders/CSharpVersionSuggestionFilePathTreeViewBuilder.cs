@@ -55,8 +55,8 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewBuilde
                         (
                             parent,
                             this,
-                            filePath,
-                            AnalysisResults.Count(result => result.Suggestion == suggestionTreeViewItem.Suggestion && result.FilePath == filePath)
+                            AnalysisResults.Count(result => result.Suggestion == suggestionTreeViewItem.Suggestion && result.FilePath == filePath),
+                            filePath
                         ));
 
                 case FilePathTreeViewItem filePathTreeViewItem:

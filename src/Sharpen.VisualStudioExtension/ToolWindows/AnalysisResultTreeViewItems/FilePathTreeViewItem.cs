@@ -6,7 +6,7 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
     {
         public string FilePath { get; }
 
-        public FilePathTreeViewItem(BaseTreeViewItem parent, IAnalysisResultTreeViewBuilder treeViewBuilder, string filePath, int numberOfItems)
+        public FilePathTreeViewItem(BaseTreeViewItem parent, IAnalysisResultTreeViewBuilder treeViewBuilder, int numberOfItems, string filePath)
             : base(parent, treeViewBuilder, numberOfItems)
         {
             FilePath = filePath;
