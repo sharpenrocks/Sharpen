@@ -49,14 +49,17 @@ namespace Sharpen.Engine
             if (!visualStudioWorkspace.IsSolutionOpen()) return 0;
 
             // So far, we will report the progress after a single document is fully analyzed.
-            // Therefore, here we just have to count the documents.
-            // WARNING: Keep this in sync with the analysis logic!
+            // Therefore, here we just have to count the documents using exactly the same filters
+            // as in the AnalyzeSingleSyntaxTreesAsync().
+            // BDW, the reuse of the filters in calculating the Analysis Maximum Progress and
+            // in the analysis itself is the reason for the existinace of the two
+            // ...Satisfies...Filter() methods.
             return visualStudioWorkspace
                 .CurrentSolution
                 .Projects
-                .Where(project => project.Language == "C#")
+                .Where(ProjectSatisfiesProjectFilter)
                 .SelectMany(project => project.Documents)
-                .Count(document => document.SupportsSyntaxTree);
+                .Count(DocumentSatisfiesDocumentFilter);
         }
 
         public Task<IEnumerable<AnalysisResult>> AnalyzeAsync(VisualStudioWorkspace visualStudioWorkspace, IProgress<int> progress)
@@ -79,13 +82,11 @@ namespace Sharpen.Engine
                 // ReSharper restore AccessToModifiedClosure
                 .ToArray();
 
-            // WARNING:
-            // Keep the progress counter in sync with the logic behind the
-            // calculation of the maximum progress!
+            // WARNING: Keep the progress counter in sync with the logic behind the calculation of the maximum progress!
             int progressCounter = 0;
-            foreach (var project in visualStudioWorkspace.CurrentSolution.Projects.Where(project => project.Language == "C#"))
+            foreach (var project in visualStudioWorkspace.CurrentSolution.Projects.Where(ProjectSatisfiesProjectFilter))
             {                
-                foreach (var document in project.Documents.Where(document => document.SupportsSyntaxTree && !IsGenerated(document)))
+                foreach (var document in project.Documents.Where(DocumentSatisfiesDocumentFilter))
                 {
                     analysisContext = new SingleSyntaxTreeAnalysisContext(document);
 
@@ -96,6 +97,16 @@ namespace Sharpen.Engine
                 }
             }
             return analysisResults;
+        }
+
+        private static bool ProjectSatisfiesProjectFilter(Project project)
+        {
+            return project.Language == "C#";
+        }
+
+        private static bool DocumentSatisfiesDocumentFilter(Document document)
+        {
+            return document.SupportsSyntaxTree && !IsGenerated(document);
         }
 
         // Hardcoded so far. In the future we will have this in Sharpen Settings, similar to the equivalent ReSharper settings.
