@@ -6,7 +6,6 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
 {
     internal class FilePathTreeViewItem : BaseTreeViewItem
     {
-        private string text;
         private readonly SingleSyntaxTreeAnalysisContext analysisContext;
 
         public string FilePath { get; }
@@ -14,15 +13,13 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
         public string ProjectName => analysisContext.ProjectName;
 
         public FilePathTreeViewItem(BaseTreeViewItem parent, IAnalysisResultTreeViewBuilder treeViewBuilder, int numberOfItems, SingleSyntaxTreeAnalysisContext analysisContext, string filePath)
-            : base(parent, treeViewBuilder, numberOfItems)
+            : base(parent, treeViewBuilder, numberOfItems, null)
         {
             this.analysisContext = analysisContext;
             FilePath = filePath;
         }
 
-        public new string Text => text ?? (text = GetText());
-
-        private string GetText()
+        protected override string GetText()
         {
             return string.IsNullOrEmpty(analysisContext.LogicalFolderPath)
                 ? $"<{analysisContext.ProjectName}>\\{Path.GetFileName(FilePath)}"

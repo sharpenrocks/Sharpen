@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -17,15 +18,17 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
         private static readonly BaseTreeViewItem[] UnloadedChildrenMarker = { new UnloadedChildrenTreeViewItem() };
 
         private readonly IAnalysisResultTreeViewBuilder treeViewBuilder;
+        private string text;
 
         // This constructor is used only to create the single UnloadedChildrenTreeViewItem instance.
         private BaseTreeViewItem() {}
 
         // TODO-DESIGN: Refactor the constructor parameters once when we see which need the upcoming builders have.
         // Only the leaf nodes will have the analysis result set.
-        protected BaseTreeViewItem(BaseTreeViewItem parent, IAnalysisResultTreeViewBuilder treeViewBuilder, int numberOfItems)
+        protected BaseTreeViewItem(BaseTreeViewItem parent, IAnalysisResultTreeViewBuilder treeViewBuilder, int numberOfItems, /* See [1]. */ string text)
         {
             this.treeViewBuilder = treeViewBuilder;
+            this.text = text;
 
             Parent = parent;
             NumberOfItems = numberOfItems == 0 ? null : numberOfItems == 1 ? $"({numberOfItems} item)" : $"({numberOfItems} items)";
@@ -46,7 +49,16 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
             }
         }
 
-        public string Text { get; protected set; }
+        public string Text => text ?? (text = GetText());
+
+        protected virtual string GetText()
+        {
+            // See [1].
+            throw new InvalidOperationException($"The virtual {nameof(GetText)}() method should never be called on the {nameof(BaseTreeViewItem)}." +
+                                                $"This method must be overriden by the derived class if the derived class is setting the text parameter to null when calling the base constructor of the {nameof(BaseTreeViewItem)} class." +
+                                                $"The derived class {GetType().Name} sets the text parameter to null but does not override the {nameof(GetText)}() method.");
+        }
+
         public string NumberOfItems { get; protected set; }
 
         private bool isExpanded;
@@ -97,3 +109,18 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
         }
     }
 }
+
+/* 
+    [1] Derived class must either set the text in the constructor or override the GetText() method.
+        This is a slight optimization.
+        We have two different kinds of derived classes (concrete tree view items) when it comes to their Text property.
+        Some of them display strings that are already available in the system (e.g. Project name).
+        In other words, they do not create new strings.
+        Other create new strings just for the purpose of having a nice textual representation.
+        In the second case, we want to have lazy load, for which the GetText() method is provided.
+        In the first case, we do not want to force the derived class object to potentially unnecessary store reference to 
+        this already known string just to be able to use it in the GetText() method.
+        We also want to save the virtual call to the GetText() method.
+        Therefor these two options. If the textual representation is already known in the system, just pass it to the base constructor.
+        If it has to be calculated, pass null to the base constructor and implement the GetText() method.
+*/

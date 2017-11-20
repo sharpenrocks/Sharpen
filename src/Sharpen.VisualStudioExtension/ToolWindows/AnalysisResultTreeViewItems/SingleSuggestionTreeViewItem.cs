@@ -5,15 +5,14 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
 {
     internal class SingleSuggestionTreeViewItem : BaseTreeViewItem
     {
-        private string text;
         public AnalysisResult AnalysisResult { get; }
 
         public SingleSuggestionTreeViewItem(BaseTreeViewItem parent, IAnalysisResultTreeViewBuilder treeViewBuilder, AnalysisResult analysisResult)
-            : base(parent, treeViewBuilder, 0)
+            : base(parent, treeViewBuilder, 0, null)
         {
             AnalysisResult = analysisResult;
         }
 
-        public new string Text => text ?? (text = AnalysisResult.DisplayText);
+        protected override string GetText() => AnalysisResult.DisplayText; // DisplayText lazy loads the text.
     }
 }

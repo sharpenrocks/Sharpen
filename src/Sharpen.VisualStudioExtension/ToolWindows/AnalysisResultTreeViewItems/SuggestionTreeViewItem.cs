@@ -8,10 +8,9 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
         public ISharpenSuggestion Suggestion { get; }
 
         public SuggestionTreeViewItem(BaseTreeViewItem parent, IAnalysisResultTreeViewBuilder treeViewBuilder, int numberOfItems, ISharpenSuggestion suggestion)
-            : base(parent, treeViewBuilder, numberOfItems)
+            : base(parent, treeViewBuilder, numberOfItems, suggestion.FriendlyName)
         {
             Suggestion = suggestion;
-            Text = suggestion.FriendlyName;
         }
     }
 }
