@@ -2,7 +2,7 @@
 
 namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
 {
-    internal class CSharpVersionTreeViewItem : BaseTreeViewItem
+    internal sealed class CSharpVersionTreeViewItem : BaseTreeViewItem
     {
         public string CSharpVersion { get; }
 

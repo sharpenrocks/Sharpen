@@ -4,7 +4,7 @@ using Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewBuilders;
 
 namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
 {
-    internal class FilePathTreeViewItem : BaseTreeViewItem
+    internal sealed class FilePathTreeViewItem : BaseTreeViewItem
     {
         private readonly SingleSyntaxTreeAnalysisContext analysisContext;
 

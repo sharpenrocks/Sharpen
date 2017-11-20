@@ -4,7 +4,7 @@ using Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems;
 
 namespace Sharpen.VisualStudioExtension.ToolWindows
 {
-    internal partial class SharpenResultsToolWindowControl
+    internal sealed partial class SharpenResultsToolWindowControl
     {
         private readonly ISharpenResultsCommandHandler commandHandler;
 

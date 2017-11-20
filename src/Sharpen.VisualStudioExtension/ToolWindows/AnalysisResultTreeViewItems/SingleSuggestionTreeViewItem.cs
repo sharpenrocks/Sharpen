@@ -3,7 +3,7 @@ using Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewBuilders;
 
 namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
 {
-    internal class SingleSuggestionTreeViewItem : BaseTreeViewItem
+    internal sealed class SingleSuggestionTreeViewItem : BaseTreeViewItem
     {
         public AnalysisResult AnalysisResult { get; }
 

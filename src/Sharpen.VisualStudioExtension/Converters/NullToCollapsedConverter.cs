@@ -5,7 +5,7 @@ using System.Windows.Data;
 
 namespace Sharpen.VisualStudioExtension.Converters
 {
-    public class NullToCollapsedConverter : IValueConverter
+    internal sealed class NullToCollapsedConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

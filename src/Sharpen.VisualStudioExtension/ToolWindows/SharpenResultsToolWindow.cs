@@ -9,7 +9,7 @@ using TextDocument = EnvDTE.TextDocument;
 namespace Sharpen.VisualStudioExtension.ToolWindows
 {
     [Guid("65004bcd-32ae-4aef-934f-e82446ae942c")]
-    public sealed class SharpenResultsToolWindow : ToolWindowPane, ISharpenResultsCommandHandler
+    internal sealed class SharpenResultsToolWindow : ToolWindowPane, ISharpenResultsCommandHandler
     {
         private DTE dte;
 
