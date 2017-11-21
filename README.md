@@ -34,3 +34,6 @@ Note that in the current version of *Sharpen* the following features mentioned i
 - Recommendations.
 - Refactorings.
 - Configuration.
+
+## License
+*Sharpen* is licensed under the [MIT license](https://github.com/ironcev/sharpen/blob/master/LICENSE).
