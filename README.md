@@ -13,6 +13,8 @@ An image is worth a thousand words, therefore:
 
 ![Sharpen in action](https://raw.githubusercontent.com/ironcev/sharpen/master/images/demo.gif)
 
+You can [install *Sharpen* from the Visual Studio marketplace](https://marketplace.visualstudio.com/items?itemName=ironcev.sharpen).
+
 The below chapters describe in more detail the major benefits of *Sharpen*.
 
 ### Faster Learning of New Language Features
@@ -49,7 +51,7 @@ All notable changes to the *Sharpen* extension are documented in the [changelog]
 ### 0.1.0
 - Display of the analysis results in a tree view.
 - Analysis of the whole solution.
-- Adds suggestions for usages of expression-bodied members (C# 6.0 & C# 7.0).
+- Suggestions for usages of expression-bodied members (C# 6.0 & C# 7.0).
 
 ## License
 *Sharpen* is licensed under the [MIT license](https://github.com/ironcev/sharpen/blob/master/LICENSE).
