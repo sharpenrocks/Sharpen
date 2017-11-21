@@ -20,6 +20,10 @@ C# is a fast evolving language. This fast evolution and short release cycles mak
 
 *Sharpen* comes with **an extensive documentation on C# language features**. At the same time, **it points to places in real-life production code, your code!, where those features should and should not be used**. It puts new C# language features in a meaningful context. This speeds up the learning process. It also helps to develop critical and balanced view on new language features.
 
+<p align="center">
+    <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/faster-learning-of-new-language-features.png" alt="Sharpen puts new C# language features in a meaningful context." style="max-width:100%;">
+</p>
+
 ### Critical Usage of New Language Features
 Turning a perfectly readable and easy understandable nested `foreach` loop into a single 400-character-long line of incomprehensible LINQ is not the best way to utilize LINQ. Yet I witnessed it many times when recommendations coming from static code analysis tools were taken non-critically. By providing well explained recommendations, both positive and negative, *Sharpen* **helps you develop a critical view on new language features**. It teaches you to apply them only on the places where their usage will actually result in "sharper" code.
 
