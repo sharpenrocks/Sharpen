@@ -39,5 +39,13 @@ Note that in the current version of *Sharpen* the following features mentioned i
 - Refactorings.
 - Configuration.
 
+## Release Notes
+All notable changes to the *Sharpen* extension are documented in the [changelog](https://github.com/ironcev/sharpen/blob/master/CHANGELOG.md). Below is the excerpt from the changelog that lists only the major changes.
+
+### 0.1.0
+- Display of the analysis results in a tree view.
+- Analysis of the whole solution.
+- Adds suggestions for usages of expression-bodied members (C# 6.0 & C# 7.0).
+
 ## License
 *Sharpen* is licensed under the [MIT license](https://github.com/ironcev/sharpen/blob/master/LICENSE).
