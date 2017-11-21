@@ -9,6 +9,10 @@
 ## About
 *Sharpen* uses static code analysis to **identify places in your code that will benefit of introducing new C# language features**. The fact that a new language feature *can* be used at a certain place in code, does not mean that it *should* be used. *Sharpen* helps you make an informed decision by providing both positive and negative recommendations. Once your decision is made, *Sharpen* can **refactor your code on an arbitrary scale**: single place in code, single file, or a whole project, or solution.
 
+An image is worth a thousand words, therefore:
+
+![Sharpen in action](https://raw.githubusercontent.com/ironcev/sharpen/master/images/demo.gif)
+
 The below chapters describe in more detail the major benefits of *Sharpen*.
 
 ### Faster Learning of New Language Features
