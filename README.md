@@ -48,6 +48,9 @@ Note that in the current version of *Sharpen* the following features mentioned i
 ## Release Notes
 All notable changes to the *Sharpen* extension are documented in the [changelog](https://github.com/ironcev/sharpen/blob/master/CHANGELOG.md). Below is the excerpt from the changelog that lists only the major changes.
 
+### 0.1.1
+- Icon, preview image and release notes.
+
 ### 0.1.0
 - Display of the analysis results in a tree view.
 - Analysis of the whole solution.
