@@ -55,6 +55,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyInfo.Common.cs">
+      <Link>Properties\AssemblyInfo.Common.cs</Link>
+    </Compile>
     <Compile Include="Commands\AnalyzeSelectedProjectsCommand.cs" />
     <Compile Include="Commands\BaseAnalyzeCommand.cs" />
     <Compile Include="Commands\ShowOptionsDialogCommand.cs" />

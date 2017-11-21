@@ -1,16 +1,10 @@
-﻿using System.Reflection;
-using System.Runtime.InteropServices;
+﻿// ReSharper disable CheckNamespace
+internal static partial class AssemblyDescription
+{
+    public const string Title = "Sharpen for Visual Studio";
 
-[assembly: AssemblyTitle("Sharpen for Visual Studio")]
-[assembly: AssemblyDescription("Sharpen extension for Microsoft Visual Studio.")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Igor Rončević")]
-[assembly: AssemblyProduct("Sharpen")]
-[assembly: AssemblyCopyright("Copyright © 2017 Igor Rončević")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
+    public const string Description = "Sharpen is a Visual Studio extension that intelligently introduces new C# language features into your existing code base. It makes your code smaller, simpler, faster, more expressive and more readable, in one word - sharper.";
 
-[assembly: ComVisible(false)]
-
-[assembly: AssemblyVersion("0.1.0.*")]
-// We are not setting the AssemblyFileVersion explicitly. This will automatically make it same as the AssemblyVersion.
+    public const string InformationalVersion = Version;
+}
+// ReSharper restore CheckNamespace
