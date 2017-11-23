@@ -4,7 +4,7 @@ using System.Resources;
 using System.Runtime.InteropServices;
 
 [assembly: ComVisible(false)]
-[assembly: CLSCompliant(true)]
+[assembly: CLSCompliant(false)]
 
 [assembly: AssemblyCompany(AssemblyDescription.Company)]
 [assembly: AssemblyTrademark(AssemblyDescription.Trademark)]
