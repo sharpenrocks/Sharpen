@@ -1,6 +1,7 @@
 # Sharpen
 *Sharpen* is a Visual Studio extension that intelligently introduces new C# language features into your existing code base. It makes your code smaller, simpler, faster, more expressive and more readable, in one word - sharper.
 
+[![Twitter](https://img.shields.io/badge/twitter-sharpenrocks-brightgreen.svg?logo=twitter)](https://twitter.com/sharpenrocks)
 [![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/v/ironcev.sharpen.svg)](https://marketplace.visualstudio.com/items?itemName=ironcev.sharpen)
 [![AppVeyor](https://img.shields.io/appveyor/ci/ironcev/sharpen.svg)](https://ci.appveyor.com/project/ironcev/sharpen)
 [![GitHub release](https://img.shields.io/github/release/ironcev/sharpen/all.svg)](https://github.com/ironcev/sharpen/releases)
