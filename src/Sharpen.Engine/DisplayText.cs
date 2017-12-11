@@ -14,6 +14,7 @@ namespace Sharpen.Engine
                 case ConstructorDeclarationSyntax constructor: return For(constructor);
                 case PropertyDeclarationSyntax property: return For(property);
                 case IndexerDeclarationSyntax indexer: return For(indexer);
+                case ReturnStatementSyntax @return: return For(@return);
                 default:
                     throw new ArgumentOutOfRangeException
                     (
@@ -45,6 +46,12 @@ namespace Sharpen.Engine
         {
             indexer = indexer.WithoutLeadingTrivia();
             return $"{indexer.Modifiers.ToFullString()}{indexer.Type.ToFullString()}{indexer.ThisKeyword.ToFullString()}{indexer.ParameterList.ToFullString()}".Trim();
+        }
+
+        private static string For(ReturnStatementSyntax @return)
+        {
+            @return = @return.WithoutLeadingTrivia();
+            return $"{@return.ToFullString()}".Trim();
         }
     }
 }

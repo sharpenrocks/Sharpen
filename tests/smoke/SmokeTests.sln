@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneratedDocuments", "Gener
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkedDocuments", "LinkedDocuments\LinkedDocuments.csproj", "{1051E5CE-1597-477F-B0EE-9E357B13D58C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp71", "CSharp71\CSharp71.csproj", "{785FFA2A-B2C7-47E0-919E-B0A3E49A0A7E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{1051E5CE-1597-477F-B0EE-9E357B13D58C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1051E5CE-1597-477F-B0EE-9E357B13D58C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1051E5CE-1597-477F-B0EE-9E357B13D58C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{785FFA2A-B2C7-47E0-919E-B0A3E49A0A7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{785FFA2A-B2C7-47E0-919E-B0A3E49A0A7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{785FFA2A-B2C7-47E0-919E-B0A3E49A0A7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{785FFA2A-B2C7-47E0-919E-B0A3E49A0A7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

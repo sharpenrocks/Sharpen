@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="Ironcev.Sharpen" Version="0.1.1" Language="en-US" Publisher="Igor Rončević" />
+        <Identity Id="Ironcev.Sharpen" Version="0.2.0" Language="en-US" Publisher="Igor Rončević" />
         <DisplayName>Sharpen</DisplayName>
         <Description xml:space="preserve">A Visual Studio extension that intelligently introduces new C# language features into your existing code base.</Description>
         <MoreInfo>https://github.com/ironcev/Sharpen</MoreInfo>
@@ -11,7 +11,7 @@
         <PreviewImage>Resources\PreviewImage.png</PreviewImage>
         <Tags>C#, CodeAnalysis, CSharp, productivity, refactoring, roslyn, code-analysis</Tags>
     </Metadata>
-    <Installation>
+    <Installation Experimental="true">
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0,16.0]" />
         <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[15.0,16.0)" />
         <InstallationTarget Id="Microsoft.VisualStudio.Enterprise" Version="[15.0,16.0)" />

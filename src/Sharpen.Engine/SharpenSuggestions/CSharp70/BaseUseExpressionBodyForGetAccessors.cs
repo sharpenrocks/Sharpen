@@ -16,7 +16,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70
 
         public abstract string FriendlyName { get; }
 
-        public IEnumerable<AnalysisResult> Analyze(SyntaxTree syntaxTree, SingleSyntaxTreeAnalysisContext analysisContext)
+        public IEnumerable<AnalysisResult> Analyze(SyntaxTree syntaxTree, SemanticModel semanticModel, SingleSyntaxTreeAnalysisContext analysisContext)
         {
             return syntaxTree.GetRoot()
                 .DescendantNodes()

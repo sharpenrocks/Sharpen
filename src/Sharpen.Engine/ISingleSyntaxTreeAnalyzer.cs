@@ -5,6 +5,6 @@ namespace Sharpen.Engine
 {
     internal interface ISingleSyntaxTreeAnalyzer
     {
-        IEnumerable<AnalysisResult> Analyze(SyntaxTree syntaxTree, SingleSyntaxTreeAnalysisContext analysisContext);
+        IEnumerable<AnalysisResult> Analyze(SyntaxTree syntaxTree, SemanticModel semanticModel, SingleSyntaxTreeAnalysisContext analysisContext);
     }
 }

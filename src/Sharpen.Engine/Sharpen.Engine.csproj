@@ -156,6 +156,8 @@
     <Compile Include="..\AssemblyInfo.Common.cs">
       <Link>Properties\AssemblyInfo.Common.cs</Link>
     </Compile>
+    <Compile Include="CSharpFeatures\DefaultExpressions.cs" />
+    <Compile Include="SharpenSuggestions\CSharp71\UseDefaultExpressionInReturnStatements.cs" />
     <Compile Include="SingleSyntaxTreeAnalysisContext.cs" />
     <Compile Include="AnalysisResult.cs" />
     <Compile Include="CSharpFeatures\ExpressionBodiedMembers.cs" />

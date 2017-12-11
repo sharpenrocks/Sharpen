@@ -33,7 +33,7 @@ internal static partial class AssemblyDescription
 
     public const string Culture = "";
 
-    public const string Version = "0.1.1";
+    public const string Version = "0.2.0";
 
     public const string Configuration =
 #if DEBUG

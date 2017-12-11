@@ -8,6 +8,7 @@ using Microsoft.VisualStudio.LanguageServices;
 using Sharpen.Engine.Extensions;
 using Sharpen.Engine.SharpenSuggestions.CSharp60;
 using Sharpen.Engine.SharpenSuggestions.CSharp70;
+using Sharpen.Engine.SharpenSuggestions.CSharp71;
 
 namespace Sharpen.Engine
 {
@@ -24,7 +25,9 @@ namespace Sharpen.Engine
             UseExpressionBodyForGetAccessorsInProperties.Instance,
             UseExpressionBodyForGetAccessorsInIndexers.Instance,
             UseExpressionBodyForSetAccessorsInProperties.Instance,
-            UseExpressionBodyForSetAccessorsInIndexers.Instance
+            UseExpressionBodyForSetAccessorsInIndexers.Instance,
+            // C# 7.1.
+            UseDefaultExpressionInReturnStatements.Instance
         };
 
         // We want to avoid creation of a huge number of temporary Action objects
@@ -32,12 +35,12 @@ namespace Sharpen.Engine
         // That's why we precreate these Action objects and at the beginning of the
         // analysis create just once out of them Actions that are really used in
         // the Parallel.Invoke().
-        private static Action<SyntaxTree, SingleSyntaxTreeAnalysisContext, ConcurrentBag<AnalysisResult>>[] AnalyzeSingleSyntaxTreeAndCollectResultsActions { get; } =
+        private static Action<SyntaxTree, SemanticModel, SingleSyntaxTreeAnalysisContext, ConcurrentBag<AnalysisResult>>[] AnalyzeSingleSyntaxTreeAndCollectResultsActions { get; } =
             Suggestions
                 .OfType<ISingleSyntaxTreeAnalyzer>()
-                .Select(analyzer => new Action<SyntaxTree, SingleSyntaxTreeAnalysisContext, ConcurrentBag<AnalysisResult>>((syntaxTree, analysisContext, results) =>
+                .Select(analyzer => new Action<SyntaxTree, SemanticModel, SingleSyntaxTreeAnalysisContext, ConcurrentBag<AnalysisResult>>((syntaxTree, semanticModel, analysisContext, results) =>
                 {
-                    foreach (var analysisResult in analyzer.Analyze(syntaxTree, analysisContext))
+                    foreach (var analysisResult in analyzer.Analyze(syntaxTree, semanticModel, analysisContext))
                     {
                         results.Add(analysisResult);
                     }
@@ -71,14 +74,15 @@ namespace Sharpen.Engine
         {
             var analysisResults = new ConcurrentBag<AnalysisResult>();
             SyntaxTree syntaxTree = null;
+            SemanticModel semanticModel = null;
             SingleSyntaxTreeAnalysisContext analysisContext = null;
 
             var analyseSyntaxTreeActions = AnalyzeSingleSyntaxTreeAndCollectResultsActions
-                // We intentionally access the modified closure here (syntaxTree, analysisContext),
+                // We intentionally access the modified closure here (syntaxTree, semanticModel, analysisContext),
                 // because we want to avoid creation of a huge number of temporary Action objects.
 
                 // ReSharper disable AccessToModifiedClosure
-                .Select(action => new Action(() => action(syntaxTree, analysisContext, analysisResults)))
+                .Select(action => new Action(() => action(syntaxTree, semanticModel, analysisContext, analysisResults)))
                 // ReSharper restore AccessToModifiedClosure
                 .ToArray();
 
@@ -91,6 +95,8 @@ namespace Sharpen.Engine
                     analysisContext = new SingleSyntaxTreeAnalysisContext(document);
 
                     syntaxTree = await document.GetSyntaxTreeAsync().ConfigureAwait(false);
+                    semanticModel = await document.GetSemanticModelAsync();
+
                     // Each of the actions will operate on the same (current) syntaxTree.
                     Parallel.Invoke(analyseSyntaxTreeActions);
                     progress.Report(++progressCounter);
@@ -106,7 +112,7 @@ namespace Sharpen.Engine
 
         private static bool DocumentSatisfiesDocumentFilter(Document document)
         {
-            return document.SupportsSyntaxTree && !IsGenerated(document);
+            return document.SupportsSyntaxTree && document.SupportsSemanticModel && !IsGenerated(document);
         }
 
         // Hardcoded so far. In the future we will have this in Sharpen Settings, similar to the equivalent ReSharper settings.
