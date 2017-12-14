@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -41,7 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UseDefaultExpressionInOptionalConstructorParameters\OptionalConstructorParametersThatAlreadyUseDefaultExpresion.cs" />
+    <Compile Include="UseDefaultExpressionInOptionalConstructorParameters\OptionalConstructorParametersThatAreNotCandidatesToUseDefaultExpression.cs" />
     <Compile Include="UseDefaultExpressionInOptionalConstructorParameters\OptionalConstructorParametersThatAreCandidatesToUseDefaultExpression.cs" />
+    <Compile Include="UseDefaultExpressionInOptionalMethodParameters\OptionalMethodParametersThatAlreadyUseDefaultExpression.cs" />
+    <Compile Include="UseDefaultExpressionInOptionalMethodParameters\OptionalMethodParametersThatAreNotCandidatesToUseDefaultExpression.cs" />
     <Compile Include="UseDefaultExpressionInOptionalMethodParameters\OptionalMethodParametersThatAreCandidatesToUseDefaultExpression.cs" />
     <Compile Include="UseDefaultExpressionInReturnStatements\ReturnStatementsThatAreCandidatesToUseDefaultExpression.cs" />
   </ItemGroup>
