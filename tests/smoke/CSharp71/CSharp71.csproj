@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UseDefaultExpressionInOptionalConstructorParameters\OptionalConstructorParametersThatAreCandidatesToUseDefaultExpression.cs" />
+    <Compile Include="UseDefaultExpressionInOptionalMethodParameters\OptionalMethodParametersThatAreCandidatesToUseDefaultExpression.cs" />
     <Compile Include="UseDefaultExpressionInReturnStatements\ReturnStatementsThatAreCandidatesToUseDefaultExpression.cs" />
   </ItemGroup>
   <ItemGroup>

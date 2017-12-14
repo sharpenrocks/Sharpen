@@ -27,7 +27,9 @@ namespace Sharpen.Engine
             UseExpressionBodyForSetAccessorsInProperties.Instance,
             UseExpressionBodyForSetAccessorsInIndexers.Instance,
             // C# 7.1.
-            UseDefaultExpressionInReturnStatements.Instance
+            UseDefaultExpressionInReturnStatements.Instance,
+            UseDefaultExpressionInOptionalMethodParameters.Instance,
+            UseDefaultExpressionInOptionalConstructorParameters.Instance
         };
 
         // We want to avoid creation of a huge number of temporary Action objects

@@ -157,6 +157,9 @@
       <Link>Properties\AssemblyInfo.Common.cs</Link>
     </Compile>
     <Compile Include="CSharpFeatures\DefaultExpressions.cs" />
+    <Compile Include="SharpenSuggestions\CSharp71\BaseUseDefaultExpressionInOptionalParameters.cs" />
+    <Compile Include="SharpenSuggestions\CSharp71\UseDefaultExpressionInOptionalConstructorParameters.cs" />
+    <Compile Include="SharpenSuggestions\CSharp71\UseDefaultExpressionInOptionalMethodParameters.cs" />
     <Compile Include="SharpenSuggestions\CSharp71\UseDefaultExpressionInReturnStatements.cs" />
     <Compile Include="SingleSyntaxTreeAnalysisContext.cs" />
     <Compile Include="AnalysisResult.cs" />
