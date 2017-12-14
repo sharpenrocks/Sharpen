@@ -3,6 +3,12 @@ All notable changes to the "Sharpen" extension will be documented in this file.
 
 The format of the file is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [0.2.0] - 2017-12-14
+### Added
+- "Use default expression in optional constructor parameters" suggestion.
+- "Use default expression in optional method parameters" suggestion.
+- "Use default expression in return statements" suggestion.
+
 ## [0.1.1] - 2017-11-21
 ### Added
 - Icon, preview image and release notes.
