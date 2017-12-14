@@ -49,7 +49,7 @@ Note that in the current version of *Sharpen* the following features mentioned i
 ## Release Notes
 All notable changes to the *Sharpen* extension are documented in the [changelog](https://github.com/ironcev/sharpen/blob/master/CHANGELOG.md). Below is the excerpt from the changelog that lists only the summary of major changes.
 
-## 0.2.0
+### 0.2.0
 - Suggestions for usages of default expressions (C# 7.1).
 
 ### 0.1.1
