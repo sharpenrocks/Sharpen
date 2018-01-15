@@ -16,6 +16,8 @@ namespace Sharpen.Engine
                 case IndexerDeclarationSyntax indexer: return For(indexer);
                 case ReturnStatementSyntax @return: return For(@return);
                 case ParameterSyntax parameter: return For(parameter);
+                case ArgumentSyntax argument: return For(argument);
+                case InvocationExpressionSyntax invocation: return For(invocation);
                 default:
                     throw new ArgumentOutOfRangeException
                     (
@@ -59,6 +61,18 @@ namespace Sharpen.Engine
         {
             parameter = parameter.WithoutLeadingTrivia();
             return $"{parameter.ToFullString()}".Trim();
+        }
+
+        private static string For(ArgumentSyntax argument)
+        {
+            argument = argument.WithoutLeadingTrivia();
+            return $"{argument.ToFullString()}".Trim();
+        }
+
+        private static string For(InvocationExpressionSyntax invocation)
+        {
+            invocation = invocation.WithoutLeadingTrivia();
+            return $"{invocation.ToFullString()}".Trim();
         }
     }
 }

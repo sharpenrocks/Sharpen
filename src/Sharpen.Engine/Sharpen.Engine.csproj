@@ -157,6 +157,9 @@
       <Link>Properties\AssemblyInfo.Common.cs</Link>
     </Compile>
     <Compile Include="CSharpFeatures\DefaultExpressions.cs" />
+    <Compile Include="CSharpFeatures\OutVariables.cs" />
+    <Compile Include="Extensions\SyntaxNodeExtensions.cs" />
+    <Compile Include="SharpenSuggestions\CSharp70\UseOutVariablesInMethodInvocations.cs" />
     <Compile Include="SharpenSuggestions\CSharp71\BaseUseDefaultExpressionInOptionalParameters.cs" />
     <Compile Include="SharpenSuggestions\CSharp71\UseDefaultExpressionInOptionalConstructorParameters.cs" />
     <Compile Include="SharpenSuggestions\CSharp71\UseDefaultExpressionInOptionalMethodParameters.cs" />

@@ -19,6 +19,7 @@ namespace Sharpen.Engine
             // C# 6.0.
             UseExpressionBodyForGetOnlyProperties.Instance,
             UseExpressionBodyForGetOnlyIndexers.Instance,
+
             // C# 7.0.
             UseExpressionBodyForConstructors.Instance,
             UseExpressionBodyForDestructors.Instance,
@@ -26,6 +27,9 @@ namespace Sharpen.Engine
             UseExpressionBodyForGetAccessorsInIndexers.Instance,
             UseExpressionBodyForSetAccessorsInProperties.Instance,
             UseExpressionBodyForSetAccessorsInIndexers.Instance,
+
+            UseOutVariablesInMethodInvocations.Instance,
+
             // C# 7.1.
             UseDefaultExpressionInReturnStatements.Instance,
             UseDefaultExpressionInOptionalMethodParameters.Instance,
