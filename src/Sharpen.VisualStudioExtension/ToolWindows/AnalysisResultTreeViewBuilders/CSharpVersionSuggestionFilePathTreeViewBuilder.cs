@@ -34,6 +34,25 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewBuilde
                 case CSharpVersionTreeViewItem csharpVersionTreeViewItem:
                     return AnalysisResults
                         .Where(result => result.Suggestion.MinimumLanguageVersion == csharpVersionTreeViewItem.CSharpVersion)
+                        .Select(result => result.Suggestion.LanguageFeature)
+                        .Distinct()
+                        .OrderBy(feature => feature.FriendlyName)
+                        .Select(feature => new CSharpFeatureTreeViewItem
+                        (
+                            parent,
+                            this,
+                            AnalysisResults.Count(result => result.Suggestion.MinimumLanguageVersion == csharpVersionTreeViewItem.CSharpVersion &&
+                                                            result.Suggestion.LanguageFeature == feature),
+                            feature
+                        ));
+
+                case CSharpFeatureTreeViewItem csharpFeatureTreeViewItem:
+                    // A certain C# feature can be introduced within several versions of C#.
+                    // For example, Expression-bodied members are introduced in C# 6.0 and C# 7.0.
+                    var parentLanguageVersion = ((CSharpVersionTreeViewItem)csharpFeatureTreeViewItem.Parent).CSharpVersion;
+                    return AnalysisResults
+                        .Where(result => result.Suggestion.MinimumLanguageVersion == parentLanguageVersion &&
+                                         result.Suggestion.LanguageFeature == csharpFeatureTreeViewItem.Feature)
                         .Select(result => result.Suggestion)
                         .Distinct()
                         .OrderBy(suggestion => suggestion.FriendlyName)
@@ -56,7 +75,7 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewBuilde
                             parent,
                             this,
                             group.Count(),
-                            // TODO: Inneficient and ugly workaround that will work so far.
+                            // TODO: Inefficient and ugly workaround that will work so far.
                             //       We will soon replace all the LINQ code in this method with an access to an optimized indexing structure.
                             AnalysisResults.First(result => result.AnalysisContext.ProjectName == group.Key.ProjectName && result.FilePath == group.Key.FilePath).AnalysisContext,
                             group.Key.FilePath

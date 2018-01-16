@@ -6,6 +6,7 @@ The format of the file is based on [Keep a Changelog](http://keepachangelog.com/
 ## [Unreleased]
 ### Added
 - "Use out variables in method invocations" suggestion.
+- Grouping of the analysis results by C# language feature.
 
 ## [0.2.0] - 2017-12-14
 ### Added
