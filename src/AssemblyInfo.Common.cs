@@ -28,7 +28,7 @@ internal static partial class AssemblyDescription
 {
     public const string Company = "Igor Rončević";
     public const string Trademark = "";
-    public const string Copyright = "Copyright © 2017 " + Company;
+    public const string Copyright = "Copyright © 2017 - 2018 " + Company;
     public const string Product = "Sharpen";
 
     public const string Culture = "";
