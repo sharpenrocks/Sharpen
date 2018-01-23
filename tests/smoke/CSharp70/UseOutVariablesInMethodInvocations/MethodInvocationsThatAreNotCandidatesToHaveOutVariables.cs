@@ -84,7 +84,12 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
             OutClass.Method(0, out j, ref l);
         }
 
-        void Invocation02()
+        void Invocation02(int j, ref int l)
+        {
+            OutClass.Method(0, out j, ref l);
+        }
+
+        void Invocation03()
         {
             Func<int, bool> a = j => OutClass.Method(0, out j);
         }
