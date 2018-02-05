@@ -2,16 +2,15 @@
 using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Sharpen.Engine.CSharpFeatures;
 
-namespace Sharpen.Engine.SharpenSuggestions.CSharp71
+namespace Sharpen.Engine.SharpenSuggestions.CSharp71.DefaultExpressions
 {
     internal abstract class BaseUseDefaultExpressionInOptionalParameters<TBaseMethodDeclarationSyntax> : ISharpenSuggestion, ISingleSyntaxTreeAnalyzer
         where TBaseMethodDeclarationSyntax : SyntaxNode
     {
         public string MinimumLanguageVersion { get; } = CSharpLanguageVersions.CSharp71;
 
-        public ICSharpFeature LanguageFeature { get; } = DefaultExpressions.Instance;
+        public ICSharpFeature LanguageFeature { get; } = CSharpFeatures.DefaultExpressions.Instance;
 
         public abstract string FriendlyName { get; }
 

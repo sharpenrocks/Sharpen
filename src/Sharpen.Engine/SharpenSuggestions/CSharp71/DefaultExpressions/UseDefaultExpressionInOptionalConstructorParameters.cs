@@ -1,6 +1,6 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Sharpen.Engine.SharpenSuggestions.CSharp71
+namespace Sharpen.Engine.SharpenSuggestions.CSharp71.DefaultExpressions
 {
     internal sealed class UseDefaultExpressionInOptionalConstructorParameters : BaseUseDefaultExpressionInOptionalParameters<ConstructorDeclarationSyntax>
     {

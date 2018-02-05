@@ -3,10 +3,9 @@ using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Sharpen.Engine.CSharpFeatures;
 using Sharpen.Engine.Extensions;
 
-namespace Sharpen.Engine.SharpenSuggestions.CSharp70
+namespace Sharpen.Engine.SharpenSuggestions.CSharp70.OutVariables
 {
     internal sealed class UseOutVariablesInMethodInvocations : ISharpenSuggestion, ISingleSyntaxTreeAnalyzer
     {
@@ -14,7 +13,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70
 
         public string MinimumLanguageVersion { get; } = CSharpLanguageVersions.CSharp70;
 
-        public ICSharpFeature LanguageFeature { get; } = OutVariables.Instance;
+        public ICSharpFeature LanguageFeature { get; } = CSharpFeatures.OutVariables.Instance;
 
         public string FriendlyName { get; } = "Use out variables in method invocations";
 

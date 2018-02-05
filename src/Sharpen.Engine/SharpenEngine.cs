@@ -7,8 +7,12 @@ using Microsoft.CodeAnalysis;
 using Microsoft.VisualStudio.LanguageServices;
 using Sharpen.Engine.Extensions;
 using Sharpen.Engine.SharpenSuggestions.CSharp60;
+using Sharpen.Engine.SharpenSuggestions.CSharp60.ExpressionBodiedMembers;
 using Sharpen.Engine.SharpenSuggestions.CSharp70;
+using Sharpen.Engine.SharpenSuggestions.CSharp70.ExpressionBodiedMembers;
+using Sharpen.Engine.SharpenSuggestions.CSharp70.OutVariables;
 using Sharpen.Engine.SharpenSuggestions.CSharp71;
+using Sharpen.Engine.SharpenSuggestions.CSharp71.DefaultExpressions;
 
 namespace Sharpen.Engine
 {
