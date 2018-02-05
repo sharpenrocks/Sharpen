@@ -95,7 +95,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
         }
     }
 
-    public class OutVariablesThatDeclaredInPatternMatching
+    public class OutVariablesThatAreDeclaredInPatternMatching
     {
         void Invocation01(object o)
         {
@@ -116,7 +116,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
         }
     }
 
-    public class OutVariablesThatAreUsedBeforePassingAsOuToTheMethod
+    public class OutVariablesThatAreUsedBeforePassingAsOutToTheMethod
     {
         void Invocation01()
         {
