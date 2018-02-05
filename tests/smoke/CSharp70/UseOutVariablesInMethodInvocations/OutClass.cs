@@ -14,5 +14,12 @@
             j = 0;
             return true;
         }
+
+        public static bool Method(out int i, out int j)
+        {
+            i = 0;
+            j = 0;
+            return true;
+        }
     }
 }

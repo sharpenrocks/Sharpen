@@ -144,5 +144,51 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
             OutClass.Method(0, out j); // This one can be inlined.
             OutClass.Method(0, out j);
         }
+
+        void Invocation05()
+        {
+            int j;
+            j = 5;
+            {
+                OutClass.Method(0, out j);
+            }
+        }
+
+        void Invocation06()
+        {
+            int j;
+            j = 5;
+            {
+                {
+                    OutClass.Method(0, out j);
+                }
+            }
+        }
+
+        void Invocation07()
+        {
+            int j;
+            {
+                j = 5;
+                OutClass.Method(0, out j);
+            }
+        }
+
+        void Invocation08()
+        {
+            int j;
+            {
+                {
+                    j = 5;
+                    OutClass.Method(0, out j);
+                }
+            }
+        }
+
+        void Invocation09()
+        {
+            int j;
+            OutClass.Method(out j, out j);
+        }
     }
 }

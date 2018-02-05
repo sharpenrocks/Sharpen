@@ -1,6 +1,6 @@
 ﻿// ReSharper disable All
 
-// Expected number of suggestions: 5
+// Expected number of suggestions: 7
 
 using System;
 
@@ -58,6 +58,26 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
                 j = 1;
             }
             Console.WriteLine(j);
+        }
+
+        void Invocation06()
+        {
+            int j;
+
+            {
+                OutClass.Method(0, out j);
+            }
+        }
+
+        void Invocation07()
+        {
+            int j;
+
+            {
+                {
+                    OutClass.Method(0, out j);
+                }
+            }
         }
     }
 }
