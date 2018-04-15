@@ -18,6 +18,7 @@ namespace Sharpen.Engine
                 case ParameterSyntax parameter: return For(parameter);
                 case ArgumentSyntax argument: return For(argument);
                 case InvocationExpressionSyntax invocation: return For(invocation);
+                case LocalFunctionStatementSyntax localFunction: return For(localFunction);
                 default:
                     throw new ArgumentOutOfRangeException
                     (
@@ -73,6 +74,12 @@ namespace Sharpen.Engine
         {
             invocation = invocation.WithoutLeadingTrivia();
             return $"{invocation.ToFullString()}".Trim();
+        }
+
+        private static string For(LocalFunctionStatementSyntax localFunction)
+        {
+            localFunction = localFunction.WithoutLeadingTrivia();
+            return $"{localFunction.Modifiers.ToFullString()}{localFunction.Identifier.ToFullString()}{localFunction.ParameterList.ToFullString()}".Trim();
         }
     }
 }

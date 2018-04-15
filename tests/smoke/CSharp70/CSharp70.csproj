@@ -42,6 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UseExpressionBodyForLocalFunctions\LocalFunctionsThatAlreadyHaveExpressionBody.cs" />
+    <Compile Include="UseExpressionBodyForLocalFunctions\LocalFunctionsThatAreCandidatesToHaveExpressionBody.cs" />
+    <Compile Include="UseExpressionBodyForLocalFunctions\LocalFunctionsThatAreNotCandidatesToHaveExpressionBody.cs" />
+    <Compile Include="UseExpressionBodyForLocalFunctions\EmptyLocalFunctions.cs" />
     <Compile Include="UseExpressionBodyForConstructors\ConstructorsThatAlreadyHaveExpressionBody.cs" />
     <Compile Include="UseExpressionBodyForConstructors\ConstructorsThatAreNotCandidatesToHaveExpressionBody.cs" />
     <Compile Include="UseExpressionBodyForConstructors\ConstructorsThatAreCandidatesToHaveExpressionBody.cs" />

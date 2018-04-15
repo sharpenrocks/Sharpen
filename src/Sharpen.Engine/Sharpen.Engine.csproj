@@ -159,6 +159,7 @@
     <Compile Include="CSharpFeatures\DefaultExpressions.cs" />
     <Compile Include="CSharpFeatures\OutVariables.cs" />
     <Compile Include="Extensions\SyntaxNodeExtensions.cs" />
+    <Compile Include="SharpenSuggestions\CSharp70\ExpressionBodiedMembers\UseExpressionBodyForLocalFunctions.cs" />
     <Compile Include="SharpenSuggestions\CSharp70\OutVariables\UseOutVariablesInMethodInvocations.cs" />
     <Compile Include="SharpenSuggestions\CSharp71\DefaultExpressions\BaseUseDefaultExpressionInOptionalParameters.cs" />
     <Compile Include="SharpenSuggestions\CSharp71\DefaultExpressions\UseDefaultExpressionInOptionalConstructorParameters.cs" />

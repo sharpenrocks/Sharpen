@@ -31,6 +31,7 @@ namespace Sharpen.Engine
             UseExpressionBodyForGetAccessorsInIndexers.Instance,
             UseExpressionBodyForSetAccessorsInProperties.Instance,
             UseExpressionBodyForSetAccessorsInIndexers.Instance,
+            UseExpressionBodyForLocalFunctions.Instance,
 
             UseOutVariablesInMethodInvocations.Instance,
 

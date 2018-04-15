@@ -3,6 +3,10 @@ All notable changes to the "Sharpen" extension will be documented in this file.
 
 The format of the file is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased]
+### Added
+- "Use expression body for local functions" suggestion.
+
 ## [0.3.0] - 2018-01-16
 ### Added
 - "Use out variables in method invocations" suggestion.
