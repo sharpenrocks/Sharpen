@@ -19,6 +19,7 @@
         This workaround has been taken from the following answer on StackOverflow:
             https://stackoverflow.com/a/41605335/7025570
     -->
+    <!-- ReSharper disable once UnusedMember.Global -->
     <xctk:BusyIndicator x:Name="DummyNameToGetAReferenceInTheCodeBehind"
                         IsBusy="{Binding AnalysisIsRunning}"
                         DisplayAfter="00:00:01.00"

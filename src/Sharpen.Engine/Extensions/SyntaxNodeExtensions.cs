@@ -10,7 +10,7 @@ namespace Sharpen.Engine.Extensions
             SyntaxNode currentNode = syntaxNode;
             while(currentNode != null)
             {
-                if (currentNode is TNode) result = (TNode)currentNode;
+                if (currentNode is TNode node) result = node;
                 currentNode = currentNode.Parent;
             }
 

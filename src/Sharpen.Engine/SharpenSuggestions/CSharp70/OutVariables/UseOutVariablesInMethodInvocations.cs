@@ -27,8 +27,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70.OutVariables
                 .Where(argument =>
                     argument.RefOrOutKeyword.IsKind(SyntaxKind.OutKeyword) &&
                     argument.Expression.IsKind(SyntaxKind.IdentifierName) &&
-                    GetLocalVariableDeclaratorForIdentifier(argument, ((IdentifierNameSyntax)argument.Expression).Identifier) is VariableDeclaratorSyntax declarator &&
-                    VariableIsNotUsedBeforePassedAsOutArgument(semanticModel, declarator, argument)
+                    OutArgumentCanBecomeOutVariableOrCanBeDiscarded(semanticModel, argument, false)
                 )
                 .Select(argument => new AnalysisResult
                 (
@@ -40,48 +39,90 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70.OutVariables
                 ));
         }
 
-        // TODO-IG: Rename all the below methods, adapt their signatures and move them to some common library.
-        //          E.g. bool OutIdentifierIsDeclaredAsALocalVariable(SyntaxNode nodeWithinTheScope, SyntaxToken identifier)
-
-        private static VariableDeclaratorSyntax GetLocalVariableDeclaratorForIdentifier(SyntaxNode nodeWithinTheScope, SyntaxToken identifier)
+        private static bool OutArgumentCanBecomeOutVariableOrCanBeDiscarded(SemanticModel semanticModel, ArgumentSyntax outArgument, bool outArgumentCanBeDiscarded)
         {
-            var statement = nodeWithinTheScope.LastAncestorOrSelf<StatementSyntax>();
+            var enclosingStatement = outArgument.LastAncestorOrSelf<StatementSyntax>(); // E.g. method body block.
+            var outArgumentIdentifier = (IdentifierNameSyntax) outArgument.Expression;
+            var outVariableName = outArgumentIdentifier.Identifier.ValueText;
 
-            return statement?
+            // 1. The out argument must be a local variable.
+            var variableDeclarator = GetLocalVariableDeclaratorForOutArgument();
+            if (variableDeclarator == null) return false;
+
+            // 2. If the local variable is initialized within the declaration, it means that it is used.
+            if (variableDeclarator.Initializer != null) return false;
+
+
+            // 3. The local variable must not be used before it is passed to the method as an out argument.
+            //    Also, if it is a requirement that the out argument can be discarded, it must not be used
+            //    anywhere in code after the out argument.
+
+            var localVariableSymbol = semanticModel.GetSymbolInfo(outArgumentIdentifier).Symbol;
+            var localVariableTextSpan = variableDeclarator.Identifier.Span;
+            var outArgumentTextSpan = outArgumentIdentifier.Span;
+
+            // Find all the usages of the local variable within the enclosing e.g. method body block
+            // that are different then its declaration and the usage in the out variable itself.
+            // Those usage then appear either between the variable declaration and the out argument
+            // or after the out argument.
+            var (numberOfUsagesBefreOutArgument, numberOfUsagesAfterOutArgument) = enclosingStatement
                 .DescendantNodes()
-                .OfType<LocalDeclarationStatementSyntax>()
-                .SelectMany(localDeclaration => localDeclaration.DescendantNodes().OfType<VariableDeclarationSyntax>())
-                .SelectMany(variableDeclaration => variableDeclaration.Variables)
-                .FirstOrDefault(variable => variable.Identifier.ValueText == identifier.ValueText);
-        }
+                .OfType<IdentifierNameSyntax>()
+                .Where(identifier =>
+                    identifier.Identifier.ValueText == outVariableName &&
+                    identifier.Span != localVariableTextSpan && // It is not the declaration of the local variable.
+                    identifier != outArgumentIdentifier && // It is not the out argument itself.
+                    semanticModel.GetSymbolInfo(identifier).Symbol.Equals(localVariableSymbol)
+                )
+                .CountMany
+                (
+                    identifier => identifier.Identifier.Span.IsBetween(localVariableTextSpan, outArgumentTextSpan),
+                    identifier => identifier.Identifier.Span.IsAfter(outArgumentTextSpan)
+                );
 
-        private static bool VariableIsNotUsedBeforePassedAsOutArgument(SemanticModel semanticModel, VariableDeclaratorSyntax variableDeclarator, ArgumentSyntax argument)
-        {
-            var firstStatement = variableDeclarator.FirstAncestorOrSelf<StatementSyntax>();
-            var lastStatement = argument.FirstAncestorOrSelf<StatementSyntax>().PrecedingSyblingOrSelf();
+            return numberOfUsagesBefreOutArgument == 0 &&
+                   (
+                       outArgumentCanBeDiscarded && numberOfUsagesAfterOutArgument == 0
+                       ||
+                       !outArgumentCanBeDiscarded && numberOfUsagesAfterOutArgument > 0
+                   );
 
+            // TODO: One check is missing. See the Remark #1 at the bottom of this file.
 
-            DataFlowAnalysis dataFlow;
-            try
+            VariableDeclaratorSyntax GetLocalVariableDeclaratorForOutArgument()
             {
-                // TODO-IG: Implement a proprietary data flow analysis that will work over statements that do not have same parent.
-                //          The AnalyzeDataFlow() method will throw exception if the firstStatement and the lastStatement are
-                //          not within the same immediate parent statement. We have to implement a data flow analysis that will
-                //          accept statements that have a common root parent statement, but are not necessarily within the same
-                //          immediate parent statement.
-                dataFlow = semanticModel.AnalyzeDataFlow(firstStatement, lastStatement);
+                return enclosingStatement?
+                    .DescendantNodes()
+                    .OfType<LocalDeclarationStatementSyntax>()
+                    .SelectMany(localDeclaration => localDeclaration.DescendantNodes().OfType<VariableDeclarationSyntax>())
+                    .SelectMany(variableDeclaration => variableDeclaration.Variables)
+                    .FirstOrDefault(variable => variable.Identifier.ValueText == outVariableName);
             }
-            catch
-            {
-                // TODO-IG: Remove the try-catch block once the data flow analysis is implemented.
-                //          At the moment, if the firstStatement and the lastStatement are not within the same immediate parent
-                //          we will simply assume that the variable is used, although this must not actually be the case.
-                //          Such cases will anyway appear rarely, so we can live with it so far.
-                return false;
-            }
-
-            var outVariableName = variableDeclarator.Identifier.ValueText;
-            return dataFlow.ReadInside.Union(dataFlow.WrittenInside).All(symbol => symbol.Name != outVariableName);
         }
     }
 }
+
+/*
+    Remark #1.
+    We have to check that if the argument cannot be discarded
+    (the local variable is used afterwards) and if we turn it into
+    an out variable, that the scope of the out variable remains the
+    same as the previous scope of the local variable.
+
+    E.g. in this case we would end up in compile error if we turn the
+    local variable into an out variable.
+
+    int i;
+    if (someCondition)
+    {
+        Out(out i);
+    }
+    else
+    {
+        i = Something();
+    }
+ 
+    So far we will assume that this case happens rarely in real life
+    and we will ship the current solution.
+    Still, this has to be properly implemented.
+ */

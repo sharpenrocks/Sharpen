@@ -15,7 +15,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
         void Invocation02()
         {
             int l = 0;
-            OutClass.Method(0, out int j, ref l);
+            OutClass.Method(0, out var j, ref l);
         }
 
         void Invocation03()
@@ -30,7 +30,29 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
         void Invocation04()
         {
             int l = 0;
+            if (OutClass.Method(0, out var j, ref l))
+            {
+                // ...
+            }
+        }
+
+        void Invocation05()
+        {
+            int l = 0;
             if (OutClass.Method(0, out int j, ref l))
+            {
+                // ...
+            }
+            else
+            {
+                j = 1;
+            }
+        }
+
+        void Invocation06()
+        {
+            int l = 0;
+            if (OutClass.Method(0, out var j, ref l))
             {
                 // ...
             }

@@ -19,6 +19,13 @@ namespace Sharpen.Engine
         /// </summary>
         public string LogicalFolderPath { get; }
 
+        // To be used in unit tests only.
+        internal SingleSyntaxTreeAnalysisContext(string projectName, string logicalFolderPath)
+        {
+            ProjectName = projectName;
+            LogicalFolderPath = logicalFolderPath;
+        }
+
         public SingleSyntaxTreeAnalysisContext(Document document)
         {
             ProjectName = document.Project.Name;
