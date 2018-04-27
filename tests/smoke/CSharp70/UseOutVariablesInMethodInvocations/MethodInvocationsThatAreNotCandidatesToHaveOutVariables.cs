@@ -97,6 +97,62 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
 
             j = 1;
         }
+
+        void Invocation04()
+        {
+            int j, l = 0;
+            Console.WriteLine(l);
+            while (OutClass.Method(0, out j, ref l))
+            {
+                j = 0;
+            }
+            Console.WriteLine(j);
+        }
+
+        void Invocation05()
+        {
+            int j, l = 0;
+            Console.WriteLine(l);
+            do
+            {
+                l = 0;
+            }
+            while (OutClass.Method(0, out j, ref l));
+            Console.WriteLine(j);
+        }
+
+        void Invocation06()
+        {
+            int j, l = 0;
+            Console.WriteLine(l);
+            for (bool b = OutClass.Method(0, out j, ref l); b != true;)
+            {
+                j = 0;
+            }
+            Console.WriteLine(j);
+        }
+
+        void Invocation07()
+        {
+            int j, l = 0;
+            Console.WriteLine(l);
+            for (; OutClass.Method(0, out j, ref l);)
+            {
+                j = 0;
+            }
+            Console.WriteLine(j);
+        }
+
+        void Invocation08()
+        {
+            int j, l = 0;
+            Console.WriteLine(l);
+            foreach (var o in OutClass.EnumerableMethod<object>(out j))
+            {
+                j = 0;
+            }
+            Console.WriteLine(j);
+        }
     }
 
     public class OutVariablesThatAreNotDeclaredLocally
