@@ -66,9 +66,8 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
 
             {
                 OutClass.Method(0, out j);
+                Console.WriteLine(j);
             }
-
-            Console.WriteLine(j);
         }
 
         void Invocation07()
@@ -78,10 +77,9 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
             {
                 {
                     OutClass.Method(0, out j);
+                    Console.WriteLine(j);
                 }
             }
-
-            Console.WriteLine(j);
         }
     }
 }
