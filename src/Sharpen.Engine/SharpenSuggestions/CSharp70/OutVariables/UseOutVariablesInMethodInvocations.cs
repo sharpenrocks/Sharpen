@@ -65,7 +65,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70.OutVariables
             // that are different then its declaration and the usage in the out variable itself.
             // Those usage then appear either between the variable declaration and the out argument
             // or after the out argument.
-            var (numberOfUsagesBefreOutArgument, numberOfUsagesAfterOutArgument) = enclosingStatement
+            var (numberOfUsagesBeforeOutArgument, numberOfUsagesAfterOutArgument) = enclosingStatement
                 .DescendantNodes()
                 .OfType<IdentifierNameSyntax>()
                 .Where(identifier =>
@@ -80,7 +80,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70.OutVariables
                     identifier => identifier.Identifier.Span.IsAfter(outArgumentTextSpan)
                 );
 
-            return numberOfUsagesBefreOutArgument == 0 &&
+            return numberOfUsagesBeforeOutArgument == 0 &&
                    (
                        outArgumentCanBeDiscarded && numberOfUsagesAfterOutArgument == 0
                        ||
