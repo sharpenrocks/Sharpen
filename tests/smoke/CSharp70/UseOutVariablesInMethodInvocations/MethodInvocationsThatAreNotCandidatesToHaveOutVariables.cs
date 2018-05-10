@@ -1,6 +1,7 @@
 ﻿// ReSharper disable All
 
 using System;
+using System.Linq;
 
 namespace CSharp70.UseOutVariablesInMethodInvocations
 {
@@ -81,6 +82,37 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
         void Invocation02(bool input)
         {
             int j, l = 0;
+            Action a;
+            if (input)
+                a = () => OutClass.Method(0, out j, ref l);
+
+            j = 1;
+        }
+
+        void Invocation03()
+        {
+            int j, l = 0;
+            Console.WriteLine(l);
+            switch (l)
+            {
+                case 1:
+                {
+                    OutClass.Method(0, out j, ref l);
+                    j = 0;
+                    break;
+                }
+                case 2:
+                    j = 0;
+                    break;
+                default:
+                    j = 0;
+                    break;
+            }
+        }
+
+        void Invocation04(bool input)
+        {
+            int j, l = 0;
 
             {
                 OutClass.Method(0, out j, ref l);
@@ -89,7 +121,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
             j = 1;
         }
 
-        void Invocation03()
+        void Invocation05()
         {
             int j;
 
@@ -98,7 +130,18 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
             j = 1;
         }
 
-        void Invocation04()
+        void Invocation06()
+        {
+            int j;
+            Action a = () =>
+            {
+                { OutClass.Method(0, out j); }
+                j++;
+            };
+            a();
+        }
+
+        void Invocation07()
         {
             int j, l = 0;
             Console.WriteLine(l);
@@ -109,7 +152,41 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
             Console.WriteLine(j);
         }
 
-        void Invocation05()
+        void Invocation08()
+        {
+            int j, l = 0;
+            Console.WriteLine(l);
+            while (OutClass.Method(0, out j, ref l) == false)
+            {
+                j = 0;
+            }
+            Console.WriteLine(j);
+        }
+
+        void Invocation09(bool input)
+        {
+            int j, l = 0;
+            Console.WriteLine(l);
+            Action a;
+            while (input)
+                a = () => OutClass.Method(0, out j, ref l);
+        }
+
+        void Invocation10(bool input)
+        {
+            int j, l = 0;
+            Console.WriteLine(l);
+            while (input)
+            {
+                {
+                    OutClass.Method(0, out j, ref l);
+                }
+
+                j = 0;
+            }
+        }
+
+        void Invocation11()
         {
             int j, l = 0;
             Console.WriteLine(l);
@@ -121,7 +198,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
             Console.WriteLine(j);
         }
 
-        void Invocation06()
+        void Invocation12()
         {
             int j, l = 0;
             Console.WriteLine(l);
@@ -132,18 +209,53 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
             Console.WriteLine(j);
         }
 
-        void Invocation07()
+        void Invocation13()
         {
             int j, l = 0;
             Console.WriteLine(l);
-            for (; OutClass.Method(0, out j, ref l);)
+            for (; OutClass.Method(0, out j, ref l); )
             {
                 j = 0;
             }
             Console.WriteLine(j);
         }
 
-        void Invocation08()
+        void Invocation14()
+        {
+            int j, l = 0;
+            Console.WriteLine(l);
+            for (; OutClass.Method(0, out j, ref l); j++)
+            {
+                j = 0;
+            }
+            Console.WriteLine(j);
+        }
+
+        void Invocation15()
+        {
+            int j, l = 0;
+            Console.WriteLine(l);
+            for (bool b = false; b != true;)
+            {
+                {
+                    OutClass.Method(0, out j, ref l);
+                }
+
+                j = 0;
+            }
+        }
+
+        void Invocation16(bool input)
+        {
+            int j, l = 0;
+            Console.WriteLine(l);
+            for (; input; OutClass.Method(0, out j, ref l))
+            {
+                j = 0;
+            }
+        }
+
+        void Invocation17()
         {
             int j, l = 0;
             Console.WriteLine(l);
@@ -152,6 +264,20 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
                 j = 0;
             }
             Console.WriteLine(j);
+        }
+
+        void Invocation18()
+        {
+            int j, l = 0;
+            Console.WriteLine(l);
+            foreach (var o in Enumerable.Empty<object>())
+            {
+                {
+                    OutClass.EnumerableMethod<object>(out j);
+                }
+
+                j = 0;
+            }
         }
     }
 

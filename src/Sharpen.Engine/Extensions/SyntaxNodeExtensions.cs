@@ -1,9 +1,30 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.CodeAnalysis;
 
 namespace Sharpen.Engine.Extensions
 {
     internal static class SyntaxNodeExtensions
     {
+        public static bool IsAnyAncestorOfOrSelf<T>(this IEnumerable<T> syntaxNodes, SyntaxNode potentialDescendantNodeOrSelf, SyntaxNode searchUpToNode = null) where T : SyntaxNode
+        {
+            return syntaxNodes.Any(node => node.IsAncestorOfOrSelf(potentialDescendantNodeOrSelf, searchUpToNode));
+        }
+
+        public static bool IsAncestorOfOrSelf(this SyntaxNode syntaxNode, SyntaxNode potentialDescendantNodeOrSelf, SyntaxNode searchUpToNode = null)
+        {
+            if (syntaxNode == potentialDescendantNodeOrSelf) return true;
+
+            SyntaxNode currentNode = potentialDescendantNodeOrSelf.Parent;
+            while (currentNode != searchUpToNode)
+            {
+                if (currentNode == syntaxNode) return true;
+                currentNode = currentNode.Parent;
+            }
+
+            return false;
+        }
+
         public static TNode LastAncestorOrSelf<TNode>(this SyntaxNode syntaxNode) where TNode : SyntaxNode
         {
             TNode result = null;

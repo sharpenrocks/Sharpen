@@ -19,24 +19,24 @@ namespace Sharpen.Engine.Tests.Unit.SharpenSuggestions.CSharp70.OutVariables
         );
 
         [TestCase("int i; Call( out  i ); i = 0;", "Call( out  i )")]
-        [TestCase("int i; { Call( out  i ); } i = 0;", "Call( out  i )")]
-        [TestCase("int i; { { Call( out  i ); } } i = 0;", "Call( out  i )")]
-        [TestCase("int i; { { { Call( out  i ); } } } i = 0;", "Call( out  i )")]
+        [TestCase("int i; { Call( out  i );  i = 0; }", "Call( out  i )")]
+        [TestCase("int i; { { Call( out  i );  i = 0; } }", "Call( out  i )")]
+        [TestCase("int i; { { { Call( out  i );  i = 0; } } }", "Call( out  i )")]
 
         [TestCase("int i; int l; Call( out  i ); i = 0;", "Call( out  i )")]
-        [TestCase("int i; int l; { Call( out  i ); } i = 0;", "Call( out  i )")]
-        [TestCase("int i; int l; { { Call( out  i ); } } i = 0;", "Call( out  i )")]
-        [TestCase("int i; int l; { { { Call( out  i ); } } } i = 0;", "Call( out  i )")]
+        [TestCase("int i; int l; { Call( out  i );  i = 0; }", "Call( out  i )")]
+        [TestCase("int i; int l; { { Call( out  i );  i = 0; } }", "Call( out  i )")]
+        [TestCase("int i; int l; { { { Call( out  i );  i = 0; } } }", "Call( out  i )")]
 
         [TestCase("int i; int l = 0; Call( out  i ); i = 0;", "Call( out  i )")]
-        [TestCase("int i; int l = 0; { Call( out  i ); } i = 0;", "Call( out  i )")]
-        [TestCase("int i; int l = 0; { { Call( out  i ); } } i = 0;", "Call( out  i )")]
-        [TestCase("int i; int l = 0; { { { Call( out  i ); } } } i = 0;", "Call( out  i )")]
+        [TestCase("int i; int l = 0; { Call( out  i );  i = 0; }", "Call( out  i )")]
+        [TestCase("int i; int l = 0; { { Call( out  i );  i = 0; } }", "Call( out  i )")]
+        [TestCase("int i; int l = 0; { { { Call( out  i );  i = 0; } } }", "Call( out  i )")]
 
         [TestCase("int i; int l = 0; Call(l, out  i ); i = 0;", "Call(l, out  i )")]
-        [TestCase("int i; int l = 0; { Call(l, out  i ); } i = 0;", "Call(l, out  i )")]
-        [TestCase("int i; int l = 0; { { Call(l, out  i ); } } i = 0;", "Call(l, out  i )")]
-        [TestCase("int i; int l = 0; { { { Call(l, out  i ); } } } i = 0;", "Call(l, out  i )")]
+        [TestCase("int i; int l = 0; { Call(l, out  i );  i = 0; }", "Call(l, out  i )")]
+        [TestCase("int i; int l = 0; { { Call(l, out  i );  i = 0; } }", "Call(l, out  i )")]
+        [TestCase("int i; int l = 0; { { { Call(l, out  i );  i = 0; } } }", "Call(l, out  i )")]
 
         [TestCase("int i; if (Call( out  i )) {  i = 0; }", "Call( out  i )")]
         [TestCase("int i; if (Call( out  i )) { } i = 0;", "Call( out  i )")]
