@@ -31,6 +31,7 @@ namespace Sharpen.Engine
             UseExpressionBodyForLocalFunctions.Instance,
 
             UseOutVariablesInMethodInvocations.Instance,
+            UseOutVariablesInObjectCreations.Instance,
 
             // C# 7.1.
             UseDefaultExpressionInReturnStatements.Instance,

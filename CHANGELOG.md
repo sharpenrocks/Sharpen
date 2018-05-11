@@ -5,6 +5,7 @@ The format of the file is based on [Keep a Changelog](http://keepachangelog.com/
 
 ## [Unreleased]
 ### Added
+- "Use out variables in object creations" suggestion.
 - "Use expression body for local functions" suggestion.
 
 ## [0.3.0] - 2018-01-16

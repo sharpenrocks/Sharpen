@@ -229,6 +229,8 @@
     <Compile Include="Extensions\SyntaxNodeExtensions.cs" />
     <Compile Include="Extensions\TextSpanExtensions.cs" />
     <Compile Include="SharpenSuggestions\CSharp70\ExpressionBodiedMembers\UseExpressionBodyForLocalFunctions.cs" />
+    <Compile Include="SharpenSuggestions\CSharp70\OutVariables\BaseUseOutVariables.cs" />
+    <Compile Include="SharpenSuggestions\CSharp70\OutVariables\UseOutVariablesInObjectCreations.cs" />
     <Compile Include="SharpenSuggestions\CSharp70\OutVariables\UseOutVariablesInMethodInvocations.cs" />
     <Compile Include="SharpenSuggestions\CSharp71\DefaultExpressions\BaseUseDefaultExpressionInOptionalParameters.cs" />
     <Compile Include="SharpenSuggestions\CSharp71\DefaultExpressions\UseDefaultExpressionInOptionalConstructorParameters.cs" />

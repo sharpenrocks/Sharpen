@@ -68,9 +68,12 @@
     <Compile Include="UseExpressionBodyForGetAccessorsInProperties\GetAccessorsThatAreCandidatesToHaveExpressionBody.cs" />
     <Compile Include="UseExpressionBodyForGetAccessorsInProperties\GetAccessorsThatAreNotCandidatesToHaveExpressionBody.cs" />
     <Compile Include="UseExpressionBodyForGetAccessorsInProperties\EmptyGetAccessors.cs" />
+    <Compile Include="UseOutVariablesInObjectCreations\ObjectCreationsThatAreCandidatesToHaveOutVariables.cs" />
+    <Compile Include="UseOutVariablesInObjectCreations\ObjectCreationsThatAreNotCandidatesToHaveOutVariables.cs" />
+    <Compile Include="UseOutVariablesInObjectCreations\OutInConstructorsClass.cs" />
     <Compile Include="UseOutVariablesInMethodInvocations\MethodInvocationsThatAreNotCandidatesToHaveOutVariables.cs" />
     <Compile Include="UseOutVariablesInMethodInvocations\MethodInvocationsThatAreCandidatesToHaveOutVariables.cs" />
-    <Compile Include="UseOutVariablesInMethodInvocations\OutClass.cs" />
+    <Compile Include="UseOutVariablesInMethodInvocations\OutInMethodsClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

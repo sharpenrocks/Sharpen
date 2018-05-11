@@ -2,28 +2,28 @@
 
 using System;
 using System.Linq;
-using CSharp70.UseOutVariablesInObjectCreations;
+using CSharp70.UseOutVariablesInMethodInvocations;
 
-namespace CSharp70.UseOutVariablesInMethodInvocations
+namespace CSharp70.UseOutVariablesInObjectCreations
 {
-    public class MethodInvocationsThatAlreadyHaveOutVariables
+    public class ObjectCreationsThatAlreadyHaveOutVariables
     {
         void Invocation01()
         {
             int l = 0;
-            OutInMethodsClass.Method(0, out int j, ref l);
+            new OutInConstructorsClass(0, out int j, ref l);
         }
 
         void Invocation02()
         {
             int l = 0;
-            OutInMethodsClass.Method(0, out var j, ref l);
+            new OutInConstructorsClass(0, out var j, ref l);
         }
 
         void Invocation03()
         {
             int l = 0;
-            if (OutInMethodsClass.Method(0, out int j, ref l))
+            if (new OutInConstructorsClass(0, out int j, ref l).Bool)
             {
                 // ...
             }
@@ -32,7 +32,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
         void Invocation04()
         {
             int l = 0;
-            if (OutInMethodsClass.Method(0, out var j, ref l))
+            if (new OutInConstructorsClass(0, out var j, ref l).Bool)
             {
                 // ...
             }
@@ -41,7 +41,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
         void Invocation05()
         {
             int l = 0;
-            if (OutInMethodsClass.Method(0, out int j, ref l))
+            if (new OutInConstructorsClass(0, out int j, ref l).Bool)
             {
                 // ...
             }
@@ -54,7 +54,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
         void Invocation06()
         {
             int l = 0;
-            if (OutInMethodsClass.Method(0, out var j, ref l))
+            if (new OutInConstructorsClass(0, out var j, ref l).Bool)
             {
                 // ...
             }
@@ -65,14 +65,14 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
         }
     }
 
-    public class OutVariablesThatAreUsedOutOfTheScopeOfTheMethodCall
+    public class OutVariablesThatAreUsedOutOfTheScopeOfTheObjectCreation
     {
         void Invocation01(bool input)
         {
             int j, l = 0;
             if (input)
             {
-                OutInMethodsClass.Method(0, out j, ref l);
+                new OutInConstructorsClass(0, out j, ref l);
             }
             else
             {
@@ -85,7 +85,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
             int j, l = 0;
             Action a;
             if (input)
-                a = () => OutInMethodsClass.Method(0, out j, ref l);
+                a = () => new OutInConstructorsClass(0, out j, ref l);
 
             j = 1;
         }
@@ -98,7 +98,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
             {
                 case 1:
                 {
-                    OutInMethodsClass.Method(0, out j, ref l);
+                    new OutInConstructorsClass(0, out j, ref l);
                     j = 0;
                     break;
                 }
@@ -116,7 +116,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
             int j, l = 0;
 
             {
-                OutInMethodsClass.Method(0, out j, ref l);
+                new OutInConstructorsClass(0, out j, ref l);
             }
 
             j = 1;
@@ -126,7 +126,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
         {
             int j;
 
-            Func<int, bool> a = x => OutInMethodsClass.Method(0, out j);
+            Func<int, bool> a = x => new OutInConstructorsClass(0, out j).Bool;
 
             j = 1;
         }
@@ -136,7 +136,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
             int j;
             Action a = () =>
             {
-                { OutInMethodsClass.Method(0, out j); }
+                { new OutInConstructorsClass(0, out j); }
                 j++;
             };
             a();
@@ -146,7 +146,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
         {
             int j, l = 0;
             Console.WriteLine(l);
-            while (OutInMethodsClass.Method(0, out j, ref l))
+            while (new OutInConstructorsClass(0, out j, ref l).Bool)
             {
                 j = 0;
             }
@@ -157,7 +157,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
         {
             int j, l = 0;
             Console.WriteLine(l);
-            while (OutInMethodsClass.Method(0, out j, ref l) == false)
+            while (new OutInConstructorsClass(0, out j, ref l).Bool == false)
             {
                 j = 0;
             }
@@ -170,7 +170,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
             Console.WriteLine(l);
             Action a;
             while (input)
-                a = () => OutInMethodsClass.Method(0, out j, ref l);
+                a = () => new OutInConstructorsClass(0, out j, ref l);
         }
 
         void Invocation10(bool input)
@@ -180,7 +180,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
             while (input)
             {
                 {
-                    OutInMethodsClass.Method(0, out j, ref l);
+                    new OutInConstructorsClass(0, out j, ref l);
                 }
 
                 j = 0;
@@ -195,7 +195,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
             {
                 l = 0;
             }
-            while (OutInMethodsClass.Method(0, out j, ref l));
+            while (new OutInConstructorsClass(0, out j, ref l).Bool);
             Console.WriteLine(j);
         }
 
@@ -203,7 +203,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
         {
             int j, l = 0;
             Console.WriteLine(l);
-            for (bool b = OutInMethodsClass.Method(0, out j, ref l); b != true;)
+            for (bool b = new OutInConstructorsClass(0, out j, ref l).Bool; b != true;)
             {
                 j = 0;
             }
@@ -214,7 +214,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
         {
             int j, l = 0;
             Console.WriteLine(l);
-            for (; OutInMethodsClass.Method(0, out j, ref l); )
+            for (; new OutInConstructorsClass(0, out j, ref l).Bool; )
             {
                 j = 0;
             }
@@ -225,7 +225,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
         {
             int j, l = 0;
             Console.WriteLine(l);
-            for (; OutInMethodsClass.Method(0, out j, ref l); j++)
+            for (; new OutInConstructorsClass(0, out j, ref l).Bool; j++)
             {
                 j = 0;
             }
@@ -239,7 +239,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
             for (bool b = false; b != true;)
             {
                 {
-                    OutInMethodsClass.Method(0, out j, ref l);
+                    new OutInConstructorsClass(0, out j, ref l);
                 }
 
                 j = 0;
@@ -250,7 +250,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
         {
             int j, l = 0;
             Console.WriteLine(l);
-            for (; input; OutInMethodsClass.Method(0, out j, ref l))
+            for (; input; new OutInConstructorsClass(0, out j, ref l))
             {
                 j = 0;
             }
@@ -260,7 +260,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
         {
             int j, l = 0;
             Console.WriteLine(l);
-            foreach (var o in OutInMethodsClass.EnumerableMethod<object>(out j))
+            foreach (var o in new OutInConstructorsClass(0, out j, ref l).EnumerableMethod<object>(out j))
             {
                 j = 0;
             }
@@ -274,7 +274,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
             foreach (var o in Enumerable.Empty<object>())
             {
                 {
-                    OutInMethodsClass.EnumerableMethod<object>(out j);
+                    new OutInConstructorsClass(0, out j, ref l).EnumerableMethod<object>(out j);
                 }
 
                 j = 0;
@@ -286,17 +286,17 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
     {
         void Invocation01(out int j, ref int l)
         {
-            OutInMethodsClass.Method(0, out j, ref l);
+            new OutInConstructorsClass(0, out j, ref l);
         }
 
         void Invocation02(int j, ref int l)
         {
-            OutInMethodsClass.Method(0, out j, ref l);
+            new OutInConstructorsClass(0, out j, ref l);
         }
 
         void Invocation03()
         {
-            Func<int, bool> a = j => OutInMethodsClass.Method(0, out j);
+            Func<int, bool> a = j => new OutInConstructorsClass(0, out j).Bool;
         }
     }
 
@@ -306,7 +306,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
         {
             if (o is int j)
             {
-                OutInMethodsClass.Method(0, out j);
+                new OutInConstructorsClass(0, out j);
             }
         }
 
@@ -315,39 +315,39 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
             switch (o)
             {
                 case int j:
-                    OutInMethodsClass.Method(0, out j);
+                    new OutInConstructorsClass(0, out j);
                     break;
             }
         }
     }
 
-    public class OutVariablesThatAreUsedBeforePassingAsOutToTheMethod
+    public class OutVariablesThatAreUsedBeforePassingAsOutToTheConstructor
     {
         void Invocation01()
         {
             int j = 0;
-            OutInMethodsClass.Method(0, out j);
+            new OutInConstructorsClass(0, out j);
         }
 
         void Invocation02()
         {
             int j;
             j = 5;
-            OutInMethodsClass.Method(0, out j);
+            new OutInConstructorsClass(0, out j);
         }
 
         void Invocation03()
         {
             int j = 0;
             Console.WriteLine(j);
-            OutInMethodsClass.Method(0, out j);
+            new OutInConstructorsClass(0, out j);
         }
 
         void Invocation04()
         {
             int j;
-            OutInMethodsClass.Method(0, out j); // This one can be inlined.
-            OutInMethodsClass.Method(0, out j);
+            new OutInConstructorsClass(0, out j); // This one can be inlined.
+            new OutInConstructorsClass(0, out j);
         }
 
         void Invocation05()
@@ -355,7 +355,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
             int j;
             j = 5;
             {
-                OutInMethodsClass.Method(0, out j);
+                new OutInConstructorsClass(0, out j);
             }
         }
 
@@ -365,7 +365,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
             j = 5;
             {
                 {
-                    OutInMethodsClass.Method(0, out j);
+                    new OutInConstructorsClass(0, out j);
                 }
             }
         }
@@ -375,7 +375,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
             int j;
             {
                 j = 5;
-                OutInMethodsClass.Method(0, out j);
+                new OutInConstructorsClass(0, out j);
             }
         }
 
@@ -385,7 +385,7 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
             {
                 {
                     j = 5;
-                    OutInMethodsClass.Method(0, out j);
+                    new OutInConstructorsClass(0, out j);
                 }
             }
         }
@@ -393,16 +393,16 @@ namespace CSharp70.UseOutVariablesInMethodInvocations
         void Invocation09()
         {
             int j;
-            OutInMethodsClass.Method(out j, out j);
+            new OutInConstructorsClass(out j, out j);
         }
     }
 
-    public class OutVariablesThatAreUsedInObjectCreationsInsideOfMethodCalls
+    public class OutVariablesThatAreUsedInMethodInvocationsInsideOfConstructorCalls
     {
         void Invocation01()
         {
             int j;
-            OutInMethodsClass.Method(new OutInConstructorsClass(0, out j).Int);
+            new OutInConstructorsClass(OutInMethodsClass.MethodInt(0, out j));
         }
     }
 }
