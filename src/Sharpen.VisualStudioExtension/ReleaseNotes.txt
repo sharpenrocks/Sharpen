@@ -4,6 +4,14 @@ All notable changes to the "Sharpen" extension will be documented in this file.
 
 The format of the file is based on "Keep a Changelog" (http://keepachangelog.com/en/1.0.0/).
 
+[0.4.0] - 2018-05-12
+====================
+Added
+- "Discard out variables in object creations" suggestion.
+- "Discard out variables in method invocations" suggestion.
+- "Use out variables in object creations" suggestion.
+- "Use expression body for local functions" suggestion.
+
 [0.3.0] - 2018-01-16
 ====================
 Added
