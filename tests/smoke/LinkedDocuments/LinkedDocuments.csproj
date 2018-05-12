@@ -41,49 +41,49 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\CSharp60\UseExpressionBodyForGetOnlyIndexers\GetOnlyIndexersThatAlreadyHaveExpressionBody.cs">
+    <Compile Include="..\CSharp60\ExpressionBodiedMembers\UseExpressionBodyForGetOnlyIndexers\GetOnlyIndexersThatAlreadyHaveExpressionBody.cs">
       <Link>GetOnlyIndexersThatAlreadyHaveExpressionBody.cs</Link>
     </Compile>
-    <Compile Include="..\CSharp60\UseExpressionBodyForGetOnlyIndexers\GetOnlyIndexersThatAreCandidatesToHaveExpressionBody.cs">
+    <Compile Include="..\CSharp60\ExpressionBodiedMembers\UseExpressionBodyForGetOnlyIndexers\GetOnlyIndexersThatAreCandidatesToHaveExpressionBody.cs">
       <Link>GetOnlyIndexersThatAreCandidatesToHaveExpressionBody.cs</Link>
     </Compile>
-    <Compile Include="..\CSharp60\UseExpressionBodyForGetOnlyIndexers\GetOnlyIndexersThatAreNotCandidatesToHaveExpressionBody.cs">
+    <Compile Include="..\CSharp60\ExpressionBodiedMembers\UseExpressionBodyForGetOnlyIndexers\GetOnlyIndexersThatAreNotCandidatesToHaveExpressionBody.cs">
       <Link>GetOnlyIndexersThatAreNotCandidatesToHaveExpressionBody.cs</Link>
     </Compile>
-    <Compile Include="..\CSharp60\UseExpressionBodyForGetOnlyProperties\EmptyGetOnlyProperties.cs">
+    <Compile Include="..\CSharp60\ExpressionBodiedMembers\UseExpressionBodyForGetOnlyProperties\EmptyGetOnlyProperties.cs">
       <Link>LogicalFolder\EmptyGetOnlyProperties.cs</Link>
     </Compile>
-    <Compile Include="..\CSharp60\UseExpressionBodyForGetOnlyProperties\GetOnlyPropertiesThatAlreadyHaveExpressionBody.cs">
+    <Compile Include="..\CSharp60\ExpressionBodiedMembers\UseExpressionBodyForGetOnlyProperties\GetOnlyPropertiesThatAlreadyHaveExpressionBody.cs">
       <Link>LogicalFolder\GetOnlyPropertiesThatAlreadyHaveExpressionBody.cs</Link>
     </Compile>
-    <Compile Include="..\CSharp60\UseExpressionBodyForGetOnlyProperties\GetOnlyPropertiesThatAreCandidatesToHaveExpressionBody.cs">
+    <Compile Include="..\CSharp60\ExpressionBodiedMembers\UseExpressionBodyForGetOnlyProperties\GetOnlyPropertiesThatAreCandidatesToHaveExpressionBody.cs">
       <Link>LogicalFolder\GetOnlyPropertiesThatAreCandidatesToHaveExpressionBody.cs</Link>
     </Compile>
-    <Compile Include="..\CSharp60\UseExpressionBodyForGetOnlyProperties\GetOnlyPropertiesThatAreNotCandidatesToHaveExpressionBody.cs">
+    <Compile Include="..\CSharp60\ExpressionBodiedMembers\UseExpressionBodyForGetOnlyProperties\GetOnlyPropertiesThatAreNotCandidatesToHaveExpressionBody.cs">
       <Link>LogicalFolder\GetOnlyPropertiesThatAreNotCandidatesToHaveExpressionBody.cs</Link>
     </Compile>
-    <Compile Include="..\CSharp70\UseExpressionBodyForGetAccessorsInProperties\EmptyGetAccessors.cs">
+    <Compile Include="..\CSharp70\ExpressionBodiedMembers\UseExpressionBodyForGetAccessorsInProperties\EmptyGetAccessors.cs">
       <Link>LogicalFolder\LogicalSubFolder\EmptyGetAccessors.cs</Link>
     </Compile>
-    <Compile Include="..\CSharp70\UseExpressionBodyForGetAccessorsInProperties\GetAccessorsThatAlreadyHaveExpressionBody.cs">
+    <Compile Include="..\CSharp70\ExpressionBodiedMembers\UseExpressionBodyForGetAccessorsInProperties\GetAccessorsThatAlreadyHaveExpressionBody.cs">
       <Link>LogicalFolder\LogicalSubFolder\GetAccessorsThatAlreadyHaveExpressionBody.cs</Link>
     </Compile>
-    <Compile Include="..\CSharp70\UseExpressionBodyForGetAccessorsInProperties\GetAccessorsThatAreCandidatesToHaveExpressionBody.cs">
+    <Compile Include="..\CSharp70\ExpressionBodiedMembers\UseExpressionBodyForGetAccessorsInProperties\GetAccessorsThatAreCandidatesToHaveExpressionBody.cs">
       <Link>LogicalFolder\LogicalSubFolder\GetAccessorsThatAreCandidatesToHaveExpressionBody.cs</Link>
     </Compile>
-    <Compile Include="..\CSharp70\UseExpressionBodyForGetAccessorsInProperties\GetAccessorsThatAreNotCandidatesToHaveExpressionBody.cs">
+    <Compile Include="..\CSharp70\ExpressionBodiedMembers\UseExpressionBodyForGetAccessorsInProperties\GetAccessorsThatAreNotCandidatesToHaveExpressionBody.cs">
       <Link>LogicalFolder\LogicalSubFolder\GetAccessorsThatAreNotCandidatesToHaveExpressionBody.cs</Link>
     </Compile>
-    <Compile Include="..\CSharp70\UseExpressionBodyForSetAccessorsInProperties\EmptySetAccessors.cs">
+    <Compile Include="..\CSharp70\ExpressionBodiedMembers\UseExpressionBodyForSetAccessorsInProperties\EmptySetAccessors.cs">
       <Link>EmptySetAccessors.cs</Link>
     </Compile>
-    <Compile Include="..\CSharp70\UseExpressionBodyForSetAccessorsInProperties\SetAccessorsThatAlreadyHaveExpressionBody.cs">
+    <Compile Include="..\CSharp70\ExpressionBodiedMembers\UseExpressionBodyForSetAccessorsInProperties\SetAccessorsThatAlreadyHaveExpressionBody.cs">
       <Link>SetAccessorsThatAlreadyHaveExpressionBody.cs</Link>
     </Compile>
-    <Compile Include="..\CSharp70\UseExpressionBodyForSetAccessorsInProperties\SetAccessorsThatAreCandidatesToHaveExpressionBody.cs">
+    <Compile Include="..\CSharp70\ExpressionBodiedMembers\UseExpressionBodyForSetAccessorsInProperties\SetAccessorsThatAreCandidatesToHaveExpressionBody.cs">
       <Link>SetAccessorsThatAreCandidatesToHaveExpressionBody.cs</Link>
     </Compile>
-    <Compile Include="..\CSharp70\UseExpressionBodyForSetAccessorsInProperties\SetAccessorsThatAreNotCandidatesToHaveExpressionBody.cs">
+    <Compile Include="..\CSharp70\ExpressionBodiedMembers\UseExpressionBodyForSetAccessorsInProperties\SetAccessorsThatAreNotCandidatesToHaveExpressionBody.cs">
       <Link>SetAccessorsThatAreNotCandidatesToHaveExpressionBody.cs</Link>
     </Compile>
   </ItemGroup>

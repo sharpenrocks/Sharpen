@@ -43,13 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UseDefaultExpressionInOptionalConstructorParameters\OptionalConstructorParametersThatAlreadyUseDefaultExpresion.cs" />
-    <Compile Include="UseDefaultExpressionInOptionalConstructorParameters\OptionalConstructorParametersThatAreNotCandidatesToUseDefaultExpression.cs" />
-    <Compile Include="UseDefaultExpressionInOptionalConstructorParameters\OptionalConstructorParametersThatAreCandidatesToUseDefaultExpression.cs" />
-    <Compile Include="UseDefaultExpressionInOptionalMethodParameters\OptionalMethodParametersThatAlreadyUseDefaultExpression.cs" />
-    <Compile Include="UseDefaultExpressionInOptionalMethodParameters\OptionalMethodParametersThatAreNotCandidatesToUseDefaultExpression.cs" />
-    <Compile Include="UseDefaultExpressionInOptionalMethodParameters\OptionalMethodParametersThatAreCandidatesToUseDefaultExpression.cs" />
-    <Compile Include="UseDefaultExpressionInReturnStatements\ReturnStatementsThatAreCandidatesToUseDefaultExpression.cs" />
+    <Compile Include="DefaultExpressions\UseDefaultExpressionInOptionalConstructorParameters\OptionalConstructorParametersThatAlreadyUseDefaultExpresion.cs" />
+    <Compile Include="DefaultExpressions\UseDefaultExpressionInOptionalConstructorParameters\OptionalConstructorParametersThatAreNotCandidatesToUseDefaultExpression.cs" />
+    <Compile Include="DefaultExpressions\UseDefaultExpressionInOptionalConstructorParameters\OptionalConstructorParametersThatAreCandidatesToUseDefaultExpression.cs" />
+    <Compile Include="DefaultExpressions\UseDefaultExpressionInOptionalMethodParameters\OptionalMethodParametersThatAlreadyUseDefaultExpression.cs" />
+    <Compile Include="DefaultExpressions\UseDefaultExpressionInOptionalMethodParameters\OptionalMethodParametersThatAreNotCandidatesToUseDefaultExpression.cs" />
+    <Compile Include="DefaultExpressions\UseDefaultExpressionInOptionalMethodParameters\OptionalMethodParametersThatAreCandidatesToUseDefaultExpression.cs" />
+    <Compile Include="DefaultExpressions\UseDefaultExpressionInReturnStatements\ReturnStatementsThatAreCandidatesToUseDefaultExpression.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

@@ -42,13 +42,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UseExpressionBodyForGetOnlyIndexers\GetOnlyIndexersThatAlreadyHaveExpressionBody.cs" />
-    <Compile Include="UseExpressionBodyForGetOnlyIndexers\GetOnlyIndexersThatAreCandidatesToHaveExpressionBody.cs" />
-    <Compile Include="UseExpressionBodyForGetOnlyIndexers\GetOnlyIndexersThatAreNotCandidatesToHaveExpressionBody.cs" />
-    <Compile Include="UseExpressionBodyForGetOnlyProperties\EmptyGetOnlyProperties.cs" />
-    <Compile Include="UseExpressionBodyForGetOnlyProperties\GetOnlyPropertiesThatAlreadyHaveExpressionBody.cs" />
-    <Compile Include="UseExpressionBodyForGetOnlyProperties\GetOnlyPropertiesThatAreCandidatesToHaveExpressionBody.cs" />
-    <Compile Include="UseExpressionBodyForGetOnlyProperties\GetOnlyPropertiesThatAreNotCandidatesToHaveExpressionBody.cs" />
+    <Compile Include="ExpressionBodiedMembers\UseExpressionBodyForGetOnlyIndexers\GetOnlyIndexersThatAlreadyHaveExpressionBody.cs" />
+    <Compile Include="ExpressionBodiedMembers\UseExpressionBodyForGetOnlyIndexers\GetOnlyIndexersThatAreCandidatesToHaveExpressionBody.cs" />
+    <Compile Include="ExpressionBodiedMembers\UseExpressionBodyForGetOnlyIndexers\GetOnlyIndexersThatAreNotCandidatesToHaveExpressionBody.cs" />
+    <Compile Include="ExpressionBodiedMembers\UseExpressionBodyForGetOnlyProperties\EmptyGetOnlyProperties.cs" />
+    <Compile Include="ExpressionBodiedMembers\UseExpressionBodyForGetOnlyProperties\GetOnlyPropertiesThatAlreadyHaveExpressionBody.cs" />
+    <Compile Include="ExpressionBodiedMembers\UseExpressionBodyForGetOnlyProperties\GetOnlyPropertiesThatAreCandidatesToHaveExpressionBody.cs" />
+    <Compile Include="ExpressionBodiedMembers\UseExpressionBodyForGetOnlyProperties\GetOnlyPropertiesThatAreNotCandidatesToHaveExpressionBody.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
