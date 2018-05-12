@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DiscardOutVariablesInObjectCreations\ObjectCreationsThatAreCandidatesToDiscardOutVariables.cs" />
     <Compile Include="UseExpressionBodyForLocalFunctions\LocalFunctionsThatAlreadyHaveExpressionBody.cs" />
     <Compile Include="UseExpressionBodyForLocalFunctions\LocalFunctionsThatAreCandidatesToHaveExpressionBody.cs" />
     <Compile Include="UseExpressionBodyForLocalFunctions\LocalFunctionsThatAreNotCandidatesToHaveExpressionBody.cs" />

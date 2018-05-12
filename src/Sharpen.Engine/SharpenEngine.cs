@@ -33,6 +33,7 @@ namespace Sharpen.Engine
             UseOutVariablesInMethodInvocations.Instance,
             UseOutVariablesInObjectCreations.Instance,
             DiscardOutVariablesInMethodInvocations.Instance,
+            DiscardOutVariablesInObjectCreations.Instance,
 
             // C# 7.1.
             UseDefaultExpressionInReturnStatements.Instance,

@@ -5,6 +5,7 @@ The format of the file is based on [Keep a Changelog](http://keepachangelog.com/
 
 ## [Unreleased]
 ### Added
+- "Discard out variables in object creations" suggestion.
 - "Discard out variables in method invocations" suggestion.
 - "Use out variables in object creations" suggestion.
 - "Use expression body for local functions" suggestion.
