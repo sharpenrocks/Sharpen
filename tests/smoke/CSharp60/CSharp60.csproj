@@ -49,6 +49,16 @@
     <Compile Include="ExpressionBodiedMembers\UseExpressionBodyForGetOnlyProperties\GetOnlyPropertiesThatAlreadyHaveExpressionBody.cs" />
     <Compile Include="ExpressionBodiedMembers\UseExpressionBodyForGetOnlyProperties\GetOnlyPropertiesThatAreCandidatesToHaveExpressionBody.cs" />
     <Compile Include="ExpressionBodiedMembers\UseExpressionBodyForGetOnlyProperties\GetOnlyPropertiesThatAreNotCandidatesToHaveExpressionBody.cs" />
+    <Compile Include="NameofExpressions\UseNameofExpressionForThrowingArgumentExceptions\ArgumentExceptionsInMethodsThatAreCandidatesToUseNameofExpression.cs" />
+    <Compile Include="NameofExpressions\UseNameofExpressionForThrowingArgumentExceptions\ArgumentExceptionsInConstructorsThatAreCandidatesToUseNameofExpression.cs" />
+    <Compile Include="NameofExpressions\UseNameofExpressionForThrowingArgumentExceptions\ArgumentExceptionsInPropertiesThatAreCandidatesToUseNameofExpression.cs" />
+    <Compile Include="NameofExpressions\UseNameofExpressionForThrowingArgumentExceptions\ArgumentExceptionsInIndexersThatAreCandidatesToUseNameofExpression.cs" />
+    <Compile Include="NameofExpressions\UseNameofExpressionForThrowingArgumentExceptions\ArgumentExceptionsInSimpleLambdasThatAreCandidatesToUseNameofExpression.cs" />
+    <Compile Include="NameofExpressions\UseNameofExpressionForThrowingArgumentExceptions\ArgumentExceptionsInParenthesizedLambdasThatAreCandidatesToUseNameofExpression.cs" />
+    <Compile Include="NameofExpressions\UseNameofExpressionForThrowingArgumentExceptions\ArgumentExceptionsInAnonymousDelegatesThatAreCandidatesToUseNameofExpression.cs" />
+    <Compile Include="NameofExpressions\UseNameofExpressionForThrowingArgumentExceptions\ArgumentExceptionsThatAreNotCandidatesToUseNameofExpression.cs" />
+    <Compile Include="NameofExpressions\UseNameofExpressionForThrowingArgumentExceptions\ArgumentExceptionsInEventsThatAreCandidatesToUseNameofExpression.cs" />
+    <Compile Include="NameofExpressions\UseNameofExpressionForThrowingArgumentExceptions\SomeEnum.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

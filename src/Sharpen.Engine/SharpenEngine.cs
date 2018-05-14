@@ -7,6 +7,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.VisualStudio.LanguageServices;
 using Sharpen.Engine.Extensions;
 using Sharpen.Engine.SharpenSuggestions.CSharp60.ExpressionBodiedMembers;
+using Sharpen.Engine.SharpenSuggestions.CSharp60.NameofExpressions;
 using Sharpen.Engine.SharpenSuggestions.CSharp70.ExpressionBodiedMembers;
 using Sharpen.Engine.SharpenSuggestions.CSharp70.OutVariables;
 using Sharpen.Engine.SharpenSuggestions.CSharp71.DefaultExpressions;
@@ -20,6 +21,8 @@ namespace Sharpen.Engine
             // C# 6.0.
             UseExpressionBodyForGetOnlyProperties.Instance,
             UseExpressionBodyForGetOnlyIndexers.Instance,
+
+            UseNameofExpressionForThrowingArgumentExceptions.Instance,
 
             // C# 7.0.
             UseExpressionBodyForConstructors.Instance,
