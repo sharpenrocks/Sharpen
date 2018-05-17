@@ -79,15 +79,15 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70.OutVariables
             var enclosingExpression = GetEnclosingExpression();
             if (enclosingExpression == null) return false;
 
-            // 1. The out argument must be a local variable.
+            // 2. The out argument must be a local variable.
             var variableDeclarator = GetLocalVariableDeclaratorForOutArgument();
             if (variableDeclarator == null) return false;
 
-            // 2. If the local variable is initialized within the declaration, it means that it is used.
+            // 3. If the local variable is initialized within the declaration, it means that it is used.
             if (variableDeclarator.Initializer != null) return false;
 
 
-            // 3. The local variable must not be used before it is passed to the method/constructor as an out argument.
+            // 4. The local variable must not be used before it is passed to the method/constructor as an out argument.
             //    Also, if it is a requirement that the out argument can be discarded, it must not be used
             //    anywhere in code after the out argument.
 
@@ -127,7 +127,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70.OutVariables
 
             if (!localVariableCouldBecomeOutVariableOrDiscarded) return false;
 
-            // 4. If turned into out variable, the local variable identifier still has the
+            // 5. If turned into out variable, the local variable identifier still has the
             //    scope that contains all of the usages of that identifier that originally
             //    appear in the code after the out variable declaration.
 
