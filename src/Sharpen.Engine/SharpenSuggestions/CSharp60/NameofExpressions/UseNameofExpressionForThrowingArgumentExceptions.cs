@@ -45,7 +45,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp60.NameofExpressions
 
         public IEnumerable<AnalysisResult> Analyze(SyntaxTree syntaxTree, SemanticModel semanticModel, SingleSyntaxTreeAnalysisContext analysisContext)
         {
-            var x = syntaxTree.GetRoot()
+            return syntaxTree.GetRoot()
                 .DescendantNodes()
                 .OfType<ThrowStatementSyntax>()
                 .Select(@throw => new
@@ -62,9 +62,6 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp60.NameofExpressions
                     @throw.ParameterNameArgument.GetFirstToken(),
                     @throw.ThrowStatement.Expression
                 ));
-
-
-            return x;
 
             ArgumentSyntax GetParameterNameArgumentIfThrowThrowsArgumentExceptionWithProperParameterName(ThrowStatementSyntax throwStatementSyntax)
             {
