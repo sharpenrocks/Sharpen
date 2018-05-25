@@ -1,10 +1,12 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using System;
+using Microsoft.CodeAnalysis;
 
 namespace Sharpen.Engine
 {
     public class AnalysisResult
     {
         private readonly SyntaxNode displayTextNode;
+        private readonly Func<SyntaxNode, string> getDisplayText;
         private string displayText;
 
         public ISharpenSuggestion Suggestion { get; }
@@ -18,15 +20,20 @@ namespace Sharpen.Engine
         public FileLinePositionSpan Position { get; }
 
         internal AnalysisResult(ISharpenSuggestion suggestion, SingleSyntaxTreeAnalysisContext analysisContext, string filePath, SyntaxToken startingToken, SyntaxNode displayTextNode)
+            : this(suggestion, analysisContext, filePath, startingToken, displayTextNode, Engine.DisplayText.For)
         {
-            this.displayTextNode = displayTextNode;
+        }
 
+        internal AnalysisResult(ISharpenSuggestion suggestion, SingleSyntaxTreeAnalysisContext analysisContext, string filePath, SyntaxToken startingToken, SyntaxNode displayTextNode, Func<SyntaxNode, string> getDisplayText)
+        {
             Suggestion = suggestion;
             AnalysisContext = analysisContext;
-            FilePath = filePath;            
+            FilePath = filePath;
+            this.displayTextNode = displayTextNode;
+            this.getDisplayText = getDisplayText;
             Position = startingToken.GetLocation().GetLineSpan();
         }
 
-        public string DisplayText => displayText ?? (displayText = Engine.DisplayText.For(displayTextNode));
+        public string DisplayText => displayText ?? (displayText = getDisplayText(displayTextNode));
     }
 }
