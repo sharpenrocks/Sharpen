@@ -23,6 +23,7 @@ namespace Sharpen.Engine
             UseExpressionBodyForGetOnlyIndexers.Instance,
 
             UseNameofExpressionForThrowingArgumentExceptions.Instance,
+            UseNameofExpressionInDependencyPropertyDeclarations.Instance,
 
             // C# 7.0.
             UseExpressionBodyForConstructors.Instance,

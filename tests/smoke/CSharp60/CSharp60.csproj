@@ -32,6 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,6 +42,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExpressionBodiedMembers\UseExpressionBodyForGetOnlyIndexers\GetOnlyIndexersThatAlreadyHaveExpressionBody.cs" />
@@ -59,6 +62,10 @@
     <Compile Include="NameofExpressions\UseNameofExpressionForThrowingArgumentExceptions\ArgumentExceptionsThatAreNotCandidatesToUseNameofExpression.cs" />
     <Compile Include="NameofExpressions\UseNameofExpressionForThrowingArgumentExceptions\ArgumentExceptionsInEventsThatAreCandidatesToUseNameofExpression.cs" />
     <Compile Include="NameofExpressions\UseNameofExpressionForThrowingArgumentExceptions\SomeEnum.cs" />
+    <Compile Include="NameofExpressions\UseNameofExpressionInDependencyPropertyDeclarations\DependencyPropertyDeclarationsInConstructorThatAreCandidatesToUseNameofExpression.cs" />
+    <Compile Include="NameofExpressions\UseNameofExpressionInDependencyPropertyDeclarations\DependencyPropertyDeclarationsThatAreNotCandidatesToUseNameofExpression.cs" />
+    <Compile Include="NameofExpressions\UseNameofExpressionInDependencyPropertyDeclarations\DependencyPropertyDeclarationsInSingleFieldDeclarationThatAreCandidatesToUseNameofExpression.cs" />
+    <Compile Include="NameofExpressions\UseNameofExpressionInDependencyPropertyDeclarations\DependencyPropertyDeclarationsInFieldsDeclarationsThatAreCandidatesToUseNameofExpression.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
