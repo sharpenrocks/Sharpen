@@ -1,6 +1,7 @@
 ﻿using System;
+using Microsoft.CodeAnalysis;
 using Microsoft.VisualStudio.Shell;
-using Task = System.Threading.Tasks.Task;
+using Sharpen.Engine.Analysis;
 
 namespace Sharpen.VisualStudioExtension.Commands
 {
@@ -16,10 +17,11 @@ namespace Sharpen.VisualStudioExtension.Commands
             Instance = new AnalyzeSelectedProjectsCommand(package, sharpenExtensionService);
         }
 
-        protected override async Task ExecuteAnalysisAsync()
+        protected override IScopeAnalyzer GetScopeAnalyzer()
         {
-            UserInteraction.ShowInformation("Analyzing selected projects is currently not implemented.");
-            await Task.CompletedTask;
+            // TODO-IG: Display project selection dialog here one day.
+            // TODO-IG: Return null if the dialog result is not OK (Cancel button clicked, dialog closed on X, etc.).
+            return new MultipleProjectsScopeAnalyzer(new Project[0]);
         }
     }
 }

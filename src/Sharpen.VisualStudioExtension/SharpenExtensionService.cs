@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using Microsoft.VisualStudio.LanguageServices;
 using Sharpen.Engine;
+using Sharpen.Engine.Analysis;
 using Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewBuilders;
 using Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems;
 using Task = System.Threading.Tasks.Task;
@@ -14,11 +14,8 @@ namespace Sharpen.VisualStudioExtension
     // TODO-IG: Find the best patterns for dependency injection and mediation in VS Extensions. Until then, this is going to be our Singleton God Object. Scary.
     internal sealed class SharpenExtensionService : INotifyPropertyChanged
     {
-        private readonly SharpenEngine sharpenEngine;
-
-        private SharpenExtensionService(SharpenEngine sharpenEngine)
+        private SharpenExtensionService()
         {
-            this.sharpenEngine = sharpenEngine;
             AnalysisResults = Enumerable.Empty<BaseTreeViewItem>();
         }
 
@@ -73,21 +70,22 @@ namespace Sharpen.VisualStudioExtension
             return treeViewBuilder.BuildRootTreeViewItems();
         }
 
+        // TODO-IG: Explore the best practices. Implement proper dependency injection.
         public static SharpenExtensionService Instance { get; private set; }
 
-        public static void CreateSingleInstance(SharpenEngine sharpenEngine)
+        public static void CreateSingleInstance()
         {
-            Instance = new SharpenExtensionService(sharpenEngine);
+            Instance = new SharpenExtensionService();
         }
 
-        public async Task RunSolutionAnalysisAsync(VisualStudioWorkspace visualStudioWorkspace)
+        public async Task RunScopeAnalysisAsync(IScopeAnalyzer scopeAnalyzer)
         {
             if (AnalysisIsRunning)
                 throw new InvalidOperationException("An analysis is already running. You cannot run a new analysis until the current one is not finished.");
 
             AnalysisResults = Enumerable.Empty<BaseTreeViewItem>();
 
-            AnalysisMaximumProgress = sharpenEngine.GetAnalysisMaximumProgress(visualStudioWorkspace);
+            AnalysisMaximumProgress = scopeAnalyzer.GetAnalysisMaximumProgress();
             AnalysisCurrentProgress = 0;
 
             var progress = new Progress<int>();
@@ -95,7 +93,7 @@ namespace Sharpen.VisualStudioExtension
 
             AnalysisIsRunning = true;
 
-            var analysisResult = await sharpenEngine.AnalyzeAsync(visualStudioWorkspace, progress);
+            var analysisResult = await scopeAnalyzer.AnalyzeScopeAsync(progress);
             AnalysisResults = CreateAnalysisResultsTreeViewItemsFrom(analysisResult);
 
             AnalysisMaximumProgress = 0;

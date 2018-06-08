@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.Shell;
-using Sharpen.Engine.Extensions;
+using Sharpen.Engine.Analysis;
 using Task = System.Threading.Tasks.Task;
 
 namespace Sharpen.VisualStudioExtension.Commands
@@ -17,24 +17,30 @@ namespace Sharpen.VisualStudioExtension.Commands
 
         protected override async Task OnExecuteAsync()
         {
-            if (!Workspace.IsSolutionOpen())
+            if (SharpenExtensionService.AnalysisIsRunning)
             {
-                UserInteraction.ShowInformation("There is no solution open. To start code analysis, open a solution that contains at least one C# project.");
+                UserInteraction.ShowInformation($"An analysis is already running.{Environment.NewLine}{Environment.NewLine}" +
+                                                "You have to wait until the current analysis is done, before starting a new one.");
                 return;
             }
 
-            if (SharpenExtensionService.AnalysisIsRunning)
+            var scopeAnalyzer = GetScopeAnalyzer();
+
+            if (scopeAnalyzer == null) return;
+
+            if (!scopeAnalyzer.CanExecuteScopeAnalysis(out string errorMessage))
             {
-                UserInteraction.ShowInformation($"An analysis is already running.{Environment.NewLine}" +
-                                                "You have to wait until the current analysis is done, before starting a new one.");
+                UserInteraction.ShowInformation(errorMessage);
                 return;
             }
 
             await ShowSharpenResultsToolWindowAsync();
 
-            await ExecuteAnalysisAsync();
+            await SharpenExtensionService.RunScopeAnalysisAsync(scopeAnalyzer);
         }
 
-        protected abstract Task ExecuteAnalysisAsync();
+        // Derived classes can cancel analysis without any additional message displayed to the
+        // user by returning null here.
+        protected abstract IScopeAnalyzer GetScopeAnalyzer();
     }
 }

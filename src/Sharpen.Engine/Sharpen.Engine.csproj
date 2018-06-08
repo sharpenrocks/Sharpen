@@ -214,6 +214,11 @@
     <Compile Include="..\AssemblyInfo.Common.cs">
       <Link>Properties\AssemblyInfo.Common.cs</Link>
     </Compile>
+    <Compile Include="Analysis\BaseScopeAnalyzer.cs" />
+    <Compile Include="Analysis\IScopeAnalyzer.cs" />
+    <Compile Include="Analysis\SharpenSuggestionsHolder.cs" />
+    <Compile Include="Analysis\MultipleProjectsScopeAnalyzer.cs" />
+    <Compile Include="Analysis\SolutionScopeAnalyzer.cs" />
     <Compile Include="CSharpFeatures\NameofExpressions.cs" />
     <Compile Include="CSharpFeatures\DefaultExpressions.cs" />
     <Compile Include="CSharpFeatures\OutVariables.cs" />
@@ -235,7 +240,7 @@
     <Compile Include="SharpenSuggestions\CSharp71\DefaultExpressions\UseDefaultExpressionInOptionalConstructorParameters.cs" />
     <Compile Include="SharpenSuggestions\CSharp71\DefaultExpressions\UseDefaultExpressionInOptionalMethodParameters.cs" />
     <Compile Include="SharpenSuggestions\CSharp71\DefaultExpressions\UseDefaultExpressionInReturnStatements.cs" />
-    <Compile Include="SingleSyntaxTreeAnalysisContext.cs" />
+    <Compile Include="Analysis\SingleSyntaxTreeAnalysisContext.cs" />
     <Compile Include="AnalysisResult.cs" />
     <Compile Include="CSharpFeatures\ExpressionBodiedMembers.cs" />
     <Compile Include="CSharpLanguageVersion.cs" />
@@ -243,9 +248,8 @@
     <Compile Include="Extensions\VisualStudioWorkspaceExtensions.cs" />
     <Compile Include="ISharpenSuggestion.cs" />
     <Compile Include="ICSharpFeature.cs" />
-    <Compile Include="ISingleSyntaxTreeAnalyzer.cs" />
+    <Compile Include="Analysis\ISingleSyntaxTreeAnalyzer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SharpenEngine.cs" />
     <Compile Include="SharpenSuggestions\CSharp60\ExpressionBodiedMembers\BaseUseExpressionBodyForGetOnlyMembers.cs" />
     <Compile Include="SharpenSuggestions\CSharp60\ExpressionBodiedMembers\UseExpressionBodyForGetOnlyIndexers.cs" />
     <Compile Include="SharpenSuggestions\CSharp60\ExpressionBodiedMembers\UseExpressionBodyForGetOnlyProperties.cs" />

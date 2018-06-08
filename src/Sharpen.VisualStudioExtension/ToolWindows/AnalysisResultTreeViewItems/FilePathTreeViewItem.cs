@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using Sharpen.Engine;
+using Sharpen.Engine.Analysis;
 using Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewBuilders;
 
 namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems

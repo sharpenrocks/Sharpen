@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.CodeAnalysis;
+using Sharpen.Engine.Analysis;
 
 namespace Sharpen.Engine
 {

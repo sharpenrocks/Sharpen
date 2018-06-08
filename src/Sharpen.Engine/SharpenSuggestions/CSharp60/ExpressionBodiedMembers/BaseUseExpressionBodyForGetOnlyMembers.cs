@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Sharpen.Engine.Analysis;
 
 namespace Sharpen.Engine.SharpenSuggestions.CSharp60.ExpressionBodiedMembers
 {

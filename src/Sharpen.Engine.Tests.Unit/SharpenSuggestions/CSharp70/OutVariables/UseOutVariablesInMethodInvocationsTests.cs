@@ -2,6 +2,7 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using NUnit.Framework;
+using Sharpen.Engine.Analysis;
 using Sharpen.Engine.SharpenSuggestions.CSharp70.OutVariables;
 
 namespace Sharpen.Engine.Tests.Unit.SharpenSuggestions.CSharp70.OutVariables

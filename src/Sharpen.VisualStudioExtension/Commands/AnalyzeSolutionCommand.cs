@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.Shell;
-using Task = System.Threading.Tasks.Task;
+using Sharpen.Engine.Analysis;
 
 namespace Sharpen.VisualStudioExtension.Commands
 {
@@ -16,9 +16,9 @@ namespace Sharpen.VisualStudioExtension.Commands
             Instance = new AnalyzeSolutionCommand(package, sharpenExtensionService);
         }
 
-        protected override Task ExecuteAnalysisAsync()
+        protected override IScopeAnalyzer GetScopeAnalyzer()
         {
-            return SharpenExtensionService.RunSolutionAnalysisAsync(Workspace);
+            return new SolutionScopeAnalyzer(Workspace.CurrentSolution);
         }
     }
 }

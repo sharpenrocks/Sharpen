@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
-using Sharpen.Engine;
 using Sharpen.VisualStudioExtension.Commands;
 using Sharpen.VisualStudioExtension.ToolWindows;
 
@@ -19,8 +18,7 @@ namespace Sharpen.VisualStudioExtension
 
         protected override void Initialize()
         {
-            var sharpenEngine = new SharpenEngine();
-            SharpenExtensionService.CreateSingleInstance(sharpenEngine);
+            SharpenExtensionService.CreateSingleInstance();
 
             AnalyzeSolutionCommand.Initialize(this, SharpenExtensionService.Instance);
             AnalyzeSelectedProjectsCommand.Initialize(this, SharpenExtensionService.Instance);
