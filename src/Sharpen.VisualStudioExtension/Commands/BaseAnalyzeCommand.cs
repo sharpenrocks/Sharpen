@@ -5,8 +5,8 @@ using Task = System.Threading.Tasks.Task;
 
 namespace Sharpen.VisualStudioExtension.Commands
 {
-    internal abstract class BaseAnalyzeCommand<TAnalyseCommand> : BaseSharpenCommand<TAnalyseCommand>
-        where TAnalyseCommand : BaseSharpenCommand<TAnalyseCommand>
+    internal abstract class BaseAnalyzeCommand<TAnalyzeCommand> : BaseSharpenCommand<TAnalyzeCommand>
+        where TAnalyzeCommand : BaseSharpenCommand<TAnalyzeCommand>
     {
         protected SharpenExtensionService SharpenExtensionService { get; }
 

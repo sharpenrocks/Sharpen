@@ -47,8 +47,8 @@ namespace Sharpen.Engine
 
         // We want to avoid creation of a huge number of temporary Action objects
         // while invoking Parallel.Invoke().
-        // That's why we precreate these Action objects and at the beginning of the
-        // analysis create just once out of them Actions that are really used in
+        // That's why we create these Action objects in advance and at the beginning
+        // of the analysis create just once out of them Actions that are really used in
         // the Parallel.Invoke().
         private static Action<SyntaxTree, SemanticModel, SingleSyntaxTreeAnalysisContext, ConcurrentBag<AnalysisResult>>[] AnalyzeSingleSyntaxTreeAndCollectResultsActions { get; } =
             Suggestions
@@ -70,7 +70,7 @@ namespace Sharpen.Engine
             // Therefore, here we just have to count the documents using exactly the same filters
             // as in the AnalyzeSingleSyntaxTreesAsync().
             // BDW, the reuse of the filters in calculating the Analysis Maximum Progress and
-            // in the analysis itself is the reason for the existinace of the two
+            // in the analysis itself is the reason for the existence of the two
             // ...Satisfies...Filter() methods.
             return visualStudioWorkspace
                 .CurrentSolution
@@ -92,7 +92,7 @@ namespace Sharpen.Engine
             SemanticModel semanticModel = null;
             SingleSyntaxTreeAnalysisContext analysisContext = null;
 
-            var analyseSyntaxTreeActions = AnalyzeSingleSyntaxTreeAndCollectResultsActions
+            var analyzeSyntaxTreeActions = AnalyzeSingleSyntaxTreeAndCollectResultsActions
                 // We intentionally access the modified closure here (syntaxTree, semanticModel, analysisContext),
                 // because we want to avoid creation of a huge number of temporary Action objects.
 
@@ -113,7 +113,8 @@ namespace Sharpen.Engine
                     semanticModel = await document.GetSemanticModelAsync();
 
                     // Each of the actions will operate on the same (current) syntaxTree.
-                    Parallel.Invoke(analyseSyntaxTreeActions);
+                    Parallel.Invoke(analyzeSyntaxTreeActions);
+
                     progress.Report(++progressCounter);
                 }
             }

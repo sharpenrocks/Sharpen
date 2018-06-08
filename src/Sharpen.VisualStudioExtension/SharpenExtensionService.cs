@@ -11,7 +11,7 @@ using Task = System.Threading.Tasks.Task;
 
 namespace Sharpen.VisualStudioExtension
 {
-    // TODO-IG: Find the best patterns for dependency injection and mediation in VS Extensions. Until then, this is going to be our Singleton God Object. Scarry.
+    // TODO-IG: Find the best patterns for dependency injection and mediation in VS Extensions. Until then, this is going to be our Singleton God Object. Scary.
     internal sealed class SharpenExtensionService : INotifyPropertyChanged
     {
         private readonly SharpenEngine sharpenEngine;

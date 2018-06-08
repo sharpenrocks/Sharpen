@@ -115,7 +115,7 @@ namespace Sharpen.Engine.Extensions
             return result;
         }
 
-        public static SyntaxNode PrecedingSyblingOrSelf(this SyntaxNode syntaxNode)
+        public static SyntaxNode PrecedingSiblingOrSelf(this SyntaxNode syntaxNode)
         {
             if (syntaxNode.Parent == null) return syntaxNode;
 
