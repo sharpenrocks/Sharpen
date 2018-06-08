@@ -12,3 +12,10 @@ The `GeneratedDocuments` project contains some faked "generated" documents. Thes
 
 ### LinkedDocuments
 The `LinkedDocuments` project contains only the files which exist in other projects and are added to the `LinkedDocuments` project by using the *Add As Link* option. The goal is to smoke-test if those files will properly appear in the Sharpen Result window. They have to appear under the `LinkedDocuments` project and at the same time under their "real" projects, but in both cases with the proper logical path which must not necessary be the same as the corresponding file path on the disk.
+
+### EmptyCSharpProject[Number]
+Projects named `EmptyCSharpProject[Number]` are empty C# projects used to smoke test the corner cases. For example, the `EmptyCSharpProjects.sln` solution that contains only those projects cannot be analyzed because the analysis requires C# projects with C# files that can be analyzed.
+
+### VisualBasicProject[Number]
+Projects named `VisualBasicProject[Number]` are VB.NET  projects used to smoke test the corner cases. For example, the `VisualBasicsProjects.sln` solution that contains only those projects cannot be analyzed because the analysis requires C# projects.
+
