@@ -89,7 +89,7 @@ namespace Sharpen.Engine.Analysis
         // This iteration redundancy is not a performance issue.
         protected abstract IEnumerable<Document> GetDocumentsToAnalyze();
 
-        protected static bool ProjectCanBeAnalyzed(Project project)
+        protected static bool ProjectIsCSharpProject(Project project)
         {
             return project.Language == "C#";
         }

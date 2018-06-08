@@ -23,9 +23,9 @@ namespace Sharpen.Engine.Analysis
             //    return "There are no projects selected.";
             //}
             //
-            //if (!projects.Any(ProjectCanBeAnalyzed))
+            //if (!projects.Any(ProjectIsCSharpProject))
             //{
-            //    return "The selected projects do not contain any C# project that can be analyzed.";
+            //    return "The selected projects do not contain any C# projects.";
             //}
             //
             //if (!projects.SelectMany(project => project.Documents).Any(DocumentCanBeAnalyzed))
@@ -46,7 +46,7 @@ namespace Sharpen.Engine.Analysis
             if (!projects.Any()) return Enumerable.Empty<Document>();
 
             return projects
-                .Where(ProjectCanBeAnalyzed)
+                .Where(ProjectIsCSharpProject)
                 .SelectMany(project => project.Documents)
                 .Where(DocumentCanBeAnalyzed);
         }
