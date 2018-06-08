@@ -101,6 +101,15 @@ namespace Sharpen.Engine
                 // ReSharper restore AccessToModifiedClosure
                 .ToArray();
 
+            // Same here. We want to have just a single Action object created and called many times.
+            // We intentionally do not want to use a local function here. Although its usage would be
+            // semantically nicer and create exactly the same closure as the below Action, the fact that
+            // we need to convert that local function to Action in the Task.Run() call means we would
+            // end up in creating an additional Action object for every pass in the loop, and that's
+            // exactly what we want to avoid.
+            // ReSharper disable once ConvertToLocalFunction
+            Action analyzeSyntaxTreeInParallel = () => Parallel.Invoke(analyzeSyntaxTreeActions);
+
             // WARNING: Keep the progress counter in sync with the logic behind the calculation of the maximum progress!
             int progressCounter = 0;
             foreach (var project in visualStudioWorkspace.CurrentSolution.Projects.Where(ProjectSatisfiesProjectFilter))
@@ -112,8 +121,8 @@ namespace Sharpen.Engine
                     syntaxTree = await document.GetSyntaxTreeAsync().ConfigureAwait(false);
                     semanticModel = await document.GetSemanticModelAsync();
 
-                    // Each of the actions will operate on the same (current) syntaxTree.
-                    Parallel.Invoke(analyzeSyntaxTreeActions);
+                    // Each of the actions (analysis) will operate on the same (current) syntaxTree and semanticModel.
+                    await Task.Run(analyzeSyntaxTreeInParallel);
 
                     progress.Report(++progressCounter);
                 }

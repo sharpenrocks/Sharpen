@@ -2,6 +2,11 @@
 All notable changes to the "Sharpen" extension will be documented in this file.
 
 The format of the file is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
+
+## [Unreleased]
+### Fixed
+- Consecutive analysis runs fully block Visual Studio (#15).
+
 ## [0.5.0] - 2018-05-25
 ### Added
 - "Use nameof expression in dependency property declarations" suggestion.
