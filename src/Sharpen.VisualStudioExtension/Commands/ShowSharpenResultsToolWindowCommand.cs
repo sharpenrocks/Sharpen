@@ -16,10 +16,9 @@ namespace Sharpen.VisualStudioExtension.Commands
             Instance = new ShowSharpenResultsToolWindowCommand(package);
         }
 
-        protected override Task OnExecuteAsync()
+        protected override async Task OnExecuteAsync()
         {
-            ShowSharpenResultsToolWindow();
-            return Task.CompletedTask;
+            await ShowSharpenResultsToolWindowAsync();
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Sharpen.VisualStudioExtension.Commands
                 return;
             }
 
-            ShowSharpenResultsToolWindow();
+            await ShowSharpenResultsToolWindowAsync();
 
             await ExecuteAnalysisAsync();
         }

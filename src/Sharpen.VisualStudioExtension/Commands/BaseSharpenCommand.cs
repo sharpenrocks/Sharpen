@@ -31,12 +31,13 @@ namespace Sharpen.VisualStudioExtension.Commands
             commandService.AddCommand(menuItem);
         }
 
-        protected void ShowSharpenResultsToolWindow()
+        protected async Task ShowSharpenResultsToolWindowAsync()
         {
             ToolWindowPane window = Package.FindToolWindow(typeof(SharpenResultsToolWindow), 0, true);
             if (window?.Frame == null)
                 throw new NotSupportedException($"Cannot create the '{typeof(SharpenResultsToolWindow)}' tool window.");
 
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
             var windowFrame = (IVsWindowFrame)window.Frame;
             Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
         }
