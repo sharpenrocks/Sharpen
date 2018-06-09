@@ -28,7 +28,7 @@ namespace Sharpen.Engine.Analysis
 
         public bool CanExecuteScopeAnalysis(out string errorMessage)
         {
-            errorMessage = BuildCanExecuteScopeAnalysisErrorMessage();
+            errorMessage = GetCanExecuteScopeAnalysisErrorMessage();
 
             if (errorMessage != null && !string.IsNullOrWhiteSpace(ScopeAnalysisHelpMessage))
                 errorMessage += $"{Environment.NewLine}{Environment.NewLine}{ScopeAnalysisHelpMessage}";
@@ -36,7 +36,7 @@ namespace Sharpen.Engine.Analysis
             return errorMessage == null;
         }
 
-        protected abstract string BuildCanExecuteScopeAnalysisErrorMessage();
+        protected abstract string GetCanExecuteScopeAnalysisErrorMessage();
         protected abstract string ScopeAnalysisHelpMessage { get; }
 
         public int GetAnalysisMaximumProgress() => GetDocumentsToAnalyze().Count();

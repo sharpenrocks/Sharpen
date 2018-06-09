@@ -13,7 +13,7 @@ namespace Sharpen.Engine.Analysis
             this.projects = projects;
         }
 
-        protected override string BuildCanExecuteScopeAnalysisErrorMessage()
+        protected override string GetCanExecuteScopeAnalysisErrorMessage()
         {
             // TODO-IG: Uncomment the commented code as soon as the analysis of multiple projects is implemented.
             return "Analyzing selected projects is currently not implemented.";

@@ -16,7 +16,7 @@ namespace Sharpen.Engine.Analysis
             this.documents = documents;
         }
 
-        protected override string BuildCanExecuteScopeAnalysisErrorMessage()
+        protected override string GetCanExecuteScopeAnalysisErrorMessage()
         {
             if (documents == null || documents.Length <= 0)
             {

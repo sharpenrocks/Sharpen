@@ -13,7 +13,7 @@ namespace Sharpen.Engine.Analysis
             this.solution = solution;
         }
 
-        protected override string BuildCanExecuteScopeAnalysisErrorMessage()
+        protected override string GetCanExecuteScopeAnalysisErrorMessage()
         {
             if (solution?.FilePath == null)
             {
