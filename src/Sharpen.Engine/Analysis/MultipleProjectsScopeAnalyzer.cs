@@ -18,8 +18,7 @@ namespace Sharpen.Engine.Analysis
             // TODO-IG: Uncomment the commented code as soon as the analysis of multiple projects is implemented.
             return "Analyzing selected projects is currently not implemented.";
 
-            // TODO-IG: Add null check.
-            //if (projects.Length <= 0)
+            //if (projects == null || projects.Length <= 0)
             //{
             //    return "There are no projects selected.";
             //}

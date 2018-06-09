@@ -216,6 +216,7 @@
     </Compile>
     <Compile Include="Analysis\BaseScopeAnalyzer.cs" />
     <Compile Include="Analysis\IScopeAnalyzer.cs" />
+    <Compile Include="Analysis\MultipleDocumentsScopeAnalyzer.cs" />
     <Compile Include="Analysis\SharpenSuggestionsHolder.cs" />
     <Compile Include="Analysis\MultipleProjectsScopeAnalyzer.cs" />
     <Compile Include="Analysis\SolutionScopeAnalyzer.cs" />
