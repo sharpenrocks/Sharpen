@@ -8,7 +8,7 @@ namespace Sharpen.Engine.Analysis
     {
         private readonly Project[] projects;
 
-        public MultipleProjectsScopeAnalyzer(Project[] projects)
+        public MultipleProjectsScopeAnalyzer(params Project[] projects) // Projects array can be null.
         {
             this.projects = projects;
         }
@@ -18,6 +18,7 @@ namespace Sharpen.Engine.Analysis
             // TODO-IG: Uncomment the commented code as soon as the analysis of multiple projects is implemented.
             return "Analyzing selected projects is currently not implemented.";
 
+            // TODO-IG: Add null check.
             //if (projects.Length <= 0)
             //{
             //    return "There are no projects selected.";
@@ -43,7 +44,7 @@ namespace Sharpen.Engine.Analysis
 
         protected override IEnumerable<Document> GetDocumentsToAnalyze()
         {
-            if (!projects.Any()) return Enumerable.Empty<Document>();
+            if (projects == null || !projects.Any()) return Enumerable.Empty<Document>();
 
             return projects
                 .Where(ProjectIsCSharpProject)
