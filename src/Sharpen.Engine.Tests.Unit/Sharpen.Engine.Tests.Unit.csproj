@@ -41,28 +41,28 @@
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CodeAnalysis, Version=2.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeAnalysis.Common.2.7.0\lib\netstandard1.3\Microsoft.CodeAnalysis.dll</HintPath>
+    <Reference Include="Microsoft.CodeAnalysis, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeAnalysis.Common.2.4.0\lib\netstandard1.3\Microsoft.CodeAnalysis.dll</HintPath>
       <SpecificVersion>True</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.CodeAnalysis.CSharp, Version=2.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeAnalysis.CSharp.2.7.0\lib\netstandard1.3\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeAnalysis.CSharp.2.4.0\lib\netstandard1.3\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
       <SpecificVersion>True</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.CodeAnalysis.CSharp.Workspaces, Version=2.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeAnalysis.CSharp.Workspaces.2.7.0\lib\netstandard1.3\Microsoft.CodeAnalysis.CSharp.Workspaces.dll</HintPath>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp.Workspaces, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeAnalysis.CSharp.Workspaces.2.4.0\lib\netstandard1.3\Microsoft.CodeAnalysis.CSharp.Workspaces.dll</HintPath>
       <SpecificVersion>True</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.CodeAnalysis.Workspaces, Version=2.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeAnalysis.Workspaces.Common.2.7.0\lib\net46\Microsoft.CodeAnalysis.Workspaces.dll</HintPath>
+    <Reference Include="Microsoft.CodeAnalysis.Workspaces, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeAnalysis.Workspaces.Common.2.4.0\lib\net46\Microsoft.CodeAnalysis.Workspaces.dll</HintPath>
       <SpecificVersion>True</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.CodeAnalysis.Workspaces.Desktop, Version=2.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeAnalysis.Workspaces.Common.2.7.0\lib\net46\Microsoft.CodeAnalysis.Workspaces.Desktop.dll</HintPath>
+    <Reference Include="Microsoft.CodeAnalysis.Workspaces.Desktop, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeAnalysis.Workspaces.Common.2.4.0\lib\net46\Microsoft.CodeAnalysis.Workspaces.Desktop.dll</HintPath>
       <SpecificVersion>True</SpecificVersion>
       <Private>True</Private>
     </Reference>
