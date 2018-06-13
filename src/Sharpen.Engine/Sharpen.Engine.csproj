@@ -69,11 +69,6 @@
       <SpecificVersion>True</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.VisualStudio.LanguageServices, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.LanguageServices.2.4.0\lib\net46\Microsoft.VisualStudio.LanguageServices.dll</HintPath>
-      <SpecificVersion>True</SpecificVersion>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.AppContext, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.AppContext.4.3.0\lib\net46\System.AppContext.dll</HintPath>
@@ -246,7 +241,6 @@
     <Compile Include="CSharpFeatures\ExpressionBodiedMembers.cs" />
     <Compile Include="CSharpLanguageVersion.cs" />
     <Compile Include="DisplayText.cs" />
-    <Compile Include="Extensions\VisualStudioWorkspaceExtensions.cs" />
     <Compile Include="ISharpenSuggestion.cs" />
     <Compile Include="ICSharpFeature.cs" />
     <Compile Include="Analysis\ISingleSyntaxTreeAnalyzer.cs" />
