@@ -12,7 +12,6 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp60.NameofExpressions
     internal sealed class UseNameofExpressionInDependencyPropertyDeclarations : ISharpenSuggestion, ISingleSyntaxTreeAnalyzer
     {
         private static readonly SyntaxKind[] RequiredDependencyPropertyFieldModifiers = { SyntaxKind.ReadOnlyKeyword, SyntaxKind.StaticKeyword };
-        private static readonly ArgumentSyntax[] EmptyArgumentSyntaxArray = new ArgumentSyntax[0];
 
         private UseNameofExpressionInDependencyPropertyDeclarations() { }
 
@@ -56,7 +55,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp60.NameofExpressions
                 if (!(RequiredDependencyPropertyFieldModifiers.All(modifier =>
                     fieldDeclaration.Modifiers.Select(token => token.Kind()).Contains(modifier)) &&
                     fieldDeclaration.Declaration.Type.GetLastToken().ValueText == "DependencyProperty"))
-                    return EmptyArgumentSyntaxArray;
+                    return Array.Empty<ArgumentSyntax>();
 
                 return fieldDeclaration
                     .Declaration
