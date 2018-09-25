@@ -13,15 +13,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkedDocuments", "LinkedDo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp71", "CSharp71\CSharp71.csproj", "{785FFA2A-B2C7-47E0-919E-B0A3E49A0A7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmptyCSharpProject01", "EmptyCSharpProject01\EmptyCSharpProject01.csproj", "{48BAD316-B712-4D00-A8DC-C4AA0E2D0E1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmptyCSharpProject01", "EmptyCSharpProject01\EmptyCSharpProject01.csproj", "{48BAD316-B712-4D00-A8DC-C4AA0E2D0E1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmptyCSharpProject02", "EmptyCSharpProject02\EmptyCSharpProject02.csproj", "{131A1FF3-86E1-4EE8-B729-D90DBE758D5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmptyCSharpProject02", "EmptyCSharpProject02\EmptyCSharpProject02.csproj", "{131A1FF3-86E1-4EE8-B729-D90DBE758D5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmptyCSharpProject03", "EmptyCSharpProject03\EmptyCSharpProject03.csproj", "{C0EDDC3A-C32F-4642-923D-0C76D6D36908}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmptyCSharpProject03", "EmptyCSharpProject03\EmptyCSharpProject03.csproj", "{C0EDDC3A-C32F-4642-923D-0C76D6D36908}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "VisualBasicProject01", "VisualBasicProject01\VisualBasicProject01.vbproj", "{B01195BE-E3D4-4EA5-8739-B4F18928C70D}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "VisualBasicProject01", "VisualBasicProject01\VisualBasicProject01.vbproj", "{B01195BE-E3D4-4EA5-8739-B4F18928C70D}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "VisualBasicProject02", "VisualBasicProject02\VisualBasicProject02.vbproj", "{B3919DD0-E10A-41D9-9563-685DEE6B2AE2}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "VisualBasicProject02", "VisualBasicProject02\VisualBasicProject02.vbproj", "{B3919DD0-E10A-41D9-9563-685DEE6B2AE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp50", "CSharp50\CSharp50.csproj", "{1BEBBF97-5209-4E7C-98E5-181B6A2F16C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{B3919DD0-E10A-41D9-9563-685DEE6B2AE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3919DD0-E10A-41D9-9563-685DEE6B2AE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3919DD0-E10A-41D9-9563-685DEE6B2AE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BEBBF97-5209-4E7C-98E5-181B6A2F16C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BEBBF97-5209-4E7C-98E5-181B6A2F16C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BEBBF97-5209-4E7C-98E5-181B6A2F16C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BEBBF97-5209-4E7C-98E5-181B6A2F16C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

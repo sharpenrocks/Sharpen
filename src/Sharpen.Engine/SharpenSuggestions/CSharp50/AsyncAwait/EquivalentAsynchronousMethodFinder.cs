@@ -32,6 +32,8 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
         /// </summary>
         public bool EquivalentAsynchronousMethodExistsFor(InvocationExpressionSyntax invocation, SemanticModel semanticModel)
         {
+            if (invocation.Expression == null) return false;
+
             if (!InvokedMethodPotentiallyHasAsynchronousEquivalent(invocation)) return false;
 
             if (!(semanticModel.GetSymbolInfo(invocation).Symbol is IMethodSymbol method)) return false;
@@ -84,8 +86,9 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
                 if (type == null) return false;
 
                 // We can have overloaded methods ;-)
+                // And we have to look for extension methods as well ;-)
                 var potentialAsynchronousEquivalents = semanticModel
-                        .LookupSymbols(0, type, asynchronousEquivalentMethodName, true)
+                        .LookupSymbols(invocation.Expression.Span.Start, type, asynchronousEquivalentMethodName, true)
                         .OfType<IMethodSymbol>()
                         .ToArray();
 

@@ -32,13 +32,19 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
                     this,
                     analysisContext,
                     syntaxTree.FilePath,
-                    invocation.Expression.GetFirstToken(),
+                    GetStartingSyntaxNode(invocation).GetFirstToken(),
                     invocation
                 ));
 
             bool InvokedMethodHasAsynchronousEquivalent(InvocationExpressionSyntax invocation)
             {
                 return asynchronousMethodFinder.EquivalentAsynchronousMethodExistsFor(invocation, semanticModel);
+            }
+
+            SyntaxNode GetStartingSyntaxNode(InvocationExpressionSyntax invocation)
+            {
+                if (!(invocation.Expression is MemberAccessExpressionSyntax memberAccess)) return invocation.Expression;
+                return memberAccess.Name ?? (SyntaxNode)memberAccess;
             }
         }
     }
