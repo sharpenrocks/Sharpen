@@ -4,11 +4,21 @@ namespace Sharpen.Engine.Extensions
 {
     internal static class NamespaceSymbolExtensions
     {
+        public static bool FullNameIsEqualTo(this ITypeSymbol typeSymbol, string namespaceName, string typeName)
+        {
+            if (typeSymbol == null) return false;
+
+            return typeSymbol.Name == typeName &&
+                   typeSymbol.ContainingNamespace.FullNameIsEqualTo(namespaceName);
+        }
+
         // We want to check if the full name of the namespace equals the full name presented as
         // dot-separated string without creating any new strings.
-        public static bool FullNameIsEqualTo(this INamespaceSymbol namespaceSymbol, string fullName)
+        public static bool FullNameIsEqualTo(this INamespaceSymbol namespaceSymbol, string namespaceName)
         {
-            if (fullName.Length != GetLengthOfTheNamespaceFullName()) return false;
+            if (namespaceSymbol == null) return false;
+
+            if (namespaceName.Length != GetLengthOfTheNamespaceFullName()) return false;
 
             return EachNamespacePartEqualsNamespacePartInFullName();
 
@@ -17,7 +27,7 @@ namespace Sharpen.Engine.Extensions
                 int numberOfNamespaces = 0;
                 int length = 0;
                 var currentNamespace = namespaceSymbol;
-                while (!currentNamespace.IsGlobalNamespace && currentNamespace != null)
+                while (currentNamespace != null && !currentNamespace.IsGlobalNamespace)
                 {
                     length += currentNamespace.Name.Length;
                     numberOfNamespaces++;
@@ -29,14 +39,14 @@ namespace Sharpen.Engine.Extensions
 
             bool EachNamespacePartEqualsNamespacePartInFullName()
             {
-                var fullNameStartingIndex = fullName.Length;
+                var fullNameStartingIndex = namespaceName.Length;
 
                 var currentNamespace = namespaceSymbol;
                 while (currentNamespace != null)
                 {
                     fullNameStartingIndex -= currentNamespace.Name.Length;
 
-                    if (string.CompareOrdinal(currentNamespace.Name, 0, fullName, fullNameStartingIndex, currentNamespace.Name.Length) != 0) return false;
+                    if (string.CompareOrdinal(currentNamespace.Name, 0, namespaceName, fullNameStartingIndex, currentNamespace.Name.Length) != 0) return false;
 
                     currentNamespace = currentNamespace.ContainingNamespace;
 
@@ -45,7 +55,7 @@ namespace Sharpen.Engine.Extensions
                     {
                         // Check for the dot and skip it.
                         fullNameStartingIndex--;
-                        if (fullName[fullNameStartingIndex] != '.') return false;
+                        if (namespaceName[fullNameStartingIndex] != '.') return false;
                     }
                 }
 

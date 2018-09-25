@@ -215,6 +215,7 @@
     <Compile Include="Analysis\SharpenSuggestionsHolder.cs" />
     <Compile Include="Analysis\MultipleProjectsScopeAnalyzer.cs" />
     <Compile Include="Analysis\SolutionScopeAnalyzer.cs" />
+    <Compile Include="CSharpFeatures\AsyncAwait.cs" />
     <Compile Include="CSharpFeatures\NameofExpressions.cs" />
     <Compile Include="CSharpFeatures\DefaultExpressions.cs" />
     <Compile Include="CSharpFeatures\OutVariables.cs" />
@@ -224,6 +225,9 @@
     <Compile Include="Extensions\SyntaxNodeExtensions.cs" />
     <Compile Include="Extensions\SyntaxTokenExtensions.cs" />
     <Compile Include="Extensions\TextSpanExtensions.cs" />
+    <Compile Include="SharpenSuggestions\CSharp50\AsyncAwait\ConsiderAwaitingEquivalentAsynchronousMethod.cs" />
+    <Compile Include="SharpenSuggestions\CSharp50\AsyncAwait\EquivalentAsynchronousMethodFinder.cs" />
+    <Compile Include="SharpenSuggestions\CSharp50\AsyncAwait\HardcodedLookupBasedEquivalentAsynchronousMethodFinder.cs" />
     <Compile Include="SharpenSuggestions\CSharp60\NameofExpressions\UseNameofExpressionInDependencyPropertyDeclarations.cs" />
     <Compile Include="SharpenSuggestions\CSharp60\NameofExpressions\UseNameofExpressionForThrowingArgumentExceptions.cs" />
     <Compile Include="SharpenSuggestions\CSharp70\ExpressionBodiedMembers\UseExpressionBodyForLocalFunctions.cs" />
@@ -262,5 +266,6 @@
     <None Include="Key.snk" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
