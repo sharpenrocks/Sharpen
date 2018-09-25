@@ -11,16 +11,13 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp60.NameofExpressions
 {
     internal sealed class UseNameofExpressionForThrowingArgumentExceptions : ISharpenSuggestion, ISingleSyntaxTreeAnalyzer
     {
-        class ArgumentExceptionInfo
+        private class KnownArgumentExceptionTypeInfo : KnownTypeInfo
         {
-            public string ExceptionName { get; }
-            public string ExceptionNamespace { get; }
             public string ParameterName { get; }
 
-            public ArgumentExceptionInfo(string exceptionName, string exceptionNamespace, string parameterName)
+            public KnownArgumentExceptionTypeInfo(string typeName, string typeNamespace, string parameterName)
+                :base(typeName, typeNamespace)
             {
-                ExceptionName = exceptionName;
-                ExceptionNamespace = exceptionNamespace;
                 ParameterName = parameterName;
             }
         }
@@ -35,12 +32,12 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp60.NameofExpressions
 
         public static readonly UseNameofExpressionForThrowingArgumentExceptions Instance = new UseNameofExpressionForThrowingArgumentExceptions();
 
-        private static readonly ArgumentExceptionInfo[] ArgumentExceptions =
+        private static readonly KnownArgumentExceptionTypeInfo[] KnownArgumentExceptions =
         {
-            new ArgumentExceptionInfo("ArgumentNullException", "System", "paramName"),
-            new ArgumentExceptionInfo("ArgumentException", "System", "paramName"),
-            new ArgumentExceptionInfo("ArgumentOutOfRangeException", "System", "paramName"),
-            new ArgumentExceptionInfo("InvalidEnumArgumentException", "System.ComponentModel", "argumentName")
+            new KnownArgumentExceptionTypeInfo("ArgumentNullException", "System", "paramName"),
+            new KnownArgumentExceptionTypeInfo("ArgumentException", "System", "paramName"),
+            new KnownArgumentExceptionTypeInfo("ArgumentOutOfRangeException", "System", "paramName"),
+            new KnownArgumentExceptionTypeInfo("InvalidEnumArgumentException", "System.ComponentModel", "argumentName")
             // TODO-SETTINGS: Allow users to define their own argument exceptions.
         };
 
@@ -71,7 +68,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp60.NameofExpressions
                 // very likely throw statements that we are looking for.
                 if (!(throwStatementSyntax.Expression is ObjectCreationExpressionSyntax objectCreationExpression)) return null;
 
-                if (!ArgumentExceptions.Select(exception => exception.ExceptionName).Any(name =>
+                if (!KnownArgumentExceptions.Select(exception => exception.TypeName).Any(name =>
                     objectCreationExpression.Type.ToString().EndsWith(name, StringComparison.Ordinal)))
                     return null;
 
@@ -103,13 +100,9 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp60.NameofExpressions
                 var constructorSymbol = (IMethodSymbol)semanticModel.GetSymbolInfo(objectCreationExpression).Symbol;
                 if (constructorSymbol == null) return null;
 
-                var exceptionName = constructorSymbol.ContainingType?.Name;
-                var exceptionNamespace = constructorSymbol.ContainingType?.ContainingNamespace;
-
                 // 1. Check that the created object is 100% one of the argument exceptions.
-                var argumentException = ArgumentExceptions.FirstOrDefault(exception =>
-                                                                    exceptionName == exception.ExceptionName &&
-                                                                    exceptionNamespace.FullNameIsEqualTo(exception.ExceptionNamespace));
+                var argumentException = KnownArgumentExceptions
+                    .FirstOrDefault(exception => exception.RepresentsType(constructorSymbol.ContainingType));
                 if (argumentException == null) return null;
 
                 // 2. Check that the constructor arguments that are strings with enclosing parameter names

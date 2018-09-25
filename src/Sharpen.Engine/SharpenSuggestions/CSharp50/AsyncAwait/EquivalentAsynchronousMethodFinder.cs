@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Sharpen.Engine.Extensions;
 
 namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 {
@@ -11,17 +10,10 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
     /// </remarks>
     internal abstract class EquivalentAsynchronousMethodFinder
     {
-        class KnownAwaitableTypeInfo
+        private class KnownAwaitableTypeInfo : KnownTypeInfo
         {
-            public string TypeName { get; }
-            public string TypeNamespace { get; }
             public KnownAwaitableTypeInfo(string typeName, string typeNamespace)
-            {
-                TypeName = typeName;
-                TypeNamespace = typeNamespace;
-            }
-
-            public bool RepresentsType(ITypeSymbol type) => type.FullNameIsEqualTo(TypeNamespace, TypeName);
+                :base(typeName, typeNamespace) { }
         }
 
         private static readonly KnownAwaitableTypeInfo[] KnownAwaitableTypes =
