@@ -1,13 +1,15 @@
 ﻿// ReSharper disable All
 
+using System.Threading.Tasks;
+
 namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethod
 {
     public class MethodsThatDoNotHaveEquivalentAsynchronousMethod
     {
-        private ClassWithoutAsyncEquivalents @object = new ClassWithoutAsyncEquivalents();
-
-        public void InstanceMethodsHaveAsynchronousEquivalents()
+        public void InstanceMethodsDoNotHaveAsynchronousEquivalents()
         {
+            var @object = new ClassWithoutAsyncEquivalents();
+
             @object.SaveChanges();
             @object.Abort();
             @object.AcceptSocket();
@@ -15,13 +17,52 @@ namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethod
             @object.AccessFailed();
         }
 
-        public void ThisMethodsHaveAsynchronousEquivalents()
+        public void ThisMethodsDoNotHaveAsynchronousEquivalents()
         {
             SaveChanges();
             this.SaveChanges();
         }
 
-        public void StaticMethodsHaveAsynchronousEquivalents()
+        public void StaticMethodsDoNotHaveAsynchronousEquivalents()
+        {
+            Abort();
+            MethodsThatDoNotHaveEquivalentAsynchronousMethod.Abort();
+        }
+
+        public void SaveChanges() { }
+
+        public static int Abort() => 0;
+    }
+
+    public class MethodsThatDoNotHaveEquivalentReturnType
+    {
+        public void InstanceMethodsDoNotHaveAsynchronousEquivalents()
+        {
+            var @object = new ClassWithoutAsyncEquivalents();
+
+            @object.SaveChanges();
+            @object.Abort();
+            @object.AcceptSocket();
+            @object.AcceptTcpClient();
+            @object.AccessFailed();
+        }
+
+        public void InstanceMethodsDoNotHaveAsynchronousEquivalentsWrongReturnType()
+        {
+            var @object = new ClassWithoutAsyncEquivalentsWrongReturnType();
+
+            @object.SaveChanges();
+            @object.Abort();
+            @object.AcceptSocket();
+        }
+
+        public void ThisMethodsDoNotHaveAsynchronousEquivalents()
+        {
+            SaveChanges();
+            this.SaveChanges();
+        }
+
+        public void StaticMethodsDoNotHaveAsynchronousEquivalents()
         {
             Abort();
             MethodsThatDoNotHaveEquivalentAsynchronousMethod.Abort();
@@ -41,6 +82,18 @@ namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethod
         public void AcceptSocket() { }
 
         public bool AcceptTcpClient() => true;
+    }
+
+    public class ClassWithoutAsyncEquivalentsWrongReturnType
+    {
+        public void SaveChanges() { }
+        public void SaveChangesAsync() { }
+
+        public int Abort() => 0;
+        public Task AbortAsync() => null;
+
+        public int AcceptSocket() => 0;
+        public Task<string> AcceptSocketAsync() => null;
     }
 
     public static class ClassWithouAsyncEquivalentsExtensions

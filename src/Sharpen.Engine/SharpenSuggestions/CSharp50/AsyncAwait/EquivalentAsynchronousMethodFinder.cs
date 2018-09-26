@@ -112,7 +112,21 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
                     {
                         if (method.ReturnType == null) return false;
 
-                        // See [1].
+                        // If the method returns non-void its async equivalent must
+                        // return generic awaitable type parametrized exactly with the
+                        // method return type.
+
+                        if (!(potentialEquivalent.ReturnType is INamedTypeSymbol potentialEquivalentReturnType))
+                            return false;
+
+                        if (potentialEquivalentReturnType.Arity != 1)
+                            return false;
+
+                        if (!KnownAwaitableTypes.Any(awaitableType => awaitableType.RepresentsType(potentialEquivalentReturnType.ConstructedFrom)))
+                            return false;
+
+                        if (!method.ReturnType.Equals(potentialEquivalentReturnType.TypeArguments[0]))
+                            return false;
                     }
 
                     // See [1].
