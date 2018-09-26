@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Sharpen.Engine.Extensions;
 
 namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 {
@@ -129,7 +130,31 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
                             return false;
                     }
 
-                    // See [1].
+                    // Async equivalent must have exactly the same method parameters
+                    // (type and name) with only a single exception - an additional
+                    // CancellationToken can be there as the last argument.
+                    int numberOfParameters = method.Parameters.Length;
+                    if (!(potentialEquivalent.Parameters.Length == numberOfParameters ||
+                          potentialEquivalent.Parameters.Length == numberOfParameters + 1))
+                        return false;
+
+                    for (int i = 0; i < numberOfParameters; i++)
+                    {
+                        if (method.Parameters[i].Type == null)
+                            return false;
+                        if (!method.Parameters[i].Type.Equals(potentialEquivalent.Parameters[i].Type))
+                            return false;
+                        if (method.Parameters[i].Name != potentialEquivalent.Parameters[i].Name)
+                            return false;
+                    }
+
+                    if (potentialEquivalent.Parameters.Length == numberOfParameters + 1)
+                    {
+                        if (!potentialEquivalent.Parameters[numberOfParameters].Type
+                            .FullNameIsEqualTo("System.Threading", "CancellationToken"))
+                            return false;
+                    }
+
                     return true;
                 }
             }
@@ -138,20 +163,3 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
         protected abstract bool InvokedMethodPotentiallyHasAsynchronousEquivalent(InvocationExpressionSyntax invocation);
     }
 }
-
-// Remarks.
-// [1]
-// Originally, we wanted to be very pessimistic and check
-// everything on the potential equivalent.
-// That the return type is the awaitable equivalent of the
-// method type.
-// That the parameters are exactly the same, up to the level
-// where the asynchronous equivalent could have CancellationToken
-// as the only allowed additional parameter.
-// But we've decided to skip all those checks so far.
-// The real life tests show that if the potential equivalent
-// has the expected name ending with Async it will actually
-// be the equivalent we are looking for.
-// In other words, so far, if the potential equivalent
-// has the expected name it is considered to be
-// the equivalent for sure.

@@ -1,10 +1,11 @@
 ﻿// ReSharper disable All
 
-// Expected number of suggestions: 12
+// Expected number of suggestions: 16
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethod
@@ -29,6 +30,16 @@ namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethod
             @object.SaveChanges();
             @object.Abort();
             @object.AcceptSocket();
+        }
+
+        public void InstanceMethodsHaveAsynchronousEquivalentsWithMethodParameters()
+        {
+            var @object = new ClassWithAsyncEquivalentsMethodParameters();
+
+            @object.SaveChanges(0, "");
+            @object.Abort();
+            @object.AcceptSocket();
+            @object.AcceptTcpClient(0, "");
         }
 
         public void ThisMethodsHaveAsynchronousEquivalents()
@@ -83,5 +94,20 @@ namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethod
 
         public IEnumerable<int> AcceptSocket() => new int[0];
         public Task<System.Collections.Generic.IEnumerable<System.Int32>> AcceptSocketAsync() => Task.FromResult(new int[0].AsEnumerable());
+    }
+
+    public class ClassWithAsyncEquivalentsMethodParameters
+    {
+        public void SaveChanges(int i, string s) { }
+        public async Task SaveChangesAsync(int i, System.String s) { }
+
+        public int Abort() => 0;
+        public async Task<int> AbortAsync(CancellationToken cancellationToken = default) => 0;
+
+        public void AcceptSocket() { }
+        public Task AcceptSocketAsync(CancellationToken cancellationToken) => new Task(() => { });
+
+        public bool AcceptTcpClient(int i, string s) => true;
+        public async Task<bool> AcceptTcpClientAsync(Int32 i, String s, CancellationToken cancellationToken = default) => true;
     }
 }

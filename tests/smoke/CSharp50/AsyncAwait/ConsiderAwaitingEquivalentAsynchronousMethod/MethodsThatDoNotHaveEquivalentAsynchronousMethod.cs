@@ -1,5 +1,7 @@
 ﻿// ReSharper disable All
 
+using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethod
@@ -27,6 +29,16 @@ namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethod
         {
             Abort();
             MethodsThatDoNotHaveEquivalentAsynchronousMethod.Abort();
+        }
+
+        public void InstanceMethodsDoNotHaveAsynchronousEquivalentsWrongMethodParameters()
+        {
+            var @object = new ClassWithoutAsyncEquivalentsWrongMethodParameters();
+
+            @object.SaveChanges(0, "");
+            @object.Abort();
+            @object.AcceptSocket();
+            @object.AcceptTcpClient(0, "");
         }
 
         public void SaveChanges() { }
@@ -99,5 +111,20 @@ namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethod
     public static class ClassWithouAsyncEquivalentsExtensions
     {
         public static bool AccessFailed(this ClassWithoutAsyncEquivalents @object) => true;
+    }
+
+    public class ClassWithoutAsyncEquivalentsWrongMethodParameters
+    {
+        public void SaveChanges(int i, string s) { }
+        public async Task SaveChangesAsync(int i) { }
+
+        public int Abort() => 0;
+        public async Task<int> AbortAsync(int i) => 0;
+
+        public void AcceptSocket() { }
+        public Task AcceptSocketAsync(int i, CancellationToken cancellationToken) => new Task(() => { });
+
+        public bool AcceptTcpClient(int i, string s) => true;
+        public async Task<bool> AcceptTcpClientAsync(int j, string t, CancellationToken cancellationToken = default) => true;
     }
 }
