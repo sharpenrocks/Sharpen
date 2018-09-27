@@ -25,6 +25,37 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
             // TODO: Later on we can check for arbitrary types that implement the GetAwaiter() method.
         };
 
+        // This is a bit of misuse of the KnownTypeInfo, I would say. Hmmm.
+        // But it's practical and fits into the scheme.
+        private class MethodToIgnore : KnownTypeInfo
+        {
+            /// <summary>
+            /// Name of the method whose asynchronous equivalent exists,
+            /// but should be ignored. If null, all the methods on the type
+            /// should be ignored.
+            /// </summary>
+            public string MethodName { get; }
+
+            public MethodToIgnore(string typeName, string typeNamespace, string methodName = null)
+                : base(typeName, typeNamespace)
+            {
+                MethodName = methodName;
+            }
+
+            public bool RepresentsMethod(IMethodSymbol method)
+            {
+                return RepresentsType(method.ContainingType) &&
+                       (MethodName == null || MethodName == method.Name);
+            }
+        }
+
+        private static readonly MethodToIgnore[] KnownMethodsToIgnore = 
+        {
+            new MethodToIgnore("DbSet", "Microsoft.EntityFrameworkCore", "Add"),
+            new MethodToIgnore("DbSet", "Microsoft.EntityFrameworkCore", "AddRange")
+            // TODO-SETTINGS: Allow users to define their own known methods to ignore.
+        };
+
         private const string AsyncSuffix = "Async";
 
         /// <summary>
@@ -39,6 +70,8 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
             if (!InvokedMethodPotentiallyHasAsynchronousEquivalent(invocation)) return false;
 
             if (!(semanticModel.GetSymbolInfo(invocation).Symbol is IMethodSymbol method)) return false;
+
+            if (KnownMethodsToIgnore.Any(methodToIgnore => methodToIgnore.RepresentsMethod(method))) return false;
 
             // We can have the following situations:
             // 1. someObject.SomeInstanceMethod()
