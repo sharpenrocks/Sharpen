@@ -19,7 +19,8 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 
         private static readonly KnownAwaitableTypeInfo[] KnownAwaitableTypes =
         {
-            new KnownAwaitableTypeInfo("Task", "System.Threading.Tasks")
+            new KnownAwaitableTypeInfo("Task", "System.Threading.Tasks"),
+            new KnownAwaitableTypeInfo("ValueTask", "System.Threading.Tasks")
             // TODO-SETTINGS: Allow users to define their own known awaitable types.
             // TODO: Later on we can check for arbitrary types that implement the GetAwaiter() method.
         };

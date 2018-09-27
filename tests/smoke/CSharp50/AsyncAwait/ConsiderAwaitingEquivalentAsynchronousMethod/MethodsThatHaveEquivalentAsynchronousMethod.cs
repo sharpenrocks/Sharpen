@@ -1,6 +1,6 @@
 ﻿// ReSharper disable All
 
-// Expected number of suggestions: 16
+// Expected number of suggestions: 21
 
 using System;
 using System.Collections.Generic;
@@ -15,6 +15,17 @@ namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethod
         public void InstanceMethodsHaveAsynchronousEquivalents()
         {
             var @object = new ClassWithAsyncEquivalents();
+
+            @object.SaveChanges();
+            @object.Abort();
+            @object.AcceptSocket();
+            @object.AcceptTcpClient();
+            @object.AccessFailed();
+        }
+
+        public void InstanceMethodsHaveAsynchronousEquivalentsValueTask()
+        {
+            var @object = new ClassWithAsyncEquivalentsValueTask();
 
             @object.SaveChanges();
             @object.Abort();
@@ -77,11 +88,29 @@ namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethod
         public Task<bool> AccessFailedAsync() => Task.FromResult(true);
     }
 
+    public class ClassWithAsyncEquivalentsValueTask
+    {
+        public void SaveChanges() { }
+        public async ValueTask SaveChangesAsync() { }
+
+        public int Abort() => 0;
+        public async ValueTask<int> AbortAsync() => 0;
+
+        public void AcceptSocket() { }
+        public ValueTask AcceptSocketAsync() => new ValueTask();
+
+        public bool AcceptTcpClient() => true;
+
+        public ValueTask<bool> AccessFailedAsync() => new ValueTask<bool>(true);
+    }
+
     public static class ClassWithAsyncEquivalentsExtensions
     {
         public static Task<bool> AcceptTcpClientAsync(this ClassWithAsyncEquivalents @object) => new Task<bool>(() => true);
+        public static ValueTask<bool> AcceptTcpClientAsync(this ClassWithAsyncEquivalentsValueTask @object) => new ValueTask<bool>(true);
 
         public static bool AccessFailed(this ClassWithAsyncEquivalents @object) => true;
+        public static bool AccessFailed(this ClassWithAsyncEquivalentsValueTask @object) => true;
     }
 
     public class ClassWithAsyncEquivalentsReturnTypes
