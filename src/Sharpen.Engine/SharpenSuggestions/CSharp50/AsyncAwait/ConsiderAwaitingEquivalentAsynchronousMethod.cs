@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Sharpen.Engine.Analysis;
+using Sharpen.Engine.Extensions;
 
 namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 {
@@ -24,8 +25,22 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 
         public IEnumerable<AnalysisResult> Analyze(SyntaxTree syntaxTree, SemanticModel semanticModel, SingleSyntaxTreeAnalysisContext analysisContext)
         {
-            return syntaxTree.GetRoot()
-                .DescendantNodes()
+            var descendantNodes = syntaxTree.GetRoot().DescendantNodes();
+
+            // In unit test we of course expect people to test synchronous
+            // versions of their methods. Moreover, we expect them to write
+            // all kind of crazy acrobatics in test in general.
+            // Every suggestion to replace the synchronous method with their
+            // async counterparts would in unit tests very likely be totally
+            // misplaced and misleading. So we will simply ignore this suggestion
+            // in unit tests.
+
+            // It's fine to re-enumerate the nodes tree. It is a materialized structure.
+            // ReSharper disable once PossibleMultipleEnumeration
+            if (descendantNodes.ContainUnitTestingCode()) return Enumerable.Empty<AnalysisResult>();
+
+            // ReSharper disable once PossibleMultipleEnumeration
+            return descendantNodes
                 .OfType<InvocationExpressionSyntax>()
                 .Where(InvokedMethodHasAsynchronousEquivalent)
                 .Select(invocation => new AnalysisResult(
