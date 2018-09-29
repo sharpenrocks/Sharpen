@@ -25,7 +25,7 @@ namespace Sharpen.Engine.Analysis
                 return "The solution does not contain any C# projects.";
             }
 
-            if (!solution.Projects.SelectMany(project => project.Documents).Any(DocumentCanBeAnalyzed))
+            if (!solution.Projects.SelectMany(project => project.Documents).Any(DocumentShouldBeAnalyzed))
             {
                 return "The C# projects in the solution do not contain any C# files that could be analyzed.";
             }
@@ -44,7 +44,7 @@ namespace Sharpen.Engine.Analysis
                 .Projects
                 .Where(ProjectIsCSharpProject)
                 .SelectMany(project => project.Documents)
-                .Where(DocumentCanBeAnalyzed);
+                .Where(DocumentShouldBeAnalyzed);
         }
     }
 }

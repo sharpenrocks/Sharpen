@@ -28,7 +28,7 @@ namespace Sharpen.Engine.Analysis
             //    return "The selected projects do not contain any C# projects.";
             //}
             //
-            //if (!projects.SelectMany(project => project.Documents).Any(DocumentCanBeAnalyzed))
+            //if (!projects.SelectMany(project => project.Documents).Any(DocumentShouldBeAnalyzed))
             //{
             //    return "The selected C# projects do not contain any C# files that could be analyzed.";
             //}
@@ -48,7 +48,7 @@ namespace Sharpen.Engine.Analysis
             return projects
                 .Where(ProjectIsCSharpProject)
                 .SelectMany(project => project.Documents)
-                .Where(DocumentCanBeAnalyzed);
+                .Where(DocumentShouldBeAnalyzed);
         }
     }
 }

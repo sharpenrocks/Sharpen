@@ -23,7 +23,7 @@ namespace Sharpen.Engine.Analysis
                 return "There are no files selected.";
             }
 
-            if (!documents.Any(DocumentCanBeAnalyzed))
+            if (!documents.Any(DocumentShouldBeAnalyzed))
             {
                 return "The selected files do not contain any C# files that could be analyzed.";
             }
