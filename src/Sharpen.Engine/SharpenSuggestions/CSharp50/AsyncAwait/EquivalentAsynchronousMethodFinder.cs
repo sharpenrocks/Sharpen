@@ -84,6 +84,11 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 
             if (KnownMethodsToIgnore.Any(methodToIgnore => methodToIgnore.RepresentsMethod(method))) return false;
 
+            // So far we do not suggest turning lambdas and anonymous methods
+            // into async. So we will at the moment just ignore that case.
+            // TODO: Support suggestion for lambdas and anonymous methods.
+            if (MethodIsInvokedWithinLambdaOrAnonymousMethod()) return false;
+
             // If type authors invoke the synchronous method
             // within the implementation of its containing type
             // we assume that they exactly know what they are doing.
@@ -132,6 +137,11 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
             if (TypeContainsAsynchronousEquivalent(calledOnType)) return true;
 
             return false;
+
+            bool MethodIsInvokedWithinLambdaOrAnonymousMethod()
+            {
+                return invocation.FirstAncestorOrSelf<AnonymousFunctionExpressionSyntax>() != null;
+            }
 
             bool MethodIsInvokedWithinItsContainingType()
             {
