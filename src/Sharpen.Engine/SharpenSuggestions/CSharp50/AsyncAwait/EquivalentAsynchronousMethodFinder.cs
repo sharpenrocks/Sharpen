@@ -7,7 +7,8 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 {
     /// <remarks>
     /// We can have different finders. Hardcoded one, one based on dependencies etc.
-    /// That's why this base class and the encapsulation of the logic. 
+    /// This base class encapsulates the common and exact search logic.
+    /// The derived classes are responsible for the heuristic part of the search.
     /// </remarks>
     internal abstract class EquivalentAsynchronousMethodFinder
     {
@@ -34,7 +35,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
             /// but should be ignored. If null, all the methods on the type
             /// should be ignored.
             /// </summary>
-            public string MethodName { get; }
+            private string MethodName { get; }
 
             public MethodToIgnore(string typeName, string typeNamespace, string methodName = null)
                 : base(typeName, typeNamespace)
@@ -60,10 +61,20 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 
         /// <summary>
         /// Returns true if an equivalent asynchronous method of the method used in
-        /// the <paramref name="invocation"/> exists or false if such method does not
-        /// exist.
+        /// the <paramref name="invocation"/> exists and is at the same time a
+        /// potential candidate to be used exactly in that particular <paramref name="invocation"/>.
         /// </summary>
-        public bool EquivalentAsynchronousMethodExistsFor(InvocationExpressionSyntax invocation, SemanticModel semanticModel)
+        /// <remarks>
+        /// This method does not only check if an equivalent asynchronous method
+        /// exists. In addition, it runs additional checks to see if it make sense
+        /// to call such existing asynchronous equivalent in the particular <paramref name="invocation"/>.
+        /// For example, the suggestion makes sense only if the enclosing method
+        /// within which the invocation happens can be turned into async method.
+        /// If the enclosing method is an interface implementation or an override
+        /// method it cannot be turned into async method and thus the suggestion
+        /// makes no sense.
+        /// </remarks>
+        public bool EquivalentAsynchronousCandidateExistsFor(InvocationExpressionSyntax invocation, SemanticModel semanticModel)
         {
             if (invocation.Expression == null) return false;
 
@@ -72,6 +83,20 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
             if (!(semanticModel.GetSymbolInfo(invocation).Symbol is IMethodSymbol method)) return false;
 
             if (KnownMethodsToIgnore.Any(methodToIgnore => methodToIgnore.RepresentsMethod(method))) return false;
+
+            // If type authors invoke the synchronous method
+            // within the implementation of its containing type
+            // we assume that they exactly know what they are doing.
+            // They for sure want to call exactly that method on
+            // that particular place in code. We are 100% sure that
+            // they do not want to call its async equivalent.
+            if (MethodIsInvokedWithinItsContainingType()) return false;
+
+            // TODO: Check if the enclosing method in which the invocation
+            //       happens can be turned into async method.
+            //       - It must not be an override.
+            //       - It must not be an interface implementation.
+            //       For example see: NHibernate.Test\NHSpecificTest\NH1789\DomainObject.cs
 
             // We can have the following situations:
             // 1. someObject.SomeInstanceMethod()
@@ -107,6 +132,21 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
             if (TypeContainsAsynchronousEquivalent(calledOnType)) return true;
 
             return false;
+
+            bool MethodIsInvokedWithinItsContainingType()
+            {
+                var invokedInType = invocation.FirstAncestorOrSelf<TypeDeclarationSyntax>();
+
+                // This should never happen. It means we have some issue in the
+                // syntax tree. If that's the case, just cancel any further analysis
+                // by stating that the method is called withing its containing type.
+                if (invokedInType == null) return true;
+
+                if (method.ContainingType?.Equals(semanticModel.GetDeclaredSymbol(invokedInType)) == true)
+                    return true;
+
+                return false;
+            }
 
             INamedTypeSymbol GetCalledOnType()
             {
@@ -193,7 +233,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
                 }
             }
         }
-
+       
         protected abstract bool InvokedMethodPotentiallyHasAsynchronousEquivalent(InvocationExpressionSyntax invocation);
     }
 }

@@ -41,9 +41,27 @@ namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethod
             @object.AcceptTcpClient(0, "");
         }
 
+        public void ThisMethodsHaveAsynchronousEquivalentsButCalledWithinContainingClass()
+        {
+            AcceptSocket();
+            this.AcceptSocket();
+        }
+
+        public void StaticMethodsHaveAsynchronousEquivalentsButCalledWithinContainingClass()
+        {
+            AcceptTcpClient();
+            MethodsThatDoNotHaveEquivalentAsynchronousMethod.AcceptTcpClient();
+        }
+
         public void SaveChanges() { }
 
         public static int Abort() => 0;
+
+        public void AcceptSocket() { }
+        public Task AcceptSocketAsync() => Task.CompletedTask;
+
+        public static bool AcceptTcpClient() => true;
+        public static Task<bool> AcceptTcpClientAsync() => Task.FromResult(true);
     }
 
     public class MethodsThatDoNotHaveEquivalentReturnType

@@ -53,7 +53,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 
             bool InvokedMethodHasAsynchronousEquivalent(InvocationExpressionSyntax invocation)
             {
-                return asynchronousMethodFinder.EquivalentAsynchronousMethodExistsFor(invocation, semanticModel);
+                return asynchronousMethodFinder.EquivalentAsynchronousCandidateExistsFor(invocation, semanticModel);
             }
 
             SyntaxNode GetStartingSyntaxNode(InvocationExpressionSyntax invocation)

@@ -1,6 +1,6 @@
 ﻿// ReSharper disable All
 
-// Expected number of suggestions: 21
+// Expected number of suggestions: 17
 
 using System;
 using System.Collections.Generic;
@@ -52,24 +52,6 @@ namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethod
             @object.AcceptSocket();
             @object.AcceptTcpClient(0, "");
         }
-
-        public void ThisMethodsHaveAsynchronousEquivalents()
-        {
-            SaveChanges();
-            this.SaveChanges();
-        }
-
-        public void StaticMethodsHaveAsynchronousEquivalents()
-        {
-            Abort();
-            MethodsThatHaveEquivalentAsynchronousMethod.Abort();
-        }
-
-        public void SaveChanges() { }
-        public async Task SaveChangesAsync() { }
-
-        public static int Abort() => 0;
-        public static async Task<int> AbortAsync() => 0;
     }
 
     public class ClassWithAsyncEquivalents
