@@ -9,7 +9,7 @@ namespace Sharpen.Engine.CSharpFeatures
 
         public ImmutableArray<string> LanguageVersions { get; } = ImmutableArray.CreateRange(new[] { CSharp50 });
 
-        public string FriendlyName { get; } = "Async-await"; // TODO: Is this the best friendly name?
+        public string FriendlyName { get; } = "Async and await";
 
         public static readonly AsyncAwait Instance = new AsyncAwait();
     }
