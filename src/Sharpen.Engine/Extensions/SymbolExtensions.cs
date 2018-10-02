@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Sharpen.Engine.Extensions
 {
@@ -29,6 +31,27 @@ namespace Sharpen.Engine.Extensions
                 // we have already checked for the explicit interface implementation.
                 .SelectMany(@interface => @interface.GetMembers(methodSymbol.Name).OfType<IMethodSymbol>())
                 .Any(interfaceMethod => methodContainingType.FindImplementationForInterfaceMember(interfaceMethod)?.Equals(methodSymbol) == true);
-        }        
+        }
+
+        public static IEnumerable<IMethodSymbol> GetImplementedInterfaceMethods(this IMethodSymbol methodSymbol, SemanticModel semanticModel)
+        {
+            if (methodSymbol == null)
+                return Enumerable.Empty<IMethodSymbol>();
+
+            var methodContainingType = methodSymbol.ContainingType;
+            if (methodContainingType == null)
+                return methodSymbol.ExplicitInterfaceImplementations;
+
+            var implicitInterfaceImplementations = methodContainingType
+                .AllInterfaces
+                // Beware of the fact that for explicit interface implementations
+                // the methodSymbol.Name is not the same as interface name ;-)
+                // Therefore, this will filter out only the implicit implementations
+                // and at the end we will add the explicit interface implementations.
+                .SelectMany(@interface => @interface.GetMembers(methodSymbol.Name).OfType<IMethodSymbol>())
+                .Where(interfaceMethod => methodContainingType.FindImplementationForInterfaceMember(interfaceMethod)?.Equals(methodSymbol) == true);
+
+            return implicitInterfaceImplementations.Concat(methodSymbol.ExplicitInterfaceImplementations);
+        }
     }
 }

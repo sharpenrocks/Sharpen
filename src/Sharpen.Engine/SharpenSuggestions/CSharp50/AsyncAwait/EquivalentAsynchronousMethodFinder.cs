@@ -153,21 +153,8 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 
             bool EnclosingMethodCanBeMadeAsync()
             {
-                // If the method overrides a base method or implements
-                // an interface method we assume here that the base class
-                // or the interface which the method implements cannot
-                // be changed to async.
-                // In other words, we assume that the user of the interface
-                // or the base class is not its author and owner ;-)
-                // In general case this must not necessary be the case.
-                // But if we want to check if interface or base class
-                // could potentially be changed the things would get
-                // unnecessary complex with a doubtful benefit
-                // for the suggestion. So we will simply ignore the
-                // case when the enclosing methods are interface
-                // implementations or base class overrides.
                 return EnclosingMethodIsNotOverridden() &&
-                       EnclosingMethodDoesNotImplementInterfaceMethod() &&
+                       EnclosingMethodDoesNotImplementNonChangeableInterfaceMethod() &&
                        EnclosingMethodDoesNotAlreadyHaveAsynchronousEquivalent();
 
                 bool EnclosingMethodIsNotOverridden()
@@ -175,9 +162,19 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
                     return !enclosingMethodSymbol.IsOverride;
                 }
 
-                bool EnclosingMethodDoesNotImplementInterfaceMethod()
+                bool EnclosingMethodDoesNotImplementNonChangeableInterfaceMethod()
                 {
-                    return !enclosingMethodSymbol.ImplementsInterfaceMethod();
+                    // If the enclosing method implements an interface method
+                    // we have to see if that interface can be changed.
+                    // Since it could implement more then one interface, we have
+                    // to check of all of them can be changed.
+                    // (Changed means made async.)
+                    // If they cannot, means if they are referenced from an assembly
+                    // and not defined in code, we assume that the enclosing
+                    // method implements a non-changeable interface method.
+                    return enclosingMethodSymbol.GetImplementedInterfaceMethods(semanticModel)
+                        .All(interfaceMethod => interfaceMethod
+                            .ContainingType?.Locations.All(location => location.IsInSource) == true);
                 }
 
                 bool EnclosingMethodDoesNotAlreadyHaveAsynchronousEquivalent()
