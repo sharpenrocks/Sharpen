@@ -220,6 +220,7 @@
     <Compile Include="CSharpFeatures\DefaultExpressions.cs" />
     <Compile Include="CSharpFeatures\OutVariables.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Extensions\SymbolExtensions.cs" />
     <Compile Include="Extensions\UnitTestingCodeDetectionExtensions.cs" />
     <Compile Include="Extensions\GeneratedCodeDetectionExtensions.cs" />
     <Compile Include="Extensions\NamespaceSymbolExtensions.cs" />
