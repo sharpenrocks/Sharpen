@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Sharpen.Engine.Extensions;
 
 namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 {
@@ -1357,20 +1358,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 
         protected override bool InvokedMethodPotentiallyHasAsynchronousEquivalent(InvocationExpressionSyntax invocation)
         {
-            string methodName = null;
-            switch (invocation.Expression)
-            {
-                case MemberAccessExpressionSyntax memberAccess:
-                    methodName = memberAccess.Name.Identifier.ValueText;
-                    break;
-                case IdentifierNameSyntax identifierName:
-                    methodName = identifierName.Identifier.ValueText;
-                    break;
-            }
-
-            if (methodName == null) return false;
-
-            return SynchronousMethodsWithAsynchronousEquivalents.Contains(methodName);
+            return SynchronousMethodsWithAsynchronousEquivalents.Contains(invocation.GetInvokedMethodName());
         }
     }
 }

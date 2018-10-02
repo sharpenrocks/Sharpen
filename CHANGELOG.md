@@ -5,6 +5,10 @@ The format of the file is based on [Keep a Changelog](http://keepachangelog.com/
 
 ## [Unreleased]
 ### Added
+- "Await Task.Delay() instead of calling Thread.Sleep()" suggestion.
+- "Await Task.WhenAll() instead of calling Task.WaitAll()" suggestion.
+- "Await Task.WhenAny() instead of calling Task.WaitAny()" suggestion.
+- "Await task instead of calling Task.Wait()" suggestion.
 - "Await equivalent asynchronous method" suggestion.
 - "Consider awaiting equivalent asynchronous method" suggestion.
 

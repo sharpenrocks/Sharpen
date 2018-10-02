@@ -17,6 +17,10 @@ namespace Sharpen.Engine.Analysis
             // C# 5.0.
             ConsiderAwaitingEquivalentAsynchronousMethod.Instance,
             AwaitEquivalentAsynchronousMethod.Instance,
+            AwaitTaskDelayInsteadOfCallingThreadSleep.Instance,
+            AwaitTaskInsteadOfCallingTaskWait.Instance,
+            AwaitTaskWhenAllInsteadOfCallingTaskWaitAll.Instance,
+            AwaitTaskWhenAnyInsteadOfCallingTaskWaitAny.Instance,
 
             // C# 6.0.
             UseExpressionBodyForGetOnlyProperties.Instance,
