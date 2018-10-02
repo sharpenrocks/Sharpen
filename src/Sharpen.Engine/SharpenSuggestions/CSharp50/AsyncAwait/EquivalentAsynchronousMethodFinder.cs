@@ -153,13 +153,17 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 
             bool EnclosingMethodCanBeMadeAsync()
             {
-                return EnclosingMethodIsNotOverridden() &&
+                return EnclosingMethodDoesNotOverrideNonChangeableBaseClassMethod() &&
                        EnclosingMethodDoesNotImplementNonChangeableInterfaceMethod() &&
                        EnclosingMethodDoesNotAlreadyHaveAsynchronousEquivalent();
 
-                bool EnclosingMethodIsNotOverridden()
+                bool EnclosingMethodDoesNotOverrideNonChangeableBaseClassMethod()
                 {
-                    return !enclosingMethodSymbol.IsOverride;
+                    if (!enclosingMethodSymbol.IsOverride) return true;
+
+                    return enclosingMethodSymbol.OverriddenMethod?
+                            .ContainingType?
+                            .Locations.All(location => location.IsInSource) == true;
                 }
 
                 bool EnclosingMethodDoesNotImplementNonChangeableInterfaceMethod()
