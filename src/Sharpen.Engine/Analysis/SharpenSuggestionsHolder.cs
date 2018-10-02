@@ -16,6 +16,7 @@ namespace Sharpen.Engine.Analysis
         {
             // C# 5.0.
             ConsiderAwaitingEquivalentAsynchronousMethod.Instance,
+            AwaitEquivalentAsynchronousMethod.Instance,
 
             // C# 6.0.
             UseExpressionBodyForGetOnlyProperties.Instance,

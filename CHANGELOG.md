@@ -5,6 +5,7 @@ The format of the file is based on [Keep a Changelog](http://keepachangelog.com/
 
 ## [Unreleased]
 ### Added
+- "Await equivalent asynchronous method" suggestion.
 - "Consider awaiting equivalent asynchronous method" suggestion.
 
 ### Fixed

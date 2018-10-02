@@ -13,6 +13,12 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
     /// </remarks>
     internal abstract class EquivalentAsynchronousMethodFinder
     {
+        public enum EnclosingMethodAsyncStatus
+        {
+            EnclosingMethodMustBeAsync,
+            EnclosingMethodMustNotBeAsync
+        }
+
         private class KnownAwaitableTypeInfo : KnownTypeInfo
         {
             public KnownAwaitableTypeInfo(string typeName, string typeNamespace)
@@ -69,13 +75,14 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
         /// This method does not only check if an equivalent asynchronous method
         /// exists. In addition, it runs additional checks to see if it make sense
         /// to call such existing asynchronous equivalent in the particular <paramref name="invocation"/>.
-        /// For example, the suggestion makes sense only if the enclosing method
+        /// For example, the suggestion to await asynchronous equivalent
+        /// makes sense only if the enclosing method
         /// within which the invocation happens can be turned into async method.
-        /// If the enclosing method is an interface implementation or an override
-        /// method it cannot be turned into async method and thus the suggestion
-        /// makes no sense.
+        /// For example, if the enclosing method is an interface implementation or an override
+        /// method of an interface or base class that cannot be changed, than it cannot be
+        /// turned into async method and thus the suggestion makes no sense.
         /// </remarks>
-        public bool EquivalentAsynchronousCandidateExistsFor(InvocationExpressionSyntax invocation, SemanticModel semanticModel)
+        public bool EquivalentAsynchronousCandidateExistsFor(InvocationExpressionSyntax invocation, SemanticModel semanticModel, EnclosingMethodAsyncStatus enclosingMethodAsyncStatus)
         {
             if (invocation.Expression == null) return false;
 
@@ -101,9 +108,16 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
             var enclosingMethodSymbol = GetEnclosingMethod();
             if (enclosingMethodSymbol == null) return false;
 
-            if (enclosingMethodSymbol.IsAsync) return false;
+            if (enclosingMethodAsyncStatus == EnclosingMethodAsyncStatus.EnclosingMethodMustNotBeAsync)
+            {
+                if (enclosingMethodSymbol.IsAsync) return false;
 
-            if (!EnclosingMethodCanBeMadeAsync()) return false;
+                if (!EnclosingMethodCanBeMadeAsync()) return false;
+            }
+            else // Enclosing method must be async.
+            {
+                if (!enclosingMethodSymbol.IsAsync) return false;
+            }
 
             // We can have the following situations:
             // 1. someObject.SomeInstanceMethod()
@@ -125,7 +139,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
             // has to check both the containing type of the synchronous method
             // and all the possible methods that can be called on the instance
             // on which the synchronous method is called (if there is such).
-           
+
             // Let's check the method containing type first.
             if (TypeContainsAsynchronousEquivalentOf(semanticModel, method.ContainingType, method, invocation)) return true;
 

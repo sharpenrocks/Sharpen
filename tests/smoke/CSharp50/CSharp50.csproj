@@ -47,6 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AsyncAwait\AwaitEquivalentAsynchronousMethod\MethodsThatDoNotHaveEquivalentAsynchronousMethod.cs" />
+    <Compile Include="AsyncAwait\AwaitEquivalentAsynchronousMethod\MethodsThatHaveEquivalentAsynchronousMethod.cs" />
     <Compile Include="AsyncAwait\ConsiderAwaitingEquivalentAsynchronousMethod\MethodsThatDoNotHaveEquivalentAsynchronousMethod.cs" />
     <Compile Include="AsyncAwait\ConsiderAwaitingEquivalentAsynchronousMethod\MethodsThatHaveEquivalentAsynchronousMethod.cs" />
   </ItemGroup>

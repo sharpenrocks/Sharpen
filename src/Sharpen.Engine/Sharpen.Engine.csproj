@@ -229,6 +229,8 @@
     <Compile Include="Extensions\SyntaxTokenExtensions.cs" />
     <Compile Include="Extensions\TextSpanExtensions.cs" />
     <Compile Include="KnownTypeInfo.cs" />
+    <Compile Include="SharpenSuggestions\CSharp50\AsyncAwait\AwaitEquivalentAsynchronousMethod.cs" />
+    <Compile Include="SharpenSuggestions\CSharp50\AsyncAwait\BaseAwaitingEquivalentAsynchronousMethod.cs" />
     <Compile Include="SharpenSuggestions\CSharp50\AsyncAwait\ConsiderAwaitingEquivalentAsynchronousMethod.cs" />
     <Compile Include="SharpenSuggestions\CSharp50\AsyncAwait\EquivalentAsynchronousMethodFinder.cs" />
     <Compile Include="SharpenSuggestions\CSharp50\AsyncAwait\HardcodedLookupBasedEquivalentAsynchronousMethodFinder.cs" />
