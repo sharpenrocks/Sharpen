@@ -287,6 +287,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
                 // Async equivalent must have exactly the same method parameters
                 // (type and name) with only a single exception - an additional
                 // CancellationToken can be there as the last argument.
+                // TODO: Add support for the IProgress additional argument.
                 int numberOfParameters = method.Parameters.Length;
                 if (!(potentialEquivalent.Parameters.Length == numberOfParameters ||
                       potentialEquivalent.Parameters.Length == numberOfParameters + 1))
