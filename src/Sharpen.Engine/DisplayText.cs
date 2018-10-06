@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if DEBUG
+using System;
+#endif
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -21,14 +23,30 @@ namespace Sharpen.Engine
                 case LocalFunctionStatementSyntax localFunction: return For(localFunction);
                 case ObjectCreationExpressionSyntax objectCreation: return For(objectCreation);
                 case MemberAccessExpressionSyntax memberAccess: return For(memberAccess);
+                // In general, we want to have a nice customized representation for each
+                // of the known nodes. Still, since sometimes we do display arbitrary nodes
+                // we will need the fallback to SyntaxNode in the release build.
+                // During debugging, let it crash so that we can extend the list with additional
+                // known cases.
+                #if DEBUG
                 default:
                     throw new ArgumentOutOfRangeException
                     (
                         nameof(syntaxNode),
                         $"Getting the display text for the syntax node of type {syntaxNode.GetType().Name} is currently not supported."
                     );
+                #else
+                default: return FallbackFor(syntaxNode);
+                #endif
             }
         }
+
+        #if !DEBUG
+        private static string FallbackFor(SyntaxNode syntaxNode)
+        {
+            return syntaxNode.ToString();
+        }
+        #endif
 
         private static string For(DestructorDeclarationSyntax destructor)
         {
