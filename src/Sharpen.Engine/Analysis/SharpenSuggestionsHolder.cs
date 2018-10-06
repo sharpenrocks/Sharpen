@@ -19,6 +19,7 @@ namespace Sharpen.Engine.Analysis
             AwaitEquivalentAsynchronousMethod.Instance,
             AwaitTaskDelayInsteadOfCallingThreadSleep.Instance,
             AwaitTaskInsteadOfCallingTaskWait.Instance,
+            AwaitTaskInsteadOfCallingTaskResult.Instance,
             AwaitTaskWhenAllInsteadOfCallingTaskWaitAll.Instance,
             AwaitTaskWhenAnyInsteadOfCallingTaskWaitAny.Instance,
 

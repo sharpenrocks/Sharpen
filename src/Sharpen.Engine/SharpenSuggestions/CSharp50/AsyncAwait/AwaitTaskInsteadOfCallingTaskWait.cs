@@ -1,14 +1,14 @@
 ﻿namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 {
-    internal sealed class AwaitTaskInsteadOfCallingTaskWait : BaseAwaitKnownAsynchronousMethodInsteadOfCallingSynchronousMethod
+    internal sealed class AwaitTaskInsteadOfCallingTaskWait : BaseAwaitKnownAsynchronousEquivalentInsteadOfCallingSynchronousMember
     {
-        private AwaitTaskInsteadOfCallingTaskWait() : base(new MethodReplacementInfo
+        private AwaitTaskInsteadOfCallingTaskWait() : base(new SynchronousMemberReplacementInfo
             {
-                AsyncMethodDisplayName = "task",
-                SynchronousMethodDisplayName = "Task.Wait()",
-                SynchronousMethodName = "Wait",
-                SynchronousMethodTypeNamespace = "System.Threading.Tasks",
-                SynchronousMethodTypeName = "Task"
+                AsyncEquivalentDisplayName = "task",
+                SynchronousMemberDisplayName = "Task.Wait()",
+                SynchronousMemberName = "Wait",
+                SynchronousMemberTypeNamespace = "System.Threading.Tasks",
+                SynchronousMemberTypeName = "Task"
             }) { }
 
         public static readonly AwaitTaskInsteadOfCallingTaskWait Instance = new AwaitTaskInsteadOfCallingTaskWait();

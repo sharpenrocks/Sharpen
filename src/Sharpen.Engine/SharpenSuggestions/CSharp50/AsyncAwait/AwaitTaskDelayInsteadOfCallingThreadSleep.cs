@@ -1,14 +1,14 @@
 ﻿namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 {
-    internal sealed class AwaitTaskDelayInsteadOfCallingThreadSleep : BaseAwaitKnownAsynchronousMethodInsteadOfCallingSynchronousMethod
+    internal sealed class AwaitTaskDelayInsteadOfCallingThreadSleep : BaseAwaitKnownAsynchronousEquivalentInsteadOfCallingSynchronousMember
     {
-        private AwaitTaskDelayInsteadOfCallingThreadSleep() : base(new MethodReplacementInfo
+        private AwaitTaskDelayInsteadOfCallingThreadSleep() : base(new SynchronousMemberReplacementInfo
             {
-                AsyncMethodDisplayName = "Task.Delay()",
-                SynchronousMethodDisplayName = "Thread.Sleep()",
-                SynchronousMethodName = "Sleep",
-                SynchronousMethodTypeNamespace = "System.Threading",
-                SynchronousMethodTypeName = "Thread"
+                AsyncEquivalentDisplayName = "Task.Delay()",
+                SynchronousMemberDisplayName = "Thread.Sleep()",
+                SynchronousMemberName = "Sleep",
+                SynchronousMemberTypeNamespace = "System.Threading",
+                SynchronousMemberTypeName = "Thread"
             }) { }
 
         public static readonly AwaitTaskDelayInsteadOfCallingThreadSleep Instance = new AwaitTaskDelayInsteadOfCallingThreadSleep();

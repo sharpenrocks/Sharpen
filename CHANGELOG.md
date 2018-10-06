@@ -3,6 +3,10 @@ All notable changes to the "Sharpen" extension will be documented in this file.
 
 The format of the file is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased]
+### Added
+- "Await task instead of calling Task.Result" suggestion.
+
 ## [0.6.0] - 2018-10-03
 ### Added
 - "Await Task.Delay() instead of calling Thread.Sleep()" suggestion.

@@ -1,14 +1,14 @@
 ﻿namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 {
-    internal sealed class AwaitTaskWhenAllInsteadOfCallingTaskWaitAll : BaseAwaitKnownAsynchronousMethodInsteadOfCallingSynchronousMethod
+    internal sealed class AwaitTaskWhenAllInsteadOfCallingTaskWaitAll : BaseAwaitKnownAsynchronousEquivalentInsteadOfCallingSynchronousMember
     {
-        private AwaitTaskWhenAllInsteadOfCallingTaskWaitAll() : base(new MethodReplacementInfo
+        private AwaitTaskWhenAllInsteadOfCallingTaskWaitAll() : base(new SynchronousMemberReplacementInfo
             {
-                AsyncMethodDisplayName = "Task.WhenAll()",
-                SynchronousMethodDisplayName = "Task.WaitAll()",
-                SynchronousMethodName = "WaitAll",
-                SynchronousMethodTypeNamespace = "System.Threading.Tasks",
-                SynchronousMethodTypeName = "Task"
+                AsyncEquivalentDisplayName = "Task.WhenAll()",
+                SynchronousMemberDisplayName = "Task.WaitAll()",
+                SynchronousMemberName = "WaitAll",
+                SynchronousMemberTypeNamespace = "System.Threading.Tasks",
+                SynchronousMemberTypeName = "Task"
             }) { }
 
         public static readonly AwaitTaskWhenAllInsteadOfCallingTaskWaitAll Instance = new AwaitTaskWhenAllInsteadOfCallingTaskWaitAll();

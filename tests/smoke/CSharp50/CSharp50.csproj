@@ -51,6 +51,8 @@
     <Compile Include="AsyncAwait\AwaitEquivalentAsynchronousMethod\MethodsThatHaveEquivalentAsynchronousMethod.cs" />
     <Compile Include="AsyncAwait\AwaitTaskDelayInsteadOfCallingThreadSleep\TaskDelayCanBeAwaitedInsteadOfCallingThreadSleep.cs" />
     <Compile Include="AsyncAwait\AwaitTaskDelayInsteadOfCallingThreadSleep\TaskDelayCannotBeAwaitedInsteadOfCallingThreadSleep.cs" />
+    <Compile Include="AsyncAwait\AwaitTaskInsteadOfCallingTaskResult\TaskCanBeAwaitedInsteadOfCallingTaskResult.cs" />
+    <Compile Include="AsyncAwait\AwaitTaskInsteadOfCallingTaskResult\TaskCannotBeAwaitedInsteadOfCallingTaskResult.cs" />
     <Compile Include="AsyncAwait\AwaitTaskWhenAnyInsteadOfCallingTaskWaitAny\TaskWhenAnyCanBeAwaitedInsteadOfCallingTaskWaitAny.cs" />
     <Compile Include="AsyncAwait\AwaitTaskWhenAnyInsteadOfCallingTaskWaitAny\TaskWhenAnyCannotBeAwaitedInsteadOfCallingTaskWaitAny.cs" />
     <Compile Include="AsyncAwait\AwaitTaskWhenAllInsteadOfCallingTaskWaitAll\TaskWhenAllCanBeAwaitedInsteadOfCallingTaskWaitAll.cs" />

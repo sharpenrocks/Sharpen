@@ -1358,7 +1358,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 
         protected override bool InvokedMethodPotentiallyHasAsynchronousEquivalent(InvocationExpressionSyntax invocation)
         {
-            return SynchronousMethodsWithAsynchronousEquivalents.Contains(invocation.GetInvokedMethodName());
+            return SynchronousMethodsWithAsynchronousEquivalents.Contains(invocation.GetInvokedMemberName());
         }
     }
 }

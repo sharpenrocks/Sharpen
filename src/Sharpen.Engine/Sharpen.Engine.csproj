@@ -221,6 +221,7 @@
     <Compile Include="CSharpFeatures\OutVariables.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\InvocationExpressionSyntaxExtensions.cs" />
+    <Compile Include="Extensions\MethodDeclarationSyntaxExtensions.cs" />
     <Compile Include="Extensions\SymbolExtensions.cs" />
     <Compile Include="Extensions\UnitTestingCodeDetectionExtensions.cs" />
     <Compile Include="Extensions\GeneratedCodeDetectionExtensions.cs" />
@@ -231,10 +232,11 @@
     <Compile Include="Extensions\TextSpanExtensions.cs" />
     <Compile Include="KnownTypeInfo.cs" />
     <Compile Include="SharpenSuggestions\CSharp50\AsyncAwait\AwaitEquivalentAsynchronousMethod.cs" />
+    <Compile Include="SharpenSuggestions\CSharp50\AsyncAwait\AwaitTaskInsteadOfCallingTaskResult.cs" />
     <Compile Include="SharpenSuggestions\CSharp50\AsyncAwait\AwaitTaskWhenAnyInsteadOfCallingTaskWaitAny.cs" />
     <Compile Include="SharpenSuggestions\CSharp50\AsyncAwait\AwaitTaskWhenAllInsteadOfCallingTaskWaitAll.cs" />
     <Compile Include="SharpenSuggestions\CSharp50\AsyncAwait\AwaitTaskInsteadOfCallingTaskWait.cs" />
-    <Compile Include="SharpenSuggestions\CSharp50\AsyncAwait\BaseAwaitKnownAsynchronousMethodInsteadOfCallingSynchronousMethod.cs" />
+    <Compile Include="SharpenSuggestions\CSharp50\AsyncAwait\BaseAwaitKnownAsynchronousEquivalentInsteadOfCallingSynchronousMember.cs" />
     <Compile Include="SharpenSuggestions\CSharp50\AsyncAwait\AwaitTaskDelayInsteadOfCallingThreadSleep.cs" />
     <Compile Include="SharpenSuggestions\CSharp50\AsyncAwait\BaseAwaitingEquivalentAsynchronousMethod.cs" />
     <Compile Include="SharpenSuggestions\CSharp50\AsyncAwait\ConsiderAwaitingEquivalentAsynchronousMethod.cs" />

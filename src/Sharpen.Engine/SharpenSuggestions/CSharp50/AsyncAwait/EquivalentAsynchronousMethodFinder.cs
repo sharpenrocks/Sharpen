@@ -95,7 +95,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
             // So far we do not suggest turning lambdas and anonymous methods
             // into async. So we will at the moment just ignore that case.
             // TODO: Support suggestion for lambdas and anonymous methods.
-            if (invocation.IsInvokedWithinLambdaOrAnonymousMethod()) return false;
+            if (invocation.IsWithinLambdaOrAnonymousMethod()) return false;
 
             // If type authors invoke the synchronous method
             // within the implementation of its containing type

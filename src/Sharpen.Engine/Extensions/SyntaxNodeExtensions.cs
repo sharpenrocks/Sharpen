@@ -8,6 +8,21 @@ namespace Sharpen.Engine.Extensions
 {
     internal static class SyntaxNodeExtensions
     {
+        public static bool IsAnyOfKinds(this SyntaxNode syntaxNode, SyntaxKind firstKind, SyntaxKind secondKind)
+        {
+            return syntaxNode.IsKind(firstKind) || syntaxNode.IsKind(secondKind);
+        }
+
+        public static bool IsAnyOfKinds(this SyntaxNode syntaxNode, SyntaxKind firstKind, SyntaxKind secondKind, SyntaxKind thirdKind)
+        {
+            return syntaxNode.IsKind(firstKind) || syntaxNode.IsKind(secondKind) || syntaxNode.IsKind(thirdKind);
+        }
+
+        public static bool IsWithinLambdaOrAnonymousMethod(this SyntaxNode syntaxNode)
+        {
+            return syntaxNode.FirstAncestorOrSelf<AnonymousFunctionExpressionSyntax>() != null;
+        }
+
         // Returning lists... mutable to be worse... I don't like it. Still, in this case, the best tradeoff
         // until we introduce some good both semantically correct and performant collection handling.
         public static List<string> GetParameterNamesVisibleInScope(this SyntaxNode syntaxNode)

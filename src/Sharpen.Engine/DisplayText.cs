@@ -20,6 +20,7 @@ namespace Sharpen.Engine
                 case InvocationExpressionSyntax invocation: return For(invocation);
                 case LocalFunctionStatementSyntax localFunction: return For(localFunction);
                 case ObjectCreationExpressionSyntax objectCreation: return For(objectCreation);
+                case MemberAccessExpressionSyntax memberAccess: return For(memberAccess);
                 default:
                     throw new ArgumentOutOfRangeException
                     (
@@ -87,6 +88,12 @@ namespace Sharpen.Engine
         {
             objectCreation = objectCreation.WithoutLeadingTrivia();
             return $"{objectCreation.ToFullString()}".Trim();
+        }
+
+        private static string For(MemberAccessExpressionSyntax memberAccess)
+        {
+            memberAccess = memberAccess.WithoutLeadingTrivia();
+            return $"{memberAccess.ToFullString()}".Trim();
         }
     }
 }
