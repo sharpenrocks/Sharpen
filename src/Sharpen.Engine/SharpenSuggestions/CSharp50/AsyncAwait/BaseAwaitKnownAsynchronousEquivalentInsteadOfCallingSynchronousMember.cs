@@ -62,7 +62,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
                     analysisContext,
                     syntaxTree.FilePath,
                     GetStartingSyntaxNode(node).GetFirstToken(),
-                    node
+                    node.FirstAncestorOrSelf<StatementSyntax>() ?? node
                 ));
 
             bool InvokedMemberHasAsynchronousEquivalentThatCanBeAwaited(SyntaxNode invocation)

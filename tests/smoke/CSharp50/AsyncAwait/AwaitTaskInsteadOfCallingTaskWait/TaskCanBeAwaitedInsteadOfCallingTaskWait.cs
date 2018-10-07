@@ -1,6 +1,6 @@
 ﻿// ReSharper disable All
 
-// Expected number of suggestions: 1
+// Expected number of suggestions: 3
 
 using System.Threading.Tasks;
 
@@ -12,6 +12,9 @@ namespace CSharp50.AsyncAwait.AwaitTaskInsteadOfCallingTaskWait
         {
             var task = new Task(() => {});
             task.Wait(0);
+            task.Wait(1 + 2 + 2);
+            int wait = 100;
+            task.Wait(wait);
         }
     }
 }

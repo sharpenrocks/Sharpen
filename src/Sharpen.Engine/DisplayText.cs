@@ -1,7 +1,4 @@
-﻿#if DEBUG
-using System;
-#endif
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -17,28 +14,15 @@ namespace Sharpen.Engine
                 case SyntaxKind.ConstructorDeclaration: return For((ConstructorDeclarationSyntax)syntaxNode);
                 case SyntaxKind.PropertyDeclaration: return For((PropertyDeclarationSyntax)syntaxNode);
                 case SyntaxKind.IndexerDeclaration: return For((IndexerDeclarationSyntax)syntaxNode);
-                case SyntaxKind.ReturnStatement: return syntaxNode.ToString();
-                case SyntaxKind.Parameter: return syntaxNode.ToString();
-                case SyntaxKind.Argument: return syntaxNode.ToString();
-                case SyntaxKind.InvocationExpression: return syntaxNode.ToString();
                 case SyntaxKind.LocalFunctionStatement: return For((LocalFunctionStatementSyntax)syntaxNode);
-                case SyntaxKind.ObjectCreationExpression: return syntaxNode.ToString();
-                case SyntaxKind.SimpleMemberAccessExpression: return syntaxNode.ToString();
-                // In general, we want to have a proper customized representation for each
-                // of the known nodes. Still, since sometimes we do display arbitrary nodes
-                // we will need the fallback to generic display in the release build.
-                // During debugging, let it crash so that we can extend the list with additional
-                // known cases, even if we will choose that they have a generic display.
-                #if DEBUG
-                default:
-                    throw new ArgumentOutOfRangeException
-                    (
-                        nameof(syntaxNode),
-                        $"Getting the display text for the syntax node of type {syntaxNode.GetType().Name} is currently not supported."
-                    );
-                #else
+                case SyntaxKind.ReturnStatement:
+                case SyntaxKind.Parameter:
+                case SyntaxKind.Argument:
+                case SyntaxKind.InvocationExpression:
+                case SyntaxKind.ObjectCreationExpression:
+                case SyntaxKind.SimpleMemberAccessExpression:
+                case SyntaxKind.EqualsValueClause: return syntaxNode.ToString();
                 default: return syntaxNode.ToString();
-                #endif
             }
         }
 
