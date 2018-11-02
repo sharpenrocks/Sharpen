@@ -12,7 +12,9 @@
 
 ![Sharpen in action](https://raw.githubusercontent.com/ironcev/sharpen/master/images/demo.gif)
 
-You can [install *Sharpen* directly from Visual Studio](https://github.com/sharpenrocks/Sharpen/wiki/Installing-Sharpen) or [download it from the Visual Studio marketplace](https://marketplace.visualstudio.com/items?itemName=ironcev.sharpen).
+## Installation
+
+You can [install *Sharpen*](https://github.com/sharpenrocks/Sharpen/wiki/Installing-Sharpen) directly from Visual Studio or [download it](https://marketplace.visualstudio.com/items?itemName=ironcev.sharpen) from the Visual Studio Marketplace.
 
 ## Benefits at a Glance
 
