@@ -16,12 +16,14 @@ You can [install *Sharpen* directly from Visual Studio](https://github.com/sharp
 
 ## Benefits at a Glance
 
-The below chapters shortly describe the major benefits of *Sharpen*.
-
 ### Faster Learning of New C# Features
 Learn new C# features faster by applying them to your existing code base.
 
 Forget the simplified, artificial code samples often used to introduce new C# features. *Sharpen* points to places in real-life production code - your code! - where new C# features should be used.
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/faster-learning-of-new-csharp-features.png" alt="Faster Learning of New C# Features" style="max-width:100%;">
+</p>
 
 ### Critical Approach to New C# Features
 Learn to ❤ C# but not blindly. Take love with a pinch of salt ;-)
@@ -37,6 +39,10 @@ Once configured on your project, *Sharpen* ensures that C# language features are
 Safely refactor your code by a single mouse click.
 
 *Sharpen* can refactor your code on an arbitrary scale: single place in code, single file, or a whole project, or solution. At the same time, it gives you full control over the scope and nature of the refactorings.
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/code-refactoring-on-arbitrary-scale.png" alt="Code Refactoring on Arbitrary Scale" style="max-width:100%;">
+</p>
 
 ### Improving Code on a Larger Scope
 Still having BackgroundWorkers in your code?
