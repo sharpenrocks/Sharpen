@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Sharpen.Engine.Analysis;
-using Sharpen.Engine.Extensions;
+using Sharpen.Engine.Extensions.CodeDetection;
 using static Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait.EquivalentAsynchronousMethodFinder;
 
 namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait

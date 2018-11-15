@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Sharpen.Engine.Extensions
+namespace Sharpen.Engine.Extensions.CodeDetection
 {
     // TODO-SETTINGS: E.g. possibility to define additional namespaces etc.
 
@@ -11,7 +11,7 @@ namespace Sharpen.Engine.Extensions
     /// Contains extension methods related to the detection
     /// of unit testing code.
     /// </summary>
-    internal static class UnitTestingCodeDetectionExtensions
+    internal static class UnitTestingDetection
     {
         // This is the simplest heuristics possible. We just check for the
         // existence of the well known using directives. In like 99% of the cases

@@ -14,8 +14,9 @@ namespace Sharpen.VisualStudioExtension.Commands
         protected Package Package { get; }
         protected IServiceProvider ServiceProvider { get; }
         protected VisualStudioWorkspace Workspace { get; }
+        protected EnvDTE80.DTE2 VisualStudioIde { get; }
 
-        protected BaseSharpenCommand(Package package, int commandId, Guid commandSet)
+        protected BaseSharpenCommand(Package package, int commandId, Guid commandSet, bool isDynamicallyVisibleAndEnabled = false)
         {
             Package = package ?? throw new ArgumentNullException(nameof(package));
 
@@ -24,11 +25,27 @@ namespace Sharpen.VisualStudioExtension.Commands
             var componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
             Workspace = componentModel.GetService<VisualStudioWorkspace>();
 
+            VisualStudioIde = (EnvDTE80.DTE2)ServiceProvider.GetService(typeof(EnvDTE.DTE));
+
             if (!(ServiceProvider.GetService(typeof(IMenuCommandService)) is OleMenuCommandService commandService)) return;
 
             var menuCommandId = new CommandID(commandSet, commandId);
-            var menuItem = new MenuCommand(async (sender, e) => await OnExecuteAsync(), menuCommandId);
+            // isDynamicallyVisibleAndEnabled is a bit of redundant information.
+            // But it's a simple way to avoid creating OleMenuCommand unless we really need it.
+            var menuItem = isDynamicallyVisibleAndEnabled
+                ? new OleMenuCommand(async (sender, e) => await OnExecuteAsync(), null, OnBeforeQueryStatus, menuCommandId)
+                : new MenuCommand(async (sender, e) => await OnExecuteAsync(), menuCommandId);
             commandService.AddCommand(menuItem);
+        }
+
+        private void OnBeforeQueryStatus(object sender, EventArgs e)
+        {
+            if (!(sender is OleMenuCommand menuCommand)) return;
+
+            IsCommandVisibleAndEnabled(out bool isVisible, out bool isEnabled);
+
+            menuCommand.Visible = isVisible;
+            menuCommand.Enabled = isEnabled;
         }
 
         protected async Task ShowSharpenResultsToolWindowAsync()
@@ -43,6 +60,12 @@ namespace Sharpen.VisualStudioExtension.Commands
         }
 
         protected abstract Task OnExecuteAsync();
+
+        protected virtual void IsCommandVisibleAndEnabled(out bool isVisible, out bool isEnabled)
+        {
+            isVisible = true;
+            isEnabled = true;
+        }
 
         public static TSharpenCommand Instance { get; protected set; }
     }

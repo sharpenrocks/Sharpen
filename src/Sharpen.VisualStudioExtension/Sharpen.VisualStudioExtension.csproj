@@ -60,6 +60,7 @@
       <Link>Properties\AssemblyInfo.Common.cs</Link>
     </Compile>
     <Compile Include="Commands\AnalyzeSelectedProjectsCommand.cs" />
+    <Compile Include="Commands\AnalyzeCurrentDocumentContextCommand.cs" />
     <Compile Include="Commands\BaseAnalyzeCommand.cs" />
     <Compile Include="Commands\ShowOptionsDialogCommand.cs" />
     <Compile Include="Commands\BaseSharpenCommand.cs" />
@@ -84,6 +85,7 @@
     </Compile>
     <Compile Include="ToolWindows\AnalysisResultTreeViewItems\BaseTreeViewItem.cs" />
     <Compile Include="UserInteraction.cs" />
+    <Compile Include="VisualStudioWorkspaceExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

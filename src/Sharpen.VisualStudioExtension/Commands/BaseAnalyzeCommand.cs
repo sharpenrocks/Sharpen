@@ -10,7 +10,7 @@ namespace Sharpen.VisualStudioExtension.Commands
     {
         protected SharpenExtensionService SharpenExtensionService { get; }
 
-        protected BaseAnalyzeCommand(Package package, SharpenExtensionService sharpenExtensionService, int commandId, Guid commandSet) : base(package, commandId, commandSet)
+        protected BaseAnalyzeCommand(Package package, SharpenExtensionService sharpenExtensionService, int commandId, Guid commandSet, bool isDynamicallyVisibleAndEnabled = false) : base(package, commandId, commandSet, isDynamicallyVisibleAndEnabled)
         {
             SharpenExtensionService = sharpenExtensionService;
         }

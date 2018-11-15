@@ -223,8 +223,8 @@
     <Compile Include="Extensions\InvocationExpressionSyntaxExtensions.cs" />
     <Compile Include="Extensions\MethodDeclarationSyntaxExtensions.cs" />
     <Compile Include="Extensions\SymbolExtensions.cs" />
-    <Compile Include="Extensions\UnitTestingCodeDetectionExtensions.cs" />
-    <Compile Include="Extensions\GeneratedCodeDetectionExtensions.cs" />
+    <Compile Include="Extensions\CodeDetection\UnitTestingDetection.cs" />
+    <Compile Include="Extensions\CodeDetection\GeneratedCodeDetection.cs" />
     <Compile Include="Extensions\NamespaceSymbolExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\SyntaxNodeExtensions.cs" />

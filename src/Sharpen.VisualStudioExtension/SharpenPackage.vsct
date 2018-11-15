@@ -17,8 +17,10 @@
         </Strings>
       </Menu>
     </Menus>
-        
+
+
     <Groups>
+      <!-- Sharpen Groups on the Tools Menu. -->
       <Group guid="guidAnalyzeGroup" id="idAnalyzeGroup" priority="0x100">
         <Parent guid="guidSharpenGroupOnTheToolsMenu" id="idSharpenGroupOnTheToolsMenu" />
       </Group>
@@ -28,8 +30,11 @@
       <Group guid="guidSharpenResultsGroup" id="idSharpenResultsGroup" priority="0x300">
         <Parent guid="guidSharpenGroupOnTheToolsMenu" id="idSharpenGroupOnTheToolsMenu" />
       </Group>
-    </Groups>
 
+      <!-- Sharpen Group on the File Context Menu. -->
+      <Group guid="guidFileContextMenuGroup" id="idFileContextMenuGroup" priority="0x400"/>
+    </Groups>
+    
     <Buttons>
       <!-- Analyze Group. -->
       <Button guid="guidAnalyzeGroup" id="cmdidAnalyzeSolution" priority="0x0100" type="Button">
@@ -57,28 +62,50 @@
           <ButtonText>Sharpen &amp;Results</ButtonText>
         </Strings>
       </Button>
+
+      <!-- File Context Menu Group. -->
+      <Button guid="guidFileContextMenuGroup" id="cmdidAnalyzeCurrentDocument" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Analyze with &amp;Sharpen</ButtonText>
+        </Strings>
+      </Button>
     </Buttons>
+
   </Commands>
   
   <CommandPlacements>
+
     <CommandPlacement guid="guidAnalyzeGroup" id="cmdidAnalyzeSolution" priority="0x100">
       <Parent guid="guidAnalyzeGroup" id="idAnalyzeGroup" />
     </CommandPlacement>
     <CommandPlacement guid="guidAnalyzeGroup" id="cmdidAnalyzeSelectedProjects" priority="0x200">
       <Parent guid="guidAnalyzeGroup" id="idAnalyzeGroup" />
     </CommandPlacement>
+
     <CommandPlacement guid="guidOptionsGroup" id="cmdidOptions" priority="0x100">
       <Parent guid="guidOptionsGroup" id="idOptionsGroup" />
     </CommandPlacement>
+
     <CommandPlacement guid="guidSharpenResultsGroup" id="cmdidSharpenResults" priority="0x100">
       <Parent guid="guidSharpenResultsGroup" id="idSharpenResultsGroup" />
     </CommandPlacement>
     <CommandPlacement guid="guidSharpenResultsGroup" id="cmdidSharpenResults" priority="0x600">
       <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1" />
     </CommandPlacement>
+
+    <CommandPlacement guid="guidFileContextMenuGroup" id="idFileContextMenuGroup" priority="0x100">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN"/>
+    </CommandPlacement>
+    <CommandPlacement guid="guidFileContextMenuGroup" id="cmdidAnalyzeCurrentDocument" priority="0x100">
+      <Parent guid="guidFileContextMenuGroup" id="idFileContextMenuGroup"/>
+    </CommandPlacement>
+
   </CommandPlacements>
 
-  <Symbols>    
+  <Symbols>
+
     <GuidSymbol name="guidSharpenPackage" value="{01263ec2-7232-4367-a2cd-3982380b3985}" />
 
     <GuidSymbol name="guidSharpenGroupOnTheToolsMenu" value ="{b5e43671-9e80-4169-beb1-74b688b21375}">
@@ -100,5 +127,11 @@
       <IDSymbol name="idSharpenResultsGroup" value="0x100" />
       <IDSymbol name="cmdidSharpenResults" value="0x200" />
     </GuidSymbol>
+
+    <GuidSymbol name="guidFileContextMenuGroup" value ="{F343DB77-7F1C-4BAD-89FB-39E74DD7BD20}">
+      <IDSymbol name="idFileContextMenuGroup" value="0x100" />
+      <IDSymbol name="cmdidAnalyzeCurrentDocument" value="0x200" />
+    </GuidSymbol>
+
   </Symbols>
 </CommandTable>

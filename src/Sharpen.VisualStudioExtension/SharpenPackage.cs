@@ -1,11 +1,13 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using Sharpen.VisualStudioExtension.Commands;
 using Sharpen.VisualStudioExtension.ToolWindows;
 
 namespace Sharpen.VisualStudioExtension
 {
+    [ProvideAutoLoad(UIContextGuids80.SolutionExists)]
     [PackageRegistration(UseManagedResourcesOnly = true)]
     [InstalledProductRegistration("#110", "#112", "0.6.1", IconResourceID = 400)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
@@ -22,6 +24,7 @@ namespace Sharpen.VisualStudioExtension
 
             AnalyzeSolutionCommand.Initialize(this, SharpenExtensionService.Instance);
             AnalyzeSelectedProjectsCommand.Initialize(this, SharpenExtensionService.Instance);
+            AnalyzeCurrentDocumentContextCommand.Initialize(this, SharpenExtensionService.Instance);
             ShowOptionsDialogCommand.Initialize(this);
             ShowSharpenResultsToolWindowCommand.Initialize(this);
 

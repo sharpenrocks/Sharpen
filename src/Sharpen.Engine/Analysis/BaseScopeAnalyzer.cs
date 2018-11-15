@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
-using Sharpen.Engine.Extensions;
+using Sharpen.Engine.Extensions.CodeDetection;
 
 namespace Sharpen.Engine.Analysis
 {
