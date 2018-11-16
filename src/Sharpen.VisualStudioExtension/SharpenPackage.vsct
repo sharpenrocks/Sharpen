@@ -8,6 +8,7 @@
   <Extern href="vsshlids.h" />
 
   <Commands package="guidSharpenPackage">
+
     <Menus>
       <!-- Sharpen Menu on the Tools Menu. -->
       <Menu guid="guidSharpenGroupOnTheToolsMenu" id="idSharpenGroupOnTheToolsMenu" type="Menu" priority="0x400">
@@ -18,8 +19,8 @@
       </Menu>
     </Menus>
 
-
     <Groups>
+
       <!-- Sharpen Groups on the Tools Menu. -->
       <Group guid="guidAnalyzeGroup" id="idAnalyzeGroup" priority="0x100">
         <Parent guid="guidSharpenGroupOnTheToolsMenu" id="idSharpenGroupOnTheToolsMenu" />
@@ -33,10 +34,15 @@
 
       <!-- Sharpen Group on the File Context Menu. -->
       <Group guid="guidFileContextMenuGroup" id="idFileContextMenuGroup" priority="0x400"/>
+
+      <!-- Sharpen Group on the Solution Context Menu. -->
+      <Group guid="guidSolutionContextMenuGroup" id="idSolutionContextMenuGroup" priority="0x400"/>
+
     </Groups>
     
     <Buttons>
-      <!-- Analyze Group. -->
+
+      <!-- Buttons on the Analyze Group. -->
       <Button guid="guidAnalyzeGroup" id="cmdidAnalyzeSolution" priority="0x0100" type="Button">
         <Strings>
           <ButtonText>Analyze &amp;Solution</ButtonText>
@@ -49,21 +55,21 @@
         </Strings>
       </Button>
 
-      <!-- Options Group. -->
+      <!-- Buttons on the Options Group. -->
       <Button guid="guidOptionsGroup" id="cmdidOptions" priority="0x0100" type="Button">
         <Strings>
           <ButtonText>&amp;Options...</ButtonText>
         </Strings>
       </Button>
 
-      <!-- Sharpen Results Group. -->
+      <!-- Buttons on the Sharpen Results Group. -->
       <Button guid="guidSharpenResultsGroup" id="cmdidSharpenResults" priority="0x0100" type="Button">
         <Strings>
           <ButtonText>Sharpen &amp;Results</ButtonText>
         </Strings>
       </Button>
 
-      <!-- File Context Menu Group. -->
+      <!-- Buttons on the File Context Menu Group. -->
       <Button guid="guidFileContextMenuGroup" id="cmdidAnalyzeCurrentDocument" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -71,6 +77,16 @@
           <ButtonText>Analyze with &amp;Sharpen</ButtonText>
         </Strings>
       </Button>
+
+      <!-- Buttons on the Solution Context Menu Group. -->
+      <Button guid="guidSolutionContextMenuGroup" id="cmdidAnalyzeSolutionContextMenu" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Analyze with &amp;Sharpen</ButtonText>
+        </Strings>
+      </Button>
+
     </Buttons>
 
   </Commands>
@@ -102,6 +118,13 @@
       <Parent guid="guidFileContextMenuGroup" id="idFileContextMenuGroup"/>
     </CommandPlacement>
 
+    <CommandPlacement guid="guidSolutionContextMenuGroup" id="idSolutionContextMenuGroup" priority="0x100">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_SOLNNODE"/>
+    </CommandPlacement>
+    <CommandPlacement guid="guidSolutionContextMenuGroup" id="cmdidAnalyzeSolutionContextMenu" priority="0x100">
+      <Parent guid="guidSolutionContextMenuGroup" id="idSolutionContextMenuGroup"/>
+    </CommandPlacement>
+
   </CommandPlacements>
 
   <Symbols>
@@ -131,6 +154,11 @@
     <GuidSymbol name="guidFileContextMenuGroup" value ="{F343DB77-7F1C-4BAD-89FB-39E74DD7BD20}">
       <IDSymbol name="idFileContextMenuGroup" value="0x100" />
       <IDSymbol name="cmdidAnalyzeCurrentDocument" value="0x200" />
+    </GuidSymbol>
+
+    <GuidSymbol name="guidSolutionContextMenuGroup" value ="{BE887A1D-5356-4D04-8D61-65479E35BB3C}">
+      <IDSymbol name="idSolutionContextMenuGroup" value="0x100" />
+      <IDSymbol name="cmdidAnalyzeSolutionContextMenu" value="0x200" />
     </GuidSymbol>
 
   </Symbols>

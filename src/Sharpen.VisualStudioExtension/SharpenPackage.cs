@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Sharpen.VisualStudioExtension.Commands;
+using Sharpen.VisualStudioExtension.Commands.ContextCommands;
 using Sharpen.VisualStudioExtension.ToolWindows;
 
 namespace Sharpen.VisualStudioExtension
@@ -24,9 +25,12 @@ namespace Sharpen.VisualStudioExtension
 
             AnalyzeSolutionCommand.Initialize(this, SharpenExtensionService.Instance);
             AnalyzeSelectedProjectsCommand.Initialize(this, SharpenExtensionService.Instance);
-            AnalyzeCurrentDocumentContextCommand.Initialize(this, SharpenExtensionService.Instance);
+            
             ShowOptionsDialogCommand.Initialize(this);
             ShowSharpenResultsToolWindowCommand.Initialize(this);
+
+            AnalyzeCurrentDocumentContextCommand.Initialize(this, SharpenExtensionService.Instance);
+            AnalyzeSolutionContextCommand.Initialize(this, SharpenExtensionService.Instance);
 
             base.Initialize();
         }

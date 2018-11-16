@@ -5,6 +5,7 @@ The format of the file is based on [Keep a Changelog](http://keepachangelog.com/
 
 ## [Unreleased]
 ### Added
+- "Analyze with Sharpen" menu item on the solution context menu
 - "Analyze with Sharpen" menu item on the C# file editor context menu
 
 ## [0.6.1] - 2018-10-07

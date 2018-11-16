@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.Shell;
 using Sharpen.Engine.Analysis;
 using Sharpen.Engine.Extensions.CodeDetection;
 
-namespace Sharpen.VisualStudioExtension.Commands
+namespace Sharpen.VisualStudioExtension.Commands.ContextCommands
 {
     internal sealed class AnalyzeCurrentDocumentContextCommand : BaseAnalyzeCommand<AnalyzeCurrentDocumentContextCommand>
     {
