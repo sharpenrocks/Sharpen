@@ -3,6 +3,10 @@ All notable changes to the "Sharpen" extension will be documented in this file.
 
 The format of the file is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased]
+### Added
+- "Analyze with Sharpen" menu item on the C# file editor context menu
+
 ## [0.6.1] - 2018-10-07
 ### Added
 - Better display of Async and Await findings in the Sharpen Results view.
