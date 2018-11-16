@@ -26,6 +26,24 @@ namespace Sharpen.Engine.Extensions.CodeDetection
             return IsGeneratedFile(document.FilePath);
         }
 
+        internal static bool IsGeneratedAssemblyInfo(this Document document)
+        {
+            if (string.IsNullOrWhiteSpace(document.FilePath)) return false;
+            if (document.Project == null) return false;
+
+            // Generated AssemblyInfo files have the name of the form:
+            //  <ProjectName>.AssemblyInfo.cs
+            // In addition, the file has to be in the obj output folder
+            // but we will ignore that check at the moment.
+            // It is enough to insist on the expected file name form.
+
+            if (!document.FilePath.EndsWith(".AssemblyInfo.cs")) return false;
+
+            int directorySeparatorIndex = document.FilePath.LastIndexOfAny(Separators);
+
+            return string.Compare(document.Project.Name, 0, document.FilePath, directorySeparatorIndex + 1, document.Project.Name.Length, StringComparison.OrdinalIgnoreCase) == 0;
+        }
+
         // The implementation has been adapted from Josef Pihrt's Roslynator:
         // https://github.com/JosefPihrt/Roslynator/blob/a6ed824a390831fa67e0dbb3710418239654a88e/src/CSharp/GeneratedCodeUtility.cs#L1
         public static bool IsGeneratedFile(string filePath)

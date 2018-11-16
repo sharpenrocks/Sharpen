@@ -101,7 +101,10 @@ namespace Sharpen.Engine.Analysis
 
         protected static bool DocumentShouldBeAnalyzed(Document document)
         {
-            return document.SupportsSyntaxTree && document.SupportsSemanticModel && !document.IsGenerated();
+            return document.SupportsSyntaxTree &&
+                   document.SupportsSemanticModel && 
+                   !document.IsGenerated() &&
+                   !document.IsGeneratedAssemblyInfo();
         }
     }
 }
