@@ -26,12 +26,8 @@ namespace Sharpen.VisualStudioExtension.Commands.ContextCommands
             // reject it with the appropriate message. This is fine.
             // At this point, we want to get a quick and cheap Yes or No that will
             // work in 95% of the cases.
-
-            var activeDocumentName = VisualStudioIde.ActiveDocument?.FullName;
-
-            var isVisibleAndEnabled = !string.IsNullOrEmpty(activeDocumentName) &&
-                                      activeDocumentName.EndsWith(".cs", StringComparison.OrdinalIgnoreCase) &&
-                                      !GeneratedCodeDetection.IsGeneratedFile(activeDocumentName);
+            var isVisibleAndEnabled = VisualStudioIde.ActiveDocument.IsCSharpDocument() &&
+                                      !GeneratedCodeDetection.IsGeneratedFile(VisualStudioIde.ActiveDocument.FullName);
 
             isVisible = isEnabled = isVisibleAndEnabled;
         }

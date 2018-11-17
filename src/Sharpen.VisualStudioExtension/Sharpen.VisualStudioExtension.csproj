@@ -60,6 +60,7 @@
       <Link>Properties\AssemblyInfo.Common.cs</Link>
     </Compile>
     <Compile Include="Commands\AnalyzeSelectedProjectsCommand.cs" />
+    <Compile Include="Commands\ContextCommands\AnalyzeSelectedDocumentsContextCommand.cs" />
     <Compile Include="Commands\ContextCommands\AnalyzeSelectedProjectsContextCommand.cs" />
     <Compile Include="Commands\ContextCommands\AnalyzeSolutionContextCommand.cs" />
     <Compile Include="Commands\ContextCommands\AnalyzeCurrentDocumentContextCommand.cs" />

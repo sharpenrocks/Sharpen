@@ -41,6 +41,9 @@
       <!-- Sharpen Group on the Project Context Menu. -->
       <Group guid="guidProjectsContextMenuGroup" id="idProjectsContextMenuGroup" priority="0x400"/>
 
+      <!-- Sharpen Group on the File Context Menu. -->
+      <Group guid="guidFilesContextMenuGroup" id="idFilesContextMenuGroup" priority="0x400"/>
+
     </Groups>
     
     <Buttons>
@@ -99,6 +102,15 @@
         </Strings>
       </Button>
 
+      <!-- Buttons on the Files Context Menu Group. -->
+      <Button guid="guidFilesContextMenuGroup" id="cmdidAnalyzeFilesContextMenu" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Analyze with &amp;Sharpen</ButtonText>
+        </Strings>
+      </Button>
+
     </Buttons>
 
   </Commands>
@@ -150,6 +162,16 @@
       <Parent guid="guidProjectsContextMenuGroup" id="idProjectsContextMenuGroup"/>
     </CommandPlacement>
 
+    <CommandPlacement guid="guidFilesContextMenuGroup" id="idFilesContextMenuGroup" priority="0x100">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE"/>
+    </CommandPlacement>
+    <CommandPlacement guid="guidFilesContextMenuGroup" id="idFilesContextMenuGroup" priority="0x100">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_WEBITEMNODE"/>
+    </CommandPlacement>
+    <CommandPlacement guid="guidFilesContextMenuGroup" id="cmdidAnalyzeFilesContextMenu" priority="0x100">
+      <Parent guid="guidFilesContextMenuGroup" id="idFilesContextMenuGroup"/>
+    </CommandPlacement>
+
   </CommandPlacements>
 
   <Symbols>
@@ -189,6 +211,11 @@
     <GuidSymbol name="guidProjectsContextMenuGroup" value ="{4E66CB31-B0E2-4974-A8FC-0667A6CC399D}">
       <IDSymbol name="idProjectsContextMenuGroup" value="0x100" />
       <IDSymbol name="cmdidAnalyzeProjectsContextMenu" value="0x200" />
+    </GuidSymbol>
+
+    <GuidSymbol name="guidFilesContextMenuGroup" value ="{44C626A3-69B6-4A5A-9C56-DB9CC85AF4F9}">
+      <IDSymbol name="idFilesContextMenuGroup" value="0x100" />
+      <IDSymbol name="cmdidAnalyzeFilesContextMenu" value="0x200" />
     </GuidSymbol>
 
   </Symbols>
