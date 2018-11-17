@@ -31,6 +31,7 @@ namespace Sharpen.VisualStudioExtension
 
             AnalyzeCurrentDocumentContextCommand.Initialize(this, SharpenExtensionService.Instance);
             AnalyzeSolutionContextCommand.Initialize(this, SharpenExtensionService.Instance);
+            AnalyzeSelectedProjectsContextCommand.Initialize(this, SharpenExtensionService.Instance);
 
             base.Initialize();
         }

@@ -38,6 +38,9 @@
       <!-- Sharpen Group on the Solution Context Menu. -->
       <Group guid="guidSolutionContextMenuGroup" id="idSolutionContextMenuGroup" priority="0x400"/>
 
+      <!-- Sharpen Group on the Project Context Menu. -->
+      <Group guid="guidProjectsContextMenuGroup" id="idProjectsContextMenuGroup" priority="0x400"/>
+
     </Groups>
     
     <Buttons>
@@ -87,6 +90,15 @@
         </Strings>
       </Button>
 
+      <!-- Buttons on the Projects Context Menu Group. -->
+      <Button guid="guidProjectsContextMenuGroup" id="cmdidAnalyzeProjectsContextMenu" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Analyze with &amp;Sharpen</ButtonText>
+        </Strings>
+      </Button>
+
     </Buttons>
 
   </Commands>
@@ -125,6 +137,19 @@
       <Parent guid="guidSolutionContextMenuGroup" id="idSolutionContextMenuGroup"/>
     </CommandPlacement>
 
+    <CommandPlacement guid="guidProjectsContextMenuGroup" id="idProjectsContextMenuGroup" priority="0x100">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE"/>
+    </CommandPlacement>
+    <CommandPlacement guid="guidProjectsContextMenuGroup" id="idProjectsContextMenuGroup" priority="0x100">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_WEBPROJECT"/>
+    </CommandPlacement>
+    <CommandPlacement guid="guidProjectsContextMenuGroup" id="idProjectsContextMenuGroup" priority="0x100">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_MULTIPROJ"/>
+    </CommandPlacement>
+    <CommandPlacement guid="guidProjectsContextMenuGroup" id="cmdidAnalyzeProjectsContextMenu" priority="0x100">
+      <Parent guid="guidProjectsContextMenuGroup" id="idProjectsContextMenuGroup"/>
+    </CommandPlacement>
+
   </CommandPlacements>
 
   <Symbols>
@@ -159,6 +184,11 @@
     <GuidSymbol name="guidSolutionContextMenuGroup" value ="{BE887A1D-5356-4D04-8D61-65479E35BB3C}">
       <IDSymbol name="idSolutionContextMenuGroup" value="0x100" />
       <IDSymbol name="cmdidAnalyzeSolutionContextMenu" value="0x200" />
+    </GuidSymbol>
+
+    <GuidSymbol name="guidProjectsContextMenuGroup" value ="{4E66CB31-B0E2-4974-A8FC-0667A6CC399D}">
+      <IDSymbol name="idProjectsContextMenuGroup" value="0x100" />
+      <IDSymbol name="cmdidAnalyzeProjectsContextMenu" value="0x200" />
     </GuidSymbol>
 
   </Symbols>

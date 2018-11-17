@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.CodeAnalysis;
 using Microsoft.VisualStudio.Shell;
 using Sharpen.Engine.Analysis;
 
@@ -21,7 +20,8 @@ namespace Sharpen.VisualStudioExtension.Commands
         {
             // TODO-IG: Display project selection dialog here one day.
             // TODO-IG: Return null if the dialog result is not OK (Cancel button clicked, dialog closed on X, etc.).
-            return new MultipleProjectsScopeAnalyzer(new Project[0]);
+
+            return new MultipleProjectsScopeAnalyzer(false);
         }
     }
 }
