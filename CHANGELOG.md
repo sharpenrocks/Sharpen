@@ -5,6 +5,7 @@ The format of the file is based on [Keep a Changelog](http://keepachangelog.com/
 
 ## [Unreleased]
 ### Added
+- "Analyze with Sharpen" menu item on the folder context menu
 - "Analyze with Sharpen" menu item on the file context menu
 - "Analyze with Sharpen" menu item on the project context menu
 - "Analyze with Sharpen" menu item on the solution context menu

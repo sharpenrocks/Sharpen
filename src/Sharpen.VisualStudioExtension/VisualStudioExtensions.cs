@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using EnvDTE;
 using EnvDTE80;
@@ -8,6 +9,9 @@ using Project = Microsoft.CodeAnalysis.Project;
 
 namespace Sharpen.VisualStudioExtension
 {
+    // We use a simple convention to denote returning of materialized and non-materialized
+    // enumerables. If the result is IEnumerable<T> it is not materialized.
+    // If the result is IReadOnlyCollection<T> it is materialized.
     internal static class VisualStudioExtensions
     {
         public static Project GetRoslynProjectFromVisualStudioProject(this VisualStudioWorkspace workspace, EnvDTE.Project visualStudioProject)
@@ -46,25 +50,25 @@ namespace Sharpen.VisualStudioExtension
                 .FirstOrDefault(document => document.FilePath == visualStudioDocument.FullName);
         }
 
-        public static IEnumerable<Document> GetRoslynDocumentsFromVisualStudioSelectedItems(this VisualStudioWorkspace workspace, IEnumerable<SelectedItem> visualStudioSelectedItems)
+        public static IReadOnlyCollection<Document> GetRoslynDocumentsFromVisualStudioProjectItems(this VisualStudioWorkspace workspace, IEnumerable<ProjectItem> visualStudioProjectItems)
         {
             // TODO-PERF: It's crazy what this method does for such a trivial(?) task
             //            of mapping "this to that"!!
             //            Is there any better way to do this?
             //            (We expect the number of selected items to always be small, but still.)
 
-            if (workspace.CurrentSolution == null) return Enumerable.Empty<Document>();
-            if (visualStudioSelectedItems == null) return Enumerable.Empty<Document>();
+            if (workspace.CurrentSolution == null) return Array.Empty<Document>();
+            if (visualStudioProjectItems == null) return Array.Empty<Document>();
 
             var roslynProjects = new Dictionary<string, Project>();
 
             var result = new HashSet<Document>();
-            foreach (var selectedItem in visualStudioSelectedItems)
+            foreach (var projectItem in visualStudioProjectItems)
             {
-                var roslynProject = GetRoslynProjectOfSelectedItem(selectedItem);
+                var roslynProject = GetRoslynProjectOfProjectItem(projectItem);
                 if (roslynProject == null) continue;
 
-                var selectedItemFileName = GetSelectedItemFileName(selectedItem);
+                var selectedItemFileName = GetProjectItemFileName(projectItem);
                 if (selectedItemFileName == null) continue;
                                 
                 var roslynDocument = roslynProject
@@ -77,16 +81,25 @@ namespace Sharpen.VisualStudioExtension
 
             return result;
 
-            string GetSelectedItemFileName(SelectedItem selectedItem)
+            string GetProjectItemFileName(ProjectItem projectItem)
             {
-                if (selectedItem.ProjectItem?.FileCount != 1) return null;
+                if (projectItem?.FileCount != 1) return null;
 
-                return selectedItem.ProjectItem.FileNames[0];
+                // Some items report a file count > 0 but don't return a file name!
+                // See: https://github.com/tom-englert/Wax/blob/210b1038b0c282f3ae7c399178ae17bc5bf8fcd8/Wax.Model/VisualStudio/DteExtensions.cs#L181
+                try
+                {
+                    return projectItem.FileNames[0];
+                }
+                catch
+                {
+                    return null;
+                }                
             }
 
-            Project GetRoslynProjectOfSelectedItem(SelectedItem selectedItem)
+            Project GetRoslynProjectOfProjectItem(ProjectItem projectItem)
             {
-                var visualStudioProject = selectedItem?.ProjectItem?.ContainingProject;
+                var visualStudioProject = projectItem?.ContainingProject;
 
                 var projectUniqueName = visualStudioProject?.UniqueName;
                 if (projectUniqueName == null) return null;
@@ -113,6 +126,11 @@ namespace Sharpen.VisualStudioExtension
             return visualStudioSelectedItem?.ProjectItem?.FileCodeModel?.Language == CodeModelLanguageConstants.vsCMLanguageCSharp;
         }
 
+        public static bool IsCSharpDocument(this ProjectItem visualStudioProjectItem)
+        {
+            return visualStudioProjectItem?.FileCodeModel?.Language == CodeModelLanguageConstants.vsCMLanguageCSharp;
+        }
+
         public static IEnumerable<EnvDTE.Project> GetSelectedVisualStudioProjects(this DTE2 visualStudioIde)
         {
             if (!(visualStudioIde.ActiveSolutionProjects is object[] selectedProjects))
@@ -130,5 +148,34 @@ namespace Sharpen.VisualStudioExtension
                 .SelectedItems
                 .Cast<SelectedItem>();
         }
+
+        public static IReadOnlyCollection<ProjectItem> GetSelectedVisualStudioProjectItemsWithSubItems(this DTE2 visualStudioIde)
+        {
+            if (visualStudioIde.SelectedItems == null)
+                return Array.Empty<ProjectItem>();
+
+            var result = new HashSet<ProjectItem>();
+
+            var selectedProjectItems = visualStudioIde
+                .SelectedItems
+                .OfType<SelectedItem>()
+                .Select(selectedItem => selectedItem.ProjectItem)
+                .Where(projectItem => projectItem != null);
+
+            CollectProjectItems(selectedProjectItems);
+
+            return result;
+
+            void CollectProjectItems(IEnumerable<ProjectItem> currentProjectItems)
+            {
+                if (currentProjectItems == null) return;
+
+                foreach (var item in currentProjectItems)
+                {
+                    result.Add(item);
+                    CollectProjectItems(item.ProjectItems?.OfType<ProjectItem>());
+                }
+            }
+        }        
     }
 }

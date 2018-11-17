@@ -10,9 +10,9 @@ namespace Sharpen.Engine.Analysis
         //          projects when project analysis is called from the tools menu (Analyze Selected Projects...)
         //          Remove it as soon as the selection dialog is implemented.
         private readonly bool isCalledFromContextMenu;
-        private readonly Project[] projects;
+        private readonly IReadOnlyCollection<Project> projects;
 
-        public MultipleProjectsScopeAnalyzer(bool isCalledFromContextMenu, params Project[] projects) // Projects array can be null.
+        public MultipleProjectsScopeAnalyzer(bool isCalledFromContextMenu, IReadOnlyCollection<Project> projects) // Projects collection can be null.
         {
             this.isCalledFromContextMenu = isCalledFromContextMenu;
             this.projects = projects;
@@ -23,7 +23,7 @@ namespace Sharpen.Engine.Analysis
             if (!isCalledFromContextMenu)
                 return "Analyzing selected projects is currently not implemented.";
 
-            if (projects == null || projects.Length <= 0)
+            if (projects == null || projects.Count <= 0)
             {
                 return "There are no projects selected.";
             }

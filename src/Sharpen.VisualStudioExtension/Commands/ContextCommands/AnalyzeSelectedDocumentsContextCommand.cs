@@ -28,11 +28,13 @@ namespace Sharpen.VisualStudioExtension.Commands.ContextCommands
         {
             var selectedCSharpDocuments = VisualStudioIde
                 .GetSelectedVisualStudioItems()
-                .Where(item => item.IsCSharpDocument());
+                .Where(item => item.IsCSharpDocument())
+                .Select(item => item.ProjectItem)
+                .Where(projectItem => projectItem != null);
 
-            var documents = Workspace.GetRoslynDocumentsFromVisualStudioSelectedItems(selectedCSharpDocuments);
+            var documents = Workspace.GetRoslynDocumentsFromVisualStudioProjectItems(selectedCSharpDocuments);
 
-            return new MultipleDocumentsScopeAnalyzer(documents.ToArray());
+            return new MultipleDocumentsScopeAnalyzer(documents);
         }
     }
 }

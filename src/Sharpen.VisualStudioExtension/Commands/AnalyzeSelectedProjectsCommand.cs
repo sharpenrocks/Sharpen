@@ -21,7 +21,7 @@ namespace Sharpen.VisualStudioExtension.Commands
             // TODO-IG: Display project selection dialog here one day.
             // TODO-IG: Return null if the dialog result is not OK (Cancel button clicked, dialog closed on X, etc.).
 
-            return new MultipleProjectsScopeAnalyzer(false);
+            return new MultipleProjectsScopeAnalyzer(false, null);
         }
     }
 }

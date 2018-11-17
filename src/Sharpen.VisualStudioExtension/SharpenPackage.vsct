@@ -44,6 +44,9 @@
       <!-- Sharpen Group on the File Context Menu. -->
       <Group guid="guidFilesContextMenuGroup" id="idFilesContextMenuGroup" priority="0x400"/>
 
+      <!-- Sharpen Group on the Folder Context Menu. -->
+      <Group guid="guidFoldersContextMenuGroup" id="idFoldersContextMenuGroup" priority="0x400"/>
+
     </Groups>
     
     <Buttons>
@@ -104,6 +107,15 @@
 
       <!-- Buttons on the Files Context Menu Group. -->
       <Button guid="guidFilesContextMenuGroup" id="cmdidAnalyzeFilesContextMenu" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Analyze with &amp;Sharpen</ButtonText>
+        </Strings>
+      </Button>
+
+      <!-- Buttons on the Folders Context Menu Group. -->
+      <Button guid="guidFoldersContextMenuGroup" id="cmdidAnalyzeFoldersContextMenu" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
@@ -172,6 +184,13 @@
       <Parent guid="guidFilesContextMenuGroup" id="idFilesContextMenuGroup"/>
     </CommandPlacement>
 
+    <CommandPlacement guid="guidFoldersContextMenuGroup" id="idFoldersContextMenuGroup" priority="0x100">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_FOLDERNODE"/>
+    </CommandPlacement>
+    <CommandPlacement guid="guidFoldersContextMenuGroup" id="cmdidAnalyzeFoldersContextMenu" priority="0x100">
+      <Parent guid="guidFoldersContextMenuGroup" id="idFoldersContextMenuGroup"/>
+    </CommandPlacement>
+
   </CommandPlacements>
 
   <Symbols>
@@ -216,6 +235,11 @@
     <GuidSymbol name="guidFilesContextMenuGroup" value ="{44C626A3-69B6-4A5A-9C56-DB9CC85AF4F9}">
       <IDSymbol name="idFilesContextMenuGroup" value="0x100" />
       <IDSymbol name="cmdidAnalyzeFilesContextMenu" value="0x200" />
+    </GuidSymbol>
+
+    <GuidSymbol name="guidFoldersContextMenuGroup" value ="{D5F51202-BC76-4306-A911-E8B74B87B998}">
+      <IDSymbol name="idFoldersContextMenuGroup" value="0x100" />
+      <IDSymbol name="cmdidAnalyzeFoldersContextMenu" value="0x200" />
     </GuidSymbol>
 
   </Symbols>

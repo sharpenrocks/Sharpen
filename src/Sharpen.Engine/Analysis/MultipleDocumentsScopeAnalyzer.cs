@@ -9,16 +9,21 @@ namespace Sharpen.Engine.Analysis
     // use the term documents. For the user messages we will use files.
     public sealed class MultipleDocumentsScopeAnalyzer : BaseScopeAnalyzer
     {
-        private readonly Document[] documents;
+        private readonly IReadOnlyCollection<Document> documents;
 
-        public MultipleDocumentsScopeAnalyzer(params Document[] documents) // Documents array can be null.
+        public MultipleDocumentsScopeAnalyzer() : this((IReadOnlyCollection<Document>)null) { }  // Will end up in a user friendly error message.
+
+        public MultipleDocumentsScopeAnalyzer(Document document)
+            : this(document == null ? null : new [] {document}) { }
+
+        public MultipleDocumentsScopeAnalyzer(IReadOnlyCollection<Document> documents) // Documents collection can be null.
         {
             this.documents = documents;
         }
 
         protected override string GetCanExecuteScopeAnalysisErrorMessage()
         {
-            if (documents == null || documents.Length <= 0)
+            if (documents == null || documents.Count <= 0)
             {
                 return "There are no files selected or the selected files do not belong to the solution.";
             }

@@ -37,7 +37,7 @@ namespace Sharpen.VisualStudioExtension.Commands.ContextCommands
             var document = Workspace.GetRoslynDocumentFromVisualStudioDocument(VisualStudioIde.ActiveDocument);
 
             return document == null // Should actually not happen, but who knows what kind of file one can have in VS.
-                ? new MultipleDocumentsScopeAnalyzer() // Providing null will end up in a user friendly error message.
+                ? new MultipleDocumentsScopeAnalyzer()
                 : new MultipleDocumentsScopeAnalyzer(document);
         }
     }
