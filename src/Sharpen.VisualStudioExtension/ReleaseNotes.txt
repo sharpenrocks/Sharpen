@@ -4,6 +4,15 @@ All notable changes to the "Sharpen" extension will be documented in this file.
 
 The format of the file is based on "Keep a Changelog" (http://keepachangelog.com/en/1.0.0/).
 
+[0.7.0] - 2018-11-18
+====================
+Added
+- "Analyze with Sharpen" menu item on the folder context menu.
+- "Analyze with Sharpen" menu item on the file context menu.
+- "Analyze with Sharpen" menu item on the project context menu.
+- "Analyze with Sharpen" menu item on the solution context menu.
+- "Analyze with Sharpen" menu item on the C# file editor context menu.
+
 [0.6.1] - 2018-10-07
 ====================
 Added

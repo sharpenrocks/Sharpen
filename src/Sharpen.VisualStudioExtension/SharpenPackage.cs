@@ -10,7 +10,7 @@ namespace Sharpen.VisualStudioExtension
 {
     [ProvideAutoLoad(UIContextGuids80.SolutionExists)]
     [PackageRegistration(UseManagedResourcesOnly = true)]
-    [InstalledProductRegistration("#110", "#112", "0.6.1", IconResourceID = 400)]
+    [InstalledProductRegistration("#110", "#112", "0.7.0", IconResourceID = 400)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(PackageGuidString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms.")]

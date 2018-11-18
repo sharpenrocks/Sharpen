@@ -3,7 +3,7 @@ All notable changes to the "Sharpen" extension will be documented in this file.
 
 The format of the file is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased]
+## [0.7.0] - 2018-11-18
 ### Added
 - "Analyze with Sharpen" menu item on the folder context menu.
 - "Analyze with Sharpen" menu item on the file context menu.
