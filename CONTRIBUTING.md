@@ -2,7 +2,7 @@
 
 👍🎉❤️ First of all a big **Thanks!** for your willingness to contribute! ❤️🎉👍
 
-Covering the whole C# evolution is a humongous task that cannot be carried by a single person. I am happy to see that you are interested in contributing. :-)
+Covering the whole C# evolution is a humongous task that cannot be carried out by a single person. I am happy to see that you are interested in contributing. :-)
 
 The following is a set of guidelines for contributing to Sharpen. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
 
