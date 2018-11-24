@@ -4,7 +4,7 @@
 
 Covering the whole C# evolution is a humongous task that cannot be carried out by a single person. I am happy to see that you are interested in contributing. :-)
 
-The following is a set of guidelines for contributing to Sharpen. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
+The following is a set of guidelines for contributing to *Sharpen*. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
 
 ## Contents
 
@@ -26,25 +26,25 @@ The following is a set of guidelines for contributing to Sharpen. These are most
 
 ## Code of Conduct
 
-Sharpen project and everyone participating in it is governed by the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
+*Sharpen* project and everyone participating in it is governed by the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
 
 ## How Can I Contribute?
 
-There are many ways you can contribute to Sharpen. Code contributions are just one of them.
+There are many ways you can contribute to *Sharpen*. Code contributions are just one of them.
 
 ### Spread The Word
 
-Spreading the word about Sharpen is probably the easiest way to contribute. Here are some of the things you could do:
+Spreading the word about *Sharpen* is probably the easiest way to contribute. Here are some of the things you could do:
 
-- Tell your colleagues and friends about Sharpen.
+- Tell your colleagues and friends about *Sharpen*.
 - Give it a star on GitHub.
-- Leave a review on the [Sharpen's page on the Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=ironcev.sharpen#review-details).
-- Follow [Sharpen on Twitter](https://twitter.com/sharpenrocks). Twitt about it.
+- Leave a review on the [*Sharpen*'s page on the Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=ironcev.sharpen#review-details).
+- Follow [*Sharpen* on Twitter](https://twitter.com/sharpenrocks). Twitt about it.
 - Write a blog post.
 
 ### Become an Endgame Runner
 
-As a [Sharpen's Endgame](https://github.com/sharpenrocks/Sharpen/wiki/Running-the-Endgame) runner you can help to test Sharpen's release candidates. Running the Endgame is easy and can take as little as a few minutes of your precious time. On the other hand, it contributes a lot to Sharpen's first-time quality. To become a runner drop me an email at ironcev@hotmail.com.
+As a [*Sharpen*'s Endgame](https://github.com/sharpenrocks/Sharpen/wiki/Running-the-Endgame) runner you can help to test *Sharpen*'s release candidates. Running the Endgame is easy and can take as little as a few minutes of your precious time. On the other hand, it contributes a lot to *Sharpen*'s first-time quality. To become a runner drop me an email at ironcev@hotmail.com.
 
 ### Report Bugs
 
@@ -53,7 +53,7 @@ Before submitting a bug report perform a [cursory search](https://github.com/sea
 When submitting a bug try to explain the problem and include additional details to help reproduce the problem:
 
 - **Use a clear and descriptive title** for the issue to identify the problem.
-- **Describe the exact steps which reproduce the problem** in as many details as possible. For example, start by explaining how you started Sharpen, e.g., which menu command exactly you used. When listing steps, **don't just say what you did, but explain how you did it**. For example, if you selected a suggestion in the Sharpen Results window, explain if you used the mouse, or a keyboard shortcut or, e.g. `Up` and `Down` keyboard keys?
+- **Describe the exact steps which reproduce the problem** in as many details as possible. For example, start by explaining how you started *Sharpen*, e.g., which menu command exactly you used. When listing steps, **don't just say what you did, but explain how you did it**. For example, if you selected a suggestion in the *Sharpen* Results window, explain if you used the mouse, or a keyboard shortcut or, e.g. `Up` and `Down` keyboard keys?
 - **Provide specific examples to demonstrate the steps**. Ideally, include links to files or GitHub projects, or copy/pasteable snippets, which you use in those examples. If you're providing snippets in the issue, use [Markdown code blocks](https://help.github.com/articles/markdown-basics/#multiple-lines).
 - **Describe the behavior you observed after following the steps** and point out what exactly is the problem with that behavior.
 - **Explain which behavior you expected to see instead and why.**
@@ -72,17 +72,17 @@ When creating an enhancement issue provide the following information:
 - **Provide a step-by-step description of the suggested enhancement** in as many details as possible.
 - **Provide specific examples to demonstrate the steps**. Include copy/pasteable snippets which you use in those examples, as [Markdown code blocks](https://help.github.com/articles/markdown-basics/#multiple-lines).
 - **Describe the current behavior** and **explain which behavior you expected to see instead** and why.
-- **Explain why this enhancement would be useful** to most Sharpen users.
+- **Explain why this enhancement would be useful** to most *Sharpen* users.
 
 ### Contribute to the Code
 
-There are many areas in Sharpen's code where you can contribute. Static code analysis is just one of them. Here are the most prominent areas with some possible examples:
+There are many areas in *Sharpen*'s code where you can contribute. Static code analysis is just one of them. Here are the most prominent areas with some possible examples:
 
 - UX and UI
-    - E.g., enhancing Sharpen Results window with additional features like grouping, sorting or filtering.
+    - E.g., enhancing *Sharpen* Results window with additional features like grouping, sorting or filtering.
     - E.g., enhancing dialogs for selection of projects and suggestions to be analyzed.
 - Visual Studio integration
-    - E.g., adding configurations to customize Sharpen's behavior.
+    - E.g., adding configurations to customize *Sharpen*'s behavior.
 - C# documentation
     - E.g., enhancing the built-in C# documentation content-wise.
     - E.g., enhancing the display and navigation through the C# documentation.
@@ -109,7 +109,7 @@ For an introduction to the crazy world of static code analysis, you can [read th
 
 #### Pull Requests
 
-Each pull request should be connected to a corresponding [Sharpen GitHub issue](https://github.com/sharpenrocks/Sharpen/issues). If there is no GitHub issue open for your potential contribution, open the issue first, either as a [bug report](#report-bugs) or an [enhancement](#suggest-enhancements).
+Each pull request should be connected to a corresponding [*Sharpen* GitHub issue](https://github.com/sharpenrocks/Sharpen/issues). If there is no GitHub issue open for your potential contribution, open the issue first, either as a [bug report](#report-bugs) or an [enhancement](#suggest-enhancements).
 
 Discussing your potential pull request and contribution before development greatly increases the chance that it will be accepted.
 
@@ -125,7 +125,7 @@ Note however that updating pull requests can sometimes be an unnecessary overhea
 
 For the reasoning behind the strict Git commit message rules, read the [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/) by Chris Beams.
 
-Sharpen uses a [commitizen](https://github.com/commitizen) dialect close to the [Udacity Git Commit Message Style Guide](https://udacity.github.io/git-styleguide/) with the following differences:
+*Sharpen* uses a [commitizen](https://github.com/commitizen) dialect close to the [Udacity Git Commit Message Style Guide](https://udacity.github.io/git-styleguide/) with the following differences:
 
 - There is an additional type `perf` for performance optimizations.
 - Verbs are in the third person singular present. E.g. "Adds" instead of "Add" or "Added".
@@ -134,22 +134,22 @@ The best way to get a feeling for this convention is to take a look at the [exis
 
 ### General C# Coding Conventions
 
-Sharpen's C# code mostly follows the [C# Coding Guidelines](https://csharpcodingguidelines.com/). Since they are a way too detailed to be read at once, here is a [shorter version](https://www.dofactory.com/reference/csharp-coding-standards) provided by *dofactory*. That shorter version will for sure be sufficient for contributions.
+*Sharpen*'s C# code mostly follows the [C# Coding Guidelines](https://csharpcodingguidelines.com/). Since they are a way too detailed to be read at once, here is a [shorter version](https://www.dofactory.com/reference/csharp-coding-standards) provided by *dofactory*. That shorter version will for sure be sufficient for contributions.
 
 The best way to get a feeling for used C# conventions is to take a look at the existing code.
 
 ### Sharpen Naming Conventions
 
-Sharpen has its own naming conventions for e.g., suggestions, smoke tests, etc. The best way to get a feeling for these conventions is to take a look at the existing code.
+*Sharpen* has its own naming conventions for e.g., suggestions, smoke tests, etc. The best way to get a feeling for these conventions is to take a look at the existing code.
 
 ### Automatic Styleguides Checks
 
-At the moment Sharpen does not have any automatic styleguides checks. It neither has static code analysis in place. Both are planned for the future. Meanwhile, while contributing, make sure to develop a feeling for the used conventions and do your best to follow them without automated support.
+At the moment *Sharpen* does not have any automatic styleguides checks. It neither has static code analysis in place. Both are planned for the future. Meanwhile, while contributing, make sure to develop a feeling for the used conventions and do your best to follow them without automated support.
 
 ## Credits
 
 "Contributing to Sharpen" is partially inspired and partially copied from the [Contributing to Atom](https://github.com/atom/atom/blob/master/CONTRIBUTING.md) document.
 
-Sharpen is a volunteer effort. Pitch in and join the development! :-)
+*Sharpen* is a volunteer effort. Pitch in and join the development! :-)
 
 Thanks! ❤️ ❤️ ❤️
