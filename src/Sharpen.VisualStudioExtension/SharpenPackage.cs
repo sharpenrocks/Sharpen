@@ -23,17 +23,19 @@ namespace Sharpen.VisualStudioExtension
         {
             SharpenExtensionService.CreateSingleInstance();
 
-            AnalyzeSolutionCommand.Initialize(this, SharpenExtensionService.Instance);
-            AnalyzeSelectedProjectsCommand.Initialize(this, SharpenExtensionService.Instance);
-            
-            ShowOptionsDialogCommand.Initialize(this);
-            ShowSharpenResultsToolWindowCommand.Initialize(this);
+            var commandServicesContainer = CommandServicesContainer.Create(this);
 
-            AnalyzeCurrentDocumentContextCommand.Initialize(this, SharpenExtensionService.Instance);
-            AnalyzeSolutionContextCommand.Initialize(this, SharpenExtensionService.Instance);
-            AnalyzeSelectedProjectsContextCommand.Initialize(this, SharpenExtensionService.Instance);
-            AnalyzeSelectedDocumentsContextCommand.Initialize(this, SharpenExtensionService.Instance);
-            AnalyzeSelectedFoldersContextCommand.Initialize(this, SharpenExtensionService.Instance);
+            AnalyzeSolutionCommand.Initialize(SharpenExtensionService.Instance, commandServicesContainer);
+            AnalyzeSelectedProjectsCommand.Initialize(SharpenExtensionService.Instance, commandServicesContainer);
+            
+            ShowOptionsDialogCommand.Initialize(commandServicesContainer);
+            ShowSharpenResultsToolWindowCommand.Initialize(commandServicesContainer);
+
+            AnalyzeCurrentDocumentContextCommand.Initialize(SharpenExtensionService.Instance, commandServicesContainer);
+            AnalyzeSolutionContextCommand.Initialize(SharpenExtensionService.Instance, commandServicesContainer);
+            AnalyzeSelectedProjectsContextCommand.Initialize(SharpenExtensionService.Instance, commandServicesContainer);
+            AnalyzeSelectedDocumentsContextCommand.Initialize(SharpenExtensionService.Instance, commandServicesContainer);
+            AnalyzeSelectedFoldersContextCommand.Initialize(SharpenExtensionService.Instance, commandServicesContainer);
 
             base.Initialize();
         }

@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.VisualStudio.Shell;
 using Sharpen.Engine.Analysis;
 using Task = System.Threading.Tasks.Task;
 
@@ -10,7 +9,8 @@ namespace Sharpen.VisualStudioExtension.Commands
     {
         protected SharpenExtensionService SharpenExtensionService { get; }
 
-        protected BaseAnalyzeCommand(Package package, SharpenExtensionService sharpenExtensionService, int commandId, Guid commandSet, bool isDynamicallyVisibleAndEnabled = false) : base(package, commandId, commandSet, isDynamicallyVisibleAndEnabled)
+        protected BaseAnalyzeCommand(SharpenExtensionService sharpenExtensionService, ICommandServicesContainer commandServicesContainer, int commandId, Guid commandSet, bool isDynamicallyVisibleAndEnabled = false)
+            : base(commandServicesContainer, commandId, commandSet, isDynamicallyVisibleAndEnabled)
         {
             SharpenExtensionService = sharpenExtensionService;
         }

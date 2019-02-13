@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.VisualStudio.Shell;
 using Sharpen.Engine.Analysis;
 using Sharpen.Engine.Extensions.CodeDetection;
 
@@ -10,11 +9,12 @@ namespace Sharpen.VisualStudioExtension.Commands.ContextCommands
         public const int CommandId = 0x200;
         public static readonly Guid CommandSet = new Guid("F343DB77-7F1C-4BAD-89FB-39E74DD7BD20");
 
-        private AnalyzeCurrentDocumentContextCommand(Package package, SharpenExtensionService sharpenExtensionService) : base(package, sharpenExtensionService, CommandId, CommandSet, true) { }
+        private AnalyzeCurrentDocumentContextCommand(SharpenExtensionService sharpenExtensionService, ICommandServicesContainer commandServicesContainer)
+            : base(sharpenExtensionService, commandServicesContainer, CommandId, CommandSet, true) { }
 
-        public static void Initialize(Package package, SharpenExtensionService sharpenExtensionService)
+        public static void Initialize(SharpenExtensionService sharpenExtensionService, ICommandServicesContainer commandServicesContainer)
         {
-            Instance = new AnalyzeCurrentDocumentContextCommand(package, sharpenExtensionService);
+            Instance = new AnalyzeCurrentDocumentContextCommand(sharpenExtensionService, commandServicesContainer);
         }
 
         protected override void IsCommandVisibleAndEnabled(out bool isVisible, out bool isEnabled)

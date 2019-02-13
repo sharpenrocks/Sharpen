@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.VisualStudio.Shell;
 using Task = System.Threading.Tasks.Task;
 
 namespace Sharpen.VisualStudioExtension.Commands
@@ -9,11 +8,11 @@ namespace Sharpen.VisualStudioExtension.Commands
         public const int CommandId = 0x200;
         public static readonly Guid CommandSet = new Guid("B977FCAF-B5A3-49D8-9009-E0BDFDB1EFB6");
 
-        private ShowOptionsDialogCommand(Package package) : base(package, CommandId, CommandSet) { }
+        private ShowOptionsDialogCommand(ICommandServicesContainer commandServicesContainer) : base(commandServicesContainer, CommandId, CommandSet) { }
 
-        public static void Initialize(Package package)
+        public static void Initialize(ICommandServicesContainer commandServicesContainer)
         {
-            Instance = new ShowOptionsDialogCommand(package);
+            Instance = new ShowOptionsDialogCommand(commandServicesContainer);
         }
 
         protected override Task OnExecuteAsync()
