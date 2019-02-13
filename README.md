@@ -56,6 +56,7 @@ Tired of searching for new C# features in random blog posts?
 
 *Sharpen* comes with extensive built-in documentation on C# language features. It's a one-stop-shop for everything you ever wanted to know about the design and evolution of C#.
 
+## Current Limitations
 Note that in the current version of *Sharpen* the following features mentioned in the above chapters are still not available:
 
 - Extensive documentation.
