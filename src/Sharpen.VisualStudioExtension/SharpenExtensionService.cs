@@ -70,12 +70,13 @@ namespace Sharpen.VisualStudioExtension
             return treeViewBuilder.BuildRootTreeViewItems();
         }
 
-        // TODO-IG: Explore the best practices. Implement proper dependency injection.
+        // TODO-IG: Explore the best practices. Implement proper dependency injection. Remove this.
         public static SharpenExtensionService Instance { get; private set; }
 
-        public static void CreateSingleInstance()
+        public static SharpenExtensionService CreateSingleInstance()
         {
             Instance = new SharpenExtensionService();
+            return Instance;
         }
 
         public async Task RunScopeAnalysisAsync(IScopeAnalyzer scopeAnalyzer)

@@ -9,10 +9,10 @@ namespace Sharpen.VisualStudioExtension.Commands
     {
         protected SharpenExtensionService SharpenExtensionService { get; }
 
-        protected BaseAnalyzeCommand(SharpenExtensionService sharpenExtensionService, ICommandServicesContainer commandServicesContainer, int commandId, Guid commandSet, bool isDynamicallyVisibleAndEnabled = false)
+        protected BaseAnalyzeCommand(ICommandServicesContainer commandServicesContainer, int commandId, Guid commandSet, bool isDynamicallyVisibleAndEnabled = false)
             : base(commandServicesContainer, commandId, commandSet, isDynamicallyVisibleAndEnabled)
         {
-            SharpenExtensionService = sharpenExtensionService;
+            SharpenExtensionService = commandServicesContainer.SharpenExtensionService;
         }
 
         protected override async Task OnExecuteAsync()

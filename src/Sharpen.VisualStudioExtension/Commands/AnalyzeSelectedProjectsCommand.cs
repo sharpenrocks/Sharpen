@@ -8,12 +8,12 @@ namespace Sharpen.VisualStudioExtension.Commands
         public const int CommandId = 0x300;
         public static readonly Guid CommandSet = new Guid("8E0186D5-53C8-4662-A6B7-BEC6CDDC08DD");
 
-        private AnalyzeSelectedProjectsCommand(SharpenExtensionService sharpenExtensionService, ICommandServicesContainer commandServicesContainer)
-            : base(sharpenExtensionService, commandServicesContainer, CommandId, CommandSet) { }
+        private AnalyzeSelectedProjectsCommand(ICommandServicesContainer commandServicesContainer)
+            : base(commandServicesContainer, CommandId, CommandSet) { }
 
-        public static void Initialize(SharpenExtensionService sharpenExtensionService, ICommandServicesContainer commandServicesContainer)
+        public static void Initialize(ICommandServicesContainer commandServicesContainer)
         {
-            Instance = new AnalyzeSelectedProjectsCommand(sharpenExtensionService, commandServicesContainer);
+            Instance = new AnalyzeSelectedProjectsCommand(commandServicesContainer);
         }
 
         protected override IScopeAnalyzer GetScopeAnalyzer()

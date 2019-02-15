@@ -1,5 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
+using System.Threading;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Sharpen.VisualStudioExtension.Commands;
@@ -8,36 +10,47 @@ using Sharpen.VisualStudioExtension.ToolWindows;
 
 namespace Sharpen.VisualStudioExtension
 {
-    [ProvideAutoLoad(UIContextGuids80.SolutionExists)]
-    [PackageRegistration(UseManagedResourcesOnly = true)]
+    [ProvideAutoLoad(UIContextGuids80.SolutionExists, PackageAutoLoadFlags.BackgroundLoad)]
+    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [InstalledProductRegistration("#110", "#112", "0.7.0", IconResourceID = 400)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(PackageGuidString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms.")]
     [ProvideToolWindow(typeof(SharpenResultsToolWindow), Style = VsDockStyle.Tabbed, Window = "34E76E81-EE4A-11D0-AE2E-00A0C90FFFC3" /* Output Window. */)]
-    public sealed class SharpenPackage : Package
+    public sealed class SharpenPackage : AsyncPackage
     {
         public const string PackageGuidString = "01263ec2-7232-4367-a2cd-3982380b3985";
 
-        protected override void Initialize()
+        protected override async System.Threading.Tasks.Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
-            SharpenExtensionService.CreateSingleInstance();
+            var commandServicesContainerBuilder = new CommandServicesContainer.Builder(this);
 
-            var commandServicesContainer = CommandServicesContainer.Create(this);
+            await commandServicesContainerBuilder.CreateServicesAsync();
 
-            AnalyzeSolutionCommand.Initialize(SharpenExtensionService.Instance, commandServicesContainer);
-            AnalyzeSelectedProjectsCommand.Initialize(SharpenExtensionService.Instance, commandServicesContainer);
-            
-            ShowOptionsDialogCommand.Initialize(commandServicesContainer);
-            ShowSharpenResultsToolWindowCommand.Initialize(commandServicesContainer);
+            await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
 
-            AnalyzeCurrentDocumentContextCommand.Initialize(SharpenExtensionService.Instance, commandServicesContainer);
-            AnalyzeSolutionContextCommand.Initialize(SharpenExtensionService.Instance, commandServicesContainer);
-            AnalyzeSelectedProjectsContextCommand.Initialize(SharpenExtensionService.Instance, commandServicesContainer);
-            AnalyzeSelectedDocumentsContextCommand.Initialize(SharpenExtensionService.Instance, commandServicesContainer);
-            AnalyzeSelectedFoldersContextCommand.Initialize(SharpenExtensionService.Instance, commandServicesContainer);
+            commandServicesContainerBuilder.CreateServicesOnUIThread();
 
-            base.Initialize();
+            var commandServicesContainer = commandServicesContainerBuilder.GetCommandServicesContainer();
+
+            InitializeCommands();
+
+            await base.InitializeAsync(cancellationToken, progress);
+
+            void InitializeCommands()
+            {
+                AnalyzeSolutionCommand.Initialize(commandServicesContainer);
+                AnalyzeSelectedProjectsCommand.Initialize(commandServicesContainer);
+
+                ShowOptionsDialogCommand.Initialize(commandServicesContainer);
+                ShowSharpenResultsToolWindowCommand.Initialize(commandServicesContainer);
+
+                AnalyzeCurrentDocumentContextCommand.Initialize(commandServicesContainer);
+                AnalyzeSolutionContextCommand.Initialize(commandServicesContainer);
+                AnalyzeSelectedProjectsContextCommand.Initialize(commandServicesContainer);
+                AnalyzeSelectedDocumentsContextCommand.Initialize(commandServicesContainer);
+                AnalyzeSelectedFoldersContextCommand.Initialize(commandServicesContainer);
+            }
         }
     }
 }

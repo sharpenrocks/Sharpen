@@ -1,7 +1,6 @@
-﻿using Microsoft.VisualStudio.Shell;
+﻿using System.ComponentModel.Design;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.LanguageServices;
-using System;
-using System.ComponentModel.Design;
 
 namespace Sharpen.VisualStudioExtension.Commands
 {
@@ -10,10 +9,11 @@ namespace Sharpen.VisualStudioExtension.Commands
     /// </summary>
     internal interface ICommandServicesContainer
     {
-        Package Package { get; }
-        IServiceProvider ServiceProvider { get; }
+        AsyncPackage Package { get; }
+        IAsyncServiceProvider ServiceProvider { get; }
         VisualStudioWorkspace Workspace { get; }
         EnvDTE80.DTE2 VisualStudioIde { get; }
         IMenuCommandService MenuCommandService { get; }
+        SharpenExtensionService SharpenExtensionService { get; }
     }
 }

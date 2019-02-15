@@ -1,5 +1,5 @@
-﻿using System;
-using System.ComponentModel.Design;
+﻿using System.ComponentModel.Design;
+using System.Threading.Tasks;
 using EnvDTE80;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.LanguageServices;
@@ -9,37 +9,59 @@ namespace Sharpen.VisualStudioExtension.Commands
 {
     internal class CommandServicesContainer : ICommandServicesContainer
     {
-        private CommandServicesContainer(
-            Package package,
-            VisualStudioWorkspace workspace,
-            DTE2 visualStudioIde,
-            IMenuCommandService menuCommandService)
+        private CommandServicesContainer(AsyncPackage package)
         {
             Package = package;
-            Workspace = workspace;
-            VisualStudioIde = visualStudioIde;
-            MenuCommandService = menuCommandService;
         }
 
-        public Package Package { get; }
+        public AsyncPackage Package { get; }
+        public IAsyncServiceProvider ServiceProvider => Package;
+        public VisualStudioWorkspace Workspace { get; private set; }
+        public DTE2 VisualStudioIde { get; private set; }
+        public IMenuCommandService MenuCommandService { get; private set; }
+        public SharpenExtensionService SharpenExtensionService { get; private set; }
 
-        public IServiceProvider ServiceProvider => Package;
-
-        public VisualStudioWorkspace Workspace { get; }
-
-        public DTE2 VisualStudioIde { get; }
-
-        public IMenuCommandService MenuCommandService { get; }
-
-        public static ICommandServicesContainer Create(Package package)
+        /// <summary>
+        /// Builds an instance of <see cref="CommandServicesContainer"/>.
+        /// </summary>
+        /// <remarks>
+        /// For more info about async packages, async package initialization, RPC calles etc see:
+        /// https://docs.microsoft.com/en-us/visualstudio/extensibility/how-to-use-asyncpackage-to-load-vspackages-in-the-background?view=vs-2017
+        /// https://github.com/Microsoft/VSSDK-Extensibility-Samples/blob/master/AsyncPackageMigration/AsyncAutoloadRestriction.md
+        /// </remarks>
+        // No need for any complex workflow here at the moment, checks etc.
+        // The client has to know what it does and call the methods at the right time in the right order.
+        // Let's keep it simple.
+        public class Builder
         {
-            IServiceProvider serviceProvider = package;
-            var componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
-            var workspace = componentModel.GetService<VisualStudioWorkspace>();
-            var visualStudioIde = (DTE2)serviceProvider.GetService(typeof(EnvDTE.DTE));
-            var menuCommandService = (OleMenuCommandService)serviceProvider.GetService(typeof(IMenuCommandService));
+            private readonly AsyncPackage package;
+            private readonly CommandServicesContainer commandServicesContainer;
 
-            return new CommandServicesContainer(package, workspace, visualStudioIde, menuCommandService);
+            public Builder(AsyncPackage package)
+            {
+                this.package = package;
+                commandServicesContainer = new CommandServicesContainer(package);
+            }
+
+            public async System.Threading.Tasks.Task CreateServicesAsync()
+            {
+                commandServicesContainer.SharpenExtensionService = SharpenExtensionService.CreateSingleInstance();
+
+                IAsyncServiceProvider serviceProvider = package;
+                commandServicesContainer.VisualStudioIde = (DTE2)await serviceProvider.GetServiceAsync(typeof(EnvDTE.DTE));
+                commandServicesContainer.MenuCommandService = (OleMenuCommandService)await serviceProvider.GetServiceAsync(typeof(IMenuCommandService));
+            }
+
+            public void CreateServicesOnUIThread()
+            {
+                var componentModel = (IComponentModel)Microsoft.VisualStudio.Shell.Package.GetGlobalService(typeof(SComponentModel));
+                commandServicesContainer.Workspace = componentModel.GetService<VisualStudioWorkspace>();
+            }
+
+            public CommandServicesContainer GetCommandServicesContainer()
+            {
+                return commandServicesContainer;
+            }
         }
     }
 }

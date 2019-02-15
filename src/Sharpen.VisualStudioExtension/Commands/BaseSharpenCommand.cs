@@ -26,6 +26,8 @@ namespace Sharpen.VisualStudioExtension.Commands
         {
             if (services.MenuCommandService == null) return;
 
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             var menuCommandId = new CommandID(commandSet, commandId);
             // isDynamicallyVisibleAndEnabled is a bit of redundant information.
             // But it's a simple way to avoid creating OleMenuCommand unless we really need it.

@@ -9,12 +9,12 @@ namespace Sharpen.VisualStudioExtension.Commands.ContextCommands
         public const int CommandId = 0x200;
         public static readonly Guid CommandSet = new Guid("44C626A3-69B6-4A5A-9C56-DB9CC85AF4F9");
 
-        private AnalyzeSelectedDocumentsContextCommand(SharpenExtensionService sharpenExtensionService, ICommandServicesContainer commandServicesContainer)
-            : base(sharpenExtensionService, commandServicesContainer, CommandId, CommandSet, true) { }
+        private AnalyzeSelectedDocumentsContextCommand(ICommandServicesContainer commandServicesContainer)
+            : base(commandServicesContainer, CommandId, CommandSet, true) { }
 
-        public static void Initialize(SharpenExtensionService sharpenExtensionService, ICommandServicesContainer commandServicesContainer)
+        public static void Initialize(ICommandServicesContainer commandServicesContainer)
         {
-            Instance = new AnalyzeSelectedDocumentsContextCommand(sharpenExtensionService, commandServicesContainer);
+            Instance = new AnalyzeSelectedDocumentsContextCommand(commandServicesContainer);
         }
 
         protected override void IsCommandVisibleAndEnabled(out bool isVisible, out bool isEnabled)
