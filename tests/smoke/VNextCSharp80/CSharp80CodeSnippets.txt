@@ -1,0 +1,19 @@
+﻿You can use these code snippets and copy-paste them around.
+
+
+string? text = "Nullable reference type";
+Console.WriteLine(text);
+
+
+int[] ranges = { 1, 2, 3, 4, 5  };
+var slice = ranges[0..^1];
+Console.WriteLine(slice);
+
+
+var area = "".Length switch // Switch expressions.
+{
+    0 => 0,
+    1 => 1,
+    _ => 0
+};
+Console.WriteLine(area);
