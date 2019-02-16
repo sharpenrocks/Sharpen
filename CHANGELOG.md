@@ -7,6 +7,9 @@ The format of the file is based on [Keep a Changelog](http://keepachangelog.com/
 ### Added
 - Loading Sharpen extension asynchronously.
 
+### Fixed
+- Sharpen does not support VS 2019 but is listed on VS Marketplace under that version (#19).
+
 ## [0.7.0] - 2018-11-18
 ### Added
 - "Analyze with Sharpen" menu item on the folder context menu.
