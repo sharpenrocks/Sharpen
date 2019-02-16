@@ -28,12 +28,12 @@ internal static partial class AssemblyDescription
 {
     public const string Company = "Igor Rončević";
     public const string Trademark = "";
-    public const string Copyright = "Copyright © 2017 - 2018 " + Company;
+    public const string Copyright = "Copyright © 2017 - 2019 " + Company;
     public const string Product = "Sharpen";
 
     public const string Culture = "";
 
-    public const string Version = "0.7.0";
+    public const string Version = "0.8.0";
 
     public const string Configuration =
 #if DEBUG
