@@ -5,10 +5,12 @@ The format of the file is based on [Keep a Changelog](http://keepachangelog.com/
 
 ## [Unreleased]
 ### Added
+- Support for VS 2019.
 - Loading Sharpen extension asynchronously.
 
 ### Fixed
 - Sharpen does not support VS 2019 but is listed on VS Marketplace under that version (#19).
+- Dependency alert: Visual Studio MPF 15.0 - already installed MPF 16.0 (#21).
 
 ## [0.7.0] - 2018-11-18
 ### Added
