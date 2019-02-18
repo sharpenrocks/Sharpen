@@ -1,5 +1,5 @@
 # Smoke Tests
-This folder contains a sample solution that is used for smoke tests.
+This folder contains sample projects and solutions that are used for smoke tests.
 
 ## Projects in The Solution
 ### CSharp[Version]
