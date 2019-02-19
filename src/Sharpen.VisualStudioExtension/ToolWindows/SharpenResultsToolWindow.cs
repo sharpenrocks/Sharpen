@@ -19,7 +19,7 @@ namespace Sharpen.VisualStudioExtension.ToolWindows
 
             var control = new SharpenResultsToolWindowControl(this)
             {
-                DataContext = SharpenExtensionService.Instance
+                DataContext = SharpenExtensionService.Instance // TODO-IG: This is the only place we need the singleton instance. Learn how to properly do dependency injection in VS extensions and remove this.
             };
 
             Content = control;

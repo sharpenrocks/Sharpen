@@ -2,7 +2,7 @@
 *Sharpen* is a Visual Studio extension that intelligently introduces new C# language features into your existing code base. It makes your code shorter, simpler, more expressive, more performant, and more readable, in one word - sharper.
 
 [![Twitter](https://img.shields.io/badge/twitter-sharpenrocks-brightgreen.svg?logo=twitter)](https://twitter.com/sharpenrocks)
-[![Visual Studio Marketplace](https://img.shields.io/badge/visual%20studio%20marketplace-v0.7.0-blue.svg)](https://marketplace.visualstudio.com/items?itemName=ironcev.sharpen)
+[![Visual Studio Marketplace](https://img.shields.io/badge/visual%20studio%20marketplace-v0.8.0-blue.svg)](https://marketplace.visualstudio.com/items?itemName=ironcev.sharpen)
 [![AppVeyor](https://img.shields.io/appveyor/ci/ironcev/sharpen.svg)](https://ci.appveyor.com/project/ironcev/sharpen)
 [![GitHub release](https://img.shields.io/github/release/ironcev/sharpen/all.svg)](https://github.com/ironcev/sharpen/releases)
 [![License](https://img.shields.io/github/license/ironcev/sharpen.svg)](https://github.com/ironcev/sharpen/blob/master/LICENSE)
@@ -56,6 +56,7 @@ Tired of searching for new C# features in random blog posts?
 
 *Sharpen* comes with extensive built-in documentation on C# language features. It's a one-stop-shop for everything you ever wanted to know about the design and evolution of C#.
 
+## Current Limitations
 Note that in the current version of *Sharpen* the following features mentioned in the above chapters are still not available:
 
 - Extensive documentation.
@@ -68,6 +69,9 @@ Note that in the current version of *Sharpen* the following features mentioned i
 
 ## Release Notes
 All notable changes to the *Sharpen* extension are documented in the [changelog](https://github.com/ironcev/sharpen/blob/master/CHANGELOG.md). Below is the excerpt from the changelog that lists only the summary of major changes.
+
+### 0.8.0
+- Support for Visual Studio 2019.
 
 ### 0.7.0
 - Analysis of selected files, folders, and projects via "Analyze with Sharpen" option on context menus.

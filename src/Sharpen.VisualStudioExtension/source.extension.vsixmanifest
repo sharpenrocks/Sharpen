@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="Ironcev.Sharpen" Version="0.7.0" Language="en-US" Publisher="Igor Rončević" />
+        <Identity Id="Ironcev.Sharpen" Version="0.8.0" Language="en-US" Publisher="Igor Rončević" />
         <DisplayName>Sharpen</DisplayName>
         <Description xml:space="preserve">A Visual Studio extension that intelligently introduces new C# language features into your existing code base.</Description>
         <MoreInfo>https://sharpen.rocks</MoreInfo>
@@ -12,22 +12,18 @@
         <Tags>C#, CodeAnalysis, CSharp, productivity, refactoring, roslyn, code-analysis</Tags>
     </Metadata>
     <Installation Experimental="true">
-        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0,16.0]" />
-        <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[15.0,16.0)" />
-        <InstallationTarget Id="Microsoft.VisualStudio.Enterprise" Version="[15.0,16.0)" />
-        <InstallationTarget Id="Microsoft.VisualStudio.Premium" Version="[15.0,16.0)" />
-        <InstallationTarget Id="Microsoft.VisualStudio.Ultimate" Version="[15.0,16.0)" />
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0,17.0)" />
+        <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[15.0,17.0)" />
+        <InstallationTarget Id="Microsoft.VisualStudio.Enterprise" Version="[15.0,17.0)" />
+        <InstallationTarget Id="Microsoft.VisualStudio.Premium" Version="[15.0,17.0)" />
+        <InstallationTarget Id="Microsoft.VisualStudio.Ultimate" Version="[15.0,17.0)" />
     </Installation>
-    <Dependencies>
-        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
-        <Dependency Id="Microsoft.VisualStudio.MPF.15.0" DisplayName="Visual Studio MPF 15.0" d:Source="Installed" Version="[15.0]" />
-    </Dependencies>
     <Assets>
         <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
     </Assets>
     <Prerequisites>
-        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,16.0)" DisplayName="Visual Studio core editor" />
-        <Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.LanguageServices" Version="[15.0.26208.0,16.0)" DisplayName="C# and Visual Basic" />
-        <Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.Compiler" Version="[15.0.26208.0,16.0)" DisplayName="C# and Visual Basic Roslyn compilers" />
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,17.0)" DisplayName="Visual Studio core editor" />
+        <Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.LanguageServices" Version="[15.0.26208.0,17.0)" DisplayName="C# and Visual Basic" />
+        <Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.Compiler" Version="[15.0.26208.0,17.0)" DisplayName="C# and Visual Basic Roslyn compilers" />
     </Prerequisites>
 </PackageManifest>

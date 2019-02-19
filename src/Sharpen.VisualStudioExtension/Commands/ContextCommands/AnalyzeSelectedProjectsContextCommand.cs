@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.VisualStudio.Shell;
 using Sharpen.Engine.Analysis;
 
 namespace Sharpen.VisualStudioExtension.Commands.ContextCommands
@@ -10,11 +9,12 @@ namespace Sharpen.VisualStudioExtension.Commands.ContextCommands
         public const int CommandId = 0x200;
         public static readonly Guid CommandSet = new Guid("4E66CB31-B0E2-4974-A8FC-0667A6CC399D");
 
-        private AnalyzeSelectedProjectsContextCommand(Package package, SharpenExtensionService sharpenExtensionService) : base(package, sharpenExtensionService, CommandId, CommandSet, true) { }
+        private AnalyzeSelectedProjectsContextCommand(ICommandServicesContainer commandServicesContainer)
+            : base(commandServicesContainer, CommandId, CommandSet, true) { }
 
-        public static void Initialize(Package package, SharpenExtensionService sharpenExtensionService)
+        public static void Initialize(ICommandServicesContainer commandServicesContainer)
         {
-            Instance = new AnalyzeSelectedProjectsContextCommand(package, sharpenExtensionService);
+            Instance = new AnalyzeSelectedProjectsContextCommand(commandServicesContainer);
         }
 
         protected override void IsCommandVisibleAndEnabled(out bool isVisible, out bool isEnabled)

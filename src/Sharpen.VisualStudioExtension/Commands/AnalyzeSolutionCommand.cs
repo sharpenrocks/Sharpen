@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.VisualStudio.Shell;
 using Sharpen.Engine.Analysis;
 
 namespace Sharpen.VisualStudioExtension.Commands
@@ -9,11 +8,12 @@ namespace Sharpen.VisualStudioExtension.Commands
         public const int CommandId = 0x200;
         public static readonly Guid CommandSet = new Guid("8E0186D5-53C8-4662-A6B7-BEC6CDDC08DD");
 
-        private AnalyzeSolutionCommand(Package package, SharpenExtensionService sharpenExtensionService) : base(package, sharpenExtensionService, CommandId, CommandSet) { }
+        private AnalyzeSolutionCommand(ICommandServicesContainer commandServicesContainer)
+            : base(commandServicesContainer, CommandId, CommandSet) { }
 
-        public static void Initialize(Package package, SharpenExtensionService sharpenExtensionService)
+        public static void Initialize(ICommandServicesContainer commandServicesContainer)
         {
-            Instance = new AnalyzeSolutionCommand(package, sharpenExtensionService);
+            Instance = new AnalyzeSolutionCommand(commandServicesContainer);
         }
 
         protected override IScopeAnalyzer GetScopeAnalyzer()

@@ -1,5 +1,5 @@
 # Smoke Tests
-This folder contains a sample solution that is used for smoke tests.
+This folder contains sample projects and solutions that are used for smoke tests.
 
 ## Projects in The Solution
 ### CSharp[Version]
@@ -19,3 +19,5 @@ Projects named `EmptyCSharpProject[Number]` are empty C# projects used to smoke 
 ### VisualBasicProject[Number]
 Projects named `VisualBasicProject[Number]` are VB.NET  projects used to smoke test the corner cases. For example, the `VisualBasicsProjects.sln` solution that contains only those projects cannot be analyzed because the analysis requires C# projects.
 
+### VNextCSharp[Version]
+Projects named `VNextCSharp[Version]` contain sample code that consists of copies of files taken from `CSharp[Version]` projects that should generate appropriate suggestions when analyzed. These files are then intermixed with new language features supported in newer versions of Visual Studio and the compiler. Such projects can be opened only in the newer versions of Visual Studio, often in preview versions, while Sharpen is still being developed in the previous version. The goal is to smoke tests if the analysis developed in the previous version still work when intermixed with newer language features.
