@@ -13,7 +13,7 @@ namespace Sharpen.Engine.CSharpFeatures
 
         private ImplicitlyTypedLocalVaraiables() { }
 
-        public ImmutableArray<string> LanguageVersions { get; } = ImmutableArray.CreateRange(new[] { CSharp30 ,CSharp50, CSharp60, CSharp70 , CSharp71});
+        public ImmutableArray<string> LanguageVersions { get; } = ImmutableArray.CreateRange(new[] { CSharp30 });
 
         public string FriendlyName { get; } = "Implicitly Typed Local Variables";
 

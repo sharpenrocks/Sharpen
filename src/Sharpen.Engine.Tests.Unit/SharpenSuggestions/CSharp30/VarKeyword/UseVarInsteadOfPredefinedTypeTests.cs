@@ -53,6 +53,7 @@ namespace Sharpen.Engine.Tests.Unit.SharpenSuggestions.CSharp30.VarKeyword
         {
             var code = $@"
             using System;
+            using System.Collections.Generic; 
             class Class
 	        {{
 	            void Method()

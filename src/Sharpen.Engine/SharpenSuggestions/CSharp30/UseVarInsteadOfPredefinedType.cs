@@ -2,12 +2,8 @@
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Sharpen.Engine.Analysis;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
-
 
 namespace Sharpen.Engine.SharpenSuggestions.CSharp30
 {
@@ -19,68 +15,55 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp30
 
         public string FriendlyName => "Use var keyword in variable declaration with object creation";
 
-        public IEnumerable<AnalysisResult> Analyze(SyntaxTree syntaxTree, SemanticModel semanticModel, SingleSyntaxTreeAnalysisContext analysisContext)
-        {
-            var analysisResult = new List<AnalysisResult>();
 
-            var variableDeclarations = syntaxTree.GetRoot().DescendantNodes()
-                            .OfType<VariableDeclarationSyntax>().ToList();
-
-            foreach (var declaration in variableDeclarations)
-            {
-
-                var LHSType = GetLeftSideCLRType(declaration)?.ToLower();
-                var RHSType = GetRightSideCLRType(declaration)?.ToLower();
-
-                if ((LHSType != null && RHSType != null) && (RHSType.Contains(LHSType) || LHSType.Contains(RHSType)))
-                {
-                    analysisResult.Add(new AnalysisResult(
-                            this,
-                            analysisContext,
-                            syntaxTree.FilePath,
-                            declaration.GetFirstToken(),
-                            declaration));
-                }
-            }
-            return analysisResult;
-        }
-
-       
         public static readonly UseVarInsteadOfPredefinedType Instance = new UseVarInsteadOfPredefinedType();
 
 
-      
-
-        private string GetRightSideCLRType(VariableDeclarationSyntax declaration)
+        public IEnumerable<AnalysisResult> Analyze(SyntaxTree syntaxTree, SemanticModel semanticModel, SingleSyntaxTreeAnalysisContext analysisContext)
         {
-            int totalDeclarationsInLine =  declaration.DescendantNodes().Count(x => x is VariableDeclaratorSyntax);
 
-            if(totalDeclarationsInLine > 1)
+            bool shouldVarBeUsed(VariableDeclarationSyntax declaration)
             {
-                return null;
+                var LHSType = semanticModel.GetTypeInfo(declaration.ChildNodes()?
+                                    .FirstOrDefault(syntax => 
+                                        syntax is PredefinedTypeSyntax 
+                                        || syntax is GenericNameSyntax 
+                                        || syntax is QualifiedNameSyntax 
+                                        || syntax is IdentifierNameSyntax)).Type;
+
+                int totalDeclarationsInLine = declaration.DescendantNodes().Count(x => x is VariableDeclaratorSyntax);
+                var RHSType = totalDeclarationsInLine > 1 ? null : 
+                    semanticModel.GetTypeInfo(
+                        declaration.DescendantNodes()
+                        .FirstOrDefault(node => 
+                        node is ObjectCreationExpressionSyntax).ChildNodes()?
+                            .FirstOrDefault( syntax =>
+                            syntax is QualifiedNameSyntax 
+                            || syntax is GenericNameSyntax 
+                            || syntax is PredefinedTypeSyntax 
+                            || syntax is IdentifierNameSyntax
+                          ).Parent
+
+                    ).Type;
+
+
+                return (LHSType != null && RHSType != null) && (LHSType.Equals(RHSType));
+
             }
 
-            return declaration.DescendantNodes().FirstOrDefault(x => x is ObjectCreationExpressionSyntax).ChildNodes()?
-                                       .FirstOrDefault(x => x is QualifiedNameSyntax || x is GenericNameSyntax || x is PredefinedTypeSyntax || x is IdentifierNameSyntax)?
-                                       .DescendantTokens()?.Select(x => x.ValueText)?
-                                       .Aggregate((i,j) => i + j);
-
-            
-
+            return syntaxTree.GetRoot().DescendantNodes().OfType<VariableDeclarationSyntax>()
+                .Where(shouldVarBeUsed)
+                .Select(declaration => new AnalysisResult(
+                                           this,
+                                           analysisContext,
+                                           syntaxTree.FilePath,
+                                           declaration.GetFirstToken(),
+                                           declaration));
 
         }
 
-        private string GetLeftSideCLRType(VariableDeclarationSyntax declaration)
-        {
-            return declaration.ChildNodes()?
-                .FirstOrDefault(x => x is PredefinedTypeSyntax || x is GenericNameSyntax || x is QualifiedNameSyntax || x is IdentifierNameSyntax)?
-                .DescendantTokens()?.Select(x => x.ValueText)?
-                .Aggregate((i, j) => i + j);
-        }
+
+
     }
 
-
-
-
-   
 }
