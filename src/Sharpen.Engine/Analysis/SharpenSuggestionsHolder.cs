@@ -1,4 +1,5 @@
-﻿using Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait;
+﻿using Sharpen.Engine.SharpenSuggestions.CSharp30;
+using Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait;
 using Sharpen.Engine.SharpenSuggestions.CSharp60.ExpressionBodiedMembers;
 using Sharpen.Engine.SharpenSuggestions.CSharp60.NameofExpressions;
 using Sharpen.Engine.SharpenSuggestions.CSharp70.ExpressionBodiedMembers;
@@ -14,6 +15,9 @@ namespace Sharpen.Engine.Analysis
     {
         public static readonly ISharpenSuggestion[] Suggestions =
         {
+            //C# 3.0
+            UseVarInsteadOfPredefinedType.Instance,
+
             // C# 5.0.
             ConsiderAwaitingEquivalentAsynchronousMethod.Instance,
             AwaitEquivalentAsynchronousMethod.Instance,
