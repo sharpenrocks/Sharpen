@@ -25,26 +25,15 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp30
             bool shouldVarBeUsed(VariableDeclarationSyntax declaration)
             {
                 var LHSType = semanticModel.GetTypeInfo(declaration.ChildNodes()?
-                                    .FirstOrDefault(syntax => 
-                                        syntax is PredefinedTypeSyntax 
-                                        || syntax is GenericNameSyntax 
-                                        || syntax is QualifiedNameSyntax 
+                                    .FirstOrDefault(syntax =>
+                                        syntax is PredefinedTypeSyntax
+                                        || syntax is GenericNameSyntax
+                                        || syntax is QualifiedNameSyntax
                                         || syntax is IdentifierNameSyntax)).Type;
 
                 int totalDeclarationsInLine = declaration.DescendantNodes().Count(x => x is VariableDeclaratorSyntax);
-                var RHSType = totalDeclarationsInLine > 1 ? null : 
-                    semanticModel.GetTypeInfo(
-                        declaration.DescendantNodes()
-                        .FirstOrDefault(node => 
-                        node is ObjectCreationExpressionSyntax).ChildNodes()?
-                            .FirstOrDefault( syntax =>
-                            syntax is QualifiedNameSyntax 
-                            || syntax is GenericNameSyntax 
-                            || syntax is PredefinedTypeSyntax 
-                            || syntax is IdentifierNameSyntax
-                          ).Parent
-
-                    ).Type;
+                var RHSType = totalDeclarationsInLine > 1 ? null :
+                    GetRHSType(declaration, semanticModel);
 
 
                 return (LHSType != null && RHSType != null) && (LHSType.Equals(RHSType));
@@ -62,8 +51,21 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp30
 
         }
 
-
-
+        private ITypeSymbol GetRHSType(VariableDeclarationSyntax declaration, SemanticModel semanticModel)
+        {
+            var objectCreationNodes = declaration.DescendantNodes().FirstOrDefault(
+                                        node => node is ObjectCreationExpressionSyntax
+                                    );
+           return  objectCreationNodes == null ? null :
+                                   semanticModel.GetTypeInfo( objectCreationNodes?.ChildNodes()?
+                                        .FirstOrDefault(
+                                            syntax =>
+                                            syntax is QualifiedNameSyntax
+                                            || syntax is GenericNameSyntax
+                                            || syntax is PredefinedTypeSyntax
+                                            || syntax is IdentifierNameSyntax
+                                      ).Parent).Type;
+        }
     }
 
 }
