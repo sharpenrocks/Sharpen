@@ -35,26 +35,31 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp30.ImplicitlyTypedLocalVariabl
 
             bool VarShouldBeUsed(VariableDeclarationSyntax declaration)
             {
-                var leftHandSideType = semanticModel.GetTypeInfo(declaration.ChildNodes()?
-                                    .FirstOrDefault(syntax => 
-                                        syntax is PredefinedTypeSyntax 
-                                        || syntax is GenericNameSyntax 
-                                        || syntax is QualifiedNameSyntax 
-                                        || syntax is IdentifierNameSyntax)).Type;
+                var leftHandSideTypeSyntaxNode = declaration.ChildNodes()
+                    .FirstOrDefault(syntax =>
+                        syntax is PredefinedTypeSyntax
+                        || syntax is GenericNameSyntax
+                        || syntax is QualifiedNameSyntax
+                        || syntax is IdentifierNameSyntax);
+                if (leftHandSideTypeSyntaxNode == null) return false;
+
+                var leftHandSideType = semanticModel.GetTypeInfo(leftHandSideTypeSyntaxNode).Type;
 
                 int totalDeclarationsInLine = declaration.DescendantNodes().Count(x => x is VariableDeclaratorSyntax);
-                var rightHandSideType = totalDeclarationsInLine > 1 ? null : 
-                    semanticModel.GetTypeInfo(
-                        declaration.DescendantNodes()
-                        .FirstOrDefault(node => 
-                        node is ObjectCreationExpressionSyntax).ChildNodes()?
-                            .FirstOrDefault( syntax =>
-                            syntax is QualifiedNameSyntax 
-                            || syntax is GenericNameSyntax 
-                            || syntax is PredefinedTypeSyntax 
-                            || syntax is IdentifierNameSyntax
-                          ).Parent
-                    ).Type;
+                if (totalDeclarationsInLine > 1) return false;
+
+                var rightHandSideTypeSyntaxNode = declaration.DescendantNodes()
+                    .FirstOrDefault(node => node is ObjectCreationExpressionSyntax)?
+                    .ChildNodes()?
+                    .FirstOrDefault(syntax =>
+                        syntax is QualifiedNameSyntax
+                        || syntax is GenericNameSyntax
+                        || syntax is PredefinedTypeSyntax
+                        || syntax is IdentifierNameSyntax
+                    )?.Parent;
+                if (rightHandSideTypeSyntaxNode == null) return false;
+
+                var rightHandSideType = semanticModel.GetTypeInfo(rightHandSideTypeSyntaxNode).Type;
 
                 return (leftHandSideType != null && rightHandSideType != null) && (leftHandSideType.Equals(rightHandSideType));
             }
