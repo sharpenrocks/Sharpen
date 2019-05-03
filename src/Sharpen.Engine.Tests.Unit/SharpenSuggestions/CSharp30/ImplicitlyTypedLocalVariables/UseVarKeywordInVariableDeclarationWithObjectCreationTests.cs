@@ -1,26 +1,22 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using System.Linq;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using NUnit.Framework;
 using Sharpen.Engine.Analysis;
-using Sharpen.Engine.SharpenSuggestions.CSharp30;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Sharpen.Engine.SharpenSuggestions.CSharp30.ImplicitlyTypedLocalVariables;
 
-namespace Sharpen.Engine.Tests.Unit.SharpenSuggestions.CSharp30.VarKeyword
+namespace Sharpen.Engine.Tests.Unit.SharpenSuggestions.CSharp30.ImplicitlyTypedLocalVariables
 {
     [TestFixture]
-    class UseVarInsteadOfPredefinedTypeTests
+    class UseVarKeywordInVariableDeclarationWithObjectCreationTests
     {
         private static readonly MetadataReference MscorlibMetadataReference = MetadataReference.CreateFromFile(typeof(object).Assembly.Location);
         private static readonly MetadataReference SystemMetadataReference = MetadataReference.CreateFromFile(typeof(System.Net.Sockets.Socket).Assembly.Location);
 
         private static readonly SingleSyntaxTreeAnalysisContext AnalysisContext = new SingleSyntaxTreeAnalysisContext
         (
-            nameof(UseVarInsteadOfPredefinedType),
-            nameof(UseVarInsteadOfPredefinedType)
+            nameof(UseVarKeywordInVariableDeclarationWithObjectCreation),
+            nameof(UseVarKeywordInVariableDeclarationWithObjectCreation)
         );
 
 
@@ -30,19 +26,18 @@ namespace Sharpen.Engine.Tests.Unit.SharpenSuggestions.CSharp30.VarKeyword
         [TestCase("System.Collections.Generic.List<int> list = new List<int>(10000);")]
         [TestCase("CustomClass myObject = new CustomClass(1,2);")]
         [TestCase("CustomClass myObject1 = new CustomClass { MyProperty = 4 };")]
-        [TestCase(@" using (StreamReader file = new StreamReader(""C:\\myfile.txt"")) {}")]
-        public void Gives_suggestions_if_variable_initialized_with_Object_Creation(string innerCode)
+        [TestCase(@"using (StreamReader file = new StreamReader(""C:\\myfile.txt"")) {}")]
+        public void Left_side_type_exactly_the_same_as_right_hand_type__analysis_gives_suggestion(string innerCode)
         {
             var analysisResult = Analyze(innerCode);
 
             Assert.That(analysisResult.Length, Is.EqualTo(1));
         }
 
-
         [TestCase("IEnumerable<int> list = new List<int>(10000);")]
         [TestCase("long l = (long)(new int());")]
         [TestCase("List<int> first = new List<int>(), second = new List<int>();")]
-        public void No_suggestion_If_type_in_object_creation_not_exactly_same(string innerCode)
+        public void Left_side_type_not_exactly_the_same_as_right_hand_type__analysis_does_not_give_suggestion(string innerCode)
         {
             var analysisResult = Analyze(innerCode);
 
@@ -54,49 +49,40 @@ namespace Sharpen.Engine.Tests.Unit.SharpenSuggestions.CSharp30.VarKeyword
             var code = $@"
             using System;
             using System.Collections.Generic; 
+
             class Class
 	        {{
 	            void Method()
 	            {{
                     {innerCode}
 	            }}
-	            
 	        }}
 
             class CustomClass
             {{
-
-            public int Property {{get; set;}}
-
-            public CustomClass()
-            {{
-            }}
-            
-            public CustomClass(int a, int b)
-            {{
-
-            }}
-
-            }}
-
-
-            ";
-
-
+                public int Property {{ get; set; }}
+    
+                public CustomClass()
+                {{
+                }}
+                
+                public CustomClass(int a, int b)
+                {{
+                }}
+            }}";
 
             var (syntaxTree, semanticModel) = GetSyntaxTreeAndSemanticModelFor(code);
 
-            var analysisResult = UseVarInsteadOfPredefinedType.Instance.Analyze(syntaxTree, semanticModel, AnalysisContext)
+            var analysisResult = UseVarKeywordInVariableDeclarationWithObjectCreation.Instance.Analyze(syntaxTree, semanticModel, AnalysisContext)
                 .ToArray();
             return analysisResult;
         }
-
 
         private static (SyntaxTree, SemanticModel) GetSyntaxTreeAndSemanticModelFor(string code)
         {
             var syntaxTree = CSharpSyntaxTree.ParseText(code);
             var compilation = CSharpCompilation.Create(
-                $"{nameof(UseVarInsteadOfPredefinedType)}",
+                $"{nameof(UseVarKeywordInVariableDeclarationWithObjectCreation)}",
                 new[] { syntaxTree },
                 new[] { MscorlibMetadataReference, SystemMetadataReference });
             var semanticModel = compilation.GetSemanticModel(syntaxTree);

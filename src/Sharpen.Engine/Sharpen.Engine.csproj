@@ -216,7 +216,7 @@
     <Compile Include="Analysis\MultipleProjectsScopeAnalyzer.cs" />
     <Compile Include="Analysis\SolutionScopeAnalyzer.cs" />
     <Compile Include="CSharpFeatures\AsyncAwait.cs" />
-    <Compile Include="CSharpFeatures\ImplicitlyTypedLocalVaraiables.cs" />
+    <Compile Include="CSharpFeatures\ImplicitlyTypedLocalVariables.cs" />
     <Compile Include="CSharpFeatures\NameofExpressions.cs" />
     <Compile Include="CSharpFeatures\DefaultExpressions.cs" />
     <Compile Include="CSharpFeatures\OutVariables.cs" />
@@ -232,7 +232,7 @@
     <Compile Include="Extensions\SyntaxTokenExtensions.cs" />
     <Compile Include="Extensions\TextSpanExtensions.cs" />
     <Compile Include="KnownTypeInfo.cs" />
-    <Compile Include="SharpenSuggestions\CSharp30\UseVarInsteadOfPredefinedType.cs" />
+    <Compile Include="SharpenSuggestions\CSharp30\ImplicitlyTypedLocalVariables\UseVarKeywordInVariableDeclarationWithObjectCreation.cs" />
     <Compile Include="SharpenSuggestions\CSharp50\AsyncAwait\AwaitEquivalentAsynchronousMethod.cs" />
     <Compile Include="SharpenSuggestions\CSharp50\AsyncAwait\AwaitTaskInsteadOfCallingTaskResult.cs" />
     <Compile Include="SharpenSuggestions\CSharp50\AsyncAwait\AwaitTaskWhenAnyInsteadOfCallingTaskWaitAny.cs" />

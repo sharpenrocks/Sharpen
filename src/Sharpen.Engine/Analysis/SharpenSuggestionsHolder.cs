@@ -1,4 +1,4 @@
-﻿using Sharpen.Engine.SharpenSuggestions.CSharp30;
+﻿using Sharpen.Engine.SharpenSuggestions.CSharp30.ImplicitlyTypedLocalVariables;
 using Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait;
 using Sharpen.Engine.SharpenSuggestions.CSharp60.ExpressionBodiedMembers;
 using Sharpen.Engine.SharpenSuggestions.CSharp60.NameofExpressions;
@@ -15,8 +15,8 @@ namespace Sharpen.Engine.Analysis
     {
         public static readonly ISharpenSuggestion[] Suggestions =
         {
-            //C# 3.0
-            UseVarInsteadOfPredefinedType.Instance,
+            // C# 3.0
+            UseVarKeywordInVariableDeclarationWithObjectCreation.Instance,
 
             // C# 5.0.
             ConsiderAwaitingEquivalentAsynchronousMethod.Instance,

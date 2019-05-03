@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.LanguageServices;
 namespace Sharpen.VisualStudioExtension.Commands
 {
     /// <summary>
-    /// Containes shared services required by all Sharpen extension commands.
+    /// Contains shared services required by all Sharpen extension commands.
     /// </summary>
     internal interface ICommandServicesContainer
     {

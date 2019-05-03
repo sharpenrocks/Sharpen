@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.Design;
-using System.Threading.Tasks;
 using EnvDTE80;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.LanguageServices;
