@@ -44,5 +44,17 @@ namespace CSharp30.ImplicitlyTypedLocalVariables.UseVarKeywordInVariableDeclarat
             int a = new int(), b = new int();
             int c = 0, d = new int();
         }
+
+        public void VariableDeclarationDoesNotHaveObjectCreation()
+        {
+            int a = 123;
+            int b = 1 + 2 + 3;
+            int c = LocalFunction(0) + LocalFunction(0);
+            int d = new int() + new int();
+            int e = LocalFunction(0);
+            int f = LocalFunction(new int());
+
+            int LocalFunction(int i) => i;
+        }
     }
 }
