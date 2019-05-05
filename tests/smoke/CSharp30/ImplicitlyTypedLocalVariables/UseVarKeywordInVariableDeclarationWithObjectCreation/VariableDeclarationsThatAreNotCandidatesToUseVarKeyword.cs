@@ -1,4 +1,5 @@
 ﻿// ReSharper disable All
+#pragma warning disable 219
 
 using System.Collections.Generic;
 using System.IO;
@@ -33,12 +34,15 @@ namespace CSharp30.ImplicitlyTypedLocalVariables.UseVarKeywordInVariableDeclarat
         public void RightAndLeftSideTypesAreNotNotExactlyTheSame()
         {
             IEnumerable<int> list = new List<int>(10000);
-            long l = (long)(new int());
+            long lA = (long)(new int());
+            long lB = new int();
         }
 
         public void VariableDeclarationDeclaresMoreThenOneVariable()
         {
             List<int> first = new List<int>(), second = new List<int>();
+            int a = new int(), b = new int();
+            int c = 0, d = new int();
         }
     }
 }
