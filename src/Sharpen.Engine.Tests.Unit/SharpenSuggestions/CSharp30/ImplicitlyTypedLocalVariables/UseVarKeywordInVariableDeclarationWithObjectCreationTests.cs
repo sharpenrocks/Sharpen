@@ -55,6 +55,7 @@ namespace Sharpen.Engine.Tests.Unit.SharpenSuggestions.CSharp30.ImplicitlyTypedL
         {
             var code = $@"
             using System;
+            using System.IO;
             using System.Collections.Generic; 
 
             class Class

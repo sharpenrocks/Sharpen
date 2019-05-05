@@ -1,5 +1,7 @@
 ﻿// ReSharper disable All
 #pragma warning disable 219
+#pragma warning disable 414
+#pragma warning disable 168
 
 using System.Collections.Generic;
 using System.IO;
@@ -8,6 +10,8 @@ namespace CSharp30.ImplicitlyTypedLocalVariables.UseVarKeywordInVariableDeclarat
 {
     public class VariableDeclarationsThatAreNotCandidatesToUseVarKeyword
     {
+        private int _fieldDeclarationCannotUseVar = new int();
+
         public void AlreadyUsesVarKeyword()
         {
             var a = new int();
@@ -45,7 +49,7 @@ namespace CSharp30.ImplicitlyTypedLocalVariables.UseVarKeywordInVariableDeclarat
             int c = 0, d = new int();
         }
 
-        public void VariableDeclarationDoesNotHaveObjectCreation()
+        public void VariableDeclarationDoesNotHaveOnlyObjectCreation()
         {
             int a = 123;
             int b = 1 + 2 + 3;
@@ -53,8 +57,17 @@ namespace CSharp30.ImplicitlyTypedLocalVariables.UseVarKeywordInVariableDeclarat
             int d = new int() + new int();
             int e = LocalFunction(0);
             int f = LocalFunction(new int());
+            int g = (int)(new int());
+            int h = new int() * 2;
 
             int LocalFunction(int i) => i;
+        }
+
+        public void VariableDeclarationDoesNotHaveInitialization()
+        {
+            int a;
+            long b;
+            List<int> c;
         }
     }
 }

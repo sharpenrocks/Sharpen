@@ -3,6 +3,8 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Sharpen.Engine.Analysis;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.CodeAnalysis.CSharp;
+using Sharpen.Engine.Extensions;
 
 namespace Sharpen.Engine.SharpenSuggestions.CSharp30.ImplicitlyTypedLocalVariables
 {
@@ -23,7 +25,19 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp30.ImplicitlyTypedLocalVariabl
             return syntaxTree.GetRoot()
                 .DescendantNodes()
                 .OfType<VariableDeclarationSyntax>()
-                .Where(VarShouldBeUsed)
+                .Where(declaration =>
+                    declaration.Parent?.IsAnyOfKinds(SyntaxKind.LocalDeclarationStatement, SyntaxKind.UsingStatement) == true
+                    && 
+                    DeclarationDoesNotUseVarKeyword(declaration)
+                    &&
+                    DeclarationDeclaresExactlyOneVariable(declaration)
+                    &&
+                    InitializationContainsOnlyObjectCreation(declaration)
+                    &&
+                    LeftSideTypeIsExactlyTheSameAsRightSideType(declaration)
+                    // TODO-IG: Check that there is no type named var declared in the scope.
+                    // TODO-IG: Check that there is now generic parameter named var in the scope.
+                )
                 .Select(declaration => new AnalysisResult
                 (
                    this,
@@ -33,35 +47,32 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp30.ImplicitlyTypedLocalVariabl
                    declaration
                 ));
 
-            bool VarShouldBeUsed(VariableDeclarationSyntax declaration)
+            bool DeclarationDoesNotUseVarKeyword(VariableDeclarationSyntax declaration)
             {
-                var leftHandSideTypeSyntaxNode = declaration.ChildNodes()
-                    .FirstOrDefault(syntax =>
-                        syntax is PredefinedTypeSyntax
-                        || syntax is GenericNameSyntax
-                        || syntax is QualifiedNameSyntax
-                        || syntax is IdentifierNameSyntax);
-                if (leftHandSideTypeSyntaxNode == null) return false;
+                return declaration.Type?.IsVar == false;
+            }
 
-                var leftHandSideType = semanticModel.GetTypeInfo(leftHandSideTypeSyntaxNode).Type;
+            bool DeclarationDeclaresExactlyOneVariable(VariableDeclarationSyntax declaration)
+            {
+                return declaration.Variables.Count == 1;
+            }
 
-                int totalDeclarationsInLine = declaration.DescendantNodes().Count(x => x is VariableDeclaratorSyntax);
-                if (totalDeclarationsInLine > 1) return false;
+            bool InitializationContainsOnlyObjectCreation(VariableDeclarationSyntax declaration)
+            {
+                return declaration.Variables[0]
+                           .Initializer?.Value?.IsKind(SyntaxKind.ObjectCreationExpression) == true;
+            }
 
-                var rightHandSideTypeSyntaxNode = declaration.DescendantNodes()
-                    .FirstOrDefault(node => node is ObjectCreationExpressionSyntax)?
-                    .ChildNodes()?
-                    .FirstOrDefault(syntax =>
-                        syntax is QualifiedNameSyntax
-                        || syntax is GenericNameSyntax
-                        || syntax is PredefinedTypeSyntax
-                        || syntax is IdentifierNameSyntax
-                    )?.Parent;
-                if (rightHandSideTypeSyntaxNode == null) return false;
+            bool LeftSideTypeIsExactlyTheSameAsRightSideType(VariableDeclarationSyntax declaration)
+            {
+                var leftSideType = semanticModel.GetTypeInfo(declaration.Type).Type;
+                if (leftSideType == null || leftSideType is IErrorTypeSymbol) return false;
 
-                var rightHandSideType = semanticModel.GetTypeInfo(rightHandSideTypeSyntaxNode).Type;
+                var objectCreationExpression = (ObjectCreationExpressionSyntax)declaration.Variables[0].Initializer.Value;
+                var rightSideType = semanticModel.GetTypeInfo(objectCreationExpression).Type;
+                if (rightSideType == null || rightSideType is IErrorTypeSymbol) return false;
 
-                return (leftHandSideType != null && rightHandSideType != null) && (leftHandSideType.Equals(rightHandSideType));
+                return leftSideType.Equals(rightSideType);
             }
         }
     }
