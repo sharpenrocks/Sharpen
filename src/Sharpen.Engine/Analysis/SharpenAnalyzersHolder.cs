@@ -5,6 +5,7 @@ using Sharpen.Engine.SharpenSuggestions.CSharp60.NameofExpressions;
 using Sharpen.Engine.SharpenSuggestions.CSharp70.ExpressionBodiedMembers;
 using Sharpen.Engine.SharpenSuggestions.CSharp70.OutVariables;
 using Sharpen.Engine.SharpenSuggestions.CSharp71.DefaultExpressions;
+using Sharpen.Engine.SharpenSuggestions.CSharp80.AsyncStreams.Analyzers;
 using Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Analyzers;
 
 namespace Sharpen.Engine.Analysis
@@ -55,7 +56,8 @@ namespace Sharpen.Engine.Analysis
             UseDefaultExpressionInOptionalConstructorParameters.Instance,
 
             // C# 8.0
-            EnableNullableContextAndDeclareReferenceIdentifierAsNullableAnalyzer.Instance
+            EnableNullableContextAndDeclareReferenceIdentifierAsNullableAnalyzer.Instance,
+            ConsiderAwaitingEquivalentAsynchronousMethodAndYieldingIAsyncEnumerableAnalyzer.Instance
         };
     }
 }
