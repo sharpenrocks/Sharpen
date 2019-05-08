@@ -5,15 +5,16 @@ using Sharpen.Engine.SharpenSuggestions.CSharp60.NameofExpressions;
 using Sharpen.Engine.SharpenSuggestions.CSharp70.ExpressionBodiedMembers;
 using Sharpen.Engine.SharpenSuggestions.CSharp70.OutVariables;
 using Sharpen.Engine.SharpenSuggestions.CSharp71.DefaultExpressions;
+using Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Analyzers;
 
 namespace Sharpen.Engine.Analysis
 {
     // There is no need to complicate here. We do not need any complex collector so far.
-    // No need for MEF based instance searches or similar. New suggestions are added rather
-    // rarely and at the moment it is very easy to keep this list manually up-to-date.
-    internal static class SharpenSuggestionsHolder
+    // No need for MEF based instance searches or similar. New analyzers and suggestions are
+    // added rather rarely and at the moment it is very easy to keep this list manually up-to-date.
+    internal static class SharpenAnalyzersHolder
     {
-        public static readonly ISharpenSuggestion[] Suggestions =
+        public static readonly ISingleSyntaxTreeAnalyzer[] Analyzers =
         {
             // C# 3.0
             UseVarKeywordInVariableDeclarationWithObjectCreation.Instance,
@@ -51,7 +52,10 @@ namespace Sharpen.Engine.Analysis
             // C# 7.1.
             UseDefaultExpressionInReturnStatements.Instance,
             UseDefaultExpressionInOptionalMethodParameters.Instance,
-            UseDefaultExpressionInOptionalConstructorParameters.Instance
+            UseDefaultExpressionInOptionalConstructorParameters.Instance,
+
+            // C# 8.0
+            EnableNullableContextAndDeclareReferenceIdentifierAsNullableAnalyzer.Instance
         };
     }
 }

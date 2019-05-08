@@ -212,9 +212,10 @@
     <Compile Include="Analysis\BaseScopeAnalyzer.cs" />
     <Compile Include="Analysis\IScopeAnalyzer.cs" />
     <Compile Include="Analysis\MultipleDocumentsScopeAnalyzer.cs" />
-    <Compile Include="Analysis\SharpenSuggestionsHolder.cs" />
+    <Compile Include="Analysis\SharpenAnalyzersHolder.cs" />
     <Compile Include="Analysis\MultipleProjectsScopeAnalyzer.cs" />
     <Compile Include="Analysis\SolutionScopeAnalyzer.cs" />
+    <Compile Include="CSharpFeatures\NullableReferenceTypes.cs" />
     <Compile Include="CSharpFeatures\AsyncAwait.cs" />
     <Compile Include="CSharpFeatures\ImplicitlyTypedLocalVariables.cs" />
     <Compile Include="CSharpFeatures\NameofExpressions.cs" />
@@ -276,6 +277,11 @@
     <Compile Include="SharpenSuggestions\CSharp70\ExpressionBodiedMembers\UseExpressionBodyForGetAccessorsInProperties.cs" />
     <Compile Include="SharpenSuggestions\CSharp70\ExpressionBodiedMembers\UseExpressionBodyForDestructors.cs" />
     <Compile Include="SharpenSuggestions\CSharp70\ExpressionBodiedMembers\UseExpressionBodyForConstructors.cs" />
+    <Compile Include="SharpenSuggestions\CSharp80\NullableReferenceTypes\Analyzers\EnableNullableContextAndDeclareReferenceIdentifierAsNullableAnalyzer.cs" />
+    <Compile Include="SharpenSuggestions\CSharp80\NullableReferenceTypes\Suggestions\EnableNullableContextAndDeclareReferenceParameterAsNullable.cs" />
+    <Compile Include="SharpenSuggestions\CSharp80\NullableReferenceTypes\Suggestions\EnableNullableContextAndDeclareReferenceVariableAsNullable.cs" />
+    <Compile Include="SharpenSuggestions\CSharp80\NullableReferenceTypes\Suggestions\EnableNullableContextAndDeclareReferencePropertyAsNullable.cs" />
+    <Compile Include="SharpenSuggestions\CSharp80\NullableReferenceTypes\Suggestions\EnableNullableContextAndDeclareReferenceFieldAsNullable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

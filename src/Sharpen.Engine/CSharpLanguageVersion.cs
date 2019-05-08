@@ -7,5 +7,6 @@
         public const string CSharp60 = "6.0";
         public const string CSharp70 = "7.0";
         public const string CSharp71 = "7.1";
+        public const string CSharp80 = "8.0";
     }
 }
