@@ -287,6 +287,7 @@
     <Compile Include="SharpenSuggestions\CSharp80\NullableReferenceTypes\Suggestions\EnableNullableContextAndDeclareReferencePropertyAsNullable.cs" />
     <Compile Include="SharpenSuggestions\CSharp80\NullableReferenceTypes\Suggestions\EnableNullableContextAndDeclareReferenceFieldAsNullable.cs" />
     <Compile Include="SharpenSuggestions\CSharp80\UsingDeclarations\Analyzers\ReplaceUsingStatementWithUsingDeclarationAnalyzer.cs" />
+    <Compile Include="SharpenSuggestions\CSharp80\UsingDeclarations\Suggestions\ConsiderReplacingUsingStatementWithUsingDeclaration.cs" />
     <Compile Include="SharpenSuggestions\CSharp80\UsingDeclarations\Suggestions\ReplaceUsingStatementWithUsingDeclaration.cs" />
   </ItemGroup>
   <ItemGroup>
