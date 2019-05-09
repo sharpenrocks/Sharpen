@@ -215,6 +215,7 @@
     <Compile Include="Analysis\SharpenAnalyzersHolder.cs" />
     <Compile Include="Analysis\MultipleProjectsScopeAnalyzer.cs" />
     <Compile Include="Analysis\SolutionScopeAnalyzer.cs" />
+    <Compile Include="CSharpFeatures\UsingDeclarations.cs" />
     <Compile Include="CSharpFeatures\AsyncStreams.cs" />
     <Compile Include="CSharpFeatures\NullableReferenceTypes.cs" />
     <Compile Include="CSharpFeatures\AsyncAwait.cs" />
@@ -285,6 +286,8 @@
     <Compile Include="SharpenSuggestions\CSharp80\NullableReferenceTypes\Suggestions\EnableNullableContextAndDeclareReferenceVariableAsNullable.cs" />
     <Compile Include="SharpenSuggestions\CSharp80\NullableReferenceTypes\Suggestions\EnableNullableContextAndDeclareReferencePropertyAsNullable.cs" />
     <Compile Include="SharpenSuggestions\CSharp80\NullableReferenceTypes\Suggestions\EnableNullableContextAndDeclareReferenceFieldAsNullable.cs" />
+    <Compile Include="SharpenSuggestions\CSharp80\UsingDeclarations\Analyzers\ReplaceUsingStatementWithUsingDeclarationAnalyzer.cs" />
+    <Compile Include="SharpenSuggestions\CSharp80\UsingDeclarations\Suggestions\ReplaceUsingStatementWithUsingDeclaration.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

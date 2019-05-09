@@ -7,6 +7,7 @@ using Sharpen.Engine.SharpenSuggestions.CSharp70.OutVariables;
 using Sharpen.Engine.SharpenSuggestions.CSharp71.DefaultExpressions;
 using Sharpen.Engine.SharpenSuggestions.CSharp80.AsyncStreams.Analyzers;
 using Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Analyzers;
+using Sharpen.Engine.SharpenSuggestions.CSharp80.UsingDeclarations.Analyzers;
 
 namespace Sharpen.Engine.Analysis
 {
@@ -57,7 +58,8 @@ namespace Sharpen.Engine.Analysis
 
             // C# 8.0
             EnableNullableContextAndDeclareReferenceIdentifierAsNullableAnalyzer.Instance,
-            ConsiderAwaitingEquivalentAsynchronousMethodAndYieldingIAsyncEnumerableAnalyzer.Instance
+            ConsiderAwaitingEquivalentAsynchronousMethodAndYieldingIAsyncEnumerableAnalyzer.Instance,
+            ReplaceUsingStatementWithUsingDeclarationAnalyzer.Instance
         };
     }
 }
