@@ -15,6 +15,8 @@ namespace Sharpen.Engine
                 case SyntaxKind.PropertyDeclaration: return For((PropertyDeclarationSyntax)syntaxNode);
                 case SyntaxKind.IndexerDeclaration: return For((IndexerDeclarationSyntax)syntaxNode);
                 case SyntaxKind.LocalFunctionStatement: return For((LocalFunctionStatementSyntax)syntaxNode);
+                case SyntaxKind.UsingStatement: return For((UsingStatementSyntax)syntaxNode);
+                case SyntaxKind.SwitchStatement: return For((SwitchStatementSyntax)syntaxNode);
                 case SyntaxKind.ReturnStatement:
                 case SyntaxKind.Parameter:
                 case SyntaxKind.Argument:
@@ -54,6 +56,18 @@ namespace Sharpen.Engine
         {
             localFunction = localFunction.WithoutLeadingTrivia();
             return $"{localFunction.Modifiers.ToFullString()}{localFunction.Identifier.ToFullString()}{localFunction.ParameterList}";
+        }
+
+        private static string For(UsingStatementSyntax usingStatement)
+        {
+            usingStatement = usingStatement.WithoutLeadingTrivia();
+            return $"{usingStatement.UsingKeyword.ToFullString()}{usingStatement.OpenParenToken.ToFullString()}{usingStatement.Declaration.ToFullString()}{usingStatement.CloseParenToken.ToString()}";
+        }
+
+        private static string For(SwitchStatementSyntax switchStatement)
+        {
+            switchStatement = switchStatement.WithoutLeadingTrivia();
+            return $"{switchStatement.SwitchKeyword.ToFullString()}{switchStatement.OpenParenToken.ToFullString()}{switchStatement.Expression.ToFullString()}{switchStatement.CloseParenToken.ToString()}";
         }
     }
 }

@@ -3,6 +3,10 @@ All notable changes to the "Sharpen" extension will be documented in this file.
 
 The format of the file is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased]
+### Added
+- "Use var keyword in variable declaration with object creation" suggestion.
+
 ## [0.8.0] - 2019-02-16
 ### Added
 - Support for VS 2019.

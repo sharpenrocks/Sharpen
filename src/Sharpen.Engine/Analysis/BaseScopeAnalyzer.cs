@@ -16,7 +16,7 @@ namespace Sharpen.Engine.Analysis
         // of the analysis create just once out of them Actions that are really used in
         // the Parallel.Invoke().
         private static Action<SyntaxTree, SemanticModel, SingleSyntaxTreeAnalysisContext, ConcurrentBag<AnalysisResult>>[] AnalyzeSingleSyntaxTreeAndCollectResultsActions { get; } =
-            SharpenSuggestionsHolder.Suggestions
+            SharpenAnalyzersHolder.Analyzers
                 .OfType<ISingleSyntaxTreeAnalyzer>()
                 .Select(analyzer => new Action<SyntaxTree, SemanticModel, SingleSyntaxTreeAnalysisContext, ConcurrentBag<AnalysisResult>>((syntaxTree, semanticModel, analysisContext, results) =>
                 {

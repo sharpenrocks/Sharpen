@@ -255,7 +255,7 @@
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SharpenSuggestions\CSharp30\VarKeyword\UseVarInsteadOfPredefinedTypeTests.cs" />
+    <Compile Include="SharpenSuggestions\CSharp30\ImplicitlyTypedLocalVariables\UseVarKeywordInVariableDeclarationWithObjectCreationTests.cs" />
     <Compile Include="SharpenSuggestions\CSharp70\OutVariables\UseOutVariablesInMethodInvocationsTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

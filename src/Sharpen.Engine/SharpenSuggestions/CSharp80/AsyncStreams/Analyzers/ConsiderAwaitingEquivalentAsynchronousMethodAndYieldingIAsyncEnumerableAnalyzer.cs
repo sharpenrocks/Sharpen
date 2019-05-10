@@ -4,28 +4,22 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Sharpen.Engine.Analysis;
 using Sharpen.Engine.Extensions.CodeDetection;
-using static Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait.EquivalentAsynchronousMethodFinder;
+using Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait;
+using Sharpen.Engine.SharpenSuggestions.CSharp80.AsyncStreams.Suggestions;
 
-namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
+namespace Sharpen.Engine.SharpenSuggestions.CSharp80.AsyncStreams.Analyzers
 {
-    internal abstract class BaseAwaitingEquivalentAsynchronousMethod : ISharpenSuggestion, ISingleSyntaxTreeAnalyzer
+    // TODO: At the moment a quick copy-paste from the C# 5.0 AsyncAwait suggestions,
+    //       in order to have a cool demo at the Weblica conference. Clean it up and refactor completely.
+    internal sealed class ConsiderAwaitingEquivalentAsynchronousMethodAndYieldingIAsyncEnumerableAnalyzer : ISingleSyntaxTreeAnalyzer
     {
-        private readonly EnclosingMethodAsyncStatus enclosingMethodAsyncStatus;
-
         // So far we will simply use the hardcoded one.
         private readonly EquivalentAsynchronousMethodFinder asynchronousMethodFinder =
             HardcodedLookupBasedEquivalentAsynchronousMethodFinder.Instance;
 
-        protected BaseAwaitingEquivalentAsynchronousMethod(EnclosingMethodAsyncStatus enclosingMethodAsyncStatus)
-        {
-            this.enclosingMethodAsyncStatus = enclosingMethodAsyncStatus;
-        }
+        private ConsiderAwaitingEquivalentAsynchronousMethodAndYieldingIAsyncEnumerableAnalyzer() { }
 
-        public string MinimumLanguageVersion { get; } = CSharpLanguageVersions.CSharp50;
-
-        public ICSharpFeature LanguageFeature { get; } = CSharpFeatures.AsyncAwait.Instance;
-
-        public abstract string FriendlyName { get; }
+        public static readonly ConsiderAwaitingEquivalentAsynchronousMethodAndYieldingIAsyncEnumerableAnalyzer Instance = new ConsiderAwaitingEquivalentAsynchronousMethodAndYieldingIAsyncEnumerableAnalyzer();
 
         public IEnumerable<AnalysisResult> Analyze(SyntaxTree syntaxTree, SemanticModel semanticModel, SingleSyntaxTreeAnalysisContext analysisContext)
         {
@@ -45,10 +39,16 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 
             // ReSharper disable once PossibleMultipleEnumeration
             return descendantNodes
-                .OfType<InvocationExpressionSyntax>()
+                .OfType<YieldStatementSyntax>()
+                .Select(yieldStatement => yieldStatement.FirstAncestorOrSelf<MethodDeclarationSyntax>())
+                // TODO: Yield must be in the method itself, not nested within a local function, or lambda, or delegate.
+                // TODO: Make it work also for local functions and not only for methods.
+                .Where(method => method != null)
+                .Distinct() // Because we can have more than one yield statement in a method.
+                .SelectMany(method => method.DescendantNodes().OfType<InvocationExpressionSyntax>())
                 .Where(InvokedMethodHasAsynchronousEquivalent)
                 .Select(invocation => new AnalysisResult(
-                    this,
+                    ConsiderAwaitingEquivalentAsynchronousMethodAndYieldingIAsyncEnumerable.Instance,
                     analysisContext,
                     syntaxTree.FilePath,
                     GetStartingSyntaxNode(invocation).GetFirstToken(),
@@ -57,7 +57,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 
             bool InvokedMethodHasAsynchronousEquivalent(InvocationExpressionSyntax invocation)
             {
-                return asynchronousMethodFinder.EquivalentAsynchronousCandidateExistsFor(invocation, semanticModel, enclosingMethodAsyncStatus);
+                return asynchronousMethodFinder.EquivalentAsynchronousCandidateExistsFor(invocation, semanticModel, EquivalentAsynchronousMethodFinder.EnclosingMethodAsyncStatus.EnclosingMethodMustNotBeAsync);
             }
 
             SyntaxNode GetStartingSyntaxNode(InvocationExpressionSyntax invocation)
