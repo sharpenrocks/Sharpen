@@ -37,35 +37,48 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.SwitchExpressions.Analyzers
                 .Where(replaceabilityInfo => replaceabilityInfo.switchStatement != null)
                 .Select(replaceabilityInfo => new AnalysisResult
                 (
-                    replaceabilityInfo.category == SwitchStatementSectionsCategory.AllSwitchSectionsAreReturnStatements
-                        ? (ISharpenSuggestion)ReplaceSwitchStatementContainingOnlyReturnsWithSwitchExpression.Instance
-                        : ReplaceSwitchStatementContainingOnlyAssignmentsWithSwitchExpression.Instance,
+                    GetSuggestion(replaceabilityInfo.category, replaceabilityInfo.isSurelyExhaustive),
                     analysisContext,
                     syntaxTree.FilePath,
                     replaceabilityInfo.switchStatement.SwitchKeyword,
                     replaceabilityInfo.switchStatement
                 ));
 
-            (SwitchStatementSyntax switchStatement, SwitchStatementSectionsCategory category) GetSwitchStatementPotentialReplaceabilityInfo(SwitchStatementSyntax switchStatement)
+            ISharpenSuggestion GetSuggestion(SwitchStatementSectionsCategory category, bool isSurelyExhaustive)
+            {
+                // TODO-IG: It will be so nice to switch to switch statement one day we move Sharpen to C# 8.0 :-)
+                if (category == SwitchStatementSectionsCategory.AllSwitchSectionsAreAssignmentsToTheSameIdentifier)
+                {
+                    return isSurelyExhaustive
+                        ? (ISharpenSuggestion)ReplaceSwitchStatementContainingOnlyAssignmentsWithSwitchExpression.Instance
+                        : ConsiderReplacingSwitchStatementContainingOnlyAssignmentsWithSwitchExpression.Instance;
+                }
+                else
+                {
+                    return isSurelyExhaustive
+                        ? (ISharpenSuggestion)ReplaceSwitchStatementContainingOnlyReturnsWithSwitchExpression.Instance
+                        : ConsiderReplacingSwitchStatementContainingOnlyReturnsWithSwitchExpression.Instance;
+                }
+            }
+
+            (SwitchStatementSyntax switchStatement, SwitchStatementSectionsCategory category, bool isSurelyExhaustive) GetSwitchStatementPotentialReplaceabilityInfo(SwitchStatementSyntax switchStatement)
             {
                 // We have to have at least one switch section (case or default).
-                if (switchStatement.Sections.Count <= 0) return (null, SwitchStatementSectionsCategory.None);
+                if (switchStatement.Sections.Count <= 0) return (null, SwitchStatementSectionsCategory.None, false);
 
-                // We have to have the default section, otherwise we cannot replace the switch
-                // statement with a switch expressions.
-                // TODO-IG: Provide additional "consider" suggestion in case of missing the return.
-                //          Something like "Consider adding the default case and replacing switch statement with switch expression".		
-                if (!switchStatement.Sections.Any(switchSection =>
-                    switchSection.Labels.Any(label => label.IsKind(SyntaxKind.DefaultSwitchLabel))))
-                    return (null, SwitchStatementSectionsCategory.None);
+                // If we have the default section it is surely exhaustive.
+                // Otherwise we cannot be sure. We will of course not do any
+                // proper check that the compiler does.
+                bool isSurelyExhaustive = switchStatement.Sections.Any(switchSection =>
+                    switchSection.Labels.Any(label => label.IsKind(SyntaxKind.DefaultSwitchLabel)));
 
                 if (AllSwitchSectionsAreAssignmentsToTheSameIdentifier(switchStatement.Sections))
-                    return (switchStatement, SwitchStatementSectionsCategory.AllSwitchSectionsAreAssignmentsToTheSameIdentifier);
+                    return (switchStatement, SwitchStatementSectionsCategory.AllSwitchSectionsAreAssignmentsToTheSameIdentifier, isSurelyExhaustive);
 
                 if (AllSwitchSectionsAreReturnStatements(switchStatement.Sections))
-                    return (switchStatement, SwitchStatementSectionsCategory.AllSwitchSectionsAreReturnStatements);
+                    return (switchStatement, SwitchStatementSectionsCategory.AllSwitchSectionsAreReturnStatements, isSurelyExhaustive);
 
-                return (null, SwitchStatementSectionsCategory.None);
+                return (null, SwitchStatementSectionsCategory.None, false);
 
                 bool AllSwitchSectionsAreAssignmentsToTheSameIdentifier(SyntaxList<SwitchSectionSyntax> switchSections)
                 {

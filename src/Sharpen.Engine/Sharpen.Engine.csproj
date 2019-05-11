@@ -288,7 +288,9 @@
     <Compile Include="SharpenSuggestions\CSharp80\NullableReferenceTypes\Suggestions\EnableNullableContextAndDeclareReferencePropertyAsNullable.cs" />
     <Compile Include="SharpenSuggestions\CSharp80\NullableReferenceTypes\Suggestions\EnableNullableContextAndDeclareReferenceFieldAsNullable.cs" />
     <Compile Include="SharpenSuggestions\CSharp80\SwitchExpressions\Analyzers\ReplaceSwitchStatementWithSwitchExpressionAnalyzer.cs" />
+    <Compile Include="SharpenSuggestions\CSharp80\SwitchExpressions\Suggestions\ConsiderReplacingSwitchStatementContainingOnlyAssignmentsWithSwitchExpression.cs" />
     <Compile Include="SharpenSuggestions\CSharp80\SwitchExpressions\Suggestions\ReplaceSwitchStatementContainingOnlyAssignmentsWithSwitchExpression.cs" />
+    <Compile Include="SharpenSuggestions\CSharp80\SwitchExpressions\Suggestions\ConsiderReplacingSwitchStatementContainingOnlyReturnsWithSwitchExpression.cs" />
     <Compile Include="SharpenSuggestions\CSharp80\SwitchExpressions\Suggestions\ReplaceSwitchStatementContainingOnlyReturnsWithSwitchExpression.cs" />
     <Compile Include="SharpenSuggestions\CSharp80\UsingDeclarations\Analyzers\ReplaceUsingStatementWithUsingDeclarationAnalyzer.cs" />
     <Compile Include="SharpenSuggestions\CSharp80\UsingDeclarations\Suggestions\ConsiderReplacingUsingStatementWithUsingDeclaration.cs" />
