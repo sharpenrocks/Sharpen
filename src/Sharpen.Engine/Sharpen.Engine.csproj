@@ -215,6 +215,7 @@
     <Compile Include="Analysis\SharpenAnalyzersHolder.cs" />
     <Compile Include="Analysis\MultipleProjectsScopeAnalyzer.cs" />
     <Compile Include="Analysis\SolutionScopeAnalyzer.cs" />
+    <Compile Include="CSharpFeatures\IndicesAndRanges.cs" />
     <Compile Include="CSharpFeatures\SwitchExpressions.cs" />
     <Compile Include="CSharpFeatures\UsingDeclarations.cs" />
     <Compile Include="CSharpFeatures\AsyncStreams.cs" />
@@ -282,6 +283,9 @@
     <Compile Include="SharpenSuggestions\CSharp70\ExpressionBodiedMembers\UseExpressionBodyForConstructors.cs" />
     <Compile Include="SharpenSuggestions\CSharp80\AsyncStreams\Analyzers\ConsiderAwaitingEquivalentAsynchronousMethodAndYieldingIAsyncEnumerableAnalyzer.cs" />
     <Compile Include="SharpenSuggestions\CSharp80\AsyncStreams\Suggestions\ConsiderAwaitingEquivalentAsynchronousMethodAndYieldingIAsyncEnumerable.cs" />
+    <Compile Include="SharpenSuggestions\CSharp80\IndicesAndRanges\Analyzers\UseIndexFromTheEndAnalyzer.cs" />
+    <Compile Include="SharpenSuggestions\CSharp80\IndicesAndRanges\Suggestions\UseIndexFromTheEndHeadNInsteadOfLengthMinusNInIndexerCall.cs" />
+    <Compile Include="SharpenSuggestions\CSharp80\IndicesAndRanges\Suggestions\UseIndexFromTheEndHeadNInsteadOfLengthMinusNInMethodCall.cs" />
     <Compile Include="SharpenSuggestions\CSharp80\NullableReferenceTypes\Analyzers\EnableNullableContextAndDeclareReferenceIdentifierAsNullableAnalyzer.cs" />
     <Compile Include="SharpenSuggestions\CSharp80\NullableReferenceTypes\Suggestions\EnableNullableContextAndDeclareReferenceParameterAsNullable.cs" />
     <Compile Include="SharpenSuggestions\CSharp80\NullableReferenceTypes\Suggestions\EnableNullableContextAndDeclareReferenceVariableAsNullable.cs" />
