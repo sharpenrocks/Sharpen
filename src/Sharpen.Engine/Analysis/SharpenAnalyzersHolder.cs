@@ -23,7 +23,7 @@ namespace Sharpen.Engine.Analysis
             UseVarKeywordInVariableDeclarationWithObjectCreation.Instance,
 
             // C# 5.0.
-            ConsiderAwaitingEquivalentAsynchronousMethod.Instance,
+            ConsiderAwaitingEquivalentAsynchronousMethodAndMakingTheCallerAsynchronous.Instance,
             AwaitEquivalentAsynchronousMethod.Instance,
             AwaitTaskDelayInsteadOfCallingThreadSleep.Instance,
             AwaitTaskInsteadOfCallingTaskWait.Instance,

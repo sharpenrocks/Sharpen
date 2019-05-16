@@ -59,11 +59,11 @@
     <Compile Include="AsyncAwait\AwaitTaskWhenAllInsteadOfCallingTaskWaitAll\TaskWhenAllCannotBeAwaitedInsteadOfCallingTaskWaitAll.cs" />
     <Compile Include="AsyncAwait\AwaitTaskInsteadOfCallingTaskWait\TaskCannotBeAwaitedInsteadOfCallingTaskWait.cs" />
     <Compile Include="AsyncAwait\AwaitTaskInsteadOfCallingTaskWait\TaskCanBeAwaitedInsteadOfCallingTaskWait.cs" />
-    <Compile Include="AsyncAwait\ConsiderAwaitingEquivalentAsynchronousMethod\MethodsThatDoNotHaveEquivalentAsynchronousMethod.cs" />
-    <Compile Include="AsyncAwait\ConsiderAwaitingEquivalentAsynchronousMethod\MethodsThatHaveEquivalentAsynchronousMethodButCalledInConstructor.cs" />
-    <Compile Include="AsyncAwait\ConsiderAwaitingEquivalentAsynchronousMethod\MethodsThatHaveEquivalentAsynchronousMethodButCalledInProperties.cs" />
-    <Compile Include="AsyncAwait\ConsiderAwaitingEquivalentAsynchronousMethod\MethodsThatHaveEquivalentAsynchronousMethod.cs" />
-    <Compile Include="AsyncAwait\ConsiderAwaitingEquivalentAsynchronousMethod\MethodsThatHaveEquivalentAsynchronousMethodButYieldEnumerable.cs" />
+    <Compile Include="AsyncAwait\ConsiderAwaitingEquivalentAsynchronousMethodAndMakingTheCallerAsynchronous\MethodsThatDoNotHaveEquivalentAsynchronousMethod.cs" />
+    <Compile Include="AsyncAwait\ConsiderAwaitingEquivalentAsynchronousMethodAndMakingTheCallerAsynchronous\MethodsThatHaveEquivalentAsynchronousMethodButCalledInConstructor.cs" />
+    <Compile Include="AsyncAwait\ConsiderAwaitingEquivalentAsynchronousMethodAndMakingTheCallerAsynchronous\MethodsThatHaveEquivalentAsynchronousMethodButCalledInProperties.cs" />
+    <Compile Include="AsyncAwait\ConsiderAwaitingEquivalentAsynchronousMethodAndMakingTheCallerAsynchronous\MethodsThatHaveEquivalentAsynchronousMethod.cs" />
+    <Compile Include="AsyncAwait\ConsiderAwaitingEquivalentAsynchronousMethodAndMakingTheCallerAsynchronous\MethodsThatHaveEquivalentAsynchronousMethodButYieldEnumerable.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

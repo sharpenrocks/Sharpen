@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethod
+namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethodAndMakingTheCallerAsynchronous
 {
     public class MethodsThatHaveEquivalentAsynchronousMethodCalledInMethods
     {

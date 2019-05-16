@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 
-namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethod
+namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethodAndMakingTheCallerAsynchronous
 {
     public class MethodsThatHaveEquivalentAsynchronousMethodCalledInConstructors
     {
