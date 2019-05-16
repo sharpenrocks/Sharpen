@@ -1,18 +1,12 @@
 ﻿// ReSharper disable All
 
-// Expected number of suggestions: 44
-
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethod
 {
-    public class MethodsThatHaveEquivalentAsynchronousMethodCalledInMethods
+    public class MethodsThatHaveEquivalentAsynchronousMethodCalledInConstructors
     {
-        public void InstanceMethodsHaveAsynchronousEquivalents()
+        public MethodsThatHaveEquivalentAsynchronousMethodCalledInConstructors()
         {
             var @object = new ClassWithAsyncEquivalents();
 
@@ -23,7 +17,7 @@ namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethod
             @object.AccessFailed();
         }
 
-        public void InstanceMethodsHaveAsynchronousEquivalentsValueTask()
+        public MethodsThatHaveEquivalentAsynchronousMethodCalledInConstructors(int i)
         {
             var @object = new ClassWithAsyncEquivalentsValueTask();
 
@@ -34,7 +28,7 @@ namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethod
             @object.AccessFailed();
         }
 
-        public void InstanceMethodsHaveAsynchronousEquivalentsWithDifferentReturnTypeDefinition()
+        public MethodsThatHaveEquivalentAsynchronousMethodCalledInConstructors(double d)
         {
             var @object = new ClassWithAsyncEquivalentsReturnTypes();
 
@@ -43,7 +37,7 @@ namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethod
             @object.AcceptSocket();
         }
 
-        public void InstanceMethodsHaveAsynchronousEquivalentsWithMethodParameters()
+        public MethodsThatHaveEquivalentAsynchronousMethodCalledInConstructors(string s)
         {
             var @object = new ClassWithAsyncEquivalentsMethodParameters();
 
@@ -53,7 +47,7 @@ namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethod
             @object.AcceptTcpClient(0, "");
         }
 
-        public void InstanceMethodsHaveAsynchronousEquivalentsWithLocalFunctionYielding()
+        public MethodsThatHaveEquivalentAsynchronousMethodCalledInConstructors(decimal d)
         {
             var @object = new ClassWithAsyncEquivalents();
 
@@ -83,9 +77,9 @@ namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethod
         }
     }
 
-    public class MethodsThatHaveEquivalentAsynchronousMethodCalledInLocalFunctionsInMethods
+    public class MethodsThatHaveEquivalentAsynchronousMethodCalledInLocalFunctionsInConstructors
     {
-        public void InstanceMethodsHaveAsynchronousEquivalents()
+        public MethodsThatHaveEquivalentAsynchronousMethodCalledInLocalFunctionsInConstructors()
         {
             LocalFunction();
 
@@ -101,7 +95,7 @@ namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethod
             }
         }
 
-        public void InstanceMethodsHaveAsynchronousEquivalentsValueTask()
+        public MethodsThatHaveEquivalentAsynchronousMethodCalledInLocalFunctionsInConstructors(int i)
         {
             LocalFunction();
 
@@ -117,7 +111,7 @@ namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethod
             }
         }
 
-        public void InstanceMethodsHaveAsynchronousEquivalentsWithDifferentReturnTypeDefinition()
+        public MethodsThatHaveEquivalentAsynchronousMethodCalledInLocalFunctionsInConstructors(double d)
         {
             LocalFunction();
 
@@ -131,7 +125,7 @@ namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethod
             }
         }
 
-        public void InstanceMethodsHaveAsynchronousEquivalentsWithMethodParameters()
+        public MethodsThatHaveEquivalentAsynchronousMethodCalledInLocalFunctionsInConstructors(string s)
         {
             LocalFunction();
 
@@ -146,7 +140,7 @@ namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethod
             }
         }
 
-        public void InstanceMethodsHaveAsynchronousEquivalentsWithLocalFunctionYielding()
+        public MethodsThatHaveEquivalentAsynchronousMethodCalledInLocalFunctionsInConstructors(decimal d)
         {
             LocalFunction();
 
@@ -179,73 +173,5 @@ namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethod
                 }
             }
         }
-    }
-
-    public class ClassWithAsyncEquivalents
-    {
-        public void SaveChanges() { }
-        public async Task SaveChangesAsync() { }
-
-        public int Abort() => 0;
-        public async Task<int> AbortAsync() => 0;
-
-        public void AcceptSocket() { }
-        public Task AcceptSocketAsync() => new Task(() => {});
-
-        public bool AcceptTcpClient() => true;
-
-        public Task<bool> AccessFailedAsync() => Task.FromResult(true);
-    }
-
-    public class ClassWithAsyncEquivalentsValueTask
-    {
-        public void SaveChanges() { }
-        public async ValueTask SaveChangesAsync() { }
-
-        public int Abort() => 0;
-        public async ValueTask<int> AbortAsync() => 0;
-
-        public void AcceptSocket() { }
-        public ValueTask AcceptSocketAsync() => new ValueTask();
-
-        public bool AcceptTcpClient() => true;
-
-        public ValueTask<bool> AccessFailedAsync() => new ValueTask<bool>(true);
-    }
-
-    public static class ClassWithAsyncEquivalentsExtensions
-    {
-        public static Task<bool> AcceptTcpClientAsync(this ClassWithAsyncEquivalents @object) => new Task<bool>(() => true);
-        public static ValueTask<bool> AcceptTcpClientAsync(this ClassWithAsyncEquivalentsValueTask @object) => new ValueTask<bool>(true);
-
-        public static bool AccessFailed(this ClassWithAsyncEquivalents @object) => true;
-        public static bool AccessFailed(this ClassWithAsyncEquivalentsValueTask @object) => true;
-    }
-
-    public class ClassWithAsyncEquivalentsReturnTypes
-    {
-        public System.String SaveChanges() => "";
-        public async Task<string> SaveChangesAsync() => "";
-
-        public int Abort() => 0;
-        public async Task<Int32> AbortAsync() => 0;
-
-        public IEnumerable<int> AcceptSocket() => new int[0];
-        public Task<System.Collections.Generic.IEnumerable<System.Int32>> AcceptSocketAsync() => Task.FromResult(new int[0].AsEnumerable());
-    }
-
-    public class ClassWithAsyncEquivalentsMethodParameters
-    {
-        public void SaveChanges(int i, string s) { }
-        public async Task SaveChangesAsync(int i, System.String s) { }
-
-        public int Abort() => 0;
-        public async Task<int> AbortAsync(CancellationToken cancellationToken = default) => 0;
-
-        public void AcceptSocket() { }
-        public Task AcceptSocketAsync(CancellationToken cancellationToken) => new Task(() => { });
-
-        public bool AcceptTcpClient(int i, string s) => true;
-        public async Task<bool> AcceptTcpClientAsync(Int32 i, String s, CancellationToken cancellationToken = default) => true;
     }
 }

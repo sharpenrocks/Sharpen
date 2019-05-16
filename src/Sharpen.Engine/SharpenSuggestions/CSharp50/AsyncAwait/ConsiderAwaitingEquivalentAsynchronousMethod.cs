@@ -4,7 +4,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 {
     internal sealed class ConsiderAwaitingEquivalentAsynchronousMethod : BaseAwaitingEquivalentAsynchronousMethod
     {
-        private ConsiderAwaitingEquivalentAsynchronousMethod() : base(EnclosingMethodAsyncStatus.EnclosingMethodMustNotBeAsync) { }
+        private ConsiderAwaitingEquivalentAsynchronousMethod() : base(CallerAsyncStatus.CallerMustNotBeAsync) { }
 
         public override string FriendlyName { get; } = "Consider awaiting equivalent asynchronous method";
 

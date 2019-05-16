@@ -8,7 +8,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
     /// Decides if the method has an asynchronous equivalent based on a hardcoded
     /// list of method names that are well-known to have asynchronous equivalents.
     /// It's a quick and cheap heuristics that gives surprisingly good results in
-    /// real life cases. 
+    /// real-life cases. 
     /// </summary>
     internal class HardcodedLookupBasedEquivalentAsynchronousMethodFinder : EquivalentAsynchronousMethodFinder
     {

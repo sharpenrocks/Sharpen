@@ -6,6 +6,11 @@ using Sharpen.Engine.Extensions;
 
 namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 {
+    // TODO-IG: Refactor this. The class violates heavily the single responsibility principle.
+    //          It does two heavy things at the moment, searches for the equivalent async methods,
+    //          but also checks the "environment" to see if it fits requirements of just a one
+    //          specific client. Bad.
+
     /// <remarks>
     /// We can have different finders. Hardcoded one, one based on dependencies etc.
     /// This base class encapsulates the common and exact search logic.
@@ -13,10 +18,10 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
     /// </remarks>
     internal abstract class EquivalentAsynchronousMethodFinder
     {
-        public enum EnclosingMethodAsyncStatus
+        public enum CallerAsyncStatus
         {
-            EnclosingMethodMustBeAsync,
-            EnclosingMethodMustNotBeAsync
+            CallerMustBeAsync,
+            CallerMustNotBeAsync
         }
 
         private class KnownAwaitableTypeInfo : KnownTypeInfo
@@ -59,6 +64,9 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 
         private static readonly MethodToIgnore[] KnownMethodsToIgnore = 
         {
+            // Why do we ignore Add() and AddRange()? See here:
+            // https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.dbset-1.addasync?view=efcore-2.1
+            // "This method is async only to allow special value generators [...]. For all other cases the non async method should be used."
             new MethodToIgnore("DbSet", "Microsoft.EntityFrameworkCore", "Add"),
             new MethodToIgnore("DbSet", "Microsoft.EntityFrameworkCore", "AddRange")
             // TODO-SETTINGS: Allow users to define their own known methods to ignore.
@@ -82,7 +90,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
         /// method of an interface or base class that cannot be changed, than it cannot be
         /// turned into async method and thus the suggestion makes no sense.
         /// </remarks>
-        public bool EquivalentAsynchronousCandidateExistsFor(InvocationExpressionSyntax invocation, SemanticModel semanticModel, EnclosingMethodAsyncStatus enclosingMethodAsyncStatus)
+        public bool EquivalentAsynchronousCandidateExistsFor(InvocationExpressionSyntax invocation, SemanticModel semanticModel, CallerAsyncStatus callerAsyncStatus)
         {
             if (invocation.Expression == null) return false;
 
@@ -105,18 +113,22 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
             // they do not want to call its async equivalent.
             if (MethodIsInvokedWithinItsContainingType()) return false;
 
-            var enclosingMethodSymbol = GetEnclosingMethod();
-            if (enclosingMethodSymbol == null) return false;
+            // The suggestions make sense only if the whole calling chain
+            // already is or can be made async by utilizing the async keyword.
+            if (!MethodIsInvokedWithinACallerNodeThatCanBeMarkedAsAsync()) return false;
 
-            if (enclosingMethodAsyncStatus == EnclosingMethodAsyncStatus.EnclosingMethodMustNotBeAsync)
+            var enclosingLocalFunctionOrMethod = GetEnclosingLocalFunctionOrMethod();
+            if (enclosingLocalFunctionOrMethod == null) return false;
+
+            if (callerAsyncStatus == CallerAsyncStatus.CallerMustNotBeAsync)
             {
-                if (enclosingMethodSymbol.IsAsync) return false;
+                if (enclosingLocalFunctionOrMethod.IsAsync) return false;
 
-                if (!EnclosingMethodCanBeMadeAsync()) return false;
+                if (!EnclosingLocalFunctionOrMethodCanBeMadeAsync()) return false;
             }
             else // Enclosing method must be async.
             {
-                if (!enclosingMethodSymbol.IsAsync) return false;
+                if (!enclosingLocalFunctionOrMethod.IsAsync) return false;
             }
 
             // We can have the following situations:
@@ -152,25 +164,58 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 
             return false;
 
-            IMethodSymbol GetEnclosingMethod()
+            bool MethodIsInvokedWithinACallerNodeThatCanBeMarkedAsAsync()
             {
-                var enclosingMethod = invocation.FirstAncestorOrSelf<MethodDeclarationSyntax>();
-                if (enclosingMethod == null) return null;
+                // We do not want to have suggestions on methods with async
+                // equivalents that are called in constructors, properties,
+                // destructors, etc. because those, with a good reason!,
+                // cannot be made async in C#. The suggestions make sense
+                // only if the whole calling chain already is or can be made
+                // async.
 
-                return semanticModel.GetDeclaredSymbol(enclosingMethod);
+                // The only C# element that can be made async is a method.
+                // Thus, we have to see if the invocation is ultimately done
+                // within a method.
+
+                // A MethodDeclarationSyntax cannot be nested within an
+                // another MethodDeclarationSyntax. Therefore we can just search
+                // for the first parent of type MethodDeclarationSyntax.
+                return invocation.FirstAncestorOrSelf<MethodDeclarationSyntax>() != null;
             }
 
-            bool EnclosingMethodCanBeMadeAsync()
+            IMethodSymbol GetEnclosingLocalFunctionOrMethod()
             {
+                // Of course, first we have to check if the invocation happens within a local function.
+                // The declaration symbol of a local function implements IMethodSymbol so the cast is safe.
+                var enclosingLocalFunction = invocation.FirstAncestorOrSelf<LocalFunctionStatementSyntax>();
+                if (enclosingLocalFunction != null) return (IMethodSymbol)semanticModel.GetDeclaredSymbol(enclosingLocalFunction);
+
+                var enclosingMethod = invocation.FirstAncestorOrSelf<MethodDeclarationSyntax>();
+                return enclosingMethod == null ? null : semanticModel.GetDeclaredSymbol(enclosingMethod);
+            }
+
+            bool EnclosingLocalFunctionOrMethodCanBeMadeAsync()
+            {
+                // If we have an enclosing local function, it can neither override base methods
+                // nor implement interfaces. So it has no restrictions of that kind.
+                // And for the moment, we will assume that there is no an equivalent asynchronous
+                // local function in the same scope. I can imagine a case where such and equivalent
+                // could exist, but this is corner case. If it ever happens, let's have a false
+                // positive and hopefully an issue filled :-)
+
+                // Long story short, if we have a local function then yes, it can always be made async.
+                if (enclosingLocalFunctionOrMethod.MethodKind == MethodKind.LocalFunction)
+                    return true;
+
                 return EnclosingMethodDoesNotOverrideNonChangeableBaseClassMethod() &&
                        EnclosingMethodDoesNotImplementNonChangeableInterfaceMethod() &&
                        EnclosingMethodDoesNotAlreadyHaveAsynchronousEquivalent();
 
                 bool EnclosingMethodDoesNotOverrideNonChangeableBaseClassMethod()
                 {
-                    if (!enclosingMethodSymbol.IsOverride) return true;
+                    if (!enclosingLocalFunctionOrMethod.IsOverride) return true;
 
-                    return enclosingMethodSymbol.OverriddenMethod?
+                    return enclosingLocalFunctionOrMethod.OverriddenMethod?
                             .ContainingType?
                             .Locations.All(location => location.IsInSource) == true;
                 }
@@ -185,14 +230,14 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
                     // If they cannot, means if they are referenced from an assembly
                     // and not defined in code, we assume that the enclosing
                     // method implements a non-changeable interface method.
-                    return enclosingMethodSymbol.GetImplementedInterfaceMethods(semanticModel)
+                    return enclosingLocalFunctionOrMethod.GetImplementedInterfaceMethods(semanticModel)
                         .All(interfaceMethod => interfaceMethod
                             .ContainingType?.Locations.All(location => location.IsInSource) == true);
                 }
 
                 bool EnclosingMethodDoesNotAlreadyHaveAsynchronousEquivalent()
                 {
-                    return !TypeContainsAsynchronousEquivalentOf(semanticModel, enclosingMethodSymbol.ContainingType, enclosingMethodSymbol);
+                    return !TypeContainsAsynchronousEquivalentOf(semanticModel, enclosingLocalFunctionOrMethod.ContainingType, enclosingLocalFunctionOrMethod);
                 }
             }
 

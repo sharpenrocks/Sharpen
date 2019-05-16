@@ -10,15 +10,15 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 {
     internal abstract class BaseAwaitingEquivalentAsynchronousMethod : ISharpenSuggestion, ISingleSyntaxTreeAnalyzer
     {
-        private readonly EnclosingMethodAsyncStatus enclosingMethodAsyncStatus;
+        private readonly CallerAsyncStatus callerAsyncStatus;
 
         // So far we will simply use the hardcoded one.
         private readonly EquivalentAsynchronousMethodFinder asynchronousMethodFinder =
             HardcodedLookupBasedEquivalentAsynchronousMethodFinder.Instance;
 
-        protected BaseAwaitingEquivalentAsynchronousMethod(EnclosingMethodAsyncStatus enclosingMethodAsyncStatus)
+        protected BaseAwaitingEquivalentAsynchronousMethod(CallerAsyncStatus callerAsyncStatus)
         {
-            this.enclosingMethodAsyncStatus = enclosingMethodAsyncStatus;
+            this.callerAsyncStatus = callerAsyncStatus;
         }
 
         public string MinimumLanguageVersion { get; } = CSharpLanguageVersions.CSharp50;
@@ -57,7 +57,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 
             bool InvokedMethodHasAsynchronousEquivalent(InvocationExpressionSyntax invocation)
             {
-                return asynchronousMethodFinder.EquivalentAsynchronousCandidateExistsFor(invocation, semanticModel, enclosingMethodAsyncStatus);
+                return asynchronousMethodFinder.EquivalentAsynchronousCandidateExistsFor(invocation, semanticModel, callerAsyncStatus);
             }
 
             SyntaxNode GetStartingSyntaxNode(InvocationExpressionSyntax invocation)

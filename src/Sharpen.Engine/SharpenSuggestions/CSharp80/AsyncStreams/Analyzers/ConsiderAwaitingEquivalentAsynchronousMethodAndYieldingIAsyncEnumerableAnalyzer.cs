@@ -57,7 +57,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.AsyncStreams.Analyzers
 
             bool InvokedMethodHasAsynchronousEquivalent(InvocationExpressionSyntax invocation)
             {
-                return asynchronousMethodFinder.EquivalentAsynchronousCandidateExistsFor(invocation, semanticModel, EquivalentAsynchronousMethodFinder.EnclosingMethodAsyncStatus.EnclosingMethodMustNotBeAsync);
+                return asynchronousMethodFinder.EquivalentAsynchronousCandidateExistsFor(invocation, semanticModel, EquivalentAsynchronousMethodFinder.CallerAsyncStatus.CallerMustNotBeAsync);
             }
 
             SyntaxNode GetStartingSyntaxNode(InvocationExpressionSyntax invocation)

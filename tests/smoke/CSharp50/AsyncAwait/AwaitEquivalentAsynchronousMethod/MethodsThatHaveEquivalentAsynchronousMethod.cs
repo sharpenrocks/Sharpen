@@ -1,6 +1,6 @@
 ﻿// ReSharper disable All
 
-// Expected number of suggestions: 17
+// Expected number of suggestions: 66
 
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CSharp50.AsyncAwait.AwaitEquivalentAsynchronousMethod
 {
-    public class MethodsThatHaveEquivalentAsynchronousMethod
+    public class MethodsThatHaveEquivalentAsynchronousMethodCalledInMethods
     {
         public async void InstanceMethodsHaveAsynchronousEquivalents()
         {
@@ -51,6 +51,231 @@ namespace CSharp50.AsyncAwait.AwaitEquivalentAsynchronousMethod
             @object.Abort();
             @object.AcceptSocket();
             @object.AcceptTcpClient(0, "");
+        }
+
+        public async void InstanceMethodsHaveAsynchronousEquivalentsWithLocalFunctionYielding()
+        {
+            var @object = new ClassWithAsyncEquivalents();
+
+            @object.SaveChanges();
+            @object.Abort();
+            @object.AcceptSocket();
+            @object.AcceptTcpClient();
+            @object.AccessFailed();
+
+            YieldSomething();
+
+            IEnumerable<int> YieldSomething()
+            {
+                for (int i = 0; i < 100; i++)
+                {
+                    @object.SaveChanges();
+                    @object.Abort();
+                    @object.AcceptSocket();
+                    @object.AcceptTcpClient();
+                    @object.AccessFailed();
+
+                    yield return i;
+                }
+
+                yield break;
+            }
+        }
+    }
+
+    public class MethodsThatHaveEquivalentAsynchronousMethodCalledInLocalFunctionsInNonAsyncMethods
+    {
+        public void InstanceMethodsHaveAsynchronousEquivalents()
+        {
+            LocalFunction();
+
+            async void LocalFunction()
+            {
+                var @object = new ClassWithAsyncEquivalents();
+
+                @object.SaveChanges();
+                @object.Abort();
+                @object.AcceptSocket();
+                @object.AcceptTcpClient();
+                @object.AccessFailed();
+            }
+        }
+
+        public void InstanceMethodsHaveAsynchronousEquivalentsValueTask()
+        {
+            LocalFunction();
+
+            async void LocalFunction()
+            {
+                var @object = new ClassWithAsyncEquivalentsValueTask();
+
+                @object.SaveChanges();
+                @object.Abort();
+                @object.AcceptSocket();
+                @object.AcceptTcpClient();
+                @object.AccessFailed();
+            }
+        }
+
+        public void InstanceMethodsHaveAsynchronousEquivalentsWithDifferentReturnTypeDefinition()
+        {
+            LocalFunction();
+
+            async void LocalFunction()
+            {
+                var @object = new ClassWithAsyncEquivalentsReturnTypes();
+
+                @object.SaveChanges();
+                @object.Abort();
+                @object.AcceptSocket();
+            }
+        }
+
+        public void InstanceMethodsHaveAsynchronousEquivalentsWithMethodParameters()
+        {
+            LocalFunction();
+
+            async void LocalFunction()
+            {
+                var @object = new ClassWithAsyncEquivalentsMethodParameters();
+
+                @object.SaveChanges(0, "");
+                @object.Abort();
+                @object.AcceptSocket();
+                @object.AcceptTcpClient(0, "");
+            }
+        }
+
+        public void InstanceMethodsHaveAsynchronousEquivalentsWithLocalFunctionYielding()
+        {
+            LocalFunction();
+
+            async void LocalFunction()
+            {
+                var @object = new ClassWithAsyncEquivalents();
+
+                @object.SaveChanges();
+                @object.Abort();
+                @object.AcceptSocket();
+                @object.AcceptTcpClient();
+                @object.AccessFailed();
+
+                YieldSomething();
+
+                IEnumerable<int> YieldSomething()
+                {
+                    for (int i = 0; i < 100; i++)
+                    {
+                        @object.SaveChanges();
+                        @object.Abort();
+                        @object.AcceptSocket();
+                        @object.AcceptTcpClient();
+                        @object.AccessFailed();
+
+                        yield return i;
+                    }
+
+                    yield break;
+                }
+            }
+        }
+    }
+
+    public class MethodsThatHaveEquivalentAsynchronousMethodCalledInLocalFunctionsInAsyncMethods
+    {
+        public async void InstanceMethodsHaveAsynchronousEquivalents()
+        {
+            LocalFunction();
+
+            async void LocalFunction()
+            {
+                var @object = new ClassWithAsyncEquivalents();
+
+                @object.SaveChanges();
+                @object.Abort();
+                @object.AcceptSocket();
+                @object.AcceptTcpClient();
+                @object.AccessFailed();
+            }
+        }
+
+        public async void InstanceMethodsHaveAsynchronousEquivalentsValueTask()
+        {
+            LocalFunction();
+
+            async void LocalFunction()
+            {
+                var @object = new ClassWithAsyncEquivalentsValueTask();
+
+                @object.SaveChanges();
+                @object.Abort();
+                @object.AcceptSocket();
+                @object.AcceptTcpClient();
+                @object.AccessFailed();
+            }
+        }
+
+        public async void InstanceMethodsHaveAsynchronousEquivalentsWithDifferentReturnTypeDefinition()
+        {
+            LocalFunction();
+
+            async void LocalFunction()
+            {
+                var @object = new ClassWithAsyncEquivalentsReturnTypes();
+
+                @object.SaveChanges();
+                @object.Abort();
+                @object.AcceptSocket();
+            }
+        }
+
+        public async void InstanceMethodsHaveAsynchronousEquivalentsWithMethodParameters()
+        {
+            LocalFunction();
+
+            async void LocalFunction()
+            {
+                var @object = new ClassWithAsyncEquivalentsMethodParameters();
+
+                @object.SaveChanges(0, "");
+                @object.Abort();
+                @object.AcceptSocket();
+                @object.AcceptTcpClient(0, "");
+            }
+        }
+
+        public async void InstanceMethodsHaveAsynchronousEquivalentsWithLocalFunctionYielding()
+        {
+            LocalFunction();
+
+            async void LocalFunction()
+            {
+                var @object = new ClassWithAsyncEquivalents();
+
+                @object.SaveChanges();
+                @object.Abort();
+                @object.AcceptSocket();
+                @object.AcceptTcpClient();
+                @object.AccessFailed();
+
+                YieldSomething();
+
+                IEnumerable<int> YieldSomething()
+                {
+                    for (int i = 0; i < 100; i++)
+                    {
+                        @object.SaveChanges();
+                        @object.Abort();
+                        @object.AcceptSocket();
+                        @object.AcceptTcpClient();
+                        @object.AccessFailed();
+
+                        yield return i;
+                    }
+
+                    yield break;
+                }
+            }
         }
     }
 
