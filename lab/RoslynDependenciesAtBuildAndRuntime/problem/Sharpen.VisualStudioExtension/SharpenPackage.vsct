@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!--The IDs for all the commands exposed by VisualStudio. -->
+  <Extern href="stdidcmd.h" />
+
+  <!--The IDs for the menus provided by the shell. -->
+  <Extern href="vsshlids.h" />
+
+  <Commands package="guidSharpenLabPackage">
+
+    <Menus>
+      <!-- Sharpen Menu on the Tools Menu. -->
+      <Menu guid="guidSharpenLabGroupOnTheToolsMenu" id="idSharpenLabGroupOnTheToolsMenu" type="Menu" priority="0x400">
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_TOOLS_OTHER2" />
+        <Strings>
+          <ButtonText>Sharpen Lab</ButtonText>
+        </Strings>
+      </Menu>
+    </Menus>
+
+    <Groups>
+
+      <!-- Sharpen Lab Groups on the Tools Menu. -->
+      <Group guid="guidRunExperimentGroup" id="idRunExperimentGroup" priority="0x200">
+        <Parent guid="guidSharpenLabGroupOnTheToolsMenu" id="idSharpenLabGroupOnTheToolsMenu" />
+      </Group>
+
+    </Groups>
+    
+    <Buttons>
+
+      <!-- Buttons on the Options Group. -->
+      <Button guid="guidRunExperimentGroup" id="cmdidRunExperiment" priority="0x0100" type="Button">
+        <Strings>
+          <ButtonText>&amp;Run Experiment</ButtonText>
+        </Strings>
+      </Button>
+
+    </Buttons>
+
+  </Commands>
+  
+  <CommandPlacements>
+
+    <CommandPlacement guid="guidRunExperimentGroup" id="cmdidRunExperiment" priority="0x100">
+      <Parent guid="guidRunExperimentGroup" id="idRunExperimentGroup" />
+    </CommandPlacement>
+
+  </CommandPlacements>
+
+  <Symbols>
+
+    <GuidSymbol name="guidSharpenLabPackage" value="{01263ed2-7232-4367-a2cd-3982380b3985}" />
+
+    <GuidSymbol name="guidSharpenLabGroupOnTheToolsMenu" value ="{b5e43671-9e80-4169-beb1-74b688b21374}">
+      <IDSymbol name="idSharpenLabGroupOnTheToolsMenu" value="0x100" />
+    </GuidSymbol>
+
+    <GuidSymbol name="guidRunExperimentGroup" value ="{B977FCAF-B5A3-49D8-9009-E0BDFDB1EFB7}">
+      <IDSymbol name="idRunExperimentGroup" value="0x100" />
+      <IDSymbol name="cmdidRunExperiment" value="0x200" />
+    </GuidSymbol>
+
+  </Symbols>
+</CommandTable>
