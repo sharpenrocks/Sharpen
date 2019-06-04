@@ -41,6 +41,12 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
                 .OfType<MethodDeclarationSyntax>()
                 .Where(method => method.IsAsync())
                 .SelectMany(method => method.DescendantNodes())
+                // TODO-IG: We have a slight bug here!
+                //          We have to check that the invocation is exactly within
+                //          this method and not within a local function within that
+                //          method.
+                // TODO-IG: Support also LocalFunctionStatementSyntax and not only
+                //          MethodDeclarationSyntax.
                 // We can have both methods (invocation) and properties (simple member access).
                 // Unfortunately, it is not possible to combine them under a single umbrella.
                 .Where(node => 

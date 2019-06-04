@@ -64,7 +64,7 @@
     <Compile Include="AsyncAwait\ConsiderAwaitingEquivalentAsynchronousMethodAndMakingTheCallerAsynchronous\MethodsThatHaveEquivalentAsynchronousMethodButCalledInConstructor.cs" />
     <Compile Include="AsyncAwait\ConsiderAwaitingEquivalentAsynchronousMethodAndMakingTheCallerAsynchronous\MethodsThatHaveEquivalentAsynchronousMethodButCalledInProperties.cs" />
     <Compile Include="AsyncAwait\ConsiderAwaitingEquivalentAsynchronousMethodAndMakingTheCallerAsynchronous\MethodsThatHaveEquivalentAsynchronousMethod.cs" />
-    <Compile Include="AsyncAwait\ConsiderAwaitingEquivalentAsynchronousMethodAndMakingTheCallerAsynchronous\MethodsThatHaveEquivalentAsynchronousMethodButYieldEnumerable.cs" />
+    <Compile Include="AsyncAwait\ConsiderAwaitingEquivalentAsynchronousMethodAndMakingTheCallerAsynchronous\MethodsThatHaveEquivalentAsynchronousMethodButCallerYieldsEnumerable.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

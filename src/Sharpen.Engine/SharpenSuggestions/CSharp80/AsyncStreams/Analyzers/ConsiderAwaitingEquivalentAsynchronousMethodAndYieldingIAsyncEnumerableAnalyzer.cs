@@ -6,6 +6,8 @@ using Sharpen.Engine.Analysis;
 using Sharpen.Engine.Extensions.CodeDetection;
 using Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait;
 using Sharpen.Engine.SharpenSuggestions.CSharp80.AsyncStreams.Suggestions;
+using static Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait.EquivalentAsynchronousMethodFinder.CallerAsyncStatus;
+using static Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait.EquivalentAsynchronousMethodFinder.CallerYieldingStatus;
 
 namespace Sharpen.Engine.SharpenSuggestions.CSharp80.AsyncStreams.Analyzers
 {
@@ -57,7 +59,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.AsyncStreams.Analyzers
 
             bool InvokedMethodHasAsynchronousEquivalent(InvocationExpressionSyntax invocation)
             {
-                return asynchronousMethodFinder.EquivalentAsynchronousCandidateExistsFor(invocation, semanticModel, EquivalentAsynchronousMethodFinder.CallerAsyncStatus.CallerMustNotBeAsync);
+                return asynchronousMethodFinder.EquivalentAsynchronousCandidateExistsFor(invocation, semanticModel, CallerMustNotBeAsync, CallerMustYield);
             }
 
             SyntaxNode GetStartingSyntaxNode(InvocationExpressionSyntax invocation)

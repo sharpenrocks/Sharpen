@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CSharp50.AsyncAwait.ConsiderAwaitingEquivalentAsynchronousMethodAndMakingTheCallerAsynchronous
 {
-    public class MethodsThatHaveEquivalentAsynchronousMethodButYieldEnumerable
+    public class MethodsThatHaveEquivalentAsynchronousMethodButCallerYieldsEnumerable
     {
         public IEnumerable<int> InstanceMethodsHaveAsynchronousEquivalents()
         {
