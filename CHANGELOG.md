@@ -7,6 +7,9 @@ The format of the file is based on [Keep a Changelog](http://keepachangelog.com/
 ### Added
 - "Use var keyword in variable declaration with object creation" suggestion.
 
+### Fixed
+- Async-await consider and await suggestions properly handle yielding.
+
 ## [0.8.0] - 2019-02-16
 ### Added
 - Support for VS 2019.
