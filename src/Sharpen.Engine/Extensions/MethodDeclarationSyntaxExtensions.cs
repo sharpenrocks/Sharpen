@@ -11,5 +11,22 @@ namespace Sharpen.Engine.Extensions
         {
             return method?.Modifiers.Any(syntaxToken => syntaxToken.IsKind(SyntaxKind.AsyncKeyword)) == true;
         }
+
+        public static bool IsAsync(this LocalFunctionStatementSyntax method)
+        {
+            return method?.Modifiers.Any(syntaxToken => syntaxToken.IsKind(SyntaxKind.AsyncKeyword)) == true;
+        }
+
+        public static bool IsAsync(this SyntaxNode methodOrLocalFunction)
+        {
+            switch (methodOrLocalFunction)
+            {
+                case MethodDeclarationSyntax method:
+                    return method.Modifiers.Any(syntaxToken => syntaxToken.IsKind(SyntaxKind.AsyncKeyword));
+                case LocalFunctionStatementSyntax localFunction:
+                    return localFunction.Modifiers.Any(syntaxToken => syntaxToken.IsKind(SyntaxKind.AsyncKeyword));
+                default: return false;
+            }
+        }
     }
 }

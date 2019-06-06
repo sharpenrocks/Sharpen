@@ -5,6 +5,7 @@ The format of the file is based on [Keep a Changelog](http://keepachangelog.com/
 
 ## [Unreleased]
 ### Added
+- "Await [...] instead of calling [...]" suggestions support local functions.
 - "Use var keyword in variable declaration with object creation" suggestion.
 
 ### Fixed

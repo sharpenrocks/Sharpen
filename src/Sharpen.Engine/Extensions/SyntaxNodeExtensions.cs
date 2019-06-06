@@ -197,5 +197,20 @@ namespace Sharpen.Engine.Extensions
             }
         }
 
+        // TODO-IG: Use these methods on the places where we now use nodes.Where(node => node.IsKind(...) ...).
+        public static IEnumerable<SyntaxNode> OfKind(this IEnumerable<SyntaxNode> syntaxNodes, SyntaxKind kind)
+        {
+            return syntaxNodes.Where(syntaxNode => syntaxNode.IsKind(kind));
+        }
+
+        public static IEnumerable<SyntaxNode> OfAnyOfKinds(this IEnumerable<SyntaxNode> syntaxNodes, SyntaxKind firstKind, SyntaxKind secondKind)
+        {
+            return syntaxNodes.Where(syntaxNode => syntaxNode.IsKind(firstKind) || syntaxNode.IsKind(secondKind));
+        }
+
+        public static IEnumerable<SyntaxNode> OfAnyOfKinds(this IEnumerable<SyntaxNode> syntaxNodes, SyntaxKind firstKind, SyntaxKind secondKind, SyntaxKind thirdKind)
+        {
+            return syntaxNodes.Where(syntaxNode => syntaxNode.IsKind(firstKind) || syntaxNode.IsKind(secondKind) || syntaxNode.IsKind(thirdKind));
+        }
     }
 }

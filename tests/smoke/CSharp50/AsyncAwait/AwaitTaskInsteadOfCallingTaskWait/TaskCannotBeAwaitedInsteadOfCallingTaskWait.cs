@@ -1,5 +1,6 @@
 ﻿// ReSharper disable All
 
+using System;
 using System.Threading.Tasks;
 
 namespace CSharp50.AsyncAwait.AwaitTaskInsteadOfCallingTaskWait
@@ -10,6 +11,33 @@ namespace CSharp50.AsyncAwait.AwaitTaskInsteadOfCallingTaskWait
         {
             var task = new Task(() => { });
             task.Wait(0);
+        }
+
+        async void CannotBeAwaitedSoFarBecauseOfLambda()
+        {
+            Action a = () =>
+            {
+                var task = new Task(() => { });
+                task.Wait(0);
+            };
+        }
+
+        async void CannotBeAwaitedSoFarBecauseOfDelegate()
+        {
+            Action a = delegate ()
+            {
+                var task = new Task(() => { });
+                task.Wait(0);
+            };
+        }
+
+        async void CannotBeAwaitedBecauseNotDirectlyWithinTheCaller()
+        {
+            void LocalMethod()
+            {
+                var task = new Task(() => { });
+                task.Wait(0);
+            }
         }
     }
 }

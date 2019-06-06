@@ -22,5 +22,23 @@ namespace CSharp50.AsyncAwait.AwaitTaskDelayInsteadOfCallingThreadSleep
                 Sleep(0);
             };
         }
+
+        async void CannotBeAwaitedSoFarBecauseOfDelegate()
+        {
+            Action a = delegate()
+            {
+                Thread.Sleep(0);
+                Sleep(0);
+            };
+        }
+
+        async void CannotBeAwaitedBecauseNotDirectlyWithinTheCaller()
+        {
+            void LocalMethod()
+            {
+                Thread.Sleep(0);
+                Sleep(0);
+            }
+        }
     }
 }

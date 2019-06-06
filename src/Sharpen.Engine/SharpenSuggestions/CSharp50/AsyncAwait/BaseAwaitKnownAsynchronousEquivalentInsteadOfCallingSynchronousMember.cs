@@ -38,40 +38,53 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
         {
             return syntaxTree.GetRoot()
                 .DescendantNodes()
-                .OfType<MethodDeclarationSyntax>()
-                .Where(method => method.IsAsync())
-                .SelectMany(method => method.DescendantNodes())
-                // TODO-IG: We have a slight bug here!
-                //          We have to check that the invocation is exactly within
-                //          this method and not within a local function within that
-                //          method.
-                // TODO-IG: Support also LocalFunctionStatementSyntax and not only
-                //          MethodDeclarationSyntax.
-                // We can have both methods (invocation) and properties (simple member access).
-                // Unfortunately, it is not possible to combine them under a single umbrella.
-                .Where(node => 
+                .OfAnyOfKinds(SyntaxKind.MethodDeclaration, SyntaxKind.LocalFunctionStatement)
+                .Where(methodOrLocalFunction => methodOrLocalFunction.IsAsync())
+                .SelectMany(methodOrLocalFunction => methodOrLocalFunction
+                    .DescendantNodes()
+                    // We can have both known methods like e.g. Wait() (invocation)
+                    // and known properties like e.g. Result (simple member access).
+                    .OfAnyOfKinds(SyntaxKind.InvocationExpression, SyntaxKind.SimpleMemberAccessExpression)
+                    .Select(node =>
                     (
-                        node.IsKind(SyntaxKind.InvocationExpression) &&
-                        !node.IsWithinLambdaOrAnonymousMethod() && // See [1].
-                        ((InvocationExpressionSyntax)node).GetInvokedMemberName() == replacementInfo.SynchronousMemberName
-                        ||
-                        node.IsKind(SyntaxKind.SimpleMemberAccessExpression) &&
-                        !node.IsWithinLambdaOrAnonymousMethod() && // See [1].
-                        node.Parent?.IsKind(SyntaxKind.InvocationExpression) == false &&
-                        ((MemberAccessExpressionSyntax)node).Name.Identifier.ValueText == replacementInfo.SynchronousMemberName
-                        )
+                        caller: methodOrLocalFunction,
+                        node
+                    )))
+                .Where(callerAndNode =>
+                    !callerAndNode.node.IsWithinLambdaOrAnonymousMethod()
                     &&
-                    InvokedMemberHasAsynchronousEquivalentThatCanBeAwaited(node)
+                    InvocationIsDirectlyWithinTheCaller(callerAndNode.node, callerAndNode.caller)
+                    &&
+                    (
+                        callerAndNode.node.IsKind(SyntaxKind.InvocationExpression) &&
+                        ((InvocationExpressionSyntax)callerAndNode.node).GetInvokedMemberName() == replacementInfo.SynchronousMemberName
+                        ||
+                        callerAndNode.node.IsKind(SyntaxKind.SimpleMemberAccessExpression) &&
+                        callerAndNode.node.Parent?.IsKind(SyntaxKind.InvocationExpression) == false &&
+                        ((MemberAccessExpressionSyntax)callerAndNode.node).Name.Identifier.ValueText == replacementInfo.SynchronousMemberName
+                    )
+                    &&
+                    InvocationHasAsynchronousEquivalentThatCanBeAwaited(callerAndNode.node)
                 )
-                .Select(node => new AnalysisResult(
+                .Select(callerAndNode => new AnalysisResult(
                     this,
                     analysisContext,
                     syntaxTree.FilePath,
-                    GetStartingSyntaxNode(node).GetFirstToken(),
-                    node.FirstAncestorOrSelf<StatementSyntax>() ?? node
+                    GetStartingSyntaxNode(callerAndNode.node).GetFirstToken(),
+                    callerAndNode.node.FirstAncestorOrSelf<StatementSyntax>() ?? callerAndNode.node
                 ));
 
-            bool InvokedMemberHasAsynchronousEquivalentThatCanBeAwaited(SyntaxNode invocation)
+            bool InvocationIsDirectlyWithinTheCaller(SyntaxNode invocation, SyntaxNode caller)
+            {
+                // We have to check that the invocation node is directly within
+                // the caller, means it is not within some local function within the
+                // caller.
+                // In other words, there must not be any LocalFunctionStatementSyntax node
+                // between the invocation and the caller.
+                return invocation.FirstAncestorOrSelfWithinEnclosingNode<LocalFunctionStatementSyntax>(caller, false) == null;
+            }
+
+            bool InvocationHasAsynchronousEquivalentThatCanBeAwaited(SyntaxNode invocation)
             {
                 var invokedMember = semanticModel.GetSymbolInfo(invocation).Symbol;
                 if (invokedMember?.ContainingType == null) return false;
@@ -99,10 +112,3 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
         }
     }
 }
-
-// [1]
-// We want the cheapest IsKind() calls to be called first
-// and afterwards immediately to have cheap checks for non-wanted
-// containment in lambdas or anonymous methods.
-// That's why the call to IsWithinLambdaOrAnonymousMethod() is
-// not extracted but rather copied in both decision branches.
