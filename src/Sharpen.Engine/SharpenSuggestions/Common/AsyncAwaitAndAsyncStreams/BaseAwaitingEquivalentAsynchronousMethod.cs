@@ -4,28 +4,28 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Sharpen.Engine.Analysis;
 using Sharpen.Engine.Extensions.CodeDetection;
-using static Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait.EquivalentAsynchronousMethodFinder;
+using Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait;
 
-namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
+namespace Sharpen.Engine.SharpenSuggestions.Common.AsyncAwaitAndAsyncStreams
 {
     internal abstract class BaseAwaitingEquivalentAsynchronousMethod : ISharpenSuggestion, ISingleSyntaxTreeAnalyzer
     {
-        private readonly CallerAsyncStatus callerAsyncStatus;
-        private readonly CallerYieldingStatus callerYieldingStatus;
+        private readonly EquivalentAsynchronousMethodFinder.CallerAsyncStatus callerAsyncStatus;
+        private readonly EquivalentAsynchronousMethodFinder.CallerYieldingStatus callerYieldingStatus;
 
         // So far we will simply use the hardcoded one.
         private readonly EquivalentAsynchronousMethodFinder asynchronousMethodFinder =
             HardcodedLookupBasedEquivalentAsynchronousMethodFinder.Instance;
 
-        protected BaseAwaitingEquivalentAsynchronousMethod(CallerAsyncStatus callerAsyncStatus, CallerYieldingStatus callerYieldingStatus)
+        protected BaseAwaitingEquivalentAsynchronousMethod(EquivalentAsynchronousMethodFinder.CallerAsyncStatus callerAsyncStatus, EquivalentAsynchronousMethodFinder.CallerYieldingStatus callerYieldingStatus)
         {
             this.callerAsyncStatus = callerAsyncStatus;
             this.callerYieldingStatus = callerYieldingStatus;
         }
 
-        public string MinimumLanguageVersion { get; } = CSharpLanguageVersions.CSharp50;
+        public virtual string MinimumLanguageVersion { get; } = CSharpLanguageVersions.CSharp50;
 
-        public ICSharpFeature LanguageFeature { get; } = CSharpFeatures.AsyncAwait.Instance;
+        public virtual ICSharpFeature LanguageFeature { get; } = CSharpFeatures.AsyncAwait.Instance;
 
         public abstract string FriendlyName { get; }
 

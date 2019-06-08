@@ -2,7 +2,7 @@
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Sharpen.Engine.Extensions;
 
-namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
+namespace Sharpen.Engine.SharpenSuggestions.Common.AsyncAwaitAndAsyncStreams
 {
     /// <summary>
     /// Decides if the method has an asynchronous equivalent based on a hardcoded

@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Sharpen.Engine.Extensions;
 
-namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
+namespace Sharpen.Engine.SharpenSuggestions.Common.AsyncAwaitAndAsyncStreams
 {
     // TODO-IG: Refactor this. The class heavily violates the single responsibility principle.
     //          It does two heavy things at the moment, searches for the equivalent async methods,

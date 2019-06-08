@@ -1,4 +1,5 @@
-﻿using static Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait.EquivalentAsynchronousMethodFinder;
+﻿using Sharpen.Engine.SharpenSuggestions.Common.AsyncAwaitAndAsyncStreams;
+using static Sharpen.Engine.SharpenSuggestions.Common.AsyncAwaitAndAsyncStreams.EquivalentAsynchronousMethodFinder;
 
 namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 {
