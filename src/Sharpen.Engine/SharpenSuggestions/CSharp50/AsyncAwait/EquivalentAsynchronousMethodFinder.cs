@@ -32,15 +32,52 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
         }
 
         private class KnownAwaitableTypeInfo : KnownTypeInfo
-        {
-            public KnownAwaitableTypeInfo(string typeName, string typeNamespace)
-                :base(typeName, typeNamespace) { }
+        {            
+            public enum ReturnTypeWrappingKind
+            {
+                /// <summary>
+                /// Denotes that the known awaitable type in its generic
+                /// form takes the original return type as its generic
+                /// type parameter.
+                /// E.g. if the original method returns int its async
+                /// equivalent can return Task&lt;int&gt;. Thus, Task
+                /// wraps the return type of the original method.
+                /// </summary>
+                WrapsReturnType,
+                /// <summary>
+                /// Denotes that the known awaitable type in its generic
+                /// form takes the type parameter of the original generic return type
+                /// as its generic type parameter.
+                /// E.g. if the original method returns IEnumerable&lt;int&gt; its async
+                /// equivalent can return IAsyncEnumerable&lt;int&gt;. Thus, IAsyncEnumerable
+                /// wraps the type parameter of the return type of the original method.
+                /// </summary>
+                WrapsReturnTypeTypeParameter
+            }
+
+            private readonly ReturnTypeWrappingKind wrappingKind;
+
+            /// <summary>
+            /// True if the type in its non-generic form is expected to
+            /// be return if the original non-async method was returning void.
+            /// </summary>
+            public bool IsVoidEquivalent { get; }
+
+            public KnownAwaitableTypeInfo(string typeName, string typeNamespace, ReturnTypeWrappingKind wrappingKind, bool isVoidEquivalent)
+                :base(typeName, typeNamespace)
+            {
+                this.wrappingKind = wrappingKind;
+                IsVoidEquivalent = isVoidEquivalent;
+            }
+
+            public bool WrapsReturnType() => wrappingKind == ReturnTypeWrappingKind.WrapsReturnType;
         }
 
         private static readonly KnownAwaitableTypeInfo[] KnownAwaitableTypes =
         {
-            new KnownAwaitableTypeInfo("Task", "System.Threading.Tasks"),
-            new KnownAwaitableTypeInfo("ValueTask", "System.Threading.Tasks")
+            new KnownAwaitableTypeInfo("Task", "System.Threading.Tasks", KnownAwaitableTypeInfo.ReturnTypeWrappingKind.WrapsReturnType, true),
+            new KnownAwaitableTypeInfo("ValueTask", "System.Threading.Tasks", KnownAwaitableTypeInfo.ReturnTypeWrappingKind.WrapsReturnType, true),
+            new KnownAwaitableTypeInfo("IAsyncEnumerable", "System.Collections.Generic", KnownAwaitableTypeInfo.ReturnTypeWrappingKind.WrapsReturnTypeTypeParameter, true)
             // TODO-SETTINGS: Allow users to define their own known awaitable types.
             // TODO: Later on we can check for arbitrary types that implement the GetAwaiter() method.
         };
@@ -177,7 +214,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
             // Let's now check the type on which the method is called,
             // if there is such.
             var calledOnType = GetCalledOnType();
-            if (calledOnType == null || calledOnType == method.ContainingType) return false;
+            if (calledOnType == null || Equals(calledOnType, method.ContainingType)) return false;
 
             if (TypeContainsAsynchronousEquivalentOf(semanticModel, calledOnType, method, invocation)) return true;
 
@@ -343,19 +380,23 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
                 if (potentialEquivalent.ReturnType == null) return false;
 
                 // If the method returns void its async equivalent must return
-                // any of the known awaitable types.
+                // any of the known awaitable types that can be void equivalents.
                 if (method.ReturnsVoid)
                 {
-                    if (!KnownAwaitableTypes.Any(awaitableType => awaitableType.RepresentsType(potentialEquivalent.ReturnType)))
+                    if (!KnownAwaitableTypes.Any(awaitableType =>
+                            awaitableType.IsVoidEquivalent
+                            &&
+                            awaitableType.RepresentsType(potentialEquivalent.ReturnType)))
                         return false;
                 }
-                else
+                else // The method does not return void.
                 {
                     if (method.ReturnType == null) return false;
 
                     // If the method returns non-void its async equivalent must
-                    // return generic awaitable type parametrized exactly with the
-                    // method return type.
+                    // either return generic awaitable type parametrized exactly with the
+                    // method return type or a generic awaitable type parametrized exactly with the
+                    // type of the generic type parameter of the method return type.
 
                     if (!(potentialEquivalent.ReturnType is INamedTypeSymbol potentialEquivalentReturnType))
                         return false;
@@ -363,11 +404,28 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
                     if (potentialEquivalentReturnType.Arity != 1)
                         return false;
 
-                    if (!KnownAwaitableTypes.Any(awaitableType => awaitableType.RepresentsType(potentialEquivalentReturnType.ConstructedFrom)))
-                        return false;
+                    // Ok, the potential equivalent returns a generic type with exactly
+                    // one parameter. First we have to see if this generic return type
+                    // is one of the known awaitable types.
+                    var returnedKnownAwaitableType = KnownAwaitableTypes.FirstOrDefault(awaitableType => awaitableType.RepresentsType(potentialEquivalentReturnType.ConstructedFrom));
+                    if (returnedKnownAwaitableType == null) return false;
 
-                    if (!method.ReturnType.Equals(potentialEquivalentReturnType.TypeArguments[0]))
-                        return false;
+                    // And now we have to check if that generic returned awaitable type is
+                    // parameterized with the proper type.
+                    if (returnedKnownAwaitableType.WrapsReturnType())
+                    {
+                        if (!method.ReturnType.Equals(potentialEquivalentReturnType.TypeArguments[0]))
+                            return false;
+                    }
+                    else // The returned awaitable type wraps the type parameter of the original generic returned type.
+                    {
+                        // The method must return generic type with exactly one type parameter.
+                        if (!(method.ReturnType is INamedTypeSymbol methodReturnType && methodReturnType.Arity == 1))
+                            return false;
+
+                        if (!methodReturnType.TypeArguments[0].Equals(potentialEquivalentReturnType.TypeArguments[0]))
+                            return false;
+                    }
                 }
 
                 // Async equivalent must have exactly the same method parameters
