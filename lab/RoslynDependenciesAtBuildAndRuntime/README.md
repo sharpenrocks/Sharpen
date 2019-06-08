@@ -1,6 +1,6 @@
 # Roslyn Dependencies at Build and Runtime
 
-## Problem Description
+## Description
 
 During the development we reference a certain version of the `Microsoft.CodeAnalysis.*` NuGet packages. These are used to build the code and also to run unit tests. But their DLLs are not included in the final VSIX package. The build target that actually creates the VSIX package removes these DLLs.
 
@@ -25,7 +25,7 @@ Open `problem\Sharpen.Lab.RoslynDependenciesAtBuildAndRuntime.sln` in VS2017, bu
 
 Do the same with VS2019.
 
-## Experiment Results
+## Results
 
 As assumed, running the unit tests in both VS2017 and VS2019 gives the same output:
 
