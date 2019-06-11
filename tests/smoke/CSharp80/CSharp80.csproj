@@ -5,4 +5,8 @@
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CSharp80.NullableReferenceTypes\CSharp80.NullableReferenceTypes.csproj" />
+  </ItemGroup>
+
 </Project>

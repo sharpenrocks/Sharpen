@@ -35,6 +35,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharp80", "CSharp80\CSharp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharp50.VS2019", "CSharp50.VS2019\CSharp50.VS2019.csproj", "{7B8E62FB-8AC0-48D7-9687-D12C02A8FBB4}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharp80.NullableReferenceTypes", "CSharp80.NullableReferenceTypes\CSharp80.NullableReferenceTypes.csproj", "{F5E4B7F0-E80C-4D50-9216-FCB3EB7369CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +107,10 @@ Global
 		{7B8E62FB-8AC0-48D7-9687-D12C02A8FBB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B8E62FB-8AC0-48D7-9687-D12C02A8FBB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B8E62FB-8AC0-48D7-9687-D12C02A8FBB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5E4B7F0-E80C-4D50-9216-FCB3EB7369CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5E4B7F0-E80C-4D50-9216-FCB3EB7369CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5E4B7F0-E80C-4D50-9216-FCB3EB7369CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5E4B7F0-E80C-4D50-9216-FCB3EB7369CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
