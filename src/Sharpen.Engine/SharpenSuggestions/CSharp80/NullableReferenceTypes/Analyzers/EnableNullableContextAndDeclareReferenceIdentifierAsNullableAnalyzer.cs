@@ -5,6 +5,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Sharpen.Engine.Analysis;
 using Sharpen.Engine.Extensions;
+using Sharpen.Engine.Extensions.CodeDetection;
 using Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Suggestions;
 
 namespace Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Analyzers
@@ -17,46 +18,114 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Anal
 
         public IEnumerable<AnalysisResult> Analyze(SyntaxTree syntaxTree, SemanticModel semanticModel, SingleSyntaxTreeAnalysisContext analysisContext)
         {
+            // TODO: At the moment, if an identifier is used in different syntaxTrees
+            //       (very very very likely :-)) it will be reported several times in
+            //       the result, once per syntax tree. So far we can live with that.
+            //       Implement proper removal of duplicates.
+
             // TODO: What to do when a variable is declared by using the var keyword?
+            //       At the moment we will simply pretend that the feature is there.
+            //       It is planned and will be implemented one day.
             return syntaxTree.GetRoot()
                 .DescendantNodes()
-                .Where(node => node.IsAnyOfKinds
+                // TODO: Parameter declaration with null as default value: string parameter = null.
+                // TODO: Variable declaration with initialization to null: string variable = null.
+                // TODO: Property declaration with initialization to null: public string Property { get; } = null.
+                .OfAnyOfKinds
                 (
-                    // TODO: Parameter declaration with null as default value: string parameter = null.
-                    // TODO: Variable declaration with initialization to null: string variable = null.
-                    // TODO: Field declaration with initialization to null: private string _field = null.
-                    // TODO: Property declaration with initialization to null: public string Property { get; } = null.
-                    // TODO: Usage of ??: x = identifier ?? something.
-                    // TODO: Usage of ?.: identifier?.Something.
-                    // TODO: Usage of as: identifier = something as Something.
-                    SyntaxKind.SimpleAssignmentExpression, 
-                    SyntaxKind.EqualsExpression,
-                    SyntaxKind.NotEqualsExpression
-                ))
-                .Select(GetNullableIdentifierNode)
-                .Where(identifier => identifier != null)
-                .Select(identifier => semanticModel.GetSymbolInfo(identifier).Symbol)
+                    SyntaxKind.SimpleAssignmentExpression, // identifier = null;
+                    SyntaxKind.EqualsExpression, // identifier == null;
+                    SyntaxKind.NotEqualsExpression, // identifier != null
+                    SyntaxKind.VariableDeclarator, // object _fieldIdentifier = null; object localVariableIdentifier = null;
+                    SyntaxKind.ConditionalAccessExpression, // identifier?.Something;
+                    SyntaxKind.CoalesceExpression // identifier ?? something;
+                )
+                .Select(GetNullableIdentifierSymbol)
                 .Where(symbol => symbol?.IsImplicitlyDeclared == false)
                 .Distinct()
                 .Select(symbol => (symbol, declaringNode: GetSymbolDeclaringNode(symbol)))
-                .Where(symbolAndDeclaringNode => !string.IsNullOrEmpty(symbolAndDeclaringNode.declaringNode?.SyntaxTree?.FilePath))
-                .Select(symbolAndDeclaringNode =>
-                {
-                    var (startingToken, displayTextNode) = GetStartingTokenAndDisplayTextNode(symbolAndDeclaringNode.declaringNode);
-                    
-                    return new AnalysisResult
-                    (
-                        GetSuggestion(symbolAndDeclaringNode.symbol),
-                        analysisContext,
-                        symbolAndDeclaringNode.declaringNode.SyntaxTree.FilePath,
-                        startingToken,
-                        displayTextNode 
-                    );
-                });
+                .Where(NullableContextCanBeEnabledForIdentifier)
+                .Select(GetAnalysisResultInfo)
+                .Where(analysisResultInfo => analysisResultInfo.suggestion != null)
+                .Select(analysisResultInfo => new AnalysisResult
+                (
+                    analysisResultInfo.suggestion,
+                    analysisContext,
+                    analysisResultInfo.filePath,
+                    analysisResultInfo.startingToken,
+                    analysisResultInfo.displayTextNode 
+                ));
 
-            (SyntaxToken startingToken, SyntaxNode displayTextNode) GetStartingTokenAndDisplayTextNode(SyntaxNode symbolDeclaringNode)
+            bool NullableContextCanBeEnabledForIdentifier((ISymbol symbol, SyntaxNode declaringNode) symbolAndDeclaringNode)
             {
-                return (symbolDeclaringNode.GetFirstToken(), symbolDeclaringNode);
+                var (_, declaringNode) = symbolAndDeclaringNode;
+                var filePath = declaringNode?.SyntaxTree?.FilePath;
+
+                if (string.IsNullOrEmpty(filePath))
+                    return false;
+
+                // We skip the check for IsGeneratedAssemblyInfo() so far.
+                // To get the Document object at this point requires
+                // a bit of refactoring. Plus, the chance that the declaring
+                // node be in the generated AssemblyInfo is zero.
+                // TODO-IG: Think of adding the check later.
+                if (GeneratedCodeDetection.IsGeneratedFile(filePath) ||
+                    declaringNode.SyntaxTree.BeginsWithAutoGeneratedComment())
+                    return false;
+
+                if (NullableContextIsAlreadyEnabled())
+                    return false;
+
+                // TODO: Add check that the identifer is not already nullable.
+                //       IdentifierIsAlreadyNullable()
+
+                return true;
+
+                bool NullableContextIsAlreadyEnabled()
+                {
+                    // TODO-IG: This is the implementation for VS2017.
+                    //          Solve how to approach to support for VS2017 and VS2019
+                    //          at the same time and implement properly the VS2019
+                    //          version of this method.
+                    //          Also, add the negative-case smoke tests to the
+                    //          CSharp80.VS2019.csproj.
+                    return false;
+                }
+            }
+
+            (ISharpenSuggestion suggestion,
+            string filePath,
+            SyntaxToken startingToken,
+            SyntaxNode displayTextNode) GetAnalysisResultInfo((ISymbol symbol, SyntaxNode declaringNode) symbolAndDeclaringNode)
+            {
+                return
+                (
+                    GetSuggestion(symbolAndDeclaringNode.symbol),
+                    symbolAndDeclaringNode.declaringNode.SyntaxTree.FilePath,
+                    GetStartingToken(symbolAndDeclaringNode.declaringNode),
+                    symbolAndDeclaringNode.declaringNode
+                );
+            }
+
+            SyntaxToken GetStartingToken(SyntaxNode declaringNode)
+            {
+                // If we have more then one variable declared in the
+                // declaration, we want to position the cursor to that variable.
+                if (declaringNode.IsKind(SyntaxKind.VariableDeclarator) && // To avoid expensive type based checks.
+                    declaringNode is VariableDeclaratorSyntax variableDeclarator &&
+                    variableDeclarator.Parent is VariableDeclarationSyntax variableDeclaration &&
+                    variableDeclaration.Variables.Count != 1)
+                    return variableDeclarator.Identifier;
+
+                // In general, we would like to position the cursor
+                // to the type part of the declaration, because that's
+                // what should be changed in code (by adding ?).
+                // But to identify it in general case is a bit tricky,
+                // and case by case implementation is time consuming.
+                // Therefore at the moment we will just position to the
+                // beginning of the declaration.
+                // TODO-IG: Position to type part of the declaration.
+                return declaringNode.GetFirstToken();                  
             }
 
             ISharpenSuggestion GetSuggestion(ISymbol symbol)
@@ -67,8 +136,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Anal
                     case IPropertySymbol _: return EnableNullableContextAndDeclareReferencePropertyAsNullable.Instance;
                     case IParameterSymbol _: return EnableNullableContextAndDeclareReferenceParameterAsNullable.Instance;
                     case ILocalSymbol _: return EnableNullableContextAndDeclareReferenceVariableAsNullable.Instance;
-                    // TODO: The default case should never happen. See what to return.
-                    default: return EnableNullableContextAndDeclareReferenceFieldAsNullable.Instance; 
+                    default: return null; 
                 }
             }
 
@@ -79,7 +147,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Anal
                     : symbol.DeclaringSyntaxReferences[0].GetSyntax();
             }
 
-            SyntaxNode GetNullableIdentifierNode(SyntaxNode node)
+            ISymbol GetNullableIdentifierSymbol(SyntaxNode node)
             {
                 // TODO: Ignore the case where the comparison with null is actually a null guard.
                 //       E.g.: if (identifier == null) throw ArgumentNullException(...);
@@ -89,18 +157,57 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Anal
                 switch (node)
                 {
                     case AssignmentExpressionSyntax assignment:
-                        return assignment.Right?.IsKind(SyntaxKind.NullLiteralExpression) == true &&
-                               assignment.Left?.IsAnyOfKinds(SyntaxKind.IdentifierName, SyntaxKind.SimpleMemberAccessExpression) == true
-                            ? assignment.Left
+                        return IsSurelyNullable(assignment.Right) &&
+                               IsIdentifierOrPropertyAccess(assignment.Left)
+                            ? semanticModel.GetSymbolInfo(assignment.Left).Symbol
                             : null;
 
-                    case BinaryExpressionSyntax comparison:
-                        return comparison.Right?.IsKind(SyntaxKind.NullLiteralExpression) == true &&
-                               comparison.Left?.IsAnyOfKinds(SyntaxKind.IdentifierName, SyntaxKind.SimpleMemberAccessExpression) == true
-                            ? comparison.Left
+                    case BinaryExpressionSyntax binaryExpression:
+                        switch (binaryExpression.Kind())
+                        {
+                            case SyntaxKind.EqualsExpression:
+                            case SyntaxKind.NotEqualsExpression:
+                                if (IsSurelyNullable(binaryExpression.Right) &&
+                                    IsIdentifierOrPropertyAccess(binaryExpression.Left))
+                                    return semanticModel.GetSymbolInfo(binaryExpression.Left).Symbol;
+                                if (IsSurelyNullable(binaryExpression.Left) &&
+                                    IsIdentifierOrPropertyAccess(binaryExpression.Right))
+                                    return semanticModel.GetSymbolInfo(binaryExpression.Right).Symbol;
+                                return null;
+                            case SyntaxKind.CoalesceExpression:
+                                return IsIdentifierOrPropertyAccess(binaryExpression.Left)
+                                    ? semanticModel.GetSymbolInfo(binaryExpression.Left).Symbol
+                                    : null;
+                            default: return null;
+                        }
+
+                    case VariableDeclaratorSyntax variableDeclarator:
+                        return IsSurelyNullable(variableDeclarator.Initializer?.Value) &&
+                               variableDeclarator.Identifier.IsKind(SyntaxKind.IdentifierToken)
+                            ? semanticModel.GetDeclaredSymbol(variableDeclarator)
+                            : null;
+
+                    case ConditionalAccessExpressionSyntax conditionalAccess:
+                        return IsIdentifierOrPropertyAccess(conditionalAccess.Expression)
+                            ? semanticModel.GetSymbolInfo(conditionalAccess.Expression).Symbol
                             : null;
 
                     default: return null;
+                }
+
+                bool IsSurelyNullable(SyntaxNode potentiallyNullableNode)
+                {
+                    // We do not do any data flow analysis here, of course :-)
+                    // Just identifying the obvious cases.
+
+                    return potentiallyNullableNode?.IsKind(SyntaxKind.NullLiteralExpression) == true
+                           ||
+                           potentiallyNullableNode?.IsKind(SyntaxKind.AsExpression) == true;
+                }
+
+                bool IsIdentifierOrPropertyAccess(SyntaxNode syntaxNode)
+                {
+                    return syntaxNode?.IsAnyOfKinds(SyntaxKind.IdentifierName, SyntaxKind.SimpleMemberAccessExpression) == true;
                 }
             }
         }

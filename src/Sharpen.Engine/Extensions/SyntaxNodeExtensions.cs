@@ -198,6 +198,9 @@ namespace Sharpen.Engine.Extensions
         }
 
         // TODO-IG: Use these methods on the places where we now use nodes.Where(node => node.IsKind(...) ...).
+
+        // We have several methods here instead of using "params SyntaxKind syntaxKinds" in
+        // order to avoid the hidden allocation of a SyntaxKind array.
         public static IEnumerable<SyntaxNode> OfKind(this IEnumerable<SyntaxNode> syntaxNodes, SyntaxKind kind)
         {
             return syntaxNodes.Where(syntaxNode => syntaxNode.IsKind(kind));
@@ -205,12 +208,42 @@ namespace Sharpen.Engine.Extensions
 
         public static IEnumerable<SyntaxNode> OfAnyOfKinds(this IEnumerable<SyntaxNode> syntaxNodes, SyntaxKind firstKind, SyntaxKind secondKind)
         {
-            return syntaxNodes.Where(syntaxNode => syntaxNode.IsKind(firstKind) || syntaxNode.IsKind(secondKind));
+            return syntaxNodes.Where(syntaxNode => syntaxNode.IsKind(firstKind) ||
+                                                   syntaxNode.IsKind(secondKind));
         }
 
         public static IEnumerable<SyntaxNode> OfAnyOfKinds(this IEnumerable<SyntaxNode> syntaxNodes, SyntaxKind firstKind, SyntaxKind secondKind, SyntaxKind thirdKind)
         {
-            return syntaxNodes.Where(syntaxNode => syntaxNode.IsKind(firstKind) || syntaxNode.IsKind(secondKind) || syntaxNode.IsKind(thirdKind));
+            return syntaxNodes.Where(syntaxNode => syntaxNode.IsKind(firstKind) ||
+                                                   syntaxNode.IsKind(secondKind) ||
+                                                   syntaxNode.IsKind(thirdKind));
+        }
+
+        public static IEnumerable<SyntaxNode> OfAnyOfKinds(this IEnumerable<SyntaxNode> syntaxNodes, SyntaxKind firstKind, SyntaxKind secondKind, SyntaxKind thirdKind, SyntaxKind fourthKind)
+        {
+            return syntaxNodes.Where(syntaxNode => syntaxNode.IsKind(firstKind) ||
+                                                   syntaxNode.IsKind(secondKind) ||
+                                                   syntaxNode.IsKind(thirdKind) ||
+                                                   syntaxNode.IsKind(fourthKind));
+        }
+
+        public static IEnumerable<SyntaxNode> OfAnyOfKinds(this IEnumerable<SyntaxNode> syntaxNodes, SyntaxKind firstKind, SyntaxKind secondKind, SyntaxKind thirdKind, SyntaxKind fourthKind, SyntaxKind fifthKind)
+        {
+            return syntaxNodes.Where(syntaxNode => syntaxNode.IsKind(firstKind) ||
+                                                   syntaxNode.IsKind(secondKind) ||
+                                                   syntaxNode.IsKind(thirdKind) ||
+                                                   syntaxNode.IsKind(fourthKind) ||
+                                                   syntaxNode.IsKind(fifthKind));
+        }
+
+        public static IEnumerable<SyntaxNode> OfAnyOfKinds(this IEnumerable<SyntaxNode> syntaxNodes, SyntaxKind firstKind, SyntaxKind secondKind, SyntaxKind thirdKind, SyntaxKind fourthKind, SyntaxKind fifthKind, SyntaxKind sixthKind)
+        {
+            return syntaxNodes.Where(syntaxNode => syntaxNode.IsKind(firstKind) ||
+                                                   syntaxNode.IsKind(secondKind) ||
+                                                   syntaxNode.IsKind(thirdKind) ||
+                                                   syntaxNode.IsKind(fourthKind) ||
+                                                   syntaxNode.IsKind(fifthKind) ||
+                                                   syntaxNode.IsKind(sixthKind));
         }
     }
 }
