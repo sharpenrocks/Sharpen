@@ -41,6 +41,8 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Anal
                 // TODO: Variable declaration with initialization to null: string variable = null.
                 // TODO: Property declaration with initialization to null: public string Property { get; } = null.
                 // TODO: Property and field initializers in constructors e.g. new X { Property = null, field = null }.
+                // TODO: Property getters with return null;
+                // TODO: What about indexers?
                 .OfAnyOfKinds
                 (
                     SyntaxKind.SimpleAssignmentExpression, // identifier = null;
@@ -200,17 +202,25 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Anal
 
             ISharpenSuggestion GetSuggestion(ISymbol symbol)
             {
+                // TODO-IG: Just ignoring structs so far. That's why the IsReferenceType checks.
+                //          Structs are rarely used compared to classes, so not that much of an issue at the moment.
+                //          Still, see what to do with structs.
+
                 // The type surely exists at this point on all the symbols.
                 switch (symbol)
                 {
                     case IFieldSymbol fieldSymbol:
                         if (fieldSymbol.Type.IsReferenceType)
                             return EnableNullableContextAndDeclareFieldAsNullable.Instance;
-                        // TODO-IG: Just ignoring structs so far.
-                        //          They are rarely used anyway compared to classes.
-                        //          Still, see what to do with structs.
                         return null;
-                    case IPropertySymbol _: return EnableNullableContextAndDeclareReferencePropertyAsNullable.Instance;
+
+                    case IPropertySymbol propertySymbol:
+                        if (propertySymbol.Type.IsReferenceType)
+                                return EnableNullableContextAndDeclarePropertyAsNullable.Instance;
+                        // TODO-IG: See what to do with interfaces. We will need some special handling
+                        //          in order to get more realistic suggestions.
+                        return null;
+
                     case IParameterSymbol _: return EnableNullableContextAndDeclareReferenceParameterAsNullable.Instance;
                     case ILocalSymbol _: return EnableNullableContextAndDeclareReferenceVariableAsNullable.Instance;
                     default: return null; 
