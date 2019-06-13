@@ -8,97 +8,105 @@ using Sharpen.Engine.SharpenSuggestions.CSharp80.SwitchExpressions.Suggestions;
 
 namespace Sharpen.Engine.SharpenSuggestions.CSharp80.SwitchExpressions.Analyzers
 {
-    // TODO-IG: Done quickly for the cool demo at the Weblica conference. Take a good look, implement TODOs, and refactor.
     internal sealed class ReplaceSwitchStatementWithSwitchExpressionAnalyzer : ISingleSyntaxTreeAnalyzer
     {
         private ReplaceSwitchStatementWithSwitchExpressionAnalyzer() { }
 
         public static readonly ReplaceSwitchStatementWithSwitchExpressionAnalyzer Instance = new ReplaceSwitchStatementWithSwitchExpressionAnalyzer();
 
-        enum SwitchStatementSectionsCategory
-        {
-            None,
-            AllSwitchSectionsAreAssignmentsToTheSameIdentifier,
-            AllSwitchSectionsAreReturnStatements
-        }
-
         public IEnumerable<AnalysisResult> Analyze(SyntaxTree syntaxTree, SemanticModel semanticModel, SingleSyntaxTreeAnalysisContext analysisContext)
         {
-            // TODO-IG: We can have more than one case section pointing to the same statements ;-)
-            //          E.g. case 1: case 2: case 3: ...
-            //          Implement also this case properly.
-            //          One possibility could be, depending e.g. on the number of the cases pointing to
-            //          the same statements to offer a "Consider" suggestion.
-
             return syntaxTree.GetRoot()
                 .DescendantNodes()
                 .OfType<SwitchStatementSyntax>()
                 .Select(GetSwitchStatementPotentialReplaceabilityInfo)
-                .Where(replaceabilityInfo => replaceabilityInfo.switchStatement != null)
+                .Where(replaceabilityInfo => replaceabilityInfo.suggestion != null)
                 .Select(replaceabilityInfo => new AnalysisResult
                 (
-                    GetSuggestion(replaceabilityInfo.category, replaceabilityInfo.isSurelyExhaustive),
+                    replaceabilityInfo.suggestion,
                     analysisContext,
                     syntaxTree.FilePath,
                     replaceabilityInfo.switchStatement.SwitchKeyword,
                     replaceabilityInfo.switchStatement
                 ));
 
-            ISharpenSuggestion GetSuggestion(SwitchStatementSectionsCategory category, bool isSurelyExhaustive)
-            {
-                // TODO-IG: It will be so nice to switch to switch statement one day we move Sharpen to C# 8.0 :-)
-                if (category == SwitchStatementSectionsCategory.AllSwitchSectionsAreAssignmentsToTheSameIdentifier)
-                {
-                    return isSurelyExhaustive
-                        ? (ISharpenSuggestion)ReplaceSwitchStatementContainingOnlyAssignmentsWithSwitchExpression.Instance
-                        : ConsiderReplacingSwitchStatementContainingOnlyAssignmentsWithSwitchExpression.Instance;
-                }
-                else
-                {
-                    return isSurelyExhaustive
-                        ? (ISharpenSuggestion)ReplaceSwitchStatementContainingOnlyReturnsWithSwitchExpression.Instance
-                        : ConsiderReplacingSwitchStatementContainingOnlyReturnsWithSwitchExpression.Instance;
-                }
-            }
-
-            (SwitchStatementSyntax switchStatement, SwitchStatementSectionsCategory category, bool isSurelyExhaustive) GetSwitchStatementPotentialReplaceabilityInfo(SwitchStatementSyntax switchStatement)
+            (ISharpenSuggestion suggestion,
+             SwitchStatementSyntax switchStatement)
+            GetSwitchStatementPotentialReplaceabilityInfo(SwitchStatementSyntax switchStatement)
             {
                 // We have to have at least one switch section (case or default).
-                if (switchStatement.Sections.Count <= 0) return (null, SwitchStatementSectionsCategory.None, false);
+                if (switchStatement.Sections.Count <= 0) return (null, null);
+
+                // TODO-IG: We can have more than one case label within a single section.
+                //          E.g. case 1: case 2: case 3: ...
+                //          At the moment we will simply not support this case.
+                //          We insist so far on a single label.
+                //          Implement this case in the future by offering a "Consider" suggestion.
+                if (switchStatement.Sections.Any(switchSection => switchSection.Labels.Count != 1))
+                    return (null, null);
 
                 // If we have the default section it is surely exhaustive.
-                // Otherwise we cannot be sure. We will of course not do any
-                // proper check that the compiler does.
+                // Otherwise we cannot be sure. We will, of course, not do any
+                // check for exhaustiveness that the compiler does.
                 bool isSurelyExhaustive = switchStatement.Sections.Any(switchSection =>
                     switchSection.Labels.Any(label => label.IsKind(SyntaxKind.DefaultSwitchLabel)));
 
                 if (AllSwitchSectionsAreAssignmentsToTheSameIdentifier(switchStatement.Sections))
-                    return (switchStatement, SwitchStatementSectionsCategory.AllSwitchSectionsAreAssignmentsToTheSameIdentifier, isSurelyExhaustive);
+                    return
+                    (
+                        isSurelyExhaustive
+                            ? (ISharpenSuggestion)ReplaceSwitchStatementContainingOnlyAssignmentsWithSwitchExpression.Instance
+                            : ConsiderReplacingSwitchStatementContainingOnlyAssignmentsWithSwitchExpression.Instance,
+                        switchStatement
+                    );
 
                 if (AllSwitchSectionsAreReturnStatements(switchStatement.Sections))
-                    return (switchStatement, SwitchStatementSectionsCategory.AllSwitchSectionsAreReturnStatements, isSurelyExhaustive);
+                    return
+                    (
+                        isSurelyExhaustive
+                            ? (ISharpenSuggestion)ReplaceSwitchStatementContainingOnlyReturnsWithSwitchExpression.Instance
+                            : ConsiderReplacingSwitchStatementContainingOnlyReturnsWithSwitchExpression.Instance,
+                        switchStatement
+                    );
 
-                return (null, SwitchStatementSectionsCategory.None, false);
+                return (null, null);
 
                 bool AllSwitchSectionsAreAssignmentsToTheSameIdentifier(SyntaxList<SwitchSectionSyntax> switchSections)
                 {
-                    string previousIdentifier = null;
+                    ISymbol previousIdentifierSymbol = null;
                     foreach (var switchSection in switchSections)
                     {
-                        // TODO-IG: Valid case is also throwing an exception instead of assigning to an identifier.			
-                        // We expect exactly two statements, the assignment and the break;
-                        if (switchSection.Statements.Count != 2) return false;
-                        if (!switchSection.Statements[1].IsKind(SyntaxKind.BreakStatement)) return false;
+                        // We can have two cases that are valid.
+                        switch (switchSection.Statements.Count)
+                        {
+                            // We have only one statement which then must be exception throwing.
+                            case 1:
+                                if (!switchSection.Statements[0].IsKind(SyntaxKind.ThrowStatement)) return false;
+                                break;
 
-                        if (!(switchSection.Statements[0] is ExpressionStatementSyntax expression)) return false;
+                            // We have two statements, which then must be an assignment immediately followed by break.
+                            case 2:
+                                if (!switchSection.Statements[1].IsKind(SyntaxKind.BreakStatement)) return false;
+                                if (!(switchSection.Statements[0] is ExpressionStatementSyntax expression)) return false;
+                                if (!(expression.Expression is AssignmentExpressionSyntax assignment)) return false;
 
-                        if (!(expression.Expression is AssignmentExpressionSyntax assignment)) return false;
+                                // TODO-IG: At the moment we do not support compound assignments (+=, *=, -=, /=, ...).
+                                //          We insist so far on the simple assignment operator (=).
+                                //          Implement this case in the future by offering a "Consider" suggestion.
+                                if (!assignment.IsKind(SyntaxKind.SimpleAssignmentExpression)) return false;
 
-                        // TODO-IG: Compare by symbol and not by name/text because we can have this._field, or something.Something, or a static access or similar.
-                        var currentIdentifier = assignment.Left?.ToString();
-                        if (previousIdentifier != null && previousIdentifier != currentIdentifier) return false;
+                                if (assignment.Left == null) return false;
 
-                        previousIdentifier = currentIdentifier;
+                                var currentIdentifierSymbol = semanticModel.GetSymbolInfo(assignment.Left).Symbol;
+                                if (currentIdentifierSymbol == null) return false;
+
+                                if (previousIdentifierSymbol != null && !previousIdentifierSymbol.Equals(currentIdentifierSymbol)) return false;
+
+                                previousIdentifierSymbol = currentIdentifierSymbol;
+                                break;
+
+                            default: return false;
+                        }
                     }
 
                     return true;
@@ -108,13 +116,28 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.SwitchExpressions.Analyzers
                 {
                     foreach (var switchSection in switchSections)
                     {
-                        // TODO-IG: Valid case is also throwing an exception instead of assigning to an identifier.			
-                        // We expect exactly one statement, the return statement;
+                        // Valid cases are either throwing an exception or having return.
+                        // In both cases we expect exactly one statement.
                         if (switchSection.Statements.Count != 1) return false;
 
-                        if (!(switchSection.Statements[0] is ReturnStatementSyntax @return)) return false;
+                        switch (switchSection.Statements[0].Kind())
+                        {
+                            case SyntaxKind.ReturnStatement:
+                                var returnStatement = (ReturnStatementSyntax) switchSection.Statements[0];
+                                // The statement must return something.
+                                // We are not interested in checking the type
+                                // of the returned expression, checking that
+                                // they are always the same. We assume that the switch
+                                // statement is already valid.
+                                if (returnStatement.Expression == null) return false;
+                                break;
 
-                        if (@return.Expression == null) return false;
+                            case SyntaxKind.ThrowStatement:
+                                // This is just fine.
+                                break;
+
+                            default: return false;
+                        }
                     }
 
                     return true;
