@@ -222,7 +222,9 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Anal
                         return null;
 
                     case IParameterSymbol _: return EnableNullableContextAndDeclareReferenceParameterAsNullable.Instance;
-                    case ILocalSymbol _: return EnableNullableContextAndDeclareReferenceVariableAsNullable.Instance;
+
+                    case ILocalSymbol _: return EnableNullableContextAndDeclareLocalVariableAsNullable.Instance;
+
                     default: return null; 
                 }
             }
