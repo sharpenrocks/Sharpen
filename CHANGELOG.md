@@ -5,6 +5,14 @@ The format of the file is based on [Keep a Changelog](http://keepachangelog.com/
 
 ## [Unreleased]
 ### Added
+- "Consider replacing using statement with using declaration" suggestion.
+- "Replace using statement with using declaration" suggestion.
+- "Consider replacing switch statement containing only returns with switch expression" suggestion.
+- "Consider replacing switch statement containing only assignments with switch expression" suggestion.
+- "Replace switch statement containing only returns with switch expression" suggestion.
+- "Replace switch statement containing only assignments with switch expression" suggestion.
+- "Enable nullable context and declare local variable as nullable" suggestion.
+- "Enable nullable context and declare property as nullable" suggestion.
 - "Enable nullable context and declare field as nullable" suggestion.
 - "Consider awaiting equivalent asynchronous method and yielding IAsyncEnumerable" suggestion.
 - "Await [...] instead of calling [...]" suggestions support local functions.
