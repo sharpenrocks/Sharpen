@@ -58,7 +58,7 @@ namespace Sharpen.Engine.Analysis
             UseDefaultExpressionInOptionalConstructorParameters.Instance,
 
             // C# 8.0
-            EnableNullableContextAndDeclareReferenceIdentifierAsNullableAnalyzer.Instance,
+            EnableNullableContextAndDeclareIdentifierAsNullableAnalyzer.Instance,
             ConsiderAwaitingEquivalentAsynchronousMethodAndYieldingIAsyncEnumerableAnalyzer.Instance,
             ReplaceUsingStatementWithUsingDeclarationAnalyzer.Instance,
             ReplaceSwitchStatementWithSwitchExpressionAnalyzer.Instance

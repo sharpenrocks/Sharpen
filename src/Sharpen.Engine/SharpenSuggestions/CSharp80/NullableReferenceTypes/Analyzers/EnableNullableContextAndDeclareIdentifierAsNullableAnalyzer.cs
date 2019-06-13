@@ -19,11 +19,11 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Anal
     //              - multiple results (duplicates, same suggestion reported few times)
     //              - showing only results in the original scope not those out of it
     //              - how to treat the lined files that could appear in several project (at the moment one suggestion per project which makes sense)
-    internal sealed class EnableNullableContextAndDeclareReferenceIdentifierAsNullableAnalyzer : ISingleSyntaxTreeAnalyzer
+    internal sealed class EnableNullableContextAndDeclareIdentifierAsNullableAnalyzer : ISingleSyntaxTreeAnalyzer
     {
-        private EnableNullableContextAndDeclareReferenceIdentifierAsNullableAnalyzer() { }
+        private EnableNullableContextAndDeclareIdentifierAsNullableAnalyzer() { }
 
-        public static readonly EnableNullableContextAndDeclareReferenceIdentifierAsNullableAnalyzer Instance = new EnableNullableContextAndDeclareReferenceIdentifierAsNullableAnalyzer();
+        public static readonly EnableNullableContextAndDeclareIdentifierAsNullableAnalyzer Instance = new EnableNullableContextAndDeclareIdentifierAsNullableAnalyzer();
 
         public IEnumerable<AnalysisResult> Analyze(SyntaxTree syntaxTree, SemanticModel semanticModel, SingleSyntaxTreeAnalysisContext analysisContext)
         {
