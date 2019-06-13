@@ -1,8 +1,8 @@
 ﻿// ReSharper disable All
 
-namespace CSharp80.NullableReferenceTypes.EnableNullableContextAndDeclareReferenceFieldAsNullable
+namespace CSharp80.NullableReferenceTypes.EnableNullableContextAndDeclareFieldAsNullable
 {
-    public class ReferenceFieldCannotBeDeclaredAsNullableNeverSurelyNullable
+    public class ClassFieldCannotBeDeclaredAsNullableNeverSurelyNullable
     {
         private string detectedNever = string.Empty;
 
@@ -76,12 +76,12 @@ namespace CSharp80.NullableReferenceTypes.EnableNullableContextAndDeclareReferen
 
             StaticAssignedResultOfCast = (string)assignedNonNull;
 
-            if (ReferenceFieldCannotBeDeclaredAsNullableNeverSurelyNullable.StaticComparedEqualToNonNullOnLeftUsingClassName == string.Empty) return;
-            if (string.Empty == ReferenceFieldCannotBeDeclaredAsNullableNeverSurelyNullable.StaticComparedEqualToNonNullOnRightUsingClassName) return;
-            if (ReferenceFieldCannotBeDeclaredAsNullableNeverSurelyNullable.StaticComparedNotEqualToNonNullOnLeftUsingClassName != string.Empty) return;
-            if (string.Empty != ReferenceFieldCannotBeDeclaredAsNullableNeverSurelyNullable.StaticComparedNotEqualToNonNullOnRightUsingClassName) return;
+            if (ClassFieldCannotBeDeclaredAsNullableNeverSurelyNullable.StaticComparedEqualToNonNullOnLeftUsingClassName == string.Empty) return;
+            if (string.Empty == ClassFieldCannotBeDeclaredAsNullableNeverSurelyNullable.StaticComparedEqualToNonNullOnRightUsingClassName) return;
+            if (ClassFieldCannotBeDeclaredAsNullableNeverSurelyNullable.StaticComparedNotEqualToNonNullOnLeftUsingClassName != string.Empty) return;
+            if (string.Empty != ClassFieldCannotBeDeclaredAsNullableNeverSurelyNullable.StaticComparedNotEqualToNonNullOnRightUsingClassName) return;
 
-            ReferenceFieldCannotBeDeclaredAsNullableNeverSurelyNullable.StaticAssignedResultOfCastUsingClassName = (string)assignedNonNull;
+            ClassFieldCannotBeDeclaredAsNullableNeverSurelyNullable.StaticAssignedResultOfCastUsingClassName = (string)assignedNonNull;
 
             var classWithFields = new ClassWithNonNullFields();
 

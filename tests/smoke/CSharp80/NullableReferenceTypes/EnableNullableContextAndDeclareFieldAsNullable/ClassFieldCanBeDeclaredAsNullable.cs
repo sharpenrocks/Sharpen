@@ -1,8 +1,10 @@
 ﻿// ReSharper disable All
 
-namespace CSharp80.NullableReferenceTypes.EnableNullableContextAndDeclareReferenceFieldAsNullable
+// Expected number of suggestions: 55
+
+namespace CSharp80.NullableReferenceTypes.EnableNullableContextAndDeclareFieldAsNullable
 {
-    public class ReferenceFieldCannotBeDeclaredAsNullableGenerated
+    public class ClassFieldCanBeDeclaredAsNullable
     {
         private string detectedOnlyOnce = null;
 
@@ -95,18 +97,18 @@ namespace CSharp80.NullableReferenceTypes.EnableNullableContextAndDeclareReferen
             StaticUsedInConditionalAccess?.Length.ToString();
             dummy = StaticUsedInCoalesceExpression ?? string.Empty;
 
-            ReferenceFieldCannotBeDeclaredAsNullableGenerated.StaticAssignedNullUsingClassName = null;
+            ClassFieldCanBeDeclaredAsNullable.StaticAssignedNullUsingClassName = null;
 
-            if (ReferenceFieldCannotBeDeclaredAsNullableGenerated.StaticComparedEqualToNullOnLeftUsingClassName == null) return;
-            if (null == ReferenceFieldCannotBeDeclaredAsNullableGenerated.StaticComparedEqualToNullOnRightUsingClassName) return;
-            if (ReferenceFieldCannotBeDeclaredAsNullableGenerated.StaticComparedNotEqualToNullOnLeftUsingClassName != null) return;
-            if (null != ReferenceFieldCannotBeDeclaredAsNullableGenerated.StaticComparedNotEqualToNullOnRightUsingClassName) return;
+            if (ClassFieldCanBeDeclaredAsNullable.StaticComparedEqualToNullOnLeftUsingClassName == null) return;
+            if (null == ClassFieldCanBeDeclaredAsNullable.StaticComparedEqualToNullOnRightUsingClassName) return;
+            if (ClassFieldCanBeDeclaredAsNullable.StaticComparedNotEqualToNullOnLeftUsingClassName != null) return;
+            if (null != ClassFieldCanBeDeclaredAsNullable.StaticComparedNotEqualToNullOnRightUsingClassName) return;
 
-            ReferenceFieldCannotBeDeclaredAsNullableGenerated.StaticAssignedResultOfAsOperatorUsingClassName = assignedNull as string;
-            ReferenceFieldCannotBeDeclaredAsNullableGenerated.StaticUsedInConditionalAccessUsingClassName?.Length.ToString();
-            dummy = ReferenceFieldCannotBeDeclaredAsNullableGenerated.StaticUsedInCoalesceExpressionUsingClassName ?? string.Empty;
+            ClassFieldCanBeDeclaredAsNullable.StaticAssignedResultOfAsOperatorUsingClassName = assignedNull as string;
+            ClassFieldCanBeDeclaredAsNullable.StaticUsedInConditionalAccessUsingClassName?.Length.ToString();
+            dummy = ClassFieldCanBeDeclaredAsNullable.StaticUsedInCoalesceExpressionUsingClassName ?? string.Empty;
 
-            var classWithFields = new GeneratedClassWithFields();
+            var classWithFields = new ClassWithNullableFields();
 
             classWithFields.assignedNull = null;
 
@@ -119,20 +121,20 @@ namespace CSharp80.NullableReferenceTypes.EnableNullableContextAndDeclareReferen
             classWithFields.usedInConditionalAccess?.Length.ToString();
             dummy = classWithFields.usedInCoalesceExpression ?? string.Empty;
 
-            GeneratedClassWithFields.StaticAssignedNull = null;
+            ClassWithNullableFields.StaticAssignedNull = null;
 
-            if (GeneratedClassWithFields.StaticComparedEqualToNullOnLeft == null) return;
-            if (null == GeneratedClassWithFields.StaticComparedEqualToNullOnRight) return;
-            if (GeneratedClassWithFields.StaticComparedNotEqualToNullOnLeft != null) return;
-            if (null != GeneratedClassWithFields.StaticComparedNotEqualToNullOnRight) return;
+            if (ClassWithNullableFields.StaticComparedEqualToNullOnLeft == null) return;
+            if (null == ClassWithNullableFields.StaticComparedEqualToNullOnRight) return;
+            if (ClassWithNullableFields.StaticComparedNotEqualToNullOnLeft != null) return;
+            if (null != ClassWithNullableFields.StaticComparedNotEqualToNullOnRight) return;
 
-            GeneratedClassWithFields.StaticAssignedResultOfAsOperator = assignedNull as string;
-            GeneratedClassWithFields.StaticUsedInConditionalAccess?.Length.ToString();
-            dummy = GeneratedClassWithFields.StaticUsedInCoalesceExpression ?? string.Empty;
+            ClassWithNullableFields.StaticAssignedResultOfAsOperator = assignedNull as string;
+            ClassWithNullableFields.StaticUsedInConditionalAccess?.Length.ToString();
+            dummy = ClassWithNullableFields.StaticUsedInCoalesceExpression ?? string.Empty;
         }
     }
 
-    public class GeneratedClassWithFields
+    public class ClassWithNullableFields
     {
         public string intializedToNull = null;
 

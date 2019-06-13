@@ -40,6 +40,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Anal
                 // TODO: Parameter declaration with null as default value: string parameter = null.
                 // TODO: Variable declaration with initialization to null: string variable = null.
                 // TODO: Property declaration with initialization to null: public string Property { get; } = null.
+                // TODO: Property and field initializers in constructors e.g. new X { Property = null, field = null }.
                 .OfAnyOfKinds
                 (
                     SyntaxKind.SimpleAssignmentExpression, // identifier = null;
@@ -199,7 +200,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Anal
             {
                 switch (symbol)
                 {
-                    case IFieldSymbol _: return EnableNullableContextAndDeclareReferenceFieldAsNullable.Instance;
+                    case IFieldSymbol _: return EnableNullableContextAndDeclareFieldAsNullable.Instance;
                     case IPropertySymbol _: return EnableNullableContextAndDeclareReferencePropertyAsNullable.Instance;
                     case IParameterSymbol _: return EnableNullableContextAndDeclareReferenceParameterAsNullable.Instance;
                     case ILocalSymbol _: return EnableNullableContextAndDeclareReferenceVariableAsNullable.Instance;

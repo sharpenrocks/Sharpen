@@ -1,8 +1,8 @@
 ﻿// ReSharper disable All
 
-namespace CSharp80.NullableReferenceTypes.EnableNullableContextAndDeclareReferenceFieldAsNullable
+namespace CSharp80.NullableReferenceTypes.EnableNullableContextAndDeclareFieldAsNullable
 {
-    public class ReferenceFieldCannotBeDeclaredAsNullableIsNullableStruct
+    public class ClassFieldCannotBeDeclaredAsNullableIsNullableStruct
     {
         private int? detectedOnlyOnce = null;
 
@@ -95,16 +95,16 @@ namespace CSharp80.NullableReferenceTypes.EnableNullableContextAndDeclareReferen
             StaticUsedInConditionalAccess?.ToString();
             dummy = StaticUsedInCoalesceExpression ?? 0;
 
-            ReferenceFieldCannotBeDeclaredAsNullableIsNullableStruct.StaticAssignedNullUsingClassName = null;
+            ClassFieldCannotBeDeclaredAsNullableIsNullableStruct.StaticAssignedNullUsingClassName = null;
 
-            if (ReferenceFieldCannotBeDeclaredAsNullableIsNullableStruct.StaticComparedEqualToNullOnLeftUsingClassName == null) return;
-            if (null == ReferenceFieldCannotBeDeclaredAsNullableIsNullableStruct.StaticComparedEqualToNullOnRightUsingClassName) return;
-            if (ReferenceFieldCannotBeDeclaredAsNullableIsNullableStruct.StaticComparedNotEqualToNullOnLeftUsingClassName != null) return;
-            if (null != ReferenceFieldCannotBeDeclaredAsNullableIsNullableStruct.StaticComparedNotEqualToNullOnRightUsingClassName) return;
+            if (ClassFieldCannotBeDeclaredAsNullableIsNullableStruct.StaticComparedEqualToNullOnLeftUsingClassName == null) return;
+            if (null == ClassFieldCannotBeDeclaredAsNullableIsNullableStruct.StaticComparedEqualToNullOnRightUsingClassName) return;
+            if (ClassFieldCannotBeDeclaredAsNullableIsNullableStruct.StaticComparedNotEqualToNullOnLeftUsingClassName != null) return;
+            if (null != ClassFieldCannotBeDeclaredAsNullableIsNullableStruct.StaticComparedNotEqualToNullOnRightUsingClassName) return;
 
-            ReferenceFieldCannotBeDeclaredAsNullableIsNullableStruct.StaticAssignedResultOfAsOperatorUsingClassName = assignedNull as int?;
-            ReferenceFieldCannotBeDeclaredAsNullableIsNullableStruct.StaticUsedInConditionalAccessUsingClassName?.ToString();
-            dummy = ReferenceFieldCannotBeDeclaredAsNullableIsNullableStruct.StaticUsedInCoalesceExpressionUsingClassName ?? 0;
+            ClassFieldCannotBeDeclaredAsNullableIsNullableStruct.StaticAssignedResultOfAsOperatorUsingClassName = assignedNull as int?;
+            ClassFieldCannotBeDeclaredAsNullableIsNullableStruct.StaticUsedInConditionalAccessUsingClassName?.ToString();
+            dummy = ClassFieldCannotBeDeclaredAsNullableIsNullableStruct.StaticUsedInCoalesceExpressionUsingClassName ?? 0;
 
             var classWithFields = new ClassWithNullableStructFields();
 

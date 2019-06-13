@@ -1,6 +1,6 @@
-﻿namespace CSharp80.NullableReferenceTypes.EnableNullableContextAndDeclareReferenceFieldAsNullable
+﻿namespace CSharp80.NullableReferenceTypes.EnableNullableContextAndDeclareFieldAsNullable
 {
-    class CommonClassWithNullableFieldClient03
+    class CommonClassWithNullableFieldClient01
     {
         public void UseCommonClassWithNullableField()
         {
