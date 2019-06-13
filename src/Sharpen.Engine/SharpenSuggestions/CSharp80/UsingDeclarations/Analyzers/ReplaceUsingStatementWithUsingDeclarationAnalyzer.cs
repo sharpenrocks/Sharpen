@@ -25,29 +25,25 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.UsingDeclarations.Analyzers
                 .DescendantNodes()
                 .OfType<UsingStatementSyntax>()
                 .Select(GetUsingStatementPotentialReplaceabilityInfo)
-                .Where(replaceabilityInfo => replaceabilityInfo.usingStatement != null)
+                .Where(replaceabilityInfo => replaceabilityInfo.suggestion != null)
                 .Select(replaceabilityInfo => new AnalysisResult
                 (
-                    replaceabilityInfo.surelyPreservesSemantics
-                        ? (ISharpenSuggestion)ReplaceUsingStatementWithUsingDeclaration.Instance
-                        : ConsiderReplacingUsingStatementWithUsingDeclaration.Instance,
+                    replaceabilityInfo.suggestion,
                     analysisContext,
                     syntaxTree.FilePath,
                     replaceabilityInfo.usingStatement.UsingKeyword,
                     replaceabilityInfo.usingStatement
                 ));
 
-            // A bit ugly way to get the information out.
-            // Done this way in order to reuse the structure of the original algorithm.
-            // TODO-IG: Refactor.
-            // ´usingStatement´ is null if the replacement is not possible.
-            (UsingStatementSyntax usingStatement, bool surelyPreservesSemantics) GetUsingStatementPotentialReplaceabilityInfo(UsingStatementSyntax usingStatement)
+            (ISharpenSuggestion suggestion,
+             UsingStatementSyntax usingStatement)
+            GetUsingStatementPotentialReplaceabilityInfo(UsingStatementSyntax usingStatement)
             {
                 var outermostUsing = usingStatement;
 
                 // Don't offer on a using statement that is parented by another using statement.
                 // We'll just offer on the topmost using statement.
-                if (!(outermostUsing.Parent is BlockSyntax parentBlock)) return (null, false);
+                if (!(outermostUsing.Parent is BlockSyntax parentBlock)) return (null, null);
 
                 var innermostUsing = outermostUsing;
 
@@ -56,7 +52,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.UsingDeclarations.Analyzers
                 for (var current = outermostUsing; current != null; current = current.Statement as UsingStatementSyntax)
                 {
                     innermostUsing = current;
-                    if (current.Declaration == null) return (null, false);
+                    if (current.Declaration == null) return (null, null);
                 }
 
                 // Verify that changing this using-statement into a using-declaration will not
@@ -65,12 +61,18 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.UsingDeclarations.Analyzers
                 var index = parentStatements.IndexOf(outermostUsing);
 
                 // TODO: At the moment, if we have jumps (OMG!) we will simply not deal with it at all.
-                if (!UsingStatementDoesNotInvolveJumps()) return (null, false);
+                if (!UsingStatementDoesNotInvolveJumps()) return (null, null);
 
                 // Everything is fine, the using statement *could* be replaced
                 // with the using declaration, the potential leakage of the using value
                 // determines if it is 100% save to do it or not.
-                return (usingStatement, UsingValueDoesNotLeakToFollowingStatements());
+                return
+                (
+                    UsingValueDoesNotLeakToFollowingStatements()
+                        ? (ISharpenSuggestion)ReplaceUsingStatementWithUsingDeclaration.Instance
+                        : ConsiderReplacingUsingStatementWithUsingDeclaration.Instance,
+                    usingStatement
+                );
                            
                 bool UsingValueDoesNotLeakToFollowingStatements()
                 {
@@ -106,6 +108,11 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.UsingDeclarations.Analyzers
                     if (nextStatement is ReturnStatementSyntax returnStatement &&
                         returnStatement.Expression == null)
                         return true;
+
+                    // TODO-IG: I've just discovered a bug in the Roslyn implementation :-)
+                    //          Local function declarations should also be allowed after the
+                    //          using since they are not executed. Open issue on Roslyn on
+                    //          GitHub and also provide a fix.
 
                     return false;
                 }
