@@ -107,6 +107,8 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Anal
                     return false;
 
                 var typeSymbol = GetTypeSymbol();
+                // WARNING: A bit paranoid but still. Never remove this check because
+                //          the GetSuggestion() later on assumes that the type symbol exists.
                 if (typeSymbol == null) return false;
 
                 // For this, we want to have a special suggestion
@@ -198,9 +200,16 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Anal
 
             ISharpenSuggestion GetSuggestion(ISymbol symbol)
             {
+                // The type surely exists at this point on all the symbols.
                 switch (symbol)
                 {
-                    case IFieldSymbol _: return EnableNullableContextAndDeclareFieldAsNullable.Instance;
+                    case IFieldSymbol fieldSymbol:
+                        if (fieldSymbol.Type.IsReferenceType)
+                            return EnableNullableContextAndDeclareFieldAsNullable.Instance;
+                        // TODO-IG: Just ignoring structs so far.
+                        //          They are rarely used anyway compared to classes.
+                        //          Still, see what to do with structs.
+                        return null;
                     case IPropertySymbol _: return EnableNullableContextAndDeclareReferencePropertyAsNullable.Instance;
                     case IParameterSymbol _: return EnableNullableContextAndDeclareReferenceParameterAsNullable.Instance;
                     case ILocalSymbol _: return EnableNullableContextAndDeclareReferenceVariableAsNullable.Instance;
