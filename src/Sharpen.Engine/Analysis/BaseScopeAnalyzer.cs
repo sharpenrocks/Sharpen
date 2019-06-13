@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Sharpen.Engine.Extensions.CodeDetection;
+using Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Suggestions;
 
 namespace Sharpen.Engine.Analysis
 {
@@ -15,14 +16,16 @@ namespace Sharpen.Engine.Analysis
         // That's why we create these Action objects in advance and at the beginning
         // of the analysis create just once out of them Actions that are really used in
         // the Parallel.Invoke().
-        private static Action<SyntaxTree, SemanticModel, SingleSyntaxTreeAnalysisContext, ConcurrentBag<AnalysisResult>>[] AnalyzeSingleSyntaxTreeAndCollectResultsActions { get; } =
+        private static Action<SyntaxTree, SemanticModel, SingleSyntaxTreeAnalysisContext, ConcurrentBag<AnalysisResult>, ConcurrentBag<AnalysisResult>>[] AnalyzeSingleSyntaxTreeAndCollectResultsActions { get; } =
             SharpenAnalyzersHolder.Analyzers
-                .OfType<ISingleSyntaxTreeAnalyzer>()
-                .Select(analyzer => new Action<SyntaxTree, SemanticModel, SingleSyntaxTreeAnalysisContext, ConcurrentBag<AnalysisResult>>((syntaxTree, semanticModel, analysisContext, results) =>
+                .Select(analyzer => new Action<SyntaxTree, SemanticModel, SingleSyntaxTreeAnalysisContext, ConcurrentBag<AnalysisResult>, ConcurrentBag<AnalysisResult>>((syntaxTree, semanticModel, analysisContext, results, potentialDuplicates) =>
                 {
                     foreach (var analysisResult in analyzer.Analyze(syntaxTree, semanticModel, analysisContext))
                     {
                         results.Add(analysisResult);
+                        // TODO-IG: Remove this workaround once the whole analysis stuff is refactored.
+                        if (analysisResult.Suggestion is BaseEnableNullableContextAndDeclareReferenceIdentifierAsNullableSuggestion)
+                            potentialDuplicates.Add(analysisResult);
                     }
                 }))
                 .ToArray();
@@ -45,6 +48,7 @@ namespace Sharpen.Engine.Analysis
         public async Task<IEnumerable<AnalysisResult>> AnalyzeScopeAsync(IProgress<int> progress)
         {
             var analysisResults = new ConcurrentBag<AnalysisResult>();
+            var potentialDuplicates = new ConcurrentBag<AnalysisResult>();
             SyntaxTree syntaxTree = null;
             SemanticModel semanticModel = null;
             SingleSyntaxTreeAnalysisContext analysisContext = null;
@@ -53,7 +57,7 @@ namespace Sharpen.Engine.Analysis
                 // We intentionally access the modified closure here (syntaxTree, semanticModel, analysisContext),
                 // because we want to avoid creation of a huge number of temporary Action objects.
                 // ReSharper disable AccessToModifiedClosure
-                .Select(action => new Action(() => action(syntaxTree, semanticModel, analysisContext, analysisResults)))
+                .Select(action => new Action(() => action(syntaxTree, semanticModel, analysisContext, analysisResults, potentialDuplicates)))
                 // ReSharper restore AccessToModifiedClosure
                 .ToArray();
 
@@ -84,7 +88,28 @@ namespace Sharpen.Engine.Analysis
 
                 progress.Report(++progressCounter);
             }
-            return analysisResults;
+
+            // TODO-IG: Fully refactor Analysis/Scope/Analyzer/Context/Result etc.
+            //          and remove this terrible temporary workaround.
+            var duplicatesToRemove = FindDuplicatesToRemove();
+
+            return analysisResults.Except(duplicatesToRemove);
+
+            IReadOnlyCollection<AnalysisResult> FindDuplicatesToRemove()
+            {
+                return potentialDuplicates
+                    // We consider the result to be a duplicate if have the same
+                    // suggestion on the same node several times.
+                    // The AnalysisResult does not contain node (at the moment,
+                    // who knows what the upcoming refactoring will bring us ;-))
+                    // so we will see if the file name and the position are the same.
+                    .GroupBy(result => new { result.Suggestion, result.FilePath, result.Position })
+                    .Where(group => group.Count() > 1)
+                    // Just leave the first one so far and mark the rest as those to be removed.
+                    // This is all a temporary workaround after all :-)
+                    .SelectMany(group => group.Skip(1))
+                    .ToList();
+            }
         }
 
         // The iteration over documents to analyze happens few times:

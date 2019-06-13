@@ -10,6 +10,15 @@ using Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Suggesti
 
 namespace Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Analyzers
 {
+    // TODO-IG: This is the first analyzer that is actually not an ISingleSyntaxTreeAnalyzer.
+    //          We finally have a reason to refactor the whole Analyzer/Scope/Context/Result/etc. stuff. :-)
+    //          So far we will leave it like this with a workaround for filtering the duplicates.
+    //          The current priority is to get v0.9.0 finally released.
+    //          Topics to solve:
+    //              - tree analyzers that have results other syntax trees
+    //              - multiple results (duplicates, same suggestion reported few times)
+    //              - showing only results in the original scope not those out of it
+    //              - how to treat the lined files that could appear in several project (at the moment one suggestion per project which makes sense)
     internal sealed class EnableNullableContextAndDeclareReferenceIdentifierAsNullableAnalyzer : ISingleSyntaxTreeAnalyzer
     {
         private EnableNullableContextAndDeclareReferenceIdentifierAsNullableAnalyzer() { }
