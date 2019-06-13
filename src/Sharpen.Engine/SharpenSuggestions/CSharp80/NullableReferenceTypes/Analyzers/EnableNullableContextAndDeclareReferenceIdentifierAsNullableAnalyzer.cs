@@ -221,7 +221,11 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Anal
                         //          in order to get more realistic suggestions.
                         return null;
 
-                    case IParameterSymbol _: return EnableNullableContextAndDeclareReferenceParameterAsNullable.Instance;
+                    case IParameterSymbol _:
+                        // TODO-IG: Ignoring parameters until we implement the logic for null guards.
+                        //          At the moment it is more important to get v0.9.0 out then to
+                        //          have support for the parameters.
+                        return null;
 
                     case ILocalSymbol _: return EnableNullableContextAndDeclareLocalVariableAsNullable.Instance;
 

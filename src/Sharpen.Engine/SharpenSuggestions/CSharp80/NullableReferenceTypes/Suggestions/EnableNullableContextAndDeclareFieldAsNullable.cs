@@ -1,6 +1,6 @@
 ﻿namespace Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Suggestions
 {
-    internal sealed class EnableNullableContextAndDeclareFieldAsNullable : BaseEnableNullableContextAndDeclareReferenceIdentifierAsNullableSuggestion
+    internal sealed class EnableNullableContextAndDeclareFieldAsNullable : BaseEnableNullableContextAndDeclareIdentifierAsNullableSuggestion
     {
         private EnableNullableContextAndDeclareFieldAsNullable() { }
 

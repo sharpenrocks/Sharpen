@@ -24,7 +24,7 @@ namespace Sharpen.Engine.Analysis
                     {
                         results.Add(analysisResult);
                         // TODO-IG: Remove this workaround once the whole analysis stuff is refactored.
-                        if (analysisResult.Suggestion is BaseEnableNullableContextAndDeclareReferenceIdentifierAsNullableSuggestion)
+                        if (analysisResult.Suggestion is BaseEnableNullableContextAndDeclareIdentifierAsNullableSuggestion)
                             potentialDuplicates.Add(analysisResult);
                     }
                 }))
