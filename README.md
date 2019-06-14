@@ -2,7 +2,7 @@
 *Sharpen* is a Visual Studio extension that intelligently introduces new C# language features into your existing code base. It makes your code shorter, simpler, more expressive, more performant, and more readable, in one word - sharper.
 
 [![Twitter](https://img.shields.io/badge/twitter-sharpenrocks-brightgreen.svg?logo=twitter)](https://twitter.com/sharpenrocks)
-[![Visual Studio Marketplace](https://img.shields.io/badge/visual%20studio%20marketplace-v0.8.0-blue.svg)](https://marketplace.visualstudio.com/items?itemName=ironcev.sharpen)
+[![Visual Studio Marketplace](https://img.shields.io/badge/visual%20studio%20marketplace-v0.9.0-blue.svg)](https://marketplace.visualstudio.com/items?itemName=ironcev.sharpen)
 [![AppVeyor](https://img.shields.io/appveyor/ci/ironcev/sharpen.svg)](https://ci.appveyor.com/project/ironcev/sharpen)
 [![GitHub release](https://img.shields.io/github/release/ironcev/sharpen/all.svg)](https://github.com/ironcev/sharpen/releases)
 [![License](https://img.shields.io/github/license/ironcev/sharpen.svg)](https://github.com/ironcev/sharpen/blob/master/LICENSE)
@@ -69,6 +69,10 @@ Note that in the current version of *Sharpen* the following features mentioned i
 
 ## Release Notes
 All notable changes to the *Sharpen* extension are documented in the [changelog](https://github.com/ironcev/sharpen/blob/master/CHANGELOG.md). Below is the excerpt from the changelog that lists only the summary of major changes.
+
+### 0.9.0
+- Async streams, nullable reference types, switch expressions, and using declarations suggestions (C# 8.0).
+- Var keyword suggestions (C# 3.0).
 
 ### 0.8.0
 - Support for Visual Studio 2019.
