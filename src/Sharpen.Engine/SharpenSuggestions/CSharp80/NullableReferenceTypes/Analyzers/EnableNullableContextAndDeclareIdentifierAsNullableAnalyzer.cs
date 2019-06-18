@@ -329,14 +329,19 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Anal
                     default: return null;
                 }
 
+                // (BDW, "Surely" is a bit too strong word here since default expression will
+                //  be surely evaluated to null only for reference types.)
                 bool IsSurelyNullable(SyntaxNode potentiallyNullableNode)
                 {
                     // We do not do any data flow analysis here, of course :-)
                     // Just identifying the obvious cases.
-
-                    return potentiallyNullableNode?.IsKind(SyntaxKind.NullLiteralExpression) == true
-                           ||
-                           potentiallyNullableNode?.IsKind(SyntaxKind.AsExpression) == true;
+                    return potentiallyNullableNode?.IsAnyOfKinds
+                            (
+                                SyntaxKind.NullLiteralExpression,
+                                SyntaxKind.DefaultLiteralExpression,
+                                SyntaxKind.DefaultExpression,
+                                SyntaxKind.AsExpression
+                            ) == true;
                 }
 
                 bool IsIdentifierOrPropertyAccess(SyntaxNode syntaxNode)

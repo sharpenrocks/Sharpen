@@ -1,14 +1,14 @@
 ﻿// ReSharper disable All
 
-// Expected number of suggestions: 52 (at the moment 49 until we implement the case with initialization: Property { get; set; } = null)
+// Expected number of suggestions: 52 (at the moment 49 until we implement the case with initialization: Property { get; set; } = default)
 
 namespace CSharp80.NullableReferenceTypes.EnableNullableContextAndDeclarePropertyAsNullable
 {
-    public class ClassPropertyCanBeDeclaredAsNullable
+    public class ClassPropertyCanBeDeclaredAsNullableDefaultInsteadOfNull
     {
-        private string DetectedOnlyOnce { get; set; } = null;
+        private string DetectedOnlyOnce { get; set; } = default;
 
-        private string IntializedToNull { get; set; } = null;
+        private string IntializedToNull { get; set; } = default(string);
         private string InitializedToResultOfAsOperator { get; set; } = string.Empty as string;
 
         private string AssignedNull { get; set; }
@@ -51,15 +51,15 @@ namespace CSharp80.NullableReferenceTypes.EnableNullableContextAndDeclarePropert
         {
             string dummy;
 
-            AssignedNull = null;
-            DetectedOnlyOnce = null;
+            AssignedNull = default;
+            DetectedOnlyOnce = default(string);
 
-            if (ComparedEqualToNullOnLeft == null) return;
-            if (null == ComparedEqualToNullOnRight) return;            
-            if (ComparedNotEqualToNullOnLeft != null) return;
-            if (null != ComparedNotEqualToNullOnRight) return;
-            if (DetectedOnlyOnce == null) return;
-            if (null == DetectedOnlyOnce) return;
+            if (ComparedEqualToNullOnLeft == default) return;
+            if (default(string) == ComparedEqualToNullOnRight) return;            
+            if (ComparedNotEqualToNullOnLeft != default) return;
+            if (default(string) != ComparedNotEqualToNullOnRight) return;
+            if (DetectedOnlyOnce == default) return;
+            if (default(string) == DetectedOnlyOnce) return;
 
             AssignedResultOfAsOperator = AssignedNull as string;
             DetectedOnlyOnce = AssignedNull as string;
@@ -70,68 +70,68 @@ namespace CSharp80.NullableReferenceTypes.EnableNullableContextAndDeclarePropert
             dummy = UsedInCoalesceExpression ?? string.Empty;
             dummy = DetectedOnlyOnce ?? string.Empty;
 
-            this.AssignedNullUsingThis = null;
+            this.AssignedNullUsingThis = default;
 
-            if (this.ComparedEqualToNullOnLeftUsingThis == null) return;
-            if (null == this.ComparedEqualToNullOnRightUsingThis) return;
-            if (this.ComparedNotEqualToNullOnLeftUsingThis != null) return;
-            if (null != this.ComparedNotEqualToNullOnRightUsingThis) return;
+            if (this.ComparedEqualToNullOnLeftUsingThis == default(string)) return;
+            if (default == this.ComparedEqualToNullOnRightUsingThis) return;
+            if (this.ComparedNotEqualToNullOnLeftUsingThis != default(string)) return;
+            if (default != this.ComparedNotEqualToNullOnRightUsingThis) return;
 
             this.AssignedResultOfAsOperatorUsingThis = AssignedNull as string;
             this.UsedInConditionalAccessUsingThis?.Length.ToString();
             dummy = this.UsedInCoalesceExpressionUsingThis ?? string.Empty;
 
-            StaticAssignedNull = null;
+            StaticAssignedNull = default(string);
 
-            if (StaticComparedEqualToNullOnLeft == null) return;
-            if (null == StaticComparedEqualToNullOnRight) return;
-            if (StaticComparedNotEqualToNullOnLeft != null) return;
-            if (null != StaticComparedNotEqualToNullOnRight) return;
+            if (StaticComparedEqualToNullOnLeft == default) return;
+            if (default(string) == StaticComparedEqualToNullOnRight) return;
+            if (StaticComparedNotEqualToNullOnLeft != default) return;
+            if (default(string) != StaticComparedNotEqualToNullOnRight) return;
 
             StaticAssignedResultOfAsOperator = AssignedNull as string;
             StaticUsedInConditionalAccess?.Length.ToString();
             dummy = StaticUsedInCoalesceExpression ?? string.Empty;
 
-            ClassPropertyCanBeDeclaredAsNullable.StaticAssignedNullUsingClassName = null;
+            ClassPropertyCanBeDeclaredAsNullableDefaultInsteadOfNull.StaticAssignedNullUsingClassName = default;
 
-            if (ClassPropertyCanBeDeclaredAsNullable.StaticComparedEqualToNullOnLeftUsingClassName == null) return;
-            if (null == ClassPropertyCanBeDeclaredAsNullable.StaticComparedEqualToNullOnRightUsingClassName) return;
-            if (ClassPropertyCanBeDeclaredAsNullable.StaticComparedNotEqualToNullOnLeftUsingClassName != null) return;
-            if (null != ClassPropertyCanBeDeclaredAsNullable.StaticComparedNotEqualToNullOnRightUsingClassName) return;
+            if (ClassPropertyCanBeDeclaredAsNullableDefaultInsteadOfNull.StaticComparedEqualToNullOnLeftUsingClassName == default(string)) return;
+            if (default == ClassPropertyCanBeDeclaredAsNullableDefaultInsteadOfNull.StaticComparedEqualToNullOnRightUsingClassName) return;
+            if (ClassPropertyCanBeDeclaredAsNullableDefaultInsteadOfNull.StaticComparedNotEqualToNullOnLeftUsingClassName != default(string)) return;
+            if (default != ClassPropertyCanBeDeclaredAsNullableDefaultInsteadOfNull.StaticComparedNotEqualToNullOnRightUsingClassName) return;
 
-            ClassPropertyCanBeDeclaredAsNullable.StaticAssignedResultOfAsOperatorUsingClassName = AssignedNull as string;
-            ClassPropertyCanBeDeclaredAsNullable.StaticUsedInConditionalAccessUsingClassName?.Length.ToString();
-            dummy = ClassPropertyCanBeDeclaredAsNullable.StaticUsedInCoalesceExpressionUsingClassName ?? string.Empty;
+            ClassPropertyCanBeDeclaredAsNullableDefaultInsteadOfNull.StaticAssignedResultOfAsOperatorUsingClassName = AssignedNull as string;
+            ClassPropertyCanBeDeclaredAsNullableDefaultInsteadOfNull.StaticUsedInConditionalAccessUsingClassName?.Length.ToString();
+            dummy = ClassPropertyCanBeDeclaredAsNullableDefaultInsteadOfNull.StaticUsedInCoalesceExpressionUsingClassName ?? string.Empty;
 
-            var classWithProperties = new ClassWithNullableProperties();
+            var classWithProperties = new ClassWithNullablePropertiesDefaultInsteadOfNull();
 
-            classWithProperties.AssignedNull = null;
+            classWithProperties.AssignedNull = default(string);
 
-            if (classWithProperties.ComparedEqualToNullOnLeft == null) return;
-            if (null == classWithProperties.ComparedEqualToNullOnRight) return;
-            if (classWithProperties.ComparedNotEqualToNullOnLeft != null) return;
-            if (null != classWithProperties.ComparedNotEqualToNullOnRight) return;
+            if (classWithProperties.ComparedEqualToNullOnLeft == default) return;
+            if (default(string) == classWithProperties.ComparedEqualToNullOnRight) return;
+            if (classWithProperties.ComparedNotEqualToNullOnLeft != default) return;
+            if (default(string) != classWithProperties.ComparedNotEqualToNullOnRight) return;
 
             classWithProperties.AssignedResultOfAsOperator = AssignedNull as string;
             classWithProperties.UsedInConditionalAccess?.Length.ToString();
             dummy = classWithProperties.UsedInCoalesceExpression ?? string.Empty;
 
-            ClassWithNullableProperties.StaticAssignedNull = null;
+            ClassWithNullablePropertiesDefaultInsteadOfNull.StaticAssignedNull = default;
 
-            if (ClassWithNullableProperties.StaticComparedEqualToNullOnLeft == null) return;
-            if (null == ClassWithNullableProperties.StaticComparedEqualToNullOnRight) return;
-            if (ClassWithNullableProperties.StaticComparedNotEqualToNullOnLeft != null) return;
-            if (null != ClassWithNullableProperties.StaticComparedNotEqualToNullOnRight) return;
+            if (ClassWithNullablePropertiesDefaultInsteadOfNull.StaticComparedEqualToNullOnLeft == default(string)) return;
+            if (default == ClassWithNullablePropertiesDefaultInsteadOfNull.StaticComparedEqualToNullOnRight) return;
+            if (ClassWithNullablePropertiesDefaultInsteadOfNull.StaticComparedNotEqualToNullOnLeft != default(string)) return;
+            if (default != ClassWithNullablePropertiesDefaultInsteadOfNull.StaticComparedNotEqualToNullOnRight) return;
 
-            ClassWithNullableProperties.StaticAssignedResultOfAsOperator = AssignedNull as string;
-            ClassWithNullableProperties.StaticUsedInConditionalAccess?.Length.ToString();
-            dummy = ClassWithNullableProperties.StaticUsedInCoalesceExpression ?? string.Empty;
+            ClassWithNullablePropertiesDefaultInsteadOfNull.StaticAssignedResultOfAsOperator = AssignedNull as string;
+            ClassWithNullablePropertiesDefaultInsteadOfNull.StaticUsedInConditionalAccess?.Length.ToString();
+            dummy = ClassWithNullablePropertiesDefaultInsteadOfNull.StaticUsedInCoalesceExpression ?? string.Empty;
         }
     }
 
-    public class ClassWithNullableProperties
+    public class ClassWithNullablePropertiesDefaultInsteadOfNull
     {
-        public string IntializedToNull { get; set; } = null;
+        public string IntializedToNull { get; set; } = default(string);
 
         public string AssignedNull { get; set; }
         public string ComparedEqualToNullOnLeft { get; set; }

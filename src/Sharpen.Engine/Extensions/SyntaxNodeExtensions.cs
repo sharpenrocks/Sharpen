@@ -18,6 +18,11 @@ namespace Sharpen.Engine.Extensions
             return syntaxNode.IsKind(firstKind) || syntaxNode.IsKind(secondKind) || syntaxNode.IsKind(thirdKind);
         }
 
+        public static bool IsAnyOfKinds(this SyntaxNode syntaxNode, SyntaxKind firstKind, SyntaxKind secondKind, SyntaxKind thirdKind, SyntaxKind fourthKind)
+        {
+            return syntaxNode.IsKind(firstKind) || syntaxNode.IsKind(secondKind) || syntaxNode.IsKind(thirdKind) || syntaxNode.IsKind(fourthKind);
+        }
+
         public static bool IsWithinLambdaOrAnonymousMethod(this SyntaxNode syntaxNode)
         {
             return syntaxNode.FirstAncestorOrSelf<AnonymousFunctionExpressionSyntax>() != null;
