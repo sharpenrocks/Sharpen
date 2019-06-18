@@ -202,11 +202,11 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Anal
 
             ISharpenSuggestion GetSuggestion(ISymbol symbol)
             {
-                // TODO-IG: Just ignoring structs so far. That's why the IsReferenceType checks.
+                // TODO-IG: Just ignoring structs so far. That's why the IsReferenceType checks below.
                 //          Structs are rarely used compared to classes, so not that much of an issue at the moment.
                 //          Still, see what to do with structs.
 
-                // The type surely exists at this point on all the symbols.
+                // The type surely exists at this point on all the symbols (see the WARNING above).
                 switch (symbol)
                 {
                     case IFieldSymbol fieldSymbol:
@@ -221,15 +221,56 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Anal
                         //          in order to get more realistic suggestions.
                         return null;
 
-                    case IParameterSymbol _:
-                        // TODO-IG: Ignoring parameters until we implement the logic for null guards.
-                        //          At the moment it is more important to get v0.9.0 out then to
-                        //          have support for the parameters.
-                        return null;
+                    case IParameterSymbol parameterSymbol:
+                        if (!(parameterSymbol.ContainingSymbol is IMethodSymbol methodSymbol)) return null;
+                        switch (methodSymbol.MethodKind)
+                        {
+                            // If it is lambda or anonymous delegate.
+                            case MethodKind.AnonymousFunction:
+                                return IsLambdaSymbol(methodSymbol)
+                                    ? (ISharpenSuggestion)EnableNullableContextAndDeclareLambdaParameterAsNullable.Instance
+                                    : EnableNullableContextAndDeclareAnonymousDelegateParameterAsNullable.Instance;
 
-                    case ILocalSymbol _: return EnableNullableContextAndDeclareLocalVariableAsNullable.Instance;
+                            // We do not have to check for static constructors because
+                            // they cannot have parameters.
+                            case MethodKind.Constructor:
+                                return EnableNullableContextAndDeclareConstructorParameterAsNullable.Instance;
 
-                    default: return null; 
+                            // TODO-IG: In general, see what to do with interfaces and overriding base classes.
+                            case MethodKind.ExplicitInterfaceImplementation:
+                                return null;
+
+                            // TODO-IG: In general, see what to do with operators.
+                            case MethodKind.UserDefinedOperator:
+                                return null;
+
+                            case MethodKind.Ordinary:
+                                return EnableNullableContextAndDeclareMethodParameterAsNullable.Instance;
+
+                            case MethodKind.LocalFunction:
+                                return EnableNullableContextAndDeclareLocalFunctionParameterAsNullable.Instance;
+
+                            default:
+                                return null;
+                        }
+
+                    case ILocalSymbol _:
+                        return EnableNullableContextAndDeclareLocalVariableAsNullable.Instance;
+
+                    default: return null;
+                }
+
+                bool IsLambdaSymbol(IMethodSymbol methodSymbol)
+                {
+                    // We simply don't want to bother with this case at the moment.
+                    if (methodSymbol.DeclaringSyntaxReferences.Length != 1) return false;
+
+                    var declaringSyntaxReference = methodSymbol.DeclaringSyntaxReferences[0];
+
+                    return declaringSyntaxReference.SyntaxTree?
+                               .GetRoot()?
+                               .FindNode(declaringSyntaxReference.Span)?
+                               .IsKind(SyntaxKind.ParenthesizedLambdaExpression) == true;
                 }
             }
 
