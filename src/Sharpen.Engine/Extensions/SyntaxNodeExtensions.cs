@@ -250,5 +250,16 @@ namespace Sharpen.Engine.Extensions
                                                    syntaxNode.IsKind(fifthKind) ||
                                                    syntaxNode.IsKind(sixthKind));
         }
+
+        public static IEnumerable<SyntaxNode> OfAnyOfKinds(this IEnumerable<SyntaxNode> syntaxNodes, SyntaxKind firstKind, SyntaxKind secondKind, SyntaxKind thirdKind, SyntaxKind fourthKind, SyntaxKind fifthKind, SyntaxKind sixthKind, SyntaxKind seventhKind)
+        {
+            return syntaxNodes.Where(syntaxNode => syntaxNode.IsKind(firstKind) ||
+                                                   syntaxNode.IsKind(secondKind) ||
+                                                   syntaxNode.IsKind(thirdKind) ||
+                                                   syntaxNode.IsKind(fourthKind) ||
+                                                   syntaxNode.IsKind(fifthKind) ||
+                                                   syntaxNode.IsKind(sixthKind) ||
+                                                   syntaxNode.IsKind(seventhKind));
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Anal
     //          So far we will leave it like this with a workaround for filtering the duplicates.
     //          The current priority is to get v0.9.0 finally released.
     //          Topics to solve:
-    //              - tree analyzers that have results other syntax trees
+    //              - tree analyzers that have results in other syntax trees
     //              - multiple results (duplicates, same suggestion reported few times)
     //              - showing only results in the original scope not those out of it
     //              - how to treat the lined files that could appear in several project (at the moment one suggestion per project which makes sense)
@@ -50,7 +50,8 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Anal
                     SyntaxKind.NotEqualsExpression, // identifier != null
                     SyntaxKind.VariableDeclarator, // object _fieldIdentifier = null; object localVariableIdentifier = null;
                     SyntaxKind.ConditionalAccessExpression, // identifier?.Something;
-                    SyntaxKind.CoalesceExpression // identifier ?? something;
+                    SyntaxKind.CoalesceExpression, // identifier ?? something;
+                    SyntaxKind.Parameter // object parameter = null;
                 )
                 .Select(GetNullableIdentifierSymbol)
                 .Where(symbol => symbol?.IsImplicitlyDeclared == false)
@@ -326,11 +327,16 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Anal
                             ? semanticModel.GetSymbolInfo(conditionalAccess.Expression).Symbol
                             : null;
 
+                    case ParameterSyntax parameter:
+                        return IsSurelyNullable(parameter.Default?.Value)
+                            ? semanticModel.GetDeclaredSymbol(parameter)
+                            : null;
+
                     default: return null;
                 }
 
                 // (BDW, "Surely" is a bit too strong word here since default expression will
-                //  be surely evaluated to null only for reference types.)
+                //  be _surely_ evaluated to null only for reference types.)
                 bool IsSurelyNullable(SyntaxNode potentiallyNullableNode)
                 {
                     // We do not do any data flow analysis here, of course :-)
