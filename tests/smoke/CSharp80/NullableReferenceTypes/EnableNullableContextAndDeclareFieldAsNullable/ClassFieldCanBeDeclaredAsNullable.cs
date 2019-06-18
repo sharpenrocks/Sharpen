@@ -1,6 +1,6 @@
 ﻿// ReSharper disable All
 
-// Expected number of suggestions: 55
+// Expected number of suggestions: 58
 
 namespace CSharp80.NullableReferenceTypes.EnableNullableContextAndDeclareFieldAsNullable
 {
@@ -131,6 +131,13 @@ namespace CSharp80.NullableReferenceTypes.EnableNullableContextAndDeclareFieldAs
             ClassWithNullableFields.StaticAssignedResultOfAsOperator = assignedNull as string;
             ClassWithNullableFields.StaticUsedInConditionalAccess?.Length.ToString();
             dummy = ClassWithNullableFields.StaticUsedInCoalesceExpression ?? string.Empty;
+
+            var anotherClassWithFields = new ClassWithNullableFields
+            {
+                intializedToDefaultInInitializationList = default,
+                intializedToNullInInitializationList = null,
+                intializedToResultOfAsOperatorInInitializationList = string.Empty as string
+            };
         }
     }
 
@@ -146,6 +153,10 @@ namespace CSharp80.NullableReferenceTypes.EnableNullableContextAndDeclareFieldAs
         public string assignedResultOfAsOperator;
         public string usedInConditionalAccess;
         public string usedInCoalesceExpression;
+
+        public string intializedToDefaultInInitializationList;
+        public string intializedToNullInInitializationList;
+        public string intializedToResultOfAsOperatorInInitializationList;
 
         public static string StaticAssignedNull;
         public static string StaticComparedEqualToNullOnLeft;

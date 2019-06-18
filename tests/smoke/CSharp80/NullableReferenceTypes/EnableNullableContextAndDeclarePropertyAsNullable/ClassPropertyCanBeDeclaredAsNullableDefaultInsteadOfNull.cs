@@ -1,6 +1,6 @@
 ﻿// ReSharper disable All
 
-// Expected number of suggestions: 52 (at the moment 49 until we implement the case with initialization: Property { get; set; } = default)
+// Expected number of suggestions: 52
 
 namespace CSharp80.NullableReferenceTypes.EnableNullableContextAndDeclarePropertyAsNullable
 {

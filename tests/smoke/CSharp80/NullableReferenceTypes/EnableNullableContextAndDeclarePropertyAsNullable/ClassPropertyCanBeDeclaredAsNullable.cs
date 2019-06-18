@@ -1,6 +1,6 @@
 ﻿// ReSharper disable All
 
-// Expected number of suggestions: 52 (at the moment 49 until we implement the case with initialization: Property { get; set; } = null)
+// Expected number of suggestions: 55
 
 namespace CSharp80.NullableReferenceTypes.EnableNullableContextAndDeclarePropertyAsNullable
 {
@@ -126,6 +126,13 @@ namespace CSharp80.NullableReferenceTypes.EnableNullableContextAndDeclarePropert
             ClassWithNullableProperties.StaticAssignedResultOfAsOperator = AssignedNull as string;
             ClassWithNullableProperties.StaticUsedInConditionalAccess?.Length.ToString();
             dummy = ClassWithNullableProperties.StaticUsedInCoalesceExpression ?? string.Empty;
+
+            var anotherClassWithFields = new ClassWithNullableProperties
+            {
+                IntializedToDefaultInInitializationList = default,
+                IntializedToNullInInitializationList = null,
+                IntializedToResultOfAsOperatorInInitializationList = string.Empty as string
+            };
         }
     }
 
@@ -141,6 +148,10 @@ namespace CSharp80.NullableReferenceTypes.EnableNullableContextAndDeclarePropert
         public string AssignedResultOfAsOperator { get; set; }
         public string UsedInConditionalAccess { get; set; }
         public string UsedInCoalesceExpression { get; set; }
+
+        public string IntializedToDefaultInInitializationList { get; set; }
+        public string IntializedToNullInInitializationList { get; set; }
+        public string IntializedToResultOfAsOperatorInInitializationList { get; set; }
 
         public static string StaticAssignedNull { get; set; }
         public static string StaticComparedEqualToNullOnLeft { get; set; }

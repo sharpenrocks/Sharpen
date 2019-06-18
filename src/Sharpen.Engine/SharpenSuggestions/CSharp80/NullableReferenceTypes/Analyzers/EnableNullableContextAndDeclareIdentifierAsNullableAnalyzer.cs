@@ -27,20 +27,12 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Anal
 
         public IEnumerable<AnalysisResult> Analyze(SyntaxTree syntaxTree, SemanticModel semanticModel, SingleSyntaxTreeAnalysisContext analysisContext)
         {
-            // TODO: At the moment, if an identifier is used in different syntaxTrees
-            //       (very very very likely :-)) it will be reported several times in
-            //       the result, once per syntax tree. So far we can live with that.
-            //       Implement proper removal of duplicates.
-
             // TODO: What to do when a variable is declared by using the var keyword?
+            //       var? does not work at the moment.
             //       At the moment we will simply pretend that the feature is there.
             //       It is planned and will be implemented one day.
             return syntaxTree.GetRoot()
                 .DescendantNodes()
-                // TODO: Parameter declaration with null as default value: string parameter = null.
-                // TODO: Variable declaration with initialization to null: string variable = null.
-                // TODO: Property declaration with initialization to null: public string Property { get; } = null.
-                // TODO: Property and field initializers in constructors e.g. new X { Property = null, field = null }.
                 // TODO: Property getters with return null;
                 // TODO: What about indexers?
                 .OfAnyOfKinds
@@ -51,7 +43,8 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Anal
                     SyntaxKind.VariableDeclarator, // object _fieldIdentifier = null; object localVariableIdentifier = null;
                     SyntaxKind.ConditionalAccessExpression, // identifier?.Something;
                     SyntaxKind.CoalesceExpression, // identifier ?? something;
-                    SyntaxKind.Parameter // object parameter = null;
+                    SyntaxKind.Parameter, // object parameter = null;
+                    SyntaxKind.PropertyDeclaration // object Property { get; set; } = null;
                 )
                 .Select(GetNullableIdentifierSymbol)
                 .Where(symbol => symbol?.IsImplicitlyDeclared == false)
@@ -330,6 +323,11 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Anal
                     case ParameterSyntax parameter:
                         return IsSurelyNullable(parameter.Default?.Value)
                             ? semanticModel.GetDeclaredSymbol(parameter)
+                            : null;
+
+                    case PropertyDeclarationSyntax propertyDeclaration:
+                        return IsSurelyNullable(propertyDeclaration.Initializer?.Value)
+                            ? semanticModel.GetDeclaredSymbol(propertyDeclaration)
                             : null;
 
                     default: return null;
