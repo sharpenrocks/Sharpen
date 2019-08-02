@@ -12,6 +12,7 @@ namespace Sharpen.Engine
 
         public ISharpenSuggestion Suggestion { get; }
 
+        public bool IsApplicableOnCurrentLanguageVersion { get; set; } = true;
         // This will change for sure as soon as we introduce analysis that goes beyond a single syntax tree.
         // But so far so good :-)
         public SingleSyntaxTreeAnalysisContext AnalysisContext { get; } 

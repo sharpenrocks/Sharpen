@@ -1,4 +1,6 @@
 ﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using System.Collections.Generic;
 
 namespace Sharpen.Engine.Analysis
 {
@@ -19,6 +21,9 @@ namespace Sharpen.Engine.Analysis
         /// </summary>
         public string LogicalFolderPath { get; }
 
+        public LanguageVersion LanguageVersion { get; }
+
+       
         // To be used in unit tests only.
         internal SingleSyntaxTreeAnalysisContext(string projectName, string logicalFolderPath)
         {
@@ -28,7 +33,9 @@ namespace Sharpen.Engine.Analysis
 
         public SingleSyntaxTreeAnalysisContext(Document document)
         {
+
             ProjectName = document.Project.Name;
+            LanguageVersion =  ((CSharpParseOptions)document.Project.ParseOptions).LanguageVersion;
             // TODO-PERF: Create a logical folder path string only once.
             //            There are usually several or even many documents that share the same logical folder.
             //            Right now, a new string with the same content will be create for each of such documents.

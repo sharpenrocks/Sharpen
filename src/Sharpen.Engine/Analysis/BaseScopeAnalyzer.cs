@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Sharpen.Engine.Extensions.CodeDetection;
 using Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Suggestions;
 
@@ -11,6 +12,7 @@ namespace Sharpen.Engine.Analysis
 {
     public abstract class BaseScopeAnalyzer : IScopeAnalyzer
     {
+        
         // We want to avoid creation of a huge number of temporary Action objects
         // while invoking Parallel.Invoke().
         // That's why we create these Action objects in advance and at the beginning
@@ -22,6 +24,15 @@ namespace Sharpen.Engine.Analysis
                 {
                     foreach (var analysisResult in analyzer.Analyze(syntaxTree, semanticModel, analysisContext))
                     {
+                        if ((analyzer as ISharpenSuggestion) != null)
+                        {
+                            var suggestionLanguageVersion = Convert.ToInt64(Convert.ToDouble(((ISharpenSuggestion)analyzer).MinimumLanguageVersion));
+                            if (suggestionLanguageVersion > (int)analysisContext.LanguageVersion)
+                            {
+                                analysisResult.IsApplicableOnCurrentLanguageVersion = false;
+                            }
+
+                        }
                         results.Add(analysisResult);
                         // TODO-IG: Remove this workaround once the whole analysis stuff is refactored.
                         if (analysisResult.Suggestion is BaseEnableNullableContextAndDeclareIdentifierAsNullableSuggestion)
