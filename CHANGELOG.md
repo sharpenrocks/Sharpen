@@ -3,6 +3,10 @@ All notable changes to the "Sharpen" extension will be documented in this file.
 
 The format of the file is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased]
+### Added
+- "Learn more..." link to MSDN documentation on language features in the Sharpen Results view.
+
 ## [0.9.0] - 2019-06-14
 ### Added
 - "Consider replacing using statement with using declaration" suggestion.

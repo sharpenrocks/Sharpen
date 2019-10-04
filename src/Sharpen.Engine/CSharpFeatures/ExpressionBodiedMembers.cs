@@ -11,6 +11,8 @@ namespace Sharpen.Engine.CSharpFeatures
 
         public string FriendlyName { get; } = "Expression-bodied members";
 
+        public string LearnMoreUrl => "https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members";
+
         public static readonly ExpressionBodiedMembers Instance = new ExpressionBodiedMembers();
     }
 }

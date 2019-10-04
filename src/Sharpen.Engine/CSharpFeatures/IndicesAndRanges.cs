@@ -11,6 +11,8 @@ namespace Sharpen.Engine.CSharpFeatures
 
         public string FriendlyName { get; } = "Indices and ranges";
 
+        public string LearnMoreUrl => "https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/ranges-indexes";
+
         public static readonly IndicesAndRanges Instance = new IndicesAndRanges();
     }
 }

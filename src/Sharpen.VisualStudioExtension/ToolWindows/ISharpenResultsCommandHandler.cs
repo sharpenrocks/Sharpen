@@ -12,5 +12,6 @@ namespace Sharpen.VisualStudioExtension.ToolWindows
     internal interface ISharpenResultsCommandHandler
     {
         void OpenResultFile(string filePath, FileLinePositionSpan position);
+        void OpenLearnMoreUrl(string url, bool openInExternalBrowser);
     }
 }

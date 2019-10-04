@@ -27,6 +27,11 @@ namespace Sharpen.VisualStudioExtension.ToolWindows
             OpenResultFile((TreeView)sender);
         }
 
+        private void OnLearnMoreRequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+
+        }
+
         private void OpenResultFile(TreeView resultsTreeView)
         {
             if (resultsTreeView.SelectedItem is SingleSuggestionTreeViewItem singleSuggestion)

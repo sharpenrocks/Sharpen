@@ -25,11 +25,12 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
 
         // TODO-DESIGN: Refactor the constructor parameters once when we see which need the upcoming builders have.
         // Only the leaf nodes will have the analysis result set.
-        protected BaseTreeViewItem(BaseTreeViewItem parent, IAnalysisResultTreeViewBuilder treeViewBuilder, int numberOfItems, /* See [1]. */ string text)
+        protected BaseTreeViewItem(BaseTreeViewItem parent, IAnalysisResultTreeViewBuilder treeViewBuilder, int numberOfItems, /* See [1]. */ string text, string learnMoreUrl)
         {
             this.treeViewBuilder = treeViewBuilder;
             this.text = text;
 
+            LearnMoreUrl = learnMoreUrl;
             Parent = parent;
             NumberOfItems = numberOfItems == 0 ? null : numberOfItems == 1 ? $"({numberOfItems} item)" : $"({numberOfItems} items)";
 
@@ -59,7 +60,7 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
                                                 $"The derived class {GetType().Name} sets the text parameter to null but does not override the {nameof(GetText)}() method.");
         }
 
-        public string NumberOfItems { get; protected set; }
+        public string NumberOfItems { get; }
 
         private bool isExpanded;
         public bool IsExpanded
@@ -99,7 +100,8 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
             }
         }
 
-        public BaseTreeViewItem Parent { get; }        
+        public BaseTreeViewItem Parent { get; }
+        public string LearnMoreUrl { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -8,7 +8,7 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
         public AnalysisResult AnalysisResult { get; }
 
         public SingleSuggestionTreeViewItem(BaseTreeViewItem parent, IAnalysisResultTreeViewBuilder treeViewBuilder, AnalysisResult analysisResult)
-            : base(parent, treeViewBuilder, 0, null)
+            : base(parent, treeViewBuilder, 0, null, null)
         {
             AnalysisResult = analysisResult;
         }

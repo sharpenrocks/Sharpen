@@ -16,5 +16,11 @@ namespace Sharpen.Engine
         /// The widely accepted name for the feature.
         /// </summary>
         string FriendlyName { get; }
+
+        /// <summary>
+        /// The URL of the external website where one can
+        /// learn more about the language feature.
+        /// </summary>
+        string LearnMoreUrl { get; }
     }
 }

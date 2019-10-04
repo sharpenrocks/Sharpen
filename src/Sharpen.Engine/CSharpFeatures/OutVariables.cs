@@ -11,6 +11,8 @@ namespace Sharpen.Engine.CSharpFeatures
 
         public string FriendlyName { get; } = "Out variables";
 
+        public string LearnMoreUrl => "https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/out-parameter-modifier#calling-a-method-with-an-out-argument";
+
         public static readonly OutVariables Instance = new OutVariables();
     }
 }

@@ -13,7 +13,7 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
         public string ProjectName => analysisContext.ProjectName;
 
         public FilePathTreeViewItem(BaseTreeViewItem parent, IAnalysisResultTreeViewBuilder treeViewBuilder, int numberOfItems, SingleSyntaxTreeAnalysisContext analysisContext, string filePath)
-            : base(parent, treeViewBuilder, numberOfItems, null)
+            : base(parent, treeViewBuilder, numberOfItems, null, null)
         {
             this.analysisContext = analysisContext;
             FilePath = filePath;

@@ -93,8 +93,22 @@
                                        Visibility="{Binding NumberOfItems, Converter={StaticResource NullToCollapsedConverter}}"
                                        Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}, Path=Foreground}"
                                        FontStyle="Italic"
-                                       Margin="4,0,0,0"/>
+                                       Padding="4,0,0,0"/>
+                            <TextBlock x:Name="LearnMore"
+                                       Visibility="Collapsed"
+                                       Padding="4,0,0,0" >
+                                <Hyperlink NavigateUri="{Binding LearnMoreUrl}" 
+                                           Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}, Path=Foreground}" 
+                                           RequestNavigate="OnLearnMoreRequestNavigate">
+                                    Learn more...
+                                </Hyperlink>
+                            </TextBlock>
                         </StackPanel>
+                        <HierarchicalDataTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="LearnMore" Property="Visibility" Value="{Binding LearnMoreUrl, Converter={StaticResource NullToCollapsedConverter}}"/>
+                            </Trigger>
+                        </HierarchicalDataTemplate.Triggers>
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
             </TreeView>

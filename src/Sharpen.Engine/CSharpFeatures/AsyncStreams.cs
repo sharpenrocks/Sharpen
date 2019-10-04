@@ -11,6 +11,8 @@ namespace Sharpen.Engine.CSharpFeatures
 
         public string FriendlyName { get; } = "Async streams";
 
+        public string LearnMoreUrl => "https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-8#asynchronous-streams";
+
         public static readonly AsyncStreams Instance = new AsyncStreams();
     }
 }

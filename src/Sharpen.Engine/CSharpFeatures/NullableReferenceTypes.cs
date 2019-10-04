@@ -11,6 +11,8 @@ namespace Sharpen.Engine.CSharpFeatures
 
         public string FriendlyName { get; } = "Nullable reference types";
 
+        public string LearnMoreUrl => "https://docs.microsoft.com/en-us/dotnet/csharp/nullable-references";
+
         public static readonly NullableReferenceTypes Instance = new NullableReferenceTypes();
     }
 }

@@ -11,6 +11,8 @@ namespace Sharpen.Engine.CSharpFeatures
 
         public string FriendlyName { get; } = "Using declarations";
 
+        public string LearnMoreUrl => "https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-8#using-declarations";
+
         public static readonly UsingDeclarations Instance = new UsingDeclarations();
     }
 }

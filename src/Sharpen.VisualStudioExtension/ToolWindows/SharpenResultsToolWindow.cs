@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using EnvDTE;
@@ -28,6 +29,14 @@ namespace Sharpen.VisualStudioExtension.ToolWindows
         public override void OnToolWindowCreated()
         {
             dte = (DTE)GetService(typeof(DTE));
+        }
+
+        public void OpenLearnMoreUrl(string url, bool openInExternalBrowser)
+        {
+            if (openInExternalBrowser)
+                System.Diagnostics.Process.Start(url);
+            else
+                dte.ItemOperations.Navigate(url, vsNavigateOptions.vsNavigateOptionsNewWindow);
         }
 
         public void OpenResultFile(string filePath, FileLinePositionSpan position)

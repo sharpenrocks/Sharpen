@@ -8,7 +8,7 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
         public ICSharpFeature Feature { get; }
 
         public CSharpFeatureTreeViewItem(BaseTreeViewItem parent, IAnalysisResultTreeViewBuilder treeViewBuilder, int numberOfItems, ICSharpFeature feature)
-            : base(parent, treeViewBuilder, numberOfItems, feature.FriendlyName)
+            : base(parent, treeViewBuilder, numberOfItems, feature.FriendlyName, feature.LearnMoreUrl)
         {
             Feature = feature;
         }
