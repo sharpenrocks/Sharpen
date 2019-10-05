@@ -100,7 +100,7 @@
                                 <Hyperlink NavigateUri="{Binding LearnMoreUrl}" 
                                            Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}, Path=Foreground}" 
                                            RequestNavigate="OnLearnMoreRequestNavigate">
-                                    Learn more...
+                                           <TextBlock Text="{Binding LearnMoreDisplayText}" />
                                 </Hyperlink>
                             </TextBlock>
                         </StackPanel>

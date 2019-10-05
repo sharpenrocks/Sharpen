@@ -5,6 +5,7 @@ The format of the file is based on [Keep a Changelog](http://keepachangelog.com/
 
 ## [Unreleased]
 ### Added
+- "What is/was new in C# X.Y?" link to MSDN documentation on C# version in the Sharpen Results view.
 - "Learn more..." link to MSDN documentation on language features in the Sharpen Results view.
 
 ## [0.9.0] - 2019-06-14

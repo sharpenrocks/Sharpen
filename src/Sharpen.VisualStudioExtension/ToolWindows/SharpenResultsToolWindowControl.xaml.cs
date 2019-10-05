@@ -29,7 +29,8 @@ namespace Sharpen.VisualStudioExtension.ToolWindows
 
         private void OnLearnMoreRequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
-
+            bool openInExternalBrowser = Keyboard.Modifiers == ModifierKeys.Control;
+            commandHandler.OpenLearnMoreUrl(e.Uri.AbsoluteUri, openInExternalBrowser);
         }
 
         private void OpenResultFile(TreeView resultsTreeView)
