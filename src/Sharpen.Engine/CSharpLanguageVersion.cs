@@ -21,7 +21,7 @@
                 case CSharp60: return "https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-60";
                 case CSharp70: return "https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7";
                 case CSharp71: return "https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7-1";
-                case CSharp80: return "https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-8#using-declarations";
+                case CSharp80: return "https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-8";
                 default: return null;
             }
         }
