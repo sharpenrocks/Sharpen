@@ -9,6 +9,7 @@ using Sharpen.Engine.SharpenSuggestions.CSharp80.AsyncStreams.Analyzers;
 using Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Analyzers;
 using Sharpen.Engine.SharpenSuggestions.CSharp80.SwitchExpressions.Analyzers;
 using Sharpen.Engine.SharpenSuggestions.CSharp80.UsingDeclarations.Analyzers;
+using Sharpen.Engine.SharpenSuggestions.CSharp80.NullCoalescingAssignments.Analyzers;
 
 namespace Sharpen.Engine.Analysis
 {
@@ -61,7 +62,8 @@ namespace Sharpen.Engine.Analysis
             EnableNullableContextAndDeclareIdentifierAsNullableAnalyzer.Instance,
             ConsiderAwaitingEquivalentAsynchronousMethodAndYieldingIAsyncEnumerableAnalyzer.Instance,
             ReplaceUsingStatementWithUsingDeclarationAnalyzer.Instance,
-            ReplaceSwitchStatementWithSwitchExpressionAnalyzer.Instance
+            ReplaceSwitchStatementWithSwitchExpressionAnalyzer.Instance,
+            UseNullCoalescingAssignmentOperatorInsteadOfAssigningResultOfTheNullCoalescingOperatorAnalyzer.Instance
         };
     }
 }
