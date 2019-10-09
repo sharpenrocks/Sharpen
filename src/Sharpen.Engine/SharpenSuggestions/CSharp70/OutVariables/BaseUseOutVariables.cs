@@ -93,6 +93,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70.OutVariables
             //    anywhere in code after the out argument.
 
             var localVariableSymbol = semanticModel.GetSymbolInfo(outArgumentIdentifier).Symbol;
+            if (localVariableSymbol == null) return false;
             var localVariableTextSpan = variableDeclarator.Identifier.Span;
             var outArgumentTextSpan = outArgumentIdentifier.Span;
 
@@ -107,7 +108,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70.OutVariables
                     identifier.Identifier.ValueText == outVariableName &&
                     identifier.Span != localVariableTextSpan && // It is not the declaration of the local variable itself.
                     identifier != outArgumentIdentifier && // It is not the out argument itself.
-                    semanticModel.GetSymbolInfo(identifier).Symbol.Equals(localVariableSymbol)
+                    semanticModel.GetSymbolInfo(identifier).Symbol?.Equals(localVariableSymbol) == true
                 )
                 .ToList();
 
