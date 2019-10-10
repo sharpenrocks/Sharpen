@@ -5,7 +5,7 @@ using Sharpen.Engine.SharpenSuggestions.CSharp60.NameofExpressions;
 using Sharpen.Engine.SharpenSuggestions.CSharp70.ExpressionBodiedMembers;
 using Sharpen.Engine.SharpenSuggestions.CSharp70.OutVariables;
 using Sharpen.Engine.SharpenSuggestions.CSharp71.DefaultExpressions;
-using Sharpen.Engine.SharpenSuggestions.CSharp80.AsyncStreams.Analyzers;
+using Sharpen.Engine.SharpenSuggestions.CSharp80.AsynchronousStreams.Analyzers;
 using Sharpen.Engine.SharpenSuggestions.CSharp80.NullableReferenceTypes.Analyzers;
 using Sharpen.Engine.SharpenSuggestions.CSharp80.SwitchExpressions.Analyzers;
 using Sharpen.Engine.SharpenSuggestions.CSharp80.UsingDeclarations.Analyzers;
