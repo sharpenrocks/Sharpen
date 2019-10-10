@@ -5,6 +5,8 @@ The format of the file is based on [Keep a Changelog](http://keepachangelog.com/
 
 ## [Unreleased]
 ### Added
+- "Consider using ??= operator instead of assigning result of the ?? operator" suggestion.
+- "Use ??= operator instead of assigning result of the ?? operator" suggestion.
 - "What is/was new in C# X.Y?" link to MSDN documentation on C# version in the Sharpen Results view.
 - "Learn more..." link to MSDN documentation on language features in the Sharpen Results view.
 
