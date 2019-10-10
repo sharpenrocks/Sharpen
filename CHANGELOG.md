@@ -3,7 +3,7 @@ All notable changes to the "Sharpen" extension will be documented in this file.
 
 The format of the file is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased]
+## [0.10.0] - 2019-10-10
 ### Added
 - "Consider using ??= operator instead of assigning result of the ?? operator" suggestion.
 - "Use ??= operator instead of assigning result of the ?? operator" suggestion.
