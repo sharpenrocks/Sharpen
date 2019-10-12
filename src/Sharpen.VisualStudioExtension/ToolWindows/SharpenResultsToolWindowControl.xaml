@@ -61,7 +61,7 @@
                       MouseDoubleClick="OnResultTreeViewMouseDoubleClick"
                       KeyUp="OnResultTreeViewKeyUp">
                 <TreeView.Resources>
-                  <!-- Override the colors used by the item container style with the VS colors -->
+                  <!-- Override the colors used by the item container style with the VS colors. -->
                   <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{DynamicResource {x:Static vsp:TreeViewColors.SelectedItemActiveColorKey}}" />
                   <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="{DynamicResource {x:Static vsp:TreeViewColors.SelectedItemActiveTextColorKey}}" />
                   <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="{DynamicResource {x:Static vsp:TreeViewColors.SelectedItemInactiveColorKey}}" />
@@ -89,7 +89,8 @@
                                        Padding="4,0,0,0" >
                                 <Hyperlink NavigateUri="{Binding LearnMoreUrl}" 
                                            RequestNavigate="OnLearnMoreRequestNavigate"
-                                           Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}, Path=Foreground}">
+                                           Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}, Path=Foreground}"
+                                           Focusable="False">
                                     <Run Text="{Binding LearnMoreDisplayText, Mode=OneWay}" />
                                 </Hyperlink>
                             </TextBlock>
