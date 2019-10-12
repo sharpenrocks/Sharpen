@@ -3,6 +3,11 @@ All notable changes to the "Sharpen" extension will be documented in this file.
 
 The format of the file is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [0.10.1] - 2019-10-12
+### Fixed
+- Navigating with keyboard (up, down, left, right, ...) does not work in the Sharpen Results view (#29).
+- Selected text in the Sharpen Results view is unreadable when the view loses focus (#28).
+
 ## [0.10.0] - 2019-10-10
 ### Added
 - "Consider using ??= operator instead of assigning result of the ?? operator" suggestion.
