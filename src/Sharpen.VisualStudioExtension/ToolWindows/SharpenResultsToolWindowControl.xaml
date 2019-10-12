@@ -88,7 +88,8 @@
                                        Visibility="Collapsed"
                                        Padding="4,0,0,0" >
                                 <Hyperlink NavigateUri="{Binding LearnMoreUrl}" 
-                                           RequestNavigate="OnLearnMoreRequestNavigate">
+                                           RequestNavigate="OnLearnMoreRequestNavigate"
+                                           Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}, Path=Foreground}">
                                     <Run Text="{Binding LearnMoreDisplayText, Mode=OneWay}" />
                                 </Hyperlink>
                             </TextBlock>
