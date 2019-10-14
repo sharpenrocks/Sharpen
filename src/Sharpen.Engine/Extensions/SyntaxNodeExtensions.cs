@@ -273,5 +273,84 @@ namespace Sharpen.Engine.Extensions
                                                    syntaxNode.IsKind(seventhKind) ||
                                                    syntaxNode.IsKind(eightKind));
         }
+
+        public static bool IsLeftSideOfAssignExpression(this SyntaxNode node)
+        {
+            return node.IsParentKind(SyntaxKind.SimpleAssignmentExpression) &&
+                ((AssignmentExpressionSyntax)node.Parent).Left == node;
+        }
+
+        public static bool IsParentKind(this SyntaxNode node, SyntaxKind kind)
+            => node.Parent?.IsKind(kind) == true;
+
+        public static bool IsThisExpression(this SyntaxNode node)
+            => node.IsKind(SyntaxKind.ThisExpression);
+
+        public static bool IsBaseExpression(this SyntaxNode node)
+            => node.IsKind(SyntaxKind.BaseExpression);
+
+        public static bool IsIdentifierName(this SyntaxNode node)
+            => node.IsKind(SyntaxKind.IdentifierName);
+
+        public static bool IsParenthesizedExpression(this SyntaxNode node)
+            => node.IsKind(SyntaxKind.ParenthesizedExpression);
+
+        public static bool IsSimpleMemberAccessExpression(this SyntaxNode node)
+            // TODO: Taken over from CSharpSyntaxFactsService.cs. Why such a strange implementation? Check it.
+            => (node as MemberAccessExpressionSyntax)?.Kind() == SyntaxKind.SimpleMemberAccessExpression;
+
+        public static bool IsConditionalAccessExpression(this SyntaxNode node)
+            // TODO: Can it be implemented by using SyntaxKinds?
+            => node is ConditionalAccessExpressionSyntax;
+
+        public static bool IsObjectInitializerNamedAssignmentIdentifier(this SyntaxNode node)
+            => IsObjectInitializerNamedAssignmentIdentifier(node, out _);
+
+        public static bool IsObjectInitializerNamedAssignmentIdentifier(this SyntaxNode node, out SyntaxNode initializedInstance)
+        {
+            initializedInstance = null;
+            if (node is IdentifierNameSyntax identifier &&
+                identifier.IsLeftSideOfAssignExpression() &&
+                identifier.Parent.IsParentKind(SyntaxKind.ObjectInitializerExpression))
+            {
+                var objectInitializer = identifier.Parent.Parent;
+                if (objectInitializer.IsParentKind(SyntaxKind.ObjectCreationExpression))
+                {
+                    initializedInstance = objectInitializer.Parent;
+                    return true;
+                }
+                else if (objectInitializer.IsParentKind(SyntaxKind.SimpleAssignmentExpression))
+                {
+                    initializedInstance = ((AssignmentExpressionSyntax)objectInitializer.Parent).Left;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static void GetPartsOfParenthesizedExpression(this SyntaxNode node, out SyntaxToken openParen, out SyntaxNode expression, out SyntaxToken closeParen)
+        {
+            var parenthesizedExpression = (ParenthesizedExpressionSyntax)node;
+            openParen = parenthesizedExpression.OpenParenToken;
+            expression = parenthesizedExpression.Expression;
+            closeParen = parenthesizedExpression.CloseParenToken;
+        }
+
+        public static void GetPartsOfMemberAccessExpression(this SyntaxNode node, out SyntaxNode expression, out SyntaxToken operatorToken, out SyntaxNode name)
+        {
+            var memberAccess = (MemberAccessExpressionSyntax)node;
+            expression = memberAccess.Expression;
+            operatorToken = memberAccess.OperatorToken;
+            name = memberAccess.Name;
+        }
+
+        public static void GetPartsOfConditionalAccessExpression(this SyntaxNode node, out SyntaxNode expression, out SyntaxToken operatorToken, out SyntaxNode whenNotNull)
+        {
+            var conditionalAccess = (ConditionalAccessExpressionSyntax)node;
+            expression = conditionalAccess.Expression;
+            operatorToken = conditionalAccess.OperatorToken;
+            whenNotNull = conditionalAccess.WhenNotNull;
+        }
     }
 }

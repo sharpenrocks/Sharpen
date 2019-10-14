@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CSharp80.AsyncStreams.ConsiderAwaitingEquivalentAsynchronousMethodAndYieldingIAsyncEnumerable
+namespace CSharp80.AsynchronousStreams.ConsiderAwaitingEquivalentAsynchronousMethodAndYieldingIAsyncEnumerable
 {
     public class MethodsThatHaveEquivalentAsynchronousMethod
     {

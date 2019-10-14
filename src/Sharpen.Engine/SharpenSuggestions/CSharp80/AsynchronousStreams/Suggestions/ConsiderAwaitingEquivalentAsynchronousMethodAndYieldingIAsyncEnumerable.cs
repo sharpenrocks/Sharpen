@@ -1,4 +1,4 @@
-﻿namespace Sharpen.Engine.SharpenSuggestions.CSharp80.AsyncStreams.Suggestions
+﻿namespace Sharpen.Engine.SharpenSuggestions.CSharp80.AsynchronousStreams.Suggestions
 {
     // TODO-IG: This class is not used at the moment because the analyzer
     //          is implemented using the "old" approach because we wanted
@@ -11,7 +11,7 @@
 
         public string MinimumLanguageVersion { get; } = CSharpLanguageVersions.CSharp80;
 
-        public ICSharpFeature LanguageFeature { get; } = CSharpFeatures.AsyncStreams.Instance;
+        public ICSharpFeature LanguageFeature { get; } = CSharpFeatures.AsynchronousStreams.Instance;
 
         public string FriendlyName { get; } = "Consider awaiting equivalent asynchronous method and yielding IAsyncEnumerable";
 

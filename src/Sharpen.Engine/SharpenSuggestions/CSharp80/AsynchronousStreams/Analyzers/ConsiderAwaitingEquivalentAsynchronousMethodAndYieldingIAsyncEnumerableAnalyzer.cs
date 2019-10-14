@@ -1,7 +1,7 @@
 ﻿using Sharpen.Engine.SharpenSuggestions.Common.AsyncAwaitAndAsyncStreams;
 using static Sharpen.Engine.SharpenSuggestions.Common.AsyncAwaitAndAsyncStreams.EquivalentAsynchronousMethodFinder;
 
-namespace Sharpen.Engine.SharpenSuggestions.CSharp80.AsyncStreams.Analyzers
+namespace Sharpen.Engine.SharpenSuggestions.CSharp80.AsynchronousStreams.Analyzers
 {
     internal sealed class ConsiderAwaitingEquivalentAsynchronousMethodAndYieldingIAsyncEnumerableAnalyzer : BaseAwaitingEquivalentAsynchronousMethod
     {
@@ -9,7 +9,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.AsyncStreams.Analyzers
 
         public override string MinimumLanguageVersion { get; } = CSharpLanguageVersions.CSharp80;
 
-        public override ICSharpFeature LanguageFeature { get; } = CSharpFeatures.AsyncStreams.Instance;
+        public override ICSharpFeature LanguageFeature { get; } = CSharpFeatures.AsynchronousStreams.Instance;
 
         public override string FriendlyName { get; } = "Consider awaiting equivalent asynchronous method and yielding IAsyncEnumerable";
 

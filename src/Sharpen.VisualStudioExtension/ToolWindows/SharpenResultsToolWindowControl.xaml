@@ -60,50 +60,41 @@
                       Background="{DynamicResource VsBrush.Window}"
                       MouseDoubleClick="OnResultTreeViewMouseDoubleClick"
                       KeyUp="OnResultTreeViewKeyUp">
+                <TreeView.Resources>
+                  <!-- Override the colors used by the item container style with the VS colors. -->
+                  <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{DynamicResource {x:Static vsp:TreeViewColors.SelectedItemActiveColorKey}}" />
+                  <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="{DynamicResource {x:Static vsp:TreeViewColors.SelectedItemActiveTextColorKey}}" />
+                  <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="{DynamicResource {x:Static vsp:TreeViewColors.SelectedItemInactiveColorKey}}" />
+                  <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="{DynamicResource {x:Static vsp:TreeViewColors.SelectedItemInactiveTextColorKey}}" />
+                </TreeView.Resources>
                 <TreeView.ItemContainerStyle>
                     <Style TargetType="{x:Type TreeViewItem}">
                         <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
                         <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
                         <Setter Property="Foreground" Value="{DynamicResource VsBrush.WindowText}" />
                         <Setter Property="FontWeight" Value="Normal" />
-                        <Style.Triggers>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter Property="Background" Value="{DynamicResource {x:Static vsp:TreeViewColors.SelectedItemActiveBrushKey}}" />
-                                <Setter Property="Foreground" Value="{DynamicResource {x:Static vsp:TreeViewColors.SelectedItemActiveTextBrushKey}}" />
-                            </Trigger>
-                            <!-- Selected but not active (treeview control is not focused). -->
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="IsSelected" Value="True" />
-                                    <Condition Property="Selector.IsSelectionActive" Value="False" />
-                                </MultiTrigger.Conditions>
-                                <Setter Property="Background" Value="{DynamicResource {x:Static vsp:TreeViewColors.SelectedItemInactiveBrushKey}}" />
-                                <Setter Property="Foreground" Value="{DynamicResource {x:Static vsp:TreeViewColors.SelectedItemInactiveTextBrushKey}}" />
-                            </MultiTrigger>
-                        </Style.Triggers>
                     </Style>
                 </TreeView.ItemContainerStyle>
 
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Children}">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Text}"
-                                       Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}, Path=Foreground}" />
-                            <TextBlock Text="{Binding NumberOfItems}"
+                            <TextBlock Text="{Binding Text}"  />
+                            <TextBlock Text="{Binding NumberOfItems}" 
                                        Visibility="{Binding NumberOfItems, Converter={StaticResource NullToCollapsedConverter}}"
-                                       Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}, Path=Foreground}"
                                        FontStyle="Italic"
                                        Padding="4,0,0,0"/>
                             <TextBlock x:Name="LearnMore"
                                        Visibility="Collapsed"
                                        Padding="4,0,0,0" >
                                 <Hyperlink NavigateUri="{Binding LearnMoreUrl}" 
-                                           Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}, Path=Foreground}" 
-                                           RequestNavigate="OnLearnMoreRequestNavigate">
-                                           <TextBlock Text="{Binding LearnMoreDisplayText}" />
+                                           RequestNavigate="OnLearnMoreRequestNavigate"
+                                           Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}, Path=Foreground}"
+                                           Focusable="False">
+                                    <Run Text="{Binding LearnMoreDisplayText, Mode=OneWay}" />
                                 </Hyperlink>
                             </TextBlock>
-                        </StackPanel>
+                          </StackPanel>
                         <HierarchicalDataTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="LearnMore" Property="Visibility" Value="{Binding LearnMoreUrl, Converter={StaticResource NullToCollapsedConverter}}"/>
