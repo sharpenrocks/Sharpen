@@ -82,7 +82,7 @@ namespace Sharpen.VisualStudioExtension
         public async Task RunScopeAnalysisAsync(IScopeAnalyzer scopeAnalyzer)
         {
             if (AnalysisIsRunning)
-                throw new InvalidOperationException("An analysis is already running. You cannot run a new analysis until the current one is not finished.");
+                throw new InvalidOperationException("An analysis is already running. You cannot run a new analysis until the current one is finished.");
 
             AnalysisResults = Enumerable.Empty<BaseTreeViewItem>();
 
