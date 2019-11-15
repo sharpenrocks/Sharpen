@@ -79,10 +79,10 @@ namespace AboutLayoutTest
         private async Task SetVSMarketplaceDataAsync()
         {
             var response = await GetMarketplaceDataAsync();
-            var json = SimpleJson.DeserializeObject(response.Content);
+            var json = (JsonObject)SimpleJson.DeserializeObject(response.Content);
             var numberOfInstalls = 5;
             var numberOfReviews = 12;
-            double rating = 2.75;
+            double rating = 2.74;
             var span = new System.Windows.Documents.Span()
             {
                 ToolTip = $"{rating}/5"
@@ -90,10 +90,15 @@ namespace AboutLayoutTest
 
             for (int i = 1; i <= 5; i++)
             {
-                if (i <= rating || (i - 1 < rating && (rating%1)*100 >= 75))
+                if ((int)rating >= i)
                     span.Inlines.Add(new Image() { Source = ((Image)FindResource("FullStar")).Source });
-                else if (rating > i && rating < i + 1 && (rating % 1) * 100 >= 25)
-                    span.Inlines.Add(new Image() { Source = ((Image)FindResource("HalfStar")).Source });
+                else if ((int)rating + 1 == i)
+                    if ((rating % 1) * 100 >= 75)
+                        span.Inlines.Add(new Image() { Source = ((Image)FindResource("FullStar")).Source });
+                    else if ((rating % 1) * 100 >= 25)
+                        span.Inlines.Add(new Image() { Source = ((Image)FindResource("HalfStar")).Source });
+                    else
+                        span.Inlines.Add(new Image() { Source = ((Image)FindResource("NoStar")).Source });
                 else
                     span.Inlines.Add(new Image() { Source = ((Image)FindResource("NoStar")).Source });
             }
