@@ -1,0 +1,90 @@
+﻿<Window x:Class="AboutLayoutTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AboutLayoutTest"
+        mc:Ignorable="d"
+        Title="About Sharpen" Height="500" Width="600" ResizeMode="NoResize" Icon="/Resources/SharpenPackage.ico" ShowInTaskbar="False" Loaded="WindowLoaded">
+    <Window.Resources >
+        <ResourceDictionary >
+            <Image Source="/Resources/Rating.FullStar.png" x:Key="FullStar" />
+            <Image Source="/Resources/Rating.HalfStar.png" x:Key="HalfStar" />
+            <Image Source="/Resources/Rating.NoStar.png" x:Key="NoStar" />
+        </ResourceDictionary >
+    </Window.Resources >
+    <DockPanel>
+        <Grid DockPanel.Dock="Top" Margin="20 ">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="96"/>
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Image Source="/Resources/Icon.png" Width="96" Height="96" Grid.Column="0" Grid.Row="0" Grid.RowSpan="4"></Image>
+            <Label Name="lblTitle" Grid.Column="2" Grid.Row="0" FontWeight="Bold" FontSize="14"></Label>
+            <Label Name="lblDescription" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2"></Label>
+            <Label Name="lblCopyright" Grid.Column="2" Grid.Row="3"></Label>
+        </Grid>
+        <StackPanel DockPanel.Dock="Bottom">
+            <Button Name="btnClose" HorizontalAlignment="Right" Margin="5" Padding="10 2" Click="BtnCloseClick">Close</Button>
+        </StackPanel>
+        <TabControl x:Name="tabControl">
+            <TabItem Header="About" Name="tiAbout">
+                <StackPanel Margin="10 8">
+                    <StackPanel Orientation="Horizontal" Margin="0 2">
+                        <Image Source="/Resources/Icon.www.png" Stretch="None" Margin="0 0 10 0"></Image>
+                        <TextBlock VerticalAlignment="Center">
+                            <Hyperlink NavigateUri="https://sharpen.rocks" RequestNavigate="HyperlinkRequestNavigate">https://sharpen.rocks</Hyperlink>
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 2">
+                        <Image Source="/Resources/Icon.github.png" Stretch="None" Margin="0 0 10 0"></Image>
+                        <TextBlock Name="txtGithub" VerticalAlignment="Center">
+                            <Hyperlink NavigateUri="https://github.com/sharpenrocks/Sharpen" RequestNavigate="HyperlinkRequestNavigate">sharpenrocks/Sharpen</Hyperlink>
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 2">
+                        <Image Source="/Resources/Icon.vsmarketplace.png" Stretch="None" Margin="0 0 10 0"></Image>
+                        <TextBlock Name="txtVSMarketplace"  VerticalAlignment="Center">
+                            <Hyperlink NavigateUri="https://marketplace.visualstudio.com/items?itemName=ironcev.sharpen" RequestNavigate="HyperlinkRequestNavigate">Visual Studio Marketpace</Hyperlink>
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 2">
+                        <Image Source="/Resources/Icon.twitter.png" Stretch="None" Margin="0 0 10 0"></Image>
+                        <TextBlock VerticalAlignment="Center">
+                            <Hyperlink NavigateUri="https://twitter.com/sharpenrocks" RequestNavigate="HyperlinkRequestNavigate">sharpenrocks</Hyperlink>
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 2">
+                        <Image Source="/Resources/Icon.email.png" Stretch="None" Margin="0 0 10 0"></Image>
+                        <TextBlock VerticalAlignment="Center">
+                            <Hyperlink NavigateUri="mailto:ironcev@hotmail.com" RequestNavigate="HyperlinkRequestNavigate">ironcev@hotmail.com</Hyperlink>
+                        </TextBlock>
+                    </StackPanel>
+                    <TextBlock Margin="0 2">
+                            <Hyperlink NavigateUri="https://github.com/sharpenrocks/Sharpen/wiki/Why-Sharpen" RequestNavigate="HyperlinkRequestNavigate">Why Sharpen?</Hyperlink>
+                    </TextBlock>
+                    <TextBlock Margin="0 2">
+                            <Hyperlink NavigateUri="https://github.com/sharpenrocks/Sharpen/wiki/Installing-Sharpen" RequestNavigate="HyperlinkRequestNavigate">Getting started</Hyperlink>
+                    </TextBlock>
+                    <TextBlock Margin="0 2">
+                            <Hyperlink NavigateUri="https://github.com/sharpenrocks/Sharpen/graphs/contributors" RequestNavigate="HyperlinkRequestNavigate">Contributors</Hyperlink>
+                    </TextBlock>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Version History" Name="tiVersionHistory">
+                <DockPanel>
+                    <ListView Name="lvVersions" DockPanel.Dock="Left" SelectionChanged="LvVersionsSelectionChanged">
+                    </ListView>
+                    <FlowDocumentScrollViewer Name="fdsvVersionChangeLog" BorderThickness="1"></FlowDocumentScrollViewer>
+                </DockPanel>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>
