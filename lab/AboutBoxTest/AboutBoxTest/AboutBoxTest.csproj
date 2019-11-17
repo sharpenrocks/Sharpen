@@ -60,6 +60,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\..\..\CHANGELOG.md" Link="CHANGELOG.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="GraphQL" Version="2.4.0" />
     <PackageReference Include="GraphQL.Client" Version="1.0.3" />
     <PackageReference Include="Microsoft.Toolkit" Version="6.0.0" />
