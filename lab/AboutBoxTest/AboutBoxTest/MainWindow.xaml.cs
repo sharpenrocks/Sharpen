@@ -21,7 +21,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 
-namespace AboutLayoutTest
+namespace AboutBoxTest
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -159,8 +159,13 @@ namespace AboutLayoutTest
         private async Task SetChangeLogDataAsync()
         {
             var markdown = new MarkdownDocument();
-            await Task.Run(() => markdown.Parse(File.ReadAllText("ChangeLog.md")));
 
+            // CreateFlowDocument 
+            //await Task.Run(() => markdown.Parse(File.ReadAllText("Readme.md")));
+            //var document = CreateFlowDocument(markdown, 0);
+            //fdsvVersionChangeLog.Document = document;
+
+            await Task.Run(() => markdown.Parse(File.ReadAllText("ChangeLog.md")));
             foreach (var header in markdown.Blocks.OfType<HeaderBlock>().Where(h => h.HeaderLevel == 2))
             {
                 var versionInfo = versionExtruder.Match(header.ToString());
@@ -187,46 +192,17 @@ namespace AboutLayoutTest
             for (int i = headerIndex; i < markdown.Blocks.Count; i++)
             {
                 var block = markdown.Blocks[i];
-                switch (block.Type)
-                {
-                    case MarkdownBlockType.Header:
-                        var header = block as HeaderBlock;
-                        if (header.HeaderLevel == 2) // Previous version header
-                            return document;
-                        document.Blocks.AddRange(CreateHeader(block as HeaderBlock));
-                        break;
-                    case MarkdownBlockType.List:
-                        document.Blocks.Add(CreateList(block as ListBlock));
-                        break;
-                    default:
-                        // throw new NotImplementedException();
-                        break;
-                }
+                var header = block as HeaderBlock;
+                if (header?.HeaderLevel == 2)
+                    break;
+
+                document.Blocks.Add(MarkdownToFlowDocument.CreateBlock(block));
+
+                if (header?.HeaderLevel == 3)
+                    document.Blocks.Add(new BlockUIContainer(new Separator()));
             }
 
             return document;
-        }
-        private IEnumerable<Block> CreateHeader(HeaderBlock headerBlock)
-        {
-            var paragraph = new Paragraph()
-            {
-                FontSize = Math.Max(19 - headerBlock.HeaderLevel, 12),
-                Margin = new Thickness(0, 5, 0, 5)
-            };
-            paragraph.Inlines.AddRange(headerBlock.Inlines.Select(i => new Bold(new Run(i.ToString()))));
-            yield return paragraph;
-
-            if (headerBlock.HeaderLevel == 3)
-                yield return new BlockUIContainer(new Separator());
-        }
-        private List CreateList(ListBlock listBlock)
-        {
-            var list = new List()
-            {
-                Margin = new Thickness(0, 10, 0, 10)
-            };
-            list.ListItems.AddRange(listBlock.Items.Select(li => new ListItem(new Paragraph(new Run(li.Blocks[0].ToString())))));
-            return list;
         }
         private void LvVersionsSelectionChanged(object sender, SelectionChangedEventArgs e)
         {

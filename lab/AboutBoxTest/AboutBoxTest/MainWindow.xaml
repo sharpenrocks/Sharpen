@@ -1,9 +1,9 @@
-﻿<Window x:Class="AboutLayoutTest.MainWindow"
+﻿<Window x:Class="AboutBoxTest.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AboutLayoutTest"
+        xmlns:local="clr-namespace:AboutBoxTest"
         mc:Ignorable="d"
         Title="About Sharpen" Height="500" Width="600" ResizeMode="NoResize" Icon="/Resources/SharpenPackage.ico" ShowInTaskbar="False" Loaded="WindowLoaded">
     <Window.Resources >
@@ -64,7 +64,7 @@
                     <StackPanel Orientation="Horizontal" Margin="0 2">
                         <Image Source="/Resources/Icon.email.png" Stretch="None" Margin="0 0 10 0"></Image>
                         <TextBlock VerticalAlignment="Center">
-                            <Hyperlink NavigateUri="mailto:ironcev@hotmail.com" RequestNavigate="HyperlinkRequestNavigate">ironcev@hotmail.com</Hyperlink>
+                            <Hyperlink NavigateUri="mailto:ironcev@hotmail.com?subject=[Sharpen]" RequestNavigate="HyperlinkRequestNavigate">ironcev@hotmail.com</Hyperlink>
                         </TextBlock>
                     </StackPanel>
                     <TextBlock Margin="0 2">
@@ -82,7 +82,7 @@
                 <DockPanel>
                     <ListView Name="lvVersions" DockPanel.Dock="Left" SelectionChanged="LvVersionsSelectionChanged">
                     </ListView>
-                    <FlowDocumentScrollViewer Name="fdsvVersionChangeLog" BorderThickness="1"></FlowDocumentScrollViewer>
+                    <FlowDocumentScrollViewer Name="fdsvVersionChangeLog"></FlowDocumentScrollViewer>
                 </DockPanel>
             </TabItem>
         </TabControl>

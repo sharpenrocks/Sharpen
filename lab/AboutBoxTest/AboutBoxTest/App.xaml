@@ -1,7 +1,7 @@
-﻿<Application x:Class="AboutLayoutTest.App"
+﻿<Application x:Class="AboutBoxTest.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:AboutLayoutTest"
+             xmlns:local="clr-namespace:AboutBoxTest"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          
