@@ -58,9 +58,17 @@ namespace AboutBoxTest
         #region Assembly data
         private async Task SetAssemblyDataAsync()
         {
-            AssemblyName name = null;
-            await Task.Run(() => name = Assembly.GetEntryAssembly().GetName());
+            Assembly assembly = null;
+            await Task.Run(() => assembly = Assembly.GetEntryAssembly());
+            // set Title
+            var name = assembly.GetName();
             lblTitle.Content = $"{name.Name} v{name.Version}";
+            // set Description
+            var descriptionAttribute = assembly.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false).OfType<AssemblyDescriptionAttribute>().FirstOrDefault();
+            if (descriptionAttribute != null)
+                lblDescription.Content = new TextBlock() { Text = descriptionAttribute.Description, TextWrapping = TextWrapping.Wrap };
+
+            // set Copyright
             lblCopyright.Content = $"Copyright © Igor Rončević 2017 - {DateTime.Now.Year}";
         }
         #endregion
@@ -70,7 +78,6 @@ namespace AboutBoxTest
         {
             var response = await GetGitDataAsync();
             var repository = response.Data.repositoryOwner.repository;
-            lblDescription.Content = new TextBlock() { Text = repository.description, TextWrapping = TextWrapping.Wrap };
             txtGithub.Inlines.Add($" ({repository.stargazers.totalCount } stars)");
         }
         private async Task<GraphQLResponse> GetGitDataAsync()
@@ -84,7 +91,6 @@ namespace AboutBoxTest
                     Query = $@"query {{
                     repositoryOwner (login: ""{ConfigurationManager.AppSettings["GitLogin"]}"") {{
                         repository(name: ""{ConfigurationManager.AppSettings["GitRepository"]}"") {{
-                            description
                             stargazers {{
                                 totalCount
                             }}
@@ -159,11 +165,6 @@ namespace AboutBoxTest
         private async Task SetChangeLogDataAsync()
         {
             var markdown = new MarkdownDocument();
-
-            // CreateFlowDocument 
-            //await Task.Run(() => markdown.Parse(File.ReadAllText("Readme.md")));
-            //var document = CreateFlowDocument(markdown, 0);
-            //fdsvVersionChangeLog.Document = document;
 
             await Task.Run(() => markdown.Parse(File.ReadAllText("ChangeLog.md")));
             foreach (var header in markdown.Blocks.OfType<HeaderBlock>().Where(h => h.HeaderLevel == 2))
