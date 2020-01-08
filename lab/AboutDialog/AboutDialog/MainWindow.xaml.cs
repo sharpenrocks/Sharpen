@@ -60,9 +60,11 @@ namespace AboutBoxTest
         {
             Assembly assembly = null;
             await Task.Run(() => assembly = Assembly.GetEntryAssembly());
+
             // set Title
             var name = assembly.GetName();
             lblTitle.Content = $"{name.Name} v{name.Version}";
+
             // set Description
             var descriptionAttribute = assembly.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false).OfType<AssemblyDescriptionAttribute>().FirstOrDefault();
             if (descriptionAttribute != null)
@@ -76,7 +78,16 @@ namespace AboutBoxTest
         #region Git data
         private async Task SetGitDataAsync()
         {
-            var response = await GetGitDataAsync();
+            GraphQLResponse response;
+            try
+            {
+                response = await GetGitDataAsync();
+            }
+            catch
+            {
+                // Ignore all errors retrieving GitHub data.
+                return;
+            }
             var repository = response.Data.repositoryOwner.repository;
             txtGithub.Inlines.Add($" ({repository.stargazers.totalCount } stars)");
         }
@@ -106,7 +117,16 @@ namespace AboutBoxTest
         #region Marketplace data
         private async Task SetVSMarketplaceDataAsync()
         {
-            var response = await GetMarketplaceDataAsync();
+            IRestResponse response;
+            try
+            {
+                response = await GetMarketplaceDataAsync();
+            }
+            catch
+            {
+                // Ignore all errors retrieving Marketplace data.
+                return;
+            }
             var json = Newtonsoft.Json.Linq.JObject.Parse(response.Content);
 
             // Fugly.
