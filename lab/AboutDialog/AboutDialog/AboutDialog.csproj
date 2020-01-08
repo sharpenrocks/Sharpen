@@ -4,9 +4,10 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net472</TargetFramework>
     <UseWPF>true</UseWPF>
-    <AssemblyName>AboutBoxTest</AssemblyName>
-    <RootNamespace>AboutBoxTest</RootNamespace>
-    <Version>1.0.1</Version>
+    <AssemblyName>AboutDialog</AssemblyName>
+    <RootNamespace>AboutDialog</RootNamespace>
+    <Version>1.0.2</Version>
+    <Description>Visual Studio extension that intelligently introduces new C# features into your existing code base.</Description>
   </PropertyGroup>
 
   <ItemGroup>
