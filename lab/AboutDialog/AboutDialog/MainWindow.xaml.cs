@@ -3,7 +3,6 @@ using GraphQL.Common.Request;
 using GraphQL.Common.Response;
 using Microsoft.Toolkit.Parsers.Markdown;
 using Microsoft.Toolkit.Parsers.Markdown.Blocks;
-using Microsoft.Toolkit.Parsers.Markdown.Render;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -18,10 +17,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 
-namespace AboutBoxTest
+namespace AboutDialog
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -44,7 +42,7 @@ namespace AboutBoxTest
 
         private void BtnCloseClick(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private async void WindowLoaded(object sender, RoutedEventArgs e)
@@ -61,16 +59,16 @@ namespace AboutBoxTest
             Assembly assembly = null;
             await Task.Run(() => assembly = Assembly.GetEntryAssembly());
 
-            // set Title
+            // Set Title.
             var name = assembly.GetName();
             lblTitle.Content = $"{name.Name} v{name.Version}";
 
-            // set Description
+            // Set Description.
             var descriptionAttribute = assembly.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false).OfType<AssemblyDescriptionAttribute>().FirstOrDefault();
             if (descriptionAttribute != null)
                 lblDescription.Content = new TextBlock() { Text = descriptionAttribute.Description, TextWrapping = TextWrapping.Wrap };
 
-            // set Copyright
+            // Set Copyright.
             lblCopyright.Content = $"Copyright © Igor Rončević 2017 - {DateTime.Now.Year}";
         }
         #endregion
@@ -114,29 +112,29 @@ namespace AboutBoxTest
         }
         #endregion
 
-        #region Marketplace data
+        #region VSMarketplace data
         private async Task SetVSMarketplaceDataAsync()
         {
             IRestResponse response;
             try
             {
-                response = await GetMarketplaceDataAsync();
+                response = await GetVSMarketplaceDataAsync();
             }
             catch
             {
-                // Ignore all errors retrieving Marketplace data.
+                // Ignore all errors retrieving VSMarketplace data.
                 return;
             }
             var json = Newtonsoft.Json.Linq.JObject.Parse(response.Content);
 
-            // Fugly.
+            // Fugly. This *is* a full sentence comment.
             var statistics = json["results"][0]["extensions"][0]["statistics"];
             var numberOfInstalls = (int)statistics[0]["value"];
             double rating = (double)statistics[1]["value"];
             var numberOfReviews = (int)statistics[2]["value"];
 
             double roundedRating = Math.Round(rating * 2, MidpointRounding.AwayFromZero) / 2;
-            var span = new System.Windows.Documents.Span()
+            var span = new Span()
             {
                 ToolTip = $"{rating:0.0}/5"
             };
@@ -154,7 +152,7 @@ namespace AboutBoxTest
             txtVSMarketplace.Inlines.Add(span);
             txtVSMarketplace.Inlines.Add($" ({numberOfReviews})");
         }
-        private async Task<IRestResponse> GetMarketplaceDataAsync()
+        private async Task<IRestResponse> GetVSMarketplaceDataAsync()
         {
             var client = new RestClient("https://marketplace.visualstudio.com/");
 
@@ -163,7 +161,7 @@ namespace AboutBoxTest
             request.AddHeader("Accept-Encoding", "gzip, deflate");
             request.AddHeader("Content-Type", "application/json; charset=utf-8");
 
-            // Fiddler4 + Manage Extensions was source for this request
+            // Fiddler4 + Manage Extensions was source for this request.
             request.AddJsonBody($@"{{
                 ""flags"":""256"",
                 ""filters"":[{{
@@ -196,7 +194,7 @@ namespace AboutBoxTest
                     ToolTip = DateTime.Parse(versionInfo.Groups["date"].Value),
                     Padding = new Thickness(10, 1, 10, 1)
                 };
-                changeLog.Add(version, CreateFlowDocument(markdown, markdown.Blocks.IndexOf(header) + 1)); // Stores reference to created document
+                changeLog.Add(version, CreateFlowDocument(markdown, markdown.Blocks.IndexOf(header) + 1)); // Stores reference to created document.
                 lvVersions.Items.Add(version);
             }
 

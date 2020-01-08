@@ -2,21 +2,17 @@
 using Microsoft.Toolkit.Parsers.Markdown.Blocks;
 using Microsoft.Toolkit.Parsers.Markdown.Inlines;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 
-namespace AboutBoxTest
+namespace AboutDialog
 {
     public static class MarkdownToFlowDocument
     {
@@ -31,10 +27,8 @@ namespace AboutBoxTest
                 case MarkdownBlockType.List:
                     return CreateList(block as ListBlock);
                 default:
-                    // throw new NotImplementedException();
                     return new Paragraph();
             }
-
         }
 
         private static Block CreateHeader(HeaderBlock headerBlock)
@@ -98,11 +92,10 @@ namespace AboutBoxTest
 
         private static Image CreateImage(ImageInline imageInline)
         {
-            // TODO: add animated gif support
+            // TODO: Add animated gif support.
             var bitmapImage = new BitmapImage();
             if (imageInline.RenderUrl.Contains(".svg"))
             {
-                string filePath = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}.png");
                 using (var bitmap = (new Svg.SvgImage().GetImage(imageInline.RenderUrl) as Svg.SvgDocument).Draw())
                 using (var memory = new MemoryStream())
                 {
@@ -135,7 +128,6 @@ namespace AboutBoxTest
             hyperlink.Inlines.AddRange(CreateInlines(markdownLinkInline.Inlines));
             hyperlink.RequestNavigate += NavigateFromHyperlink;
             return hyperlink;
-
         }
 
         private static void NavigateFromHyperlink(object sender, RequestNavigateEventArgs e)
