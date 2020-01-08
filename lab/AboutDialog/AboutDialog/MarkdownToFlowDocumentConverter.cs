@@ -12,9 +12,9 @@ using System.Windows.Documents;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 
-namespace AboutDialog
+namespace Sharpen
 {
-    public static class MarkdownToFlowDocument
+    public static class MarkdownToFlowDocumentConverter
     {
         public static Block CreateBlock(MarkdownBlock block)
         {

@@ -14,14 +14,13 @@
     <None Remove="README.md" />
     <None Remove="Resources\Icon.email.png" />
     <None Remove="Resources\Icon.github.png" />
-    <None Remove="Resources\Icon.png" />
     <None Remove="Resources\Icon.twitter.png" />
     <None Remove="Resources\Icon.vsmarketplace.png" />
     <None Remove="Resources\Icon.www.png" />
-    <None Remove="Resources\PreviewImage.png" />
     <None Remove="Resources\Rating.FullStar.png" />
     <None Remove="Resources\Rating.HalfStar.png" />
     <None Remove="Resources\Rating.NoStar.png" />
+    <None Remove="Resources\SharpenLogo.png" />
     <None Remove="Resources\SharpenPackage.ico" />
   </ItemGroup>
 
@@ -35,31 +34,28 @@
     <Content Include="Resources\Rating.FullStar.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Icon.github.png">
+    <Content Include="Resources\Icon.GitHub.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Rating.HalfStar.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Icon.png">
+    <Content Include="Resources\SharpenLogo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Icon.email.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\PreviewImage.png">
+    <Content Include="Resources\Icon.Email.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\SharpenPackage.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Icon.twitter.png">
+    <Content Include="Resources\Icon.Twitter.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Icon.vsmarketplace.png">
+    <Content Include="Resources\Icon.VSMarketplace.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Icon.www.png">
+    <Content Include="Resources\Icon.WWW.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

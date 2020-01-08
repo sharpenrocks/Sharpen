@@ -19,14 +19,14 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Navigation;
 
-namespace AboutDialog
+namespace Sharpen
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AboutDialog : Window
     {
-        public MainWindow()
+        public AboutDialog()
         {
             InitializeComponent();
         }
@@ -48,9 +48,9 @@ namespace AboutDialog
         private async void WindowLoaded(object sender, RoutedEventArgs e)
         {
             await SetAssemblyDataAsync();
-            await SetGitDataAsync();
+            await SetGitHubDataAsync();
             await SetVSMarketplaceDataAsync();
-            await SetChangeLogDataAsync();
+            await SetChangelogDataAsync();
         }
 
         #region Assembly data
@@ -73,13 +73,13 @@ namespace AboutDialog
         }
         #endregion
 
-        #region Git data
-        private async Task SetGitDataAsync()
+        #region GitHub data
+        private async Task SetGitHubDataAsync()
         {
             GraphQLResponse response;
             try
             {
-                response = await GetGitDataAsync();
+                response = await GetGitHubDataAsync();
             }
             catch
             {
@@ -87,19 +87,19 @@ namespace AboutDialog
                 return;
             }
             var repository = response.Data.repositoryOwner.repository;
-            txtGithub.Inlines.Add($" ({repository.stargazers.totalCount } stars)");
+            txtGitHub.Inlines.Add($" ({repository.stargazers.totalCount } stars)");
         }
-        private async Task<GraphQLResponse> GetGitDataAsync()
+        private async Task<GraphQLResponse> GetGitHubDataAsync()
         {
             using (var client = new GraphQLClient("https://api.github.com/graphql"))
             {
-                client.DefaultRequestHeaders.Add("Authorization", $"bearer {ConfigurationManager.AppSettings["GitAuthToken"]}");
+                client.DefaultRequestHeaders.Add("Authorization", $"bearer {ConfigurationManager.AppSettings["GitHubAuthToken"]}");
                 client.DefaultRequestHeaders.Add("User-Agent", "SharpenAboutBox");
                 var request = new GraphQLRequest()
                 {
                     Query = $@"query {{
-                    repositoryOwner (login: ""{ConfigurationManager.AppSettings["GitLogin"]}"") {{
-                        repository(name: ""{ConfigurationManager.AppSettings["GitRepository"]}"") {{
+                    repositoryOwner (login: ""{ConfigurationManager.AppSettings["GitHubLogin"]}"") {{
+                        repository(name: ""{ConfigurationManager.AppSettings["GitHubRepository"]}"") {{
                             stargazers {{
                                 totalCount
                             }}
@@ -176,15 +176,15 @@ namespace AboutDialog
         }
         #endregion
 
-        #region ChangeLog
+        #region Changelog
         private readonly Regex versionExtruder = new Regex(@"^ \[(?<version>.*)] - (?<date>\d{4}-\d{2}-\d{2})$");
-        private readonly Dictionary<ListViewItem, FlowDocument> changeLog = new Dictionary<ListViewItem, FlowDocument>();
+        private readonly Dictionary<ListViewItem, FlowDocument> changelog = new Dictionary<ListViewItem, FlowDocument>();
 
-        private async Task SetChangeLogDataAsync()
+        private async Task SetChangelogDataAsync()
         {
             var markdown = new MarkdownDocument();
 
-            await Task.Run(() => markdown.Parse(File.ReadAllText("ChangeLog.md")));
+            await Task.Run(() => markdown.Parse(File.ReadAllText("CHANGELOG.md")));
             foreach (var header in markdown.Blocks.OfType<HeaderBlock>().Where(h => h.HeaderLevel == 2))
             {
                 var versionInfo = versionExtruder.Match(header.ToString());
@@ -194,7 +194,7 @@ namespace AboutDialog
                     ToolTip = DateTime.Parse(versionInfo.Groups["date"].Value),
                     Padding = new Thickness(10, 1, 10, 1)
                 };
-                changeLog.Add(version, CreateFlowDocument(markdown, markdown.Blocks.IndexOf(header) + 1)); // Stores reference to created document.
+                changelog.Add(version, CreateFlowDocument(markdown, markdown.Blocks.IndexOf(header) + 1)); // Stores reference to created document.
                 lvVersions.Items.Add(version);
             }
 
@@ -215,7 +215,7 @@ namespace AboutDialog
                 if (header?.HeaderLevel == 2)
                     break;
 
-                document.Blocks.Add(MarkdownToFlowDocument.CreateBlock(block));
+                document.Blocks.Add(MarkdownToFlowDocumentConverter.CreateBlock(block));
 
                 if (header?.HeaderLevel == 3)
                     document.Blocks.Add(new BlockUIContainer(new Separator()));
@@ -226,7 +226,7 @@ namespace AboutDialog
         private void LvVersionsSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var version = (ListViewItem)lvVersions.SelectedItem;
-            fdsvVersionChangeLog.Document = changeLog[version];
+            fdsvVersionChangeLog.Document = changelog[version];
         }
         #endregion
     }

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace AboutDialog
+namespace Sharpen
 {
     /// <summary>
     /// Interaction logic for App.xaml
