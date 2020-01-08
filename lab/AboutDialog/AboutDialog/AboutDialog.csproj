@@ -11,7 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="README.md" />
     <None Remove="Resources\Icon.email.png" />
     <None Remove="Resources\Icon.github.png" />
     <None Remove="Resources\Icon.twitter.png" />
@@ -25,9 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="README.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\Rating.NoStar.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -82,6 +78,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="README.md">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\EmptyStarDark.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

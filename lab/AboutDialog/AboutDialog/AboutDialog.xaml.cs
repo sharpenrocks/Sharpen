@@ -93,13 +93,16 @@ namespace Sharpen
         {
             using (var client = new GraphQLClient("https://api.github.com/graphql"))
             {
-                client.DefaultRequestHeaders.Add("Authorization", $"bearer {ConfigurationManager.AppSettings["GitHubAuthToken"]}");
+
+                var configSection = GetConfigSection(); ;
+
+                client.DefaultRequestHeaders.Add("Authorization", $"bearer {configSection.GitHubAuthToken}");
                 client.DefaultRequestHeaders.Add("User-Agent", "SharpenAboutBox");
                 var request = new GraphQLRequest()
                 {
                     Query = $@"query {{
-                    repositoryOwner (login: ""{ConfigurationManager.AppSettings["GitHubLogin"]}"") {{
-                        repository(name: ""{ConfigurationManager.AppSettings["GitHubRepository"]}"") {{
+                    repositoryOwner (login: ""{configSection.GitHubLogin}"") {{
+                        repository(name: ""{configSection.GitHubRepository}"") {{
                             stargazers {{
                                 totalCount
                             }}
@@ -167,7 +170,7 @@ namespace Sharpen
                 ""filters"":[{{
                     ""criteria"":[{{
                         ""filterType"":""10"",
-                        ""value"":""{ConfigurationManager.AppSettings["VSMarketplaceID"]}""
+                        ""value"":""{GetConfigSection().VSMarketplaceID}""
                     }}]
                 }}]
             }}");
@@ -229,5 +232,7 @@ namespace Sharpen
             fdsvVersionChangeLog.Document = changelog[version];
         }
         #endregion
+
+        private ConfigSection GetConfigSection() => ConfigurationManager.GetSection("aboutDialog") as ConfigSection;
     }
 }
