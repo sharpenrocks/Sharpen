@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Sharpen"
         mc:Ignorable="d"
         Title="About Sharpen" Height="500" Width="600" ResizeMode="NoResize" Icon="/Resources/SharpenPackage.ico" ShowInTaskbar="False" Loaded="WindowLoaded">
     <Window.Resources >
@@ -82,7 +81,7 @@
                 <DockPanel>
                     <ListView Name="lvVersions" DockPanel.Dock="Left" SelectionChanged="LvVersionsSelectionChanged">
                     </ListView>
-                    <FlowDocumentScrollViewer Name="fdsvVersionChangeLog"></FlowDocumentScrollViewer>
+                    <FlowDocumentScrollViewer Name="fdsvVersionChangelog"></FlowDocumentScrollViewer>
                 </DockPanel>
             </TabItem>
         </TabControl>

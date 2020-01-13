@@ -7,7 +7,8 @@
     <AssemblyName>AboutDialog</AssemblyName>
     <RootNamespace>AboutDialog</RootNamespace>
     <Version>1.0.2</Version>
-    <Description>Visual Studio extension that intelligently introduces new C# features into your existing code base.</Description>
+    <Description>Description from assembly.</Description>
+    <Copyright>Copyright from assembly</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
@@ -78,9 +79,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="README.md">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
     <None Update="Resources\EmptyStarDark.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
