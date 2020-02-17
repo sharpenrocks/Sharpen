@@ -1,0 +1,93 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>AboutDialog</AssemblyName>
+    <RootNamespace>AboutDialog</RootNamespace>
+    <Version>1.0.2</Version>
+    <Description>Description from assembly.</Description>
+    <Copyright>Copyright from assembly</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Icon.email.png" />
+    <None Remove="Resources\Icon.github.png" />
+    <None Remove="Resources\Icon.twitter.png" />
+    <None Remove="Resources\Icon.vsmarketplace.png" />
+    <None Remove="Resources\Icon.www.png" />
+    <None Remove="Resources\Rating.FullStar.png" />
+    <None Remove="Resources\Rating.HalfStar.png" />
+    <None Remove="Resources\Rating.NoStar.png" />
+    <None Remove="Resources\SharpenLogo.png" />
+    <None Remove="Resources\SharpenPackage.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Rating.NoStar.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Rating.FullStar.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icon.GitHub.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Rating.HalfStar.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\SharpenLogo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icon.Email.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\SharpenPackage.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icon.Twitter.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icon.VSMarketplace.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icon.WWW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\CHANGELOG.md" Link="CHANGELOG.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GraphQL" Version="2.4.0" />
+    <PackageReference Include="GraphQL.Client" Version="1.0.3" />
+    <PackageReference Include="Microsoft.Toolkit" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Toolkit.Parsers" Version="6.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="RestSharp" Version="106.6.10" />
+    <PackageReference Include="Svg" Version="3.0.84" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\EmptyStarDark.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\FullStar.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HalfStarDark.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
