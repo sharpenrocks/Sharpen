@@ -1,5 +1,5 @@
 # Sharpen
-*Sharpen* is a Visual Studio extension that intelligently introduces new C# language features into your existing code base. It makes your code shorter, simpler, more expressive, more performant, and more readable, in one word - sharper.
+*Sharpen* is a Visual Studio extension that intelligently introduces new C# language features into your existing codebase. It makes your code shorter, simpler, more expressive, more performant, and more readable, in one word - sharper.
 
 [![Twitter](https://img.shields.io/badge/twitter-sharpenrocks-brightgreen.svg?logo=twitter)](https://twitter.com/sharpenrocks)
 [![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/ironcev.sharpen?color=green&label=visual%20studio%20marketplace)](https://marketplace.visualstudio.com/items?itemName=ironcev.sharpen)
@@ -19,7 +19,7 @@ You can [install *Sharpen*](https://github.com/sharpenrocks/Sharpen/wiki/Install
 ## Benefits at a Glance
 
 ### Faster Learning of New C# Features
-Learn new C# features faster by applying them to your existing code base.
+Learn new C# features faster by applying them to your existing codebase.
 
 Forget the simplified, artificial code samples often used to introduce new C# features. *Sharpen* points to places in real-life production code - your code! - where new C# features should be used.
 
@@ -35,7 +35,7 @@ Learn to ❤ C# but not blindly. Take love with a pinch of salt ;-)
 ### Consistent Usage of C# Features
 Consistency matters. Your preferences as well.
 
-Once configured on your project, *Sharpen* ensures that C# language features are consistently used over the whole code base.
+Once configured on your project, *Sharpen* ensures that C# language features are consistently used over the whole codebase.
 
 ### Code Refactoring on Arbitrary Scale
 Safely refactor your code by a single mouse click.

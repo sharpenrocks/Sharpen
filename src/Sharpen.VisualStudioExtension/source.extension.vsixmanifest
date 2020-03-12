@@ -3,7 +3,7 @@
     <Metadata>
         <Identity Id="Ironcev.Sharpen" Version="0.10.1" Language="en-US" Publisher="Igor Rončević" />
         <DisplayName>Sharpen</DisplayName>
-        <Description xml:space="preserve">A Visual Studio extension that intelligently introduces new C# language features into your existing code base.</Description>
+        <Description xml:space="preserve">A Visual Studio extension that intelligently introduces new C# language features into your existing codebase.</Description>
         <MoreInfo>https://sharpen.rocks</MoreInfo>
         <License>LICENSE.txt</License>
         <ReleaseNotes>ReleaseNotes.txt</ReleaseNotes>

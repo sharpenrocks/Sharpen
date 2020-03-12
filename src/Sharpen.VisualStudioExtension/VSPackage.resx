@@ -121,7 +121,7 @@
     <value>Sharpen</value>
   </data>
   <data name="112" xml:space="preserve">
-    <value>Sharpen is a Visual Studio extension that intelligently introduces new C# language features into your existing code base. It makes your code smaller, simpler, faster, more expressive and more readable, in one word - sharper.</value>
+    <value>Sharpen is a Visual Studio extension that intelligently introduces new C# language features into your existing codebase. It makes your code smaller, simpler, faster, more expressive and more readable, in one word - sharper.</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="400" type="System.Resources.ResXFileRef, System.Windows.Forms">
