@@ -8,7 +8,7 @@
 [![License](https://img.shields.io/github/license/ironcev/sharpen.svg)](https://github.com/ironcev/sharpen/blob/master/LICENSE)
 
 ## TL; DR
-*Sharpen* **identifies places in your code that will benefit of introducing new C# language features**. It helps you to **quicker learn new C# features** and to **critically refactor your existing code** to modern C#.
+*Sharpen* **identifies places in your code that will benefit from introducing new C# language features**. It helps you to **learn new C# features quicker** and **critically refactor your existing code** to modern C#.
 
 ![Sharpen in action](https://raw.githubusercontent.com/ironcev/sharpen/master/images/demo.gif)
 
@@ -21,7 +21,7 @@ You can [install *Sharpen*](https://github.com/sharpenrocks/Sharpen/wiki/Install
 ### Faster Learning of New C# Features
 Learn new C# features faster by applying them to your existing codebase.
 
-Forget the simplified, artificial code samples often used to introduce new C# features. *Sharpen* points to places in real-life production code - your code! - where new C# features should be used.
+Forget the simplified, artificial code samples often used to introduce new C# features. *Sharpen* points you to places in real-life production code - your production code! - where you can learn and apply modern C#.
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/faster-learning-of-new-csharp-features.png" alt="Faster Learning of New C# Features" style="max-width:100%;">
@@ -30,12 +30,12 @@ Forget the simplified, artificial code samples often used to introduce new C# fe
 ### Critical Approach to New C# Features
 Learn to ❤ C# but not blindly. Take love with a pinch of salt ;-)
 
-*Sharpen* brings a critical view on C# features. It recommends applying them only if their usage will actually result in "sharper" code. *Sharpen* is not shy of saying No to a language feature.
+*Sharpen* brings a critical view of C# features. It recommends applying them only if their usage will result in a "sharper" code. *Sharpen* is not shy of saying No! to a language feature.
 
 ### Consistent Usage of C# Features
-Consistency matters. Your preferences as well.
+Consistency matters. And your preferences, as well.
 
-Once configured on your project, *Sharpen* ensures that C# language features are consistently used over the whole codebase.
+Once configured on your project, *Sharpen* ensures that usage of C# language features remains consistent over the whole codebase.
 
 ### Code Refactoring on Arbitrary Scale
 Safely refactor your code by a single mouse click.
@@ -47,12 +47,12 @@ Safely refactor your code by a single mouse click.
 </p>
 
 ### Improving Code on a Larger Scope
-Still having BackgroundWorkers in your code?
+Are you still having BackgroundWorkers in your code?
 
 It's time to replace them with async-await! *Sharpen* is equipped with an intelligent heuristics that recognizes potential improvements of your code on a broader scope.
 
 ### Extensive Documentation on C# Language
-Tired of searching for new C# features in random blog posts?
+Are you tired of searching for new C# features in random blog posts?
 
 *Sharpen* comes with extensive built-in documentation on C# language features. It's a one-stop-shop for everything you ever wanted to know about the design and evolution of C#.
 
