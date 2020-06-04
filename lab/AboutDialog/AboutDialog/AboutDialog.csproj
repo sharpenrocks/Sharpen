@@ -5,7 +5,7 @@
     <TargetFramework>net472</TargetFramework>
     <UseWPF>true</UseWPF>
     <AssemblyName>AboutDialog</AssemblyName>
-    <RootNamespace>AboutDialog</RootNamespace>
+    <RootNamespace>Sharpen</RootNamespace>
     <Version>1.0.2</Version>
     <Description>Description from assembly.</Description>
     <Copyright>Copyright from assembly</Copyright>
