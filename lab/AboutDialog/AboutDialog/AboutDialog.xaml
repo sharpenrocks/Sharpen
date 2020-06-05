@@ -52,12 +52,11 @@
                         <TextBlock Name="txtVSMarketplace"  VerticalAlignment="Center">
                             <Hyperlink NavigateUri="https://marketplace.visualstudio.com/items?itemName=ironcev.sharpen" RequestNavigate="HyperlinkRequestNavigate">Visual Studio Marketpace</Hyperlink>
                             <Run Text="{Binding Path=VSMarketplaceNumberOfInstalls, TargetNullValue='', StringFormat={}{0:N0} install(s)}"/>
-                            <Span>
-                                <Span.ToolTip>
+                            <Image Source="{Binding Path=VSMarketplaceRating, Converter={StaticResource RatingToStarsConverter}}" VerticalAlignment="Bottom">
+                                <Image.ToolTip>
                                     <ToolTip Content="{Binding Path=VSMarketplaceRating, TargetNullValue=''}" ContentStringFormat="{}{0:0.0}/5"></ToolTip>
-                                </Span.ToolTip>
-                                <Image Source="{Binding Path=VSMarketplaceRating, Converter={StaticResource RatingToStarsConverter}}" VerticalAlignment="Bottom"></Image>
-                            </Span>
+                                </Image.ToolTip>
+                            </Image>
                             <Run Text="{Binding Path=VsMarketplaceNumberOfReviews, TargetNullValue='', StringFormat={}{0:N0} rating(s)}"/>
                         </TextBlock>
                     </StackPanel>
@@ -86,9 +85,21 @@
             </TabItem>
             <TabItem Header="Version History" Name="tiVersionHistory">
                 <DockPanel>
-                    <ListView Name="lvVersions" DockPanel.Dock="Left" SelectionChanged="LvVersionsSelectionChanged">
+                    <ListView Name="lvVersions" DockPanel.Dock="Left" ItemsSource="{Binding Changelog, Mode=OneWay}" SelectedItem="{Binding SelectedVersion, Mode=TwoWay}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Padding="10 1 10 1">
+                                    <Run Text="{Binding Version, Mode=OneWay}">
+                                        <Run.ToolTip>
+                                            <ToolTip Content="{Binding Date, TargetNullValue=''}" ContentStringFormat="{}{0:d}"></ToolTip>
+                                        </Run.ToolTip>
+                                    </Run>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
                     </ListView>
-                    <FlowDocumentScrollViewer Name="fdsvVersionChangelog"></FlowDocumentScrollViewer>
+                    <FlowDocumentScrollViewer Name="fdsvVersionChangelog" Document="{Binding Path=SelectedVersion.Document}">
+                    </FlowDocumentScrollViewer>
                 </DockPanel>
             </TabItem>
         </TabControl>

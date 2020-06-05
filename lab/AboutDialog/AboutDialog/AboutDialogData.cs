@@ -1,19 +1,27 @@
 ﻿using GraphQL.Client;
 using GraphQL.Common.Request;
 using GraphQL.Common.Response;
+using Microsoft.Toolkit.Parsers.Markdown;
+using Microsoft.Toolkit.Parsers.Markdown.Blocks;
 using Newtonsoft.Json.Linq;
 using RestSharp;
+using System;
+using System.Collections.ObjectModel;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace Sharpen
 {
     /// <summary>
     /// Loader for databindable fileds.
     /// </summary>
-    internal class AboutDialogLoader : BindableBase
+    internal class AboutDialogData : BindableBase
     {
         private AboutDialogConfigurationSection configuration = ConfigurationManager.GetSection("aboutDialogConfigurationSection") as AboutDialogConfigurationSection;
 
@@ -152,9 +160,74 @@ namespace Sharpen
         }
         #endregion
 
+        #region Changelog
+        internal class ChangeLogVersion
+        {
+            public string Version { get; private set; }
+            public DateTime Date { get; private set; }
+            public FlowDocument Document { get; private set; }
+
+            public ChangeLogVersion(string version, DateTime date, FlowDocument document)
+            {
+                Version = version;
+                Date = date;
+                Document = document;
+            }
+        }
+        private readonly Regex versionExtruder = new Regex(@"^ \[(?<version>.*)] - (?<date>\d{4}-\d{2}-\d{2})$");
+        private readonly ObservableCollection<ChangeLogVersion> changelog = new ObservableCollection<ChangeLogVersion>();
+        private ChangeLogVersion selectedVersion;
+
+        public ObservableCollection<ChangeLogVersion> Changelog => changelog;
+        public ChangeLogVersion SelectedVersion { get => selectedVersion; set => SetProperty(ref selectedVersion, value); }
+
+        private async Task SetChangelogDataAsync()
+        {
+            string changelogText;
+
+            using (var reader = File.OpenText("CHANGELOG.md"))
+                changelogText = await reader.ReadToEndAsync();
+
+            var markdown = new MarkdownDocument();
+            markdown.Parse(changelogText);
+
+            foreach (var header in markdown.Blocks.OfType<HeaderBlock>().Where(h => h.HeaderLevel == 2))
+            {
+                var versionInfo = versionExtruder.Match(header.ToString());
+                var version = new ChangeLogVersion(versionInfo.Groups["version"].Value, DateTime.Parse(versionInfo.Groups["date"].Value), CreateFlowDocument(markdown, markdown.Blocks.IndexOf(header) + 1));
+                Changelog.Add(version); // Stores reference to created document.
+            }
+            if (changelog.Any())
+                SelectedVersion = changelog.First();
+        }
+        private FlowDocument CreateFlowDocument(MarkdownDocument markdown, int headerIndex)
+        {
+            var document = new FlowDocument()
+            {
+                FontSize = 12,
+                FontFamily = new System.Windows.Media.FontFamily("Segoe UI")
+            };
+
+            for (int i = headerIndex; i < markdown.Blocks.Count; i++)
+            {
+                var block = markdown.Blocks[i];
+                var header = block as HeaderBlock;
+                if (header?.HeaderLevel == 2)
+                    break;
+
+                document.Blocks.Add(MarkdownToFlowDocumentConverter.CreateBlock(block));
+
+                if (header?.HeaderLevel == 3)
+                    document.Blocks.Add(new BlockUIContainer(new Separator()));
+            }
+
+            return document;
+        }
+        #endregion
+
         public async Task LoadAsync()
         {
-            await Task.WhenAll(SetAssemblyDataAsync(), SetGitHubDataAsync(), SetVSMarketplaceDataAsync());
+            await Task.WhenAll(SetAssemblyDataAsync(), SetGitHubDataAsync(), SetVSMarketplaceDataAsync(), SetChangelogDataAsync());
         }
     }
 }
