@@ -12,10 +12,6 @@
 
 ![Sharpen in action](https://raw.githubusercontent.com/ironcev/sharpen/master/images/demo.gif)
 
-## Installation
-
-You can [install *Sharpen*](https://github.com/sharpenrocks/Sharpen/wiki/Installing-Sharpen) directly from Visual Studio or [download it](https://marketplace.visualstudio.com/items?itemName=ironcev.sharpen) from the Visual Studio Marketplace.
-
 ## Benefits at a Glance
 
 ### Faster Learning of New C# Features
@@ -63,6 +59,10 @@ Note that in the current version of *Sharpen* the following features mentioned i
 - Recommendations.
 - Refactoring.
 - Configuration.
+
+## Installation
+
+You can [install *Sharpen* directly from Visual Studio](https://github.com/sharpenrocks/Sharpen/wiki/Installing-Sharpen) by using Extensions dialog or you can [download it](https://marketplace.visualstudio.com/items?itemName=ironcev.sharpen) from the Visual Studio Marketplace.
 
 ## Contributing
 *Sharpen* is a volunteer effort. Covering the whole C# evolution is a humongous task that cannot be carried out by a single person. So pitch in and join the development! :-) Before contributing, please make sure to read the [contribution guidelines](CONTRIBUTING.md).
