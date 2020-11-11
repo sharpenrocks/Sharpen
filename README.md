@@ -17,7 +17,7 @@
 ### Faster Learning of New C# Features
 Learn new C# features faster by applying them to your existing codebase.
 
-Forget the simplified, artificial code samples often used to introduce new C# features. *Sharpen* points you to places in real-life production code - your production code! - where you can learn and apply modern C#.
+*Sharpen* points you to places in real-life production code - your production code! - where you can learn and apply modern C#. This is a far cry from simplified and artificial code samples often used to explain new C# features. *Sharpen* allows you to learn and understand modern C# in the context of your own code.
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/faster-learning-of-new-csharp-features.png" alt="Faster Learning of New C# Features" style="max-width:100%;">
