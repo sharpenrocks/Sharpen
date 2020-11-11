@@ -68,53 +68,7 @@ You can [install *Sharpen* directly from Visual Studio](https://github.com/sharp
 *Sharpen* is a volunteer effort. Covering the whole C# evolution is a humongous task that cannot be carried out by a single person. So pitch in and join the development! :-) Before contributing, please make sure to read the [contribution guidelines](CONTRIBUTING.md).
 
 ## Release Notes
-All notable changes to the *Sharpen* extension are documented in the [changelog](https://github.com/ironcev/sharpen/blob/master/CHANGELOG.md). Below is the excerpt from the changelog that lists only the summary of major changes.
-
-### 0.10.1
-- Bug fixes in the Sharpen Results view.
-
-### 0.10.0
-- Null-coalescing assignments suggestions (C# 8.0).
-- "Learn more..." and "What is/was new in C# X.Y?" links to MSDN documentation in the Sharpen Results view.
-
-### 0.9.0
-- Async streams, nullable reference types, switch expressions, and using declarations suggestions (C# 8.0).
-- Var keyword suggestions (C# 3.0).
-
-### 0.8.0
-- Support for Visual Studio 2019.
-
-### 0.7.0
-- Analysis of selected files, folders, and projects via "Analyze with Sharpen" option on context menus.
-
-### 0.6.1
-- Better display of Async and Await findings in the Sharpen Results view.
-- Suggestion for awaiting task instead of calling Task.Result.
-
-### 0.6.0
-- Async/Await suggestions (C# 5.0).
-
-### 0.5.0
-- Suggestions for using nameof expressions in argument exceptions and dependency properties (C# 6.0).
-
-### 0.4.0
-- Suggestions for discarding of out variables (C# 7.0).
-- Suggestions for usages of out variables in object creations (C# 7.0).
-
-### 0.3.0
-- Suggestions for usages of out variables (C# 7.0).
-- Grouping of the analysis results by C# language feature.
-
-### 0.2.0
-- Suggestions for usages of default expressions (C# 7.1).
-
-### 0.1.1
-- Icon, preview image and release notes.
-
-### 0.1.0
-- Display of the analysis results in a tree view.
-- Analysis of the whole solution.
-- Suggestions for usages of expression-bodied members (C# 6.0 & C# 7.0).
+All notable changes to the *Sharpen* extension are documented in the [changelog](https://github.com/ironcev/sharpen/blob/master/CHANGELOG.md). 
 
 ## License
 *Sharpen* is licensed under the [MIT license](https://github.com/ironcev/sharpen/blob/master/LICENSE).
