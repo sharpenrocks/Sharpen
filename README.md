@@ -19,8 +19,42 @@ Learn new C# features faster by applying them to your existing codebase.
 
 *Sharpen* points you to places in real-life production code - your production code! - where you can learn and apply modern C#. This is a far cry from simplified and artificial code samples often used to explain new C# features. *Sharpen* allows you to learn and understand modern C# in the context of your own code.
 
+*Sharpen* provides you with meaningful recommendations and considerations for modernizing your code. It relates those recommendations and considerations to particular C# versions and their language features. Recommendations and considerations supported at the moment are listed below, sorted by the language version. Each new version of *Sharpen* brings additional recommendations and considerations.
+
+#### C# 8.0
+
 <p align="center">
-    <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/faster-learning-of-new-csharp-features.png" alt="Faster Learning of New C# Features" style="max-width:100%;">
+    <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/faster-learning-of-new-csharp-features-csharp-8-0.png" alt="C# 8.0 recommendations and considerations" style="max-width:100%;">
+</p>
+
+#### C# 7.1
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/faster-learning-of-new-csharp-features-csharp-7-1.png" alt="C# 7.1 recommendations and considerations" style="max-width:100%;">
+</p>
+
+#### C# 7.0
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/faster-learning-of-new-csharp-features-csharp-7-0.png" alt="C# 7.0 recommendations and considerations" style="max-width:100%;">
+</p>
+
+#### C# 6.0
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/faster-learning-of-new-csharp-features-csharp-6-0.png" alt="C# 6.0 recommendations and considerations" style="max-width:100%;">
+</p>
+
+#### C# 5.0
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/faster-learning-of-new-csharp-features-csharp-5-0.png" alt="C# 5.0 recommendations and considerations" style="max-width:100%;">
+</p>
+
+#### C# 3.0
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/faster-learning-of-new-csharp-features-csharp-3-0.png" alt="C# 3.0 recommendations and considerations" style="max-width:100%;">
 </p>
 
 ### Critical Approach to New C# Features
