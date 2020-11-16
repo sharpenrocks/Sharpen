@@ -57,6 +57,32 @@ Learn new C# features faster by applying them to your existing codebase.
     <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/faster-learning-of-new-csharp-features-csharp-3-0.png" alt="C# 3.0 recommendations and considerations" style="max-width:100%;">
 </p>
 
+### Modernizing and Refactoring Code
+
+Modernize your C# code by refactoring it via a single mouse click.
+
+*Sharpen* will have a preview window that shows how the code looks now and how it will look after the proposed change is applied. That way, you will clearly understand the difference and, at the same time, visually grasp what the language feature is about. You will have the option to accept the proposed change and automatically refactor that piece of code.
+
+Preview is not implemented at the moment. Here is a rough mockup of that upcoming functionality.
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/modernizing-and-refactoring-code-preview-window-switch-expression.png" alt="Sharpen preview window" style="max-width:100%;">
+</p>
+
+Refactoring will not be limited to the preview window only. It will be possible on different scales. E.g. in a single place in code, or in a single file, or a whole project, or solution. *Sharpen* will give you full control over the scope and nature of the refactorings. Also, it will automatically refactor only direct recommendations. Those are considered as always safe to apply.
+
+This mockup shows applying suggested changes for a specific language feature within all files of a solution.
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/modernizing-and-refactoring-code-apply-recommendations.png" alt="Applying Sharpen's recommendations" style="max-width:100%;">
+</p>
+
+Until *Sharpen* built-in refactorings are implemented, you can use the code fixes that come with Visual Studio for some of the recommendations. They are not available for all *Sharpen* recommendations, but for some, they are, so make sure to take a look if they might exist.
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/modernizing-and-refactoring-code-use-visual-studio-code-fixes.gif" alt="Refactoring code by using Visual Studio code fixes" style="max-width:100%;">
+</p>
+
 ### Critical Approach to New C# Features
 Learn to ❤ C# but not blindly. Take love with a pinch of salt ;-)
 
@@ -66,15 +92,6 @@ Learn to ❤ C# but not blindly. Take love with a pinch of salt ;-)
 Consistency matters. And your preferences, as well.
 
 Once configured on your project, *Sharpen* ensures that usage of C# language features remains consistent over the whole codebase.
-
-### Code Refactoring on Arbitrary Scale
-Safely refactor your code by a single mouse click.
-
-*Sharpen* can refactor your code on an arbitrary scale: single place in code, single file, or a whole project, or solution. At the same time, it gives you full control over the scope and nature of the refactorings.
-
-<p align="center">
-    <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/code-refactoring-on-arbitrary-scale.png" alt="Code Refactoring on Arbitrary Scale" style="max-width:100%;">
-</p>
 
 ### Improving Code on a Larger Scope
 Are you still having BackgroundWorkers in your code?
