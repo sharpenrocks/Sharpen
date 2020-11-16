@@ -83,6 +83,19 @@ Until *Sharpen* built-in refactorings are implemented, you can use the code fixe
     <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/modernizing-and-refactoring-code-use-visual-studio-code-fixes.gif" alt="Refactoring code by using Visual Studio code fixes" style="max-width:100%;">
 </p>
 
+### High-Quality Documentation on C# Language at your Fingerprints
+Learn C# without leaving Visual Studio by using built-in, high-quality documentation.
+
+*Sharpen* will bring high-quality C# documentation right at your fingerprints. It will provide its own extensive built-in documentation that explains C# language features in-depth. It will also link to the official MSDN documentation and curated high-quality online blog posts and videos that bring additional insights into particular topics.
+
+*Sharpen* aims to become a one-stop-shop for everything you ever wanted to know about the design and evolution of C#.
+
+In its current version, *Sharpen* links C# releases and language features to their official MSDN documentation. Extensive built-in documentation will be available in upcoming versions of *Sharpen*. (To open the documentation in an external browser, press the CTRL key while clicking on the link.)
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/high-quality-documentation-on-csharp-language-at-your-fingerprints.gif" alt="High-Quality Documentation on C# Language at your Fingerprints" style="max-width:100%;">
+</p>
+
 ### Critical Approach to New C# Features
 Learn to ❤ C# but not blindly. Take love with a pinch of salt ;-)
 
@@ -97,11 +110,6 @@ Once configured on your project, *Sharpen* ensures that usage of C# language fea
 Are you still having BackgroundWorkers in your code?
 
 It's time to replace them with async-await! *Sharpen* is equipped with an intelligent heuristics that recognizes potential improvements of your code on a broader scope.
-
-### Extensive Documentation on C# Language
-Are you tired of searching for new C# features in random blog posts?
-
-*Sharpen* comes with extensive built-in documentation on C# language features. It's a one-stop-shop for everything you ever wanted to know about the design and evolution of C#.
 
 ## Current Limitations
 Note that in the current version of *Sharpen* the following features mentioned in the above chapters are still not available:
