@@ -97,9 +97,19 @@ In its current version, *Sharpen* links C# releases and language features to the
 </p>
 
 ### Critical Approach to New C# Features
-Learn to ❤ C# but not blindly. Take love with a pinch of salt ;-)
+Understand the potential drawbacks of new C# features before using them.
 
-*Sharpen* brings a critical view of C# features. It recommends applying them only if their usage will result in a "sharper" code. *Sharpen* is not shy of saying No! to a language feature.
+*Sharpen* imposes a critical view on C# features. It does that by distinguishing between *recommendations* and *considerations*. Recommendations are safe and recommended to apply. They will result in a more expressive, more readable, more robust, or more performant code. Recommendations always start with call-for-action verbs like "use," "apply," or "replace." Considerations, on the other hand, ask you to critically assess a particular language feature's usage in a given context. Considerations usually start with the verb "consider."
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/critical-approach-to-new-csharp-features-recommendations-and-considerations.png" alt="Sharpen's recommendations and considerations" style="max-width:100%;">
+</p>
+
+At the moment, *Sharpen*'s considerations do not provide any explanations. In the upcoming versions, every consideration will come with an explanation. This explanation, together with additional examples, will provide you with enough information to decide if the language feature should be used in that particular case.
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/critical-approach-to-new-csharp-features-explanation-for-consideration.png" alt="An explanation for a Sharpen consideration" style="max-width:100%;">
+</p>
 
 ### Consistent Usage of C# Features
 Consistency matters. And your preferences, as well.
