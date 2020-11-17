@@ -15,7 +15,7 @@
     <None Remove="Resources\Icon.email.png" />
     <None Remove="Resources\Icon.github.png" />
     <None Remove="Resources\Icon.twitter.png" />
-    <None Remove="Resources\Icon.vsmarketplace.png" />
+    <None Remove="Resources\Icon.VisualStudioMarketplace.png" />
     <None Remove="Resources\Icon.www.png" />
     <None Remove="Resources\Rating.FullStar.png" />
     <None Remove="Resources\Rating.HalfStar.png" />
@@ -49,7 +49,7 @@
     <Content Include="Resources\Icon.Twitter.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Icon.VSMarketplace.png">
+    <Content Include="Resources\Icon.VisualStudioMarketplace.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icon.WWW.png">

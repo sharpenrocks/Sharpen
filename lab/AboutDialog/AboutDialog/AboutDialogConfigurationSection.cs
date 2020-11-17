@@ -13,7 +13,7 @@ namespace Sharpen
         [ConfigurationProperty("gitHubRepository")]
         public string GitHubRepository => (string)this["gitHubRepository"];
 
-        [ConfigurationProperty("vSMarketplaceId")]
-        public string VSMarketplaceId => (string)this["vSMarketplaceId"];
+        [ConfigurationProperty("visualStudioMarketplaceId")]
+        public string VisualStudioMarketplaceId => (string)this["visualStudioMarketplaceId"];
     }
 }

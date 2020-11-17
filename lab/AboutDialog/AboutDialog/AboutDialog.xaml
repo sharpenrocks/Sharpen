@@ -44,20 +44,20 @@
                         <Image Source="/Resources/Icon.GitHub.png" Stretch="None" Margin="0 0 10 0"></Image>
                         <TextBlock Name="txtGitHub" VerticalAlignment="Center">
                             <Hyperlink NavigateUri="https://github.com/sharpenrocks/Sharpen" RequestNavigate="HyperlinkRequestNavigate">sharpenrocks/Sharpen</Hyperlink>
-                            <Run Text="{Binding Path=GitHubStars, TargetNullValue='', StringFormat={}{0:N0} star(s)}"/>
+                            <Run Text="{Binding Path=GitHubInfo.Stars, TargetNullValue='', StringFormat={}{0:N0} star(s)}"/>
                         </TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0 2">
-                        <Image Source="/Resources/Icon.VSMarketplace.png" Stretch="None" Margin="0 0 10 0"></Image>
-                        <TextBlock Name="txtVSMarketplace"  VerticalAlignment="Center">
+                        <Image Source="/Resources/Icon.VisualStudioMarketplace.png" Stretch="None" Margin="0 0 10 0"></Image>
+                        <TextBlock Name="txtVisualStudioMarketplace"  VerticalAlignment="Center">
                             <Hyperlink NavigateUri="https://marketplace.visualstudio.com/items?itemName=ironcev.sharpen" RequestNavigate="HyperlinkRequestNavigate">Visual Studio Marketpace</Hyperlink>
-                            <Run Text="{Binding Path=VSMarketplaceNumberOfInstalls, TargetNullValue='', StringFormat={}{0:N0} install(s)}"/>
-                            <Image Source="{Binding Path=VSMarketplaceRating, Converter={StaticResource RatingToStarsConverter}}" VerticalAlignment="Bottom">
+                            <Run Text="{Binding Path=VisualStudioMarketplaceInfo.NumberOfInstalls, TargetNullValue='', StringFormat={}{0:N0} install(s)}"/>
+                            <Image Source="{Binding Path=VisualStudioMarketplaceInfo.Rating, Converter={StaticResource RatingToStarsConverter}}" VerticalAlignment="Bottom">
                                 <Image.ToolTip>
-                                    <ToolTip Content="{Binding Path=VSMarketplaceRating, TargetNullValue=''}" ContentStringFormat="{}{0:0.0}/5"></ToolTip>
+                                    <ToolTip Content="{Binding Path=VisualStudioMarketplaceInfo.Rating, TargetNullValue=''}" ContentStringFormat="{}{0:0.0}/5"></ToolTip>
                                 </Image.ToolTip>
                             </Image>
-                            <Run Text="{Binding Path=VsMarketplaceNumberOfReviews, TargetNullValue='', StringFormat={}{0:N0} rating(s)}"/>
+                            <Run Text="{Binding Path=VisualStudioMarketplaceInfo.NumberOfReviews, TargetNullValue='', StringFormat={}{0:N0} rating(s)}"/>
                         </TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0 2">
@@ -85,7 +85,7 @@
             </TabItem>
             <TabItem Header="Version History" Name="tiVersionHistory">
                 <DockPanel>
-                    <ListView Name="lvVersions" DockPanel.Dock="Left" ItemsSource="{Binding Changelog, Mode=OneWay}" SelectedItem="{Binding SelectedVersion, Mode=TwoWay}">
+                    <ListView Name="lvVersions" DockPanel.Dock="Left" ItemsSource="{Binding Changelog.Versions, Mode=OneWay}" SelectedItem="{Binding Changelog.SelectedVersion, Mode=TwoWay}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Padding="10 1 10 1">
@@ -98,7 +98,7 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <FlowDocumentScrollViewer Name="fdsvVersionChangelog" Document="{Binding Path=SelectedVersion.Document}">
+                    <FlowDocumentScrollViewer Name="fdsvSelectedVersion" Document="{Binding Path=Changelog.SelectedVersion.Document}">
                     </FlowDocumentScrollViewer>
                 </DockPanel>
             </TabItem>

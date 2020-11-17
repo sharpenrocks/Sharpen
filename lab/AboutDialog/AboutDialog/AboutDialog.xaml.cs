@@ -7,7 +7,7 @@ namespace Sharpen
 {
     public partial class AboutDialog : Window
     {
-        private readonly AboutDialogData data = new AboutDialogData();
+        private readonly AboutDialogViewModel data = new AboutDialogViewModel();
 
         public AboutDialog()
         {
