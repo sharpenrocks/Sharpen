@@ -141,11 +141,27 @@ Future versions of *Sharpen* will allow you to configure which recommendations a
 Note that defining and storing configurations is not implemented at the moment.
 
 ## Installing Sharpen
-
 You can [install *Sharpen* directly from Visual Studio](https://github.com/sharpenrocks/Sharpen/wiki/Installing-Sharpen) by using Extensions dialog or you can [download it](https://marketplace.visualstudio.com/items?itemName=ironcev.sharpen) from the Visual Studio Marketplace.
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/installing-sharpen-from-visual-studio.png" alt="Installing Sharpen from Visual Studio" style="max-width:100%;">
+</p>
+
+## Running Code Analysis
+To run *Sharpen* analysis on a whole solution, go to the "Tools -> Sharpen -> Analyze Solution".<br/>
+To run an analysis on the currently edited file, use the "Analyze with Sharpen" context menu option on the file context menu.<br/>
+To run an analysis on an arbitrary scope, use the "Analyze with Sharpen" context menu option after selecting nodes in the Solution Explorer.
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/running-code-analysis-whole-solution.png" alt="Running code analysis on a whole solution" style="max-width:100%;">
+</p>
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/running-code-analysis-currently-edited-file.png" alt="Running code analysis on the currently edited file" style="max-width:100%;">
+</p>
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/running-code-analysis-arbitrary-scope.gif" alt="Running code analysis on an arbitrary scope" style="max-width:100%;">
 </p>
 
 ## Contributing
