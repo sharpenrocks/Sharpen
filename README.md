@@ -140,9 +140,13 @@ Future versions of *Sharpen* will allow you to configure which recommendations a
 
 Note that defining and storing configurations is not implemented at the moment.
 
-## Installation
+## Installing Sharpen
 
 You can [install *Sharpen* directly from Visual Studio](https://github.com/sharpenrocks/Sharpen/wiki/Installing-Sharpen) by using Extensions dialog or you can [download it](https://marketplace.visualstudio.com/items?itemName=ironcev.sharpen) from the Visual Studio Marketplace.
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/installing-sharpen-from-visual-studio.png" alt="Installing Sharpen from Visual Studio" style="max-width:100%;">
+</p>
 
 ## Contributing
 *Sharpen* is a volunteer effort. Covering the whole C# evolution is a humongous task that cannot be carried out by a single person. So pitch in and join the development! :-) Before contributing, please make sure to read the [contribution guidelines](CONTRIBUTING.md).
