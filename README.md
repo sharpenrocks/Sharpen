@@ -149,7 +149,7 @@ You can [install *Sharpen* directly from Visual Studio](https://github.com/sharp
 </p>
 
 ## Contributing
-*Sharpen* is a volunteer effort. Covering the whole C# evolution is a humongous task that cannot be carried out by a single person. So pitch in and join the development! :-) Before contributing, please make sure to read the [contribution guidelines](CONTRIBUTING.md).
+*Sharpen* is a volunteer effort. Covering the whole C# evolution is a humongous task that cannot be carried out by a few people. So pitch in and join the development! :-) Before contributing, please make sure to read the [contribution guidelines](CONTRIBUTING.md).
 
 ## Release Notes
 All notable changes to the *Sharpen* extension are documented in the [changelog](https://github.com/ironcev/sharpen/blob/master/CHANGELOG.md). 
