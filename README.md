@@ -132,14 +132,6 @@ Future versions of *Sharpen* will allow you to configure which recommendations a
 
 Note that defining and storing configurations is not implemented at the moment.
 
-## Current Limitations
-Note that in the current version of *Sharpen* the following features mentioned in the above chapters are still not available:
-
-- Extensive documentation.
-- Recommendations.
-- Refactoring.
-- Configuration.
-
 ## Installation
 
 You can [install *Sharpen* directly from Visual Studio](https://github.com/sharpenrocks/Sharpen/wiki/Installing-Sharpen) by using Extensions dialog or you can [download it](https://marketplace.visualstudio.com/items?itemName=ironcev.sharpen) from the Visual Studio Marketplace.
