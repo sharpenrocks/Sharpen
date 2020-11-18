@@ -126,9 +126,11 @@ Other examples would be considering:
 - to rearchitecture mutable Data Transfer Objects to C# 9.0 records.
 
 ### Consistent Usage of C# Features
-Consistency matters. And your preferences, as well.
+Use new C# features consistently over your entire codebase.
 
-Once configured on your project, *Sharpen* ensures that usage of C# language features remains consistent over the whole codebase.
+Future versions of *Sharpen* will allow you to configure which recommendations are relevant for you and refine the recommendations using recommendation-specific settings. Storing of such configurations will be possible on different levels, e.g., on a project, or on a solution, or on a machine level, to name just a few possibilities. It will be possible to share *Sharpen*'s configuration among programmers working on the same project by checking it into the source code repository.
+
+Note that defining and storing configurations is not implemented at the moment.
 
 ## Current Limitations
 Note that in the current version of *Sharpen* the following features mentioned in the above chapters are still not available:
