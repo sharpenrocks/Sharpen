@@ -13,6 +13,14 @@
 ![Sharpen in action](https://raw.githubusercontent.com/ironcev/sharpen/master/images/demo.gif)
 
 ## Benefits at a Glance
+Sharpen helps you to:
+
+- [learn new C# features faster](#faster-learning-of-new-c-features)
+- [modernize and refactor your code](#modernizing-and-refactoring-code)
+- [always have high-quality documentation on C# language at your fingerprints](#high-quality-documentation-on-c-language-at-your-fingerprints)
+- [learn to approach new C# features critically](#critical-approach-to-new-c-features)
+- [improve the design and architecture of your codebase](#improving-design-and-architecture-of-a-broader-codebase)
+- [use C# features consistently over your codebase](#consistent-usage-of-c-features)
 
 ### Faster Learning of New C# Features
 Learn new C# features faster by applying them to your existing codebase.
