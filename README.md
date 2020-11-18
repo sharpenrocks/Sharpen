@@ -111,15 +111,24 @@ At the moment, *Sharpen*'s considerations do not provide any explanations. In th
     <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/critical-approach-to-new-csharp-features-explanation-for-consideration.png" alt="An explanation for a Sharpen consideration" style="max-width:100%;">
 </p>
 
+### Improving Design and Architecture of a Broader Codebase
+Recognize potential improvements and redesign and rearchitecture your code on a broader scope.
+
+*Sharpen* is equipped with intelligent heuristics that recognizes potential code improvements on a broader scope. For example, the "Consider awaiting equivalent asynchronous method and yielding IAsyncEnumerable" recognizes places where asynchronous streams might be a better design choice than returning an `IEnumerable<T>`. Accepting such consideration impacts and improves the code on a broader scope. It means rearchitecting and redesigning a larger portion of the codebase rather than simply refactoring an isolated piece of code.
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/improving-design-and-architecture-of-the-codebase.png" alt="Consider awaiting equivalent asynchronous method and yielding IAsyncEnumerable" style="max-width:100%;">
+</p>
+
+Other examples would be considering:
+
+- to rearchitecture legacy asynchronous programming patterns like, e.g. `IAsyncResult` pattern, to the Task-based Asynchronous Pattern and async and await.
+- to rearchitecture mutable Data Transfer Objects to C# 9.0 records.
+
 ### Consistent Usage of C# Features
 Consistency matters. And your preferences, as well.
 
 Once configured on your project, *Sharpen* ensures that usage of C# language features remains consistent over the whole codebase.
-
-### Improving Code on a Larger Scope
-Are you still having BackgroundWorkers in your code?
-
-It's time to replace them with async-await! *Sharpen* is equipped with an intelligent heuristics that recognizes potential improvements of your code on a broader scope.
 
 ## Current Limitations
 Note that in the current version of *Sharpen* the following features mentioned in the above chapters are still not available:
