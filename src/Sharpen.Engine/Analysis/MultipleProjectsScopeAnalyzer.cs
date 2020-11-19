@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 
@@ -21,7 +22,7 @@ namespace Sharpen.Engine.Analysis
         protected override string GetCanExecuteScopeAnalysisErrorMessage()
         {
             if (!isCalledFromContextMenu)
-                return "Analyzing selected projects is currently not implemented.";
+                return $@"The dialog for selecting projects to analyze is currently not implemented.{Environment.NewLine}{Environment.NewLine}However, you can select the desired projects in the Solution Explorer and run the analysis on them by using the ""Analyze with Sharpen"" context menu option.";
 
             if (projects == null || projects.Count <= 0)
             {
