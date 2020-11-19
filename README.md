@@ -153,15 +153,7 @@ To run an analysis on the currently edited file, use the "Analyze with Sharpen" 
 To run an analysis on an arbitrary scope, use the "Analyze with Sharpen" context menu option after selecting nodes in the Solution Explorer.
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/running-code-analysis-whole-solution.png" alt="Running code analysis on a whole solution" style="max-width:100%;">
-</p>
-
-<p align="center">
-    <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/running-code-analysis-currently-edited-file.png" alt="Running code analysis on the currently edited file" style="max-width:100%;">
-</p>
-
-<p align="center">
-    <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/running-code-analysis-arbitrary-scope.gif" alt="Running code analysis on an arbitrary scope" style="max-width:100%;">
+    <img src="https://raw.githubusercontent.com/ironcev/sharpen/master/images/running-code-analysis.gif" alt="Running Sharpen code analysis" style="max-width:100%;">
 </p>
 
 ## Contributing
