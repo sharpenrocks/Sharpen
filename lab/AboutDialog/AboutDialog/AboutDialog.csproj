@@ -2,13 +2,23 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net472</TargetFramework>
+	<TargetFramework>net48</TargetFramework>
+    <LangVersion>8.0</LangVersion>
     <UseWPF>true</UseWPF>
     <AssemblyName>AboutDialog</AssemblyName>
     <RootNamespace>Sharpen</RootNamespace>
     <Version>1.0.2</Version>
     <Description>Description from assembly.</Description>
     <Copyright>Copyright from assembly</Copyright>
+	<nullable>enable</nullable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>

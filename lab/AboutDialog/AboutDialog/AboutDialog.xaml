@@ -23,10 +23,10 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Image Source="/Resources/SharpenLogo.png" Width="96" Height="96" Grid.Column="0" Grid.Row="0" Grid.RowSpan="4"></Image>
-            <Label Name="lblTitle" Grid.Column="2" Grid.Row="0" FontWeight="Bold" FontSize="14" Content="{Binding Path=Title}"></Label>
+            <Label Name="lblTitle" Grid.Column="2" Grid.Row="0" FontWeight="Bold" FontSize="14" Content="{Binding Path=GeneralInfo.Title}"></Label>
             <Label Name="lblDescription" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2">
-                <TextBlock  Text="{Binding Path=Description}" TextWrapping="Wrap"></TextBlock></Label>
-            <Label Name="lblCopyright" Grid.Column="2" Grid.Row="3" Content="{Binding Path=Copyright}"></Label>
+                <TextBlock  Text="{Binding Path=GeneralInfo.Description}" TextWrapping="Wrap"></TextBlock></Label>
+            <Label Name="lblCopyright" Grid.Column="2" Grid.Row="3" Content="{Binding Path=GeneralInfo.Copyright}"></Label>
         </Grid>
         <StackPanel DockPanel.Dock="Bottom">
             <Button Name="btnClose" HorizontalAlignment="Right" Margin="5" Padding="10 2" Click="BtnCloseClick">Close</Button>

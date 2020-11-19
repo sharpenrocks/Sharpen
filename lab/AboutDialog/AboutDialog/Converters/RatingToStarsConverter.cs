@@ -11,7 +11,7 @@ namespace Sharpen
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             if (!(value is double))
-                return null;
+                return value;
 
             double rating = (double)value;
             double roundedRating = Math.Round(rating * 2, MidpointRounding.AwayFromZero) / 2;
