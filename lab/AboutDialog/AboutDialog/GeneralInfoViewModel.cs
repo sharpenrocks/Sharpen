@@ -18,18 +18,14 @@ namespace Sharpen
             var assembly = Assembly.GetEntryAssembly();
 
             // Set Title.
-            var name = assembly.GetName();
-            Title = $"{name.Name} v{name.Version}";
+            var assemblyName = assembly.GetName();
+            Title = $"{assemblyName.Name} v{assemblyName.Version}";
 
             // Set Description.
-            var descriptionAttribute = assembly.GetCustomAttribute<AssemblyDescriptionAttribute>();
-            if (descriptionAttribute != null)
-                Description = descriptionAttribute.Description;
+            Description = assembly.GetCustomAttribute<AssemblyDescriptionAttribute>()?.Description;
 
             // Set Copyright.
-            var copyrightAttribute = assembly.GetCustomAttribute<AssemblyCopyrightAttribute>();
-            if (copyrightAttribute != null)
-                Copyright = copyrightAttribute.Copyright;
+            Copyright = assembly.GetCustomAttribute<AssemblyCopyrightAttribute>()?.Copyright;
 
             return Task.CompletedTask;
         }

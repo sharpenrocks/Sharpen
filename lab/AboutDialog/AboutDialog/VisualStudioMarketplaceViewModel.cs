@@ -48,7 +48,7 @@ namespace Sharpen
         {
             var client = new RestClient("https://marketplace.visualstudio.com/");
 
-            var request = new RestRequest("_apis/public/gallery/extensionquery", Method.POST, RestSharp.DataFormat.Json);
+            var request = new RestRequest("_apis/public/gallery/extensionquery", Method.POST, DataFormat.Json);
             request.AddHeader("Accept", "application/json; api-version=3.2-preview.1");
             request.AddHeader("Accept-Encoding", "gzip, deflate");
             request.AddHeader("Content-Type", "application/json; charset=utf-8");
