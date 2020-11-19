@@ -64,7 +64,7 @@ namespace Sharpen
                         }}]
                     }}");
 
-            return await client.ExecuteTaskAsync(request);
+            return await client.ExecuteAsync(request);
         }
     }
 }

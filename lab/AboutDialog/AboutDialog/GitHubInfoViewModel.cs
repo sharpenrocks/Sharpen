@@ -1,6 +1,6 @@
-﻿using GraphQL.Client;
-using GraphQL.Common.Request;
-using GraphQL.Common.Response;
+﻿using GraphQL;
+using GraphQL.Client.Http;
+using GraphQL.Client.Serializer.Newtonsoft;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,7 +14,7 @@ namespace Sharpen
 
         internal async Task SetGitHubInfoAsync()
         {
-            GraphQLResponse response;
+            GraphQLResponse<dynamic> response;
             try
             {
                 response = await GetGitHubDataAsync();
@@ -32,12 +32,12 @@ namespace Sharpen
             Stars = (int)repository.stargazers.totalCount;
         }
 
-        private async Task<GraphQLResponse> GetGitHubDataAsync()
+        private async Task<GraphQLResponse<dynamic>> GetGitHubDataAsync()
         {
-            using (var client = new GraphQLClient("https://api.github.com/graphql"))
+            using (var client = new GraphQLHttpClient("https://api.github.com/graphql", new NewtonsoftJsonSerializer()))
             {
-                client.DefaultRequestHeaders.Add("Authorization", $"bearer {configuration.GitHubAuthToken}");
-                client.DefaultRequestHeaders.Add("User-Agent", "SharpenAboutBox");
+                client.HttpClient.DefaultRequestHeaders.Add("Authorization", $"bearer {configuration.GitHubAuthToken}");
+                client.HttpClient.DefaultRequestHeaders.Add("User-Agent", "SharpenAboutBox");
                 var request = new GraphQLRequest()
                 {
                     Query = $@"query {{
@@ -50,7 +50,7 @@ namespace Sharpen
                             }}
                         }}"
                 };
-                return await client.PostAsync(request);
+                return await client.SendQueryAsync<dynamic>(request);
             }
         }
     }
