@@ -3,14 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sharpen="clr-namespace:Sharpen"
         mc:Ignorable="d"
         Title="About Sharpen" Height="500" Width="600" ResizeMode="NoResize" Icon="/Resources/SharpenPackage.ico" ShowInTaskbar="False" Loaded="WindowLoaded">
     <Window.Resources >
-        <ResourceDictionary >
-            <Image Source="/Resources/Rating.FullStar.png" x:Key="FullStar" />
-            <Image Source="/Resources/Rating.HalfStar.png" x:Key="HalfStar" />
-            <Image Source="/Resources/Rating.NoStar.png" x:Key="NoStar" />
-        </ResourceDictionary >
+        <sharpen:RatingToStarsConverter x:Key="RatingToStarsConverter" />
     </Window.Resources >
     <DockPanel>
         <Grid DockPanel.Dock="Top" Margin="20 ">
@@ -26,9 +23,10 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Image Source="/Resources/SharpenLogo.png" Width="96" Height="96" Grid.Column="0" Grid.Row="0" Grid.RowSpan="4"></Image>
-            <Label Name="lblTitle" Grid.Column="2" Grid.Row="0" FontWeight="Bold" FontSize="14"></Label>
-            <Label Name="lblDescription" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2"></Label>
-            <Label Name="lblCopyright" Grid.Column="2" Grid.Row="3"></Label>
+            <Label Name="lblTitle" Grid.Column="2" Grid.Row="0" FontWeight="Bold" FontSize="14" Content="{Binding Path=GeneralInfo.Title}"></Label>
+            <Label Name="lblDescription" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2">
+                <TextBlock  Text="{Binding Path=GeneralInfo.Description}" TextWrapping="Wrap"></TextBlock></Label>
+            <Label Name="lblCopyright" Grid.Column="2" Grid.Row="3" Content="{Binding Path=GeneralInfo.Copyright}"></Label>
         </Grid>
         <StackPanel DockPanel.Dock="Bottom">
             <Button Name="btnClose" HorizontalAlignment="Right" Margin="5" Padding="10 2" Click="BtnCloseClick">Close</Button>
@@ -46,12 +44,20 @@
                         <Image Source="/Resources/Icon.GitHub.png" Stretch="None" Margin="0 0 10 0"></Image>
                         <TextBlock Name="txtGitHub" VerticalAlignment="Center">
                             <Hyperlink NavigateUri="https://github.com/sharpenrocks/Sharpen" RequestNavigate="HyperlinkRequestNavigate">sharpenrocks/Sharpen</Hyperlink>
+                            <Run Text="{Binding Path=GitHubInfo.Stars, TargetNullValue='', StringFormat={}{0:N0} star(s)}"/>
                         </TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0 2">
-                        <Image Source="/Resources/Icon.VSMarketplace.png" Stretch="None" Margin="0 0 10 0"></Image>
-                        <TextBlock Name="txtVSMarketplace"  VerticalAlignment="Center">
+                        <Image Source="/Resources/Icon.VisualStudioMarketplace.png" Stretch="None" Margin="0 0 10 0"></Image>
+                        <TextBlock Name="txtVisualStudioMarketplace"  VerticalAlignment="Center">
                             <Hyperlink NavigateUri="https://marketplace.visualstudio.com/items?itemName=ironcev.sharpen" RequestNavigate="HyperlinkRequestNavigate">Visual Studio Marketpace</Hyperlink>
+                            <Run Text="{Binding Path=VisualStudioMarketplaceInfo.NumberOfInstalls, TargetNullValue='', StringFormat={}{0:N0} install(s)}"/>
+                            <Image Source="{Binding Path=VisualStudioMarketplaceInfo.Rating, Converter={StaticResource RatingToStarsConverter}}" VerticalAlignment="Bottom">
+                                <Image.ToolTip>
+                                    <ToolTip Content="{Binding Path=VisualStudioMarketplaceInfo.Rating, TargetNullValue=''}" ContentStringFormat="{}{0:0.0}/5"></ToolTip>
+                                </Image.ToolTip>
+                            </Image>
+                            <Run Text="{Binding Path=VisualStudioMarketplaceInfo.NumberOfReviews, TargetNullValue='', StringFormat={}{0:N0} rating(s)}"/>
                         </TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0 2">
@@ -79,9 +85,21 @@
             </TabItem>
             <TabItem Header="Version History" Name="tiVersionHistory">
                 <DockPanel>
-                    <ListView Name="lvVersions" DockPanel.Dock="Left" SelectionChanged="LvVersionsSelectionChanged">
+                    <ListView Name="lvVersions" DockPanel.Dock="Left" ItemsSource="{Binding Changelog.Versions, Mode=OneWay}" SelectedItem="{Binding Changelog.SelectedVersion, Mode=TwoWay}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Padding="10 1 10 1">
+                                    <Run Text="{Binding Version, Mode=OneWay}">
+                                        <Run.ToolTip>
+                                            <ToolTip Content="{Binding Date, TargetNullValue=''}" ContentStringFormat="{}{0:d}"></ToolTip>
+                                        </Run.ToolTip>
+                                    </Run>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
                     </ListView>
-                    <FlowDocumentScrollViewer Name="fdsvVersionChangelog"></FlowDocumentScrollViewer>
+                    <FlowDocumentScrollViewer Name="fdsvSelectedVersion" Document="{Binding Path=Changelog.SelectedVersion.Document}">
+                    </FlowDocumentScrollViewer>
                 </DockPanel>
             </TabItem>
         </TabControl>

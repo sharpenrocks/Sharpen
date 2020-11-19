@@ -2,20 +2,30 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net472</TargetFramework>
+	<TargetFramework>net48</TargetFramework>
+    <LangVersion>8.0</LangVersion>
     <UseWPF>true</UseWPF>
     <AssemblyName>AboutDialog</AssemblyName>
-    <RootNamespace>AboutDialog</RootNamespace>
+    <RootNamespace>Sharpen</RootNamespace>
     <Version>1.0.2</Version>
     <Description>Description from assembly.</Description>
     <Copyright>Copyright from assembly</Copyright>
+	<nullable>enable</nullable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Resources\Icon.email.png" />
     <None Remove="Resources\Icon.github.png" />
     <None Remove="Resources\Icon.twitter.png" />
-    <None Remove="Resources\Icon.vsmarketplace.png" />
+    <None Remove="Resources\Icon.VisualStudioMarketplace.png" />
     <None Remove="Resources\Icon.www.png" />
     <None Remove="Resources\Rating.FullStar.png" />
     <None Remove="Resources\Rating.HalfStar.png" />
@@ -49,7 +59,7 @@
     <Content Include="Resources\Icon.Twitter.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Icon.VSMarketplace.png">
+    <Content Include="Resources\Icon.VisualStudioMarketplace.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icon.WWW.png">
@@ -64,13 +74,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="GraphQL" Version="2.4.0" />
-    <PackageReference Include="GraphQL.Client" Version="1.0.3" />
-    <PackageReference Include="Microsoft.Toolkit" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Toolkit.Parsers" Version="6.0.0" />
+    <PackageReference Include="GraphQL" Version="3.1.4" />
+    <PackageReference Include="GraphQL.Client" Version="3.2.0" />
+    <PackageReference Include="GraphQL.Client.Serializer.Newtonsoft" Version="3.2.0" />
+    <PackageReference Include="Microsoft.Toolkit" Version="6.1.1" />
+    <PackageReference Include="Microsoft.Toolkit.Parsers" Version="6.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="RestSharp" Version="106.6.10" />
-    <PackageReference Include="Svg" Version="3.0.84" />
+    <PackageReference Include="RestSharp" Version="106.11.7" />
+    <PackageReference Include="Svg" Version="3.1.1" />
   </ItemGroup>
 
   <ItemGroup>

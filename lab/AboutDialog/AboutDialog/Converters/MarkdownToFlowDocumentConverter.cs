@@ -18,17 +18,13 @@ namespace Sharpen
     {
         public static Block CreateBlock(MarkdownBlock block)
         {
-            switch (block.Type)
+            return block.Type switch
             {
-                case MarkdownBlockType.Header:
-                    return CreateHeader(block as HeaderBlock);
-                case MarkdownBlockType.Paragraph:
-                    return CreateParagraph(block as ParagraphBlock);
-                case MarkdownBlockType.List:
-                    return CreateList(block as ListBlock);
-                default:
-                    return new Paragraph();
-            }
+                MarkdownBlockType.Header => CreateHeader((HeaderBlock)block),
+                MarkdownBlockType.Paragraph => CreateParagraph((ParagraphBlock)block),
+                MarkdownBlockType.List => CreateList((ListBlock)block),
+                _ => new Paragraph()
+            };
         }
 
         private static Block CreateHeader(HeaderBlock headerBlock)
@@ -71,21 +67,21 @@ namespace Sharpen
                 switch (inline.Type)
                 {
                     case MarkdownInlineType.TextRun:
-                        yield return new Run((inline as TextRunInline).Text);
+                        yield return new Run(((TextRunInline)inline).Text);
                         break;
                     case MarkdownInlineType.Bold:
-                        foreach (var bold in CreateInlines((inline as BoldTextInline).Inlines))
+                        foreach (var bold in CreateInlines(((BoldTextInline)inline).Inlines))
                             yield return new Bold(bold);
                         break;
                     case MarkdownInlineType.Italic:
-                        foreach (var italic in CreateInlines((inline as ItalicTextInline).Inlines))
+                        foreach (var italic in CreateInlines(((ItalicTextInline)inline).Inlines))
                             yield return new Italic(italic);
                         break;
                     case MarkdownInlineType.MarkdownLink:
-                        yield return CreateHyperlink(inline as MarkdownLinkInline);
+                        yield return CreateHyperlink((MarkdownLinkInline)inline);
                         break;
                     case MarkdownInlineType.Image:
-                        yield return new InlineUIContainer(CreateImage(inline as ImageInline));
+                        yield return new InlineUIContainer(CreateImage((ImageInline)inline));
                         break;
                 }
         }
@@ -96,7 +92,7 @@ namespace Sharpen
             var bitmapImage = new BitmapImage();
             if (imageInline.RenderUrl.Contains(".svg"))
             {
-                using (var bitmap = (new Svg.SvgImage().GetImage(imageInline.RenderUrl) as Svg.SvgDocument).Draw())
+                using (var bitmap = ((Svg.SvgDocument)new Svg.SvgImage().GetImage(imageInline.RenderUrl)).Draw())
                 using (var memory = new MemoryStream())
                 {
                     bitmap.Save(memory, ImageFormat.Png);
