@@ -16,7 +16,7 @@ namespace Sharpen.VisualStudioExtension
     {
         private SharpenExtensionService()
         {
-            AnalysisResults = Enumerable.Empty<BaseTreeViewItem>();
+            analysisResults = Enumerable.Empty<BaseTreeViewItem>();
         }
 
         // TODO-IG: Terrible and truly ugly :-( Mixing view aspects, logic, everything. But let's get the first analysis running and let's put the tool into practice and let's get some real-life results :-)
@@ -110,7 +110,7 @@ namespace Sharpen.VisualStudioExtension
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

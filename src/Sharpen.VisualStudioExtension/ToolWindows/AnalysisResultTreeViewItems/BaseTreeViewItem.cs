@@ -18,14 +18,14 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
         private static readonly BaseTreeViewItem[] UnloadedChildrenMarker = { new UnloadedChildrenTreeViewItem() };
 
         private readonly IAnalysisResultTreeViewBuilder treeViewBuilder;
-        private string text;
+        private string? text;
 
         // This constructor is used only to create the single UnloadedChildrenTreeViewItem instance.
         private BaseTreeViewItem() {}
 
         // TODO-DESIGN: Refactor the constructor parameters once when we see which need the upcoming builders have.
         // Only the leaf nodes will have the analysis result set.
-        protected BaseTreeViewItem(BaseTreeViewItem parent, IAnalysisResultTreeViewBuilder treeViewBuilder, int numberOfItems, /* See [1]. */ string text, string learnMoreUrl, string learnMoreDisplayText = "Learn more...")
+        protected BaseTreeViewItem(BaseTreeViewItem? parent, IAnalysisResultTreeViewBuilder treeViewBuilder, int numberOfItems, /* See [1]. */ string? text, string? learnMoreUrl, string? learnMoreDisplayText = "Learn more...")
         {
             this.treeViewBuilder = treeViewBuilder;
             this.text = text;
@@ -61,7 +61,7 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
                                                 $"The derived class {GetType().Name} sets the text parameter to null but does not override the {nameof(GetText)}() method.");
         }
 
-        public string NumberOfItems { get; }
+        public string? NumberOfItems { get; }
 
         private bool isExpanded;
         public bool IsExpanded
@@ -101,13 +101,13 @@ namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
             }
         }
 
-        public BaseTreeViewItem Parent { get; }
-        public string LearnMoreUrl { get; }
-        public string LearnMoreDisplayText { get; }
+        public BaseTreeViewItem? Parent { get; }
+        public string? LearnMoreUrl { get; }
+        public string? LearnMoreDisplayText { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

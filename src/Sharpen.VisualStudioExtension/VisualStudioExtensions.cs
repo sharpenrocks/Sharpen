@@ -14,7 +14,7 @@ namespace Sharpen.VisualStudioExtension
     // If the result is IReadOnlyCollection<T> it is materialized.
     internal static class VisualStudioExtensions
     {
-        public static Project GetRoslynProjectFromVisualStudioProject(this VisualStudioWorkspace workspace, EnvDTE.Project visualStudioProject)
+        public static Project? GetRoslynProjectFromVisualStudioProject(this VisualStudioWorkspace workspace, EnvDTE.Project visualStudioProject)
         {
             if (workspace.CurrentSolution == null) return null;
             if (visualStudioProject == null) return null;
@@ -38,7 +38,7 @@ namespace Sharpen.VisualStudioExtension
                 .Where(project => visualStudioProjectsFullNames.Contains(project.FilePath));
         }
 
-        public static Document GetRoslynDocumentFromVisualStudioDocument(this VisualStudioWorkspace workspace, EnvDTE.Document visualStudioDocument)
+        public static Document? GetRoslynDocumentFromVisualStudioDocument(this VisualStudioWorkspace workspace, EnvDTE.Document visualStudioDocument)
         {
             if (workspace.CurrentSolution == null) return null;
             if (visualStudioDocument?.ProjectItem == null) return null;
@@ -81,7 +81,7 @@ namespace Sharpen.VisualStudioExtension
 
             return result;
 
-            string GetProjectItemFileName(ProjectItem projectItem)
+            string? GetProjectItemFileName(ProjectItem projectItem)
             {
                 if (projectItem?.FileCount != 1) return null;
 
@@ -97,7 +97,7 @@ namespace Sharpen.VisualStudioExtension
                 }                
             }
 
-            Project GetRoslynProjectOfProjectItem(ProjectItem projectItem)
+            Project? GetRoslynProjectOfProjectItem(ProjectItem projectItem)
             {
                 var visualStudioProject = projectItem?.ContainingProject;
 
