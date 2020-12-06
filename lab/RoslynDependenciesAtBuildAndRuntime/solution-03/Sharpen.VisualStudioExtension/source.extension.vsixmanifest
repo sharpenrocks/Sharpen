@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+    <Metadata>
+        <Identity Id="Ironcev.Sharpen.Lab.RoslynDependenciesAtBuildAndRuntime" Version="0.1.0" Language="en-US" Publisher="Igor Rončević" />
+        <DisplayName>Sharpen Lab - Roslyn Dependencies</DisplayName>
+        <Description xml:space="preserve">Investigates the Roslyn dependencies at build and runtime in various versions of Visual Studio.</Description>
+        <MoreInfo>https://sharpen.rocks</MoreInfo>
+        <License></License>
+        <ReleaseNotes></ReleaseNotes>
+        <Icon>Resources\Icon.png</Icon>
+        <PreviewImage>Resources\PreviewImage.png</PreviewImage>
+        <Tags>sharpen-lab</Tags>
+    </Metadata>
+    <Installation Experimental="true">
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0,17.0)" />
+        <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[15.0,17.0)" />
+        <InstallationTarget Id="Microsoft.VisualStudio.Enterprise" Version="[15.0,17.0)" />
+        <InstallationTarget Id="Microsoft.VisualStudio.Premium" Version="[15.0,17.0)" />
+        <InstallationTarget Id="Microsoft.VisualStudio.Ultimate" Version="[15.0,17.0)" />
+    </Installation>
+    <Assets>
+        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+    </Assets>
+    <Prerequisites>
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,17.0)" DisplayName="Visual Studio core editor" />
+        <Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.LanguageServices" Version="[15.0.26208.0,17.0)" DisplayName="C# and Visual Basic" />
+        <Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.Compiler" Version="[15.0.26208.0,17.0)" DisplayName="C# and Visual Basic Roslyn compilers" />
+    </Prerequisites>
+</PackageManifest>
