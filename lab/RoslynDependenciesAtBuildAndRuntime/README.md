@@ -48,7 +48,7 @@ As assumed, running the extension in VS2019 gives the following output:
 
 ## Potential Solutions
 
-A big thanks to Ralph Alexander Bariz for providing the hint that led to Solution #1! This led to three other solutions, each addressing disadvantages of the previous one.
+A big thanks to [Ralph Alexander Bariz](https://projects.tuxfamily.org/?do=user;name=udet) for providing the hint that led to Solution #1! This led to three other solutions, each addressing disadvantages of the previous one.
 
 ### Solution #1 - Compile Roslyn Version Specific Code on the Fly
 
