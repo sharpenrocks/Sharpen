@@ -16,6 +16,7 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp30.ImplicitlyTypedLocalVariabl
 
         public string FriendlyName => "Use var keyword in variable declaration with object creation";
 
+        public SharpenSuggestionType SuggestionType { get; } = SharpenSuggestionType.Recommendation;
 
         public static readonly UseVarKeywordInVariableDeclarationWithObjectCreation Instance = new UseVarKeywordInVariableDeclarationWithObjectCreation();
 

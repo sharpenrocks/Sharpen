@@ -10,6 +10,8 @@
 
         public string FriendlyName { get; } = "Replace switch statement containing only assignments with switch expression";
 
+        public SharpenSuggestionType SuggestionType { get; } = SharpenSuggestionType.Recommendation;
+
         public static readonly ReplaceSwitchStatementContainingOnlyAssignmentsWithSwitchExpression Instance = new ReplaceSwitchStatementContainingOnlyAssignmentsWithSwitchExpression();
     }
 }

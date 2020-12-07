@@ -10,6 +10,8 @@
 
         public string FriendlyName { get; } = "Consider using ??= operator instead of assigning result of the ?? operator";
 
+        public SharpenSuggestionType SuggestionType { get; } = SharpenSuggestionType.Consideration;
+
         public static readonly ConsiderUsingNullCoalescingAssignmentOperatorInsteadOfAssigningResultOfTheNullCoalescingOperator Instance = new ConsiderUsingNullCoalescingAssignmentOperatorInsteadOfAssigningResultOfTheNullCoalescingOperator();
     }
 }

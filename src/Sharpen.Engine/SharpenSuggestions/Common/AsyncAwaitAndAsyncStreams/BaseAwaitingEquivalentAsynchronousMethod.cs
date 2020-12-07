@@ -29,6 +29,8 @@ namespace Sharpen.Engine.SharpenSuggestions.Common.AsyncAwaitAndAsyncStreams
 
         public abstract string FriendlyName { get; }
 
+        public abstract SharpenSuggestionType SuggestionType { get; }
+
         public IEnumerable<AnalysisResult> Analyze(SyntaxTree syntaxTree, SemanticModel semanticModel, SingleSyntaxTreeAnalysisContext analysisContext)
         {
             var descendantNodes = syntaxTree.GetRoot().DescendantNodes();

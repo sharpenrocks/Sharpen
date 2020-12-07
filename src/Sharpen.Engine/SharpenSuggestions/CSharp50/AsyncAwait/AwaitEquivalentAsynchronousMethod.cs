@@ -20,6 +20,8 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 
         public override string FriendlyName { get; } = "Await equivalent asynchronous method";
 
+        public override SharpenSuggestionType SuggestionType { get; } = SharpenSuggestionType.Recommendation;
+
         public static readonly AwaitEquivalentAsynchronousMethod Instance = new AwaitEquivalentAsynchronousMethod();
     }
 }

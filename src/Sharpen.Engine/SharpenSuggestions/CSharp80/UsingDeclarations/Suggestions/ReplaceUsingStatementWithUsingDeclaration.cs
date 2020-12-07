@@ -10,6 +10,8 @@
 
         public string FriendlyName { get; } = "Replace using statement with using declaration";
 
+        public SharpenSuggestionType SuggestionType { get; } = SharpenSuggestionType.Recommendation;
+
         public static readonly ReplaceUsingStatementWithUsingDeclaration Instance = new ReplaceUsingStatementWithUsingDeclaration();
     }
 }

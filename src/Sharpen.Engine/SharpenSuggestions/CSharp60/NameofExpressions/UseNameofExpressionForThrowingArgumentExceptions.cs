@@ -30,6 +30,8 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp60.NameofExpressions
 
         public string FriendlyName { get; } = "Use nameof expression for throwing argument exceptions";
 
+        public SharpenSuggestionType SuggestionType { get; } = SharpenSuggestionType.Recommendation;
+
         public static readonly UseNameofExpressionForThrowingArgumentExceptions Instance = new UseNameofExpressionForThrowingArgumentExceptions();
 
         private static readonly KnownArgumentExceptionTypeInfo[] KnownArgumentExceptions =

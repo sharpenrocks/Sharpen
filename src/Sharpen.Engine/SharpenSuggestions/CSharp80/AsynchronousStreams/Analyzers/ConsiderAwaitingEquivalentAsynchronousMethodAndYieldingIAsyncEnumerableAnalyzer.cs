@@ -13,6 +13,8 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp80.AsynchronousStreams.Analyze
 
         public override string FriendlyName { get; } = "Consider awaiting equivalent asynchronous method and yielding IAsyncEnumerable";
 
+        public override SharpenSuggestionType SuggestionType { get; } = SharpenSuggestionType.Consideration;
+
         public static readonly ConsiderAwaitingEquivalentAsynchronousMethodAndYieldingIAsyncEnumerableAnalyzer Instance = new ConsiderAwaitingEquivalentAsynchronousMethodAndYieldingIAsyncEnumerableAnalyzer();
     }
 }

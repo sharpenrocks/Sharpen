@@ -15,6 +15,8 @@
 
         public string FriendlyName { get; } = "Consider awaiting equivalent asynchronous method and yielding IAsyncEnumerable";
 
+        public SharpenSuggestionType SuggestionType { get; } = SharpenSuggestionType.Consideration;
+
         public static readonly ConsiderAwaitingEquivalentAsynchronousMethodAndYieldingIAsyncEnumerable Instance = new ConsiderAwaitingEquivalentAsynchronousMethodAndYieldingIAsyncEnumerable();
     }
 }

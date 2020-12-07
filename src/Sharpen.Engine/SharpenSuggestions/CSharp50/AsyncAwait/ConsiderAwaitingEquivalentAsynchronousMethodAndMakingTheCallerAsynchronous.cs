@@ -14,6 +14,8 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp50.AsyncAwait
 
         public override string FriendlyName { get; } = "Consider awaiting equivalent asynchronous method and making the caller asynchronous";
 
+        public override SharpenSuggestionType SuggestionType { get; } = SharpenSuggestionType.Consideration;
+
         public static readonly ConsiderAwaitingEquivalentAsynchronousMethodAndMakingTheCallerAsynchronous Instance = new ConsiderAwaitingEquivalentAsynchronousMethodAndMakingTheCallerAsynchronous();
     }
 }

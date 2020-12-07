@@ -16,6 +16,8 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70.ExpressionBodiedMembers
 
         public abstract string FriendlyName { get; }
 
+        public SharpenSuggestionType SuggestionType { get; } = SharpenSuggestionType.Recommendation;
+
         public IEnumerable<AnalysisResult> Analyze(SyntaxTree syntaxTree, SemanticModel semanticModel, SingleSyntaxTreeAnalysisContext analysisContext)
         {
             return syntaxTree.GetRoot()

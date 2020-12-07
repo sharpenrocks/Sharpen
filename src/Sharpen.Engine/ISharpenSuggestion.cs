@@ -19,5 +19,10 @@
         /// The widely accepted name for the suggestion.
         /// </summary>
         string FriendlyName { get; }
+
+        /// <summary>
+        /// The type of the suggestion.
+        /// </summary>
+        SharpenSuggestionType SuggestionType { get; }
     }
 }

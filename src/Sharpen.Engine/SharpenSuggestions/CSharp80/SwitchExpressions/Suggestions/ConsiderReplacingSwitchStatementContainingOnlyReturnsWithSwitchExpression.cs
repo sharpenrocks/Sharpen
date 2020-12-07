@@ -10,6 +10,8 @@
 
         public string FriendlyName { get; } = "Consider replacing switch statement containing only returns with switch expression";
 
+        public SharpenSuggestionType SuggestionType { get; } = SharpenSuggestionType.Consideration;
+
         public static readonly ConsiderReplacingSwitchStatementContainingOnlyReturnsWithSwitchExpression Instance = new ConsiderReplacingSwitchStatementContainingOnlyReturnsWithSwitchExpression();
     }
 }

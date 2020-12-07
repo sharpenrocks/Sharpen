@@ -17,6 +17,8 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp70.ExpressionBodiedMembers
 
         public string FriendlyName { get; } = "Use expression body for destructors";
 
+        public SharpenSuggestionType SuggestionType { get; } = SharpenSuggestionType.Recommendation;
+
         public static readonly UseExpressionBodyForDestructors Instance = new UseExpressionBodyForDestructors();
 
         public IEnumerable<AnalysisResult> Analyze(SyntaxTree syntaxTree, SemanticModel semanticModel, SingleSyntaxTreeAnalysisContext analysisContext)

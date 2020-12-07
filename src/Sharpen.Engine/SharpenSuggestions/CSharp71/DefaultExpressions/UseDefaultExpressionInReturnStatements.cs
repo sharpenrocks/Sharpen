@@ -17,6 +17,8 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp71.DefaultExpressions
 
         public string FriendlyName { get; } = "Use default expression in return statements";
 
+        public SharpenSuggestionType SuggestionType { get; } = SharpenSuggestionType.Recommendation;
+
         public static readonly UseDefaultExpressionInReturnStatements Instance = new UseDefaultExpressionInReturnStatements();
 
         public IEnumerable<AnalysisResult> Analyze(SyntaxTree syntaxTree, SemanticModel semanticModel, SingleSyntaxTreeAnalysisContext analysisContext)

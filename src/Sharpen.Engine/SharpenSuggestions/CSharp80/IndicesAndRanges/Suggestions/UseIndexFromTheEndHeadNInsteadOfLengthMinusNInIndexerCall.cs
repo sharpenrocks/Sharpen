@@ -10,6 +10,8 @@
 
         public string FriendlyName { get; } = @"Use index from the end ""^n"" instead of ""Length - n"" in indexer call";
 
+        public SharpenSuggestionType SuggestionType { get; } = SharpenSuggestionType.Recommendation;
+
         public static readonly UseIndexFromTheEndHeadNInsteadOfLengthMinusNInIndexerCall Instance = new UseIndexFromTheEndHeadNInsteadOfLengthMinusNInIndexerCall();
     }
 }

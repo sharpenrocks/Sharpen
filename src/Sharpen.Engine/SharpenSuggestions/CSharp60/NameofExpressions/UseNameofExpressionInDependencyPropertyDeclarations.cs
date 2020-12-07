@@ -21,6 +21,8 @@ namespace Sharpen.Engine.SharpenSuggestions.CSharp60.NameofExpressions
 
         public string FriendlyName { get; } = "Use nameof expression in dependency property declarations";
 
+        public SharpenSuggestionType SuggestionType { get; } = SharpenSuggestionType.Recommendation;
+
         public static readonly UseNameofExpressionInDependencyPropertyDeclarations Instance = new UseNameofExpressionInDependencyPropertyDeclarations();
 
         private static string GetRegisterMethodDisplayText(SyntaxNode syntaxNode) // SyntaxNode is actually ArgumentSyntax.
