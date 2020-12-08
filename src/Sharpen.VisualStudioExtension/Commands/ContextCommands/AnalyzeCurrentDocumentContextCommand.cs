@@ -1,6 +1,5 @@
 ﻿using System;
 using Sharpen.Engine.Analysis;
-using Sharpen.Engine.Extensions.CodeDetection;
 
 namespace Sharpen.VisualStudioExtension.Commands.ContextCommands
 {
@@ -27,7 +26,7 @@ namespace Sharpen.VisualStudioExtension.Commands.ContextCommands
             // At this point, we want to get a quick and cheap Yes or No that will
             // work in 95% of the cases.
             var isVisibleAndEnabled = VisualStudioIde.ActiveDocument.IsCSharpDocument() &&
-                                      !GeneratedCodeDetection.IsGeneratedFile(VisualStudioIde.ActiveDocument.FullName);
+                                      !Services.GeneratedCodeDetector.IsGeneratedFile(VisualStudioIde.ActiveDocument.FullName);
 
             isVisible = isEnabled = isVisibleAndEnabled;
         }
@@ -37,8 +36,8 @@ namespace Sharpen.VisualStudioExtension.Commands.ContextCommands
             var document = Workspace.GetRoslynDocumentFromVisualStudioDocument(VisualStudioIde.ActiveDocument);
 
             return document == null // Should actually not happen, but who knows what kind of file one can have in VS.
-                ? new MultipleDocumentsScopeAnalyzer()
-                : new MultipleDocumentsScopeAnalyzer(document);
+                ? ScopeAnalyzerCreator.CreateMultipleDocumentsScopeAnalyzer()
+                : ScopeAnalyzerCreator.CreateMultipleDocumentsScopeAnalyzer(document);
         }
     }
 }

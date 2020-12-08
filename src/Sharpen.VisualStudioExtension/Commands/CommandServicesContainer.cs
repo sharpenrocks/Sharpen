@@ -3,22 +3,27 @@ using EnvDTE80;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.LanguageServices;
 using Microsoft.VisualStudio.Shell;
+using Sharpen.Engine.Analysis;
+using Sharpen.Engine.CodeDetection;
 
 namespace Sharpen.VisualStudioExtension.Commands
 {
     internal class CommandServicesContainer : ICommandServicesContainer
     {
-        private CommandServicesContainer(AsyncPackage package)
+        private CommandServicesContainer()
         {
-            Package = package;
         }
 
-        public AsyncPackage Package { get; }
+        public AsyncPackage Package { get; private set; }
         public IAsyncServiceProvider ServiceProvider => Package;
         public VisualStudioWorkspace Workspace { get; private set; }
         public DTE2 VisualStudioIde { get; private set; }
         public IMenuCommandService MenuCommandService { get; private set; }
         public SharpenExtensionService SharpenExtensionService { get; private set; }
+        public IGeneratedCodeDetector GeneratedCodeDetector { get; private set; }
+        public IScopeAnalyzerCreator ScopeAnalyzerCreator { get; private set; }
+
+        // TODO: Refactor this completely. Way too ugly.
 
         /// <summary>
         /// Builds an instance of <see cref="CommandServicesContainer"/>.
@@ -33,22 +38,25 @@ namespace Sharpen.VisualStudioExtension.Commands
         // Let's keep it simple.
         public class Builder
         {
-            private readonly AsyncPackage package;
             private readonly CommandServicesContainer commandServicesContainer;
 
             public Builder(AsyncPackage package)
             {
-                this.package = package;
-                commandServicesContainer = new CommandServicesContainer(package);
+                commandServicesContainer = new CommandServicesContainer { Package = package };
             }
 
             public async System.Threading.Tasks.Task CreateServicesAsync()
             {
                 commandServicesContainer.SharpenExtensionService = SharpenExtensionService.CreateSingleInstance();
 
-                IAsyncServiceProvider serviceProvider = package;
+                IAsyncServiceProvider serviceProvider = commandServicesContainer.Package;
                 commandServicesContainer.VisualStudioIde = (DTE2)await serviceProvider.GetServiceAsync(typeof(EnvDTE.DTE));
                 commandServicesContainer.MenuCommandService = (OleMenuCommandService)await serviceProvider.GetServiceAsync(typeof(IMenuCommandService));
+
+                var sharpenEngine = SharpenEngineCreator.CreateSharpenEngine();
+
+                commandServicesContainer.ScopeAnalyzerCreator = sharpenEngine.ScopeAnalyzerCreator;
+                commandServicesContainer.GeneratedCodeDetector = sharpenEngine.GeneratedCodeDetector;
             }
 
             public void CreateServicesOnUIThread()

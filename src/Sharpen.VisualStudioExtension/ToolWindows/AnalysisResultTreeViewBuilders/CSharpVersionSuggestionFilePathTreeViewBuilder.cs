@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Sharpen.Engine;
+using Sharpen.Engine.Analysis;
 using Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems;
 
 namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewBuilders
 {
     internal class CSharpVersionSuggestionFilePathTreeViewBuilder : BaseAnalysisResultTreeViewBuilder
     {
-        public CSharpVersionSuggestionFilePathTreeViewBuilder(IEnumerable<AnalysisResult> analysisResults) : base(analysisResults)
+        public CSharpVersionSuggestionFilePathTreeViewBuilder(IEnumerable<IAnalysisResult> analysisResults) : base(analysisResults)
         {
         }
 

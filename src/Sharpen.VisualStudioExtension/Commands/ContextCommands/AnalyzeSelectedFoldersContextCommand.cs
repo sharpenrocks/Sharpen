@@ -30,7 +30,7 @@ namespace Sharpen.VisualStudioExtension.Commands.ContextCommands
 
             var documents = Workspace.GetRoslynDocumentsFromVisualStudioProjectItems(selectedCSharpDocuments);
 
-            return new MultipleDocumentsScopeAnalyzer(documents);
+            return ScopeAnalyzerCreator.CreateMultipleDocumentsScopeAnalyzer(documents);
         }
     }
 }

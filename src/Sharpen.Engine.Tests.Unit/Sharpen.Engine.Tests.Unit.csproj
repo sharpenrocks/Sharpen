@@ -24,8 +24,4 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.1.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Sharpen.Engine\Sharpen.Engine.csproj" />
-  </ItemGroup>
-
 </Project>

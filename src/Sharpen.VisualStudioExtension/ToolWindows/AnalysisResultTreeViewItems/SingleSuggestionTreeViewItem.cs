@@ -1,13 +1,13 @@
-﻿using Sharpen.Engine;
+﻿using Sharpen.Engine.Analysis;
 using Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewBuilders;
 
 namespace Sharpen.VisualStudioExtension.ToolWindows.AnalysisResultTreeViewItems
 {
     internal sealed class SingleSuggestionTreeViewItem : BaseTreeViewItem
     {
-        public AnalysisResult AnalysisResult { get; }
+        public IAnalysisResult AnalysisResult { get; }
 
-        public SingleSuggestionTreeViewItem(BaseTreeViewItem parent, IAnalysisResultTreeViewBuilder treeViewBuilder, AnalysisResult analysisResult)
+        public SingleSuggestionTreeViewItem(BaseTreeViewItem parent, IAnalysisResultTreeViewBuilder treeViewBuilder, IAnalysisResult analysisResult)
             : base(parent, treeViewBuilder, 0, null, null)
         {
             AnalysisResult = analysisResult;

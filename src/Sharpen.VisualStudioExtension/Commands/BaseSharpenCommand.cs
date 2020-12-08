@@ -10,21 +10,20 @@ namespace Sharpen.VisualStudioExtension.Commands
 {
     internal abstract class BaseSharpenCommand<TSharpenCommand> where TSharpenCommand : BaseSharpenCommand<TSharpenCommand>
     {
-        private readonly ICommandServicesContainer services;
-
-        protected VisualStudioWorkspace Workspace => services.Workspace;
-        protected EnvDTE80.DTE2 VisualStudioIde => services.VisualStudioIde;
+        protected ICommandServicesContainer Services { get; }
+        protected VisualStudioWorkspace Workspace => Services.Workspace;
+        protected EnvDTE80.DTE2 VisualStudioIde => Services.VisualStudioIde;
 
         protected BaseSharpenCommand(ICommandServicesContainer commandServicesContainer, int commandId, Guid commandSet, bool isDynamicallyVisibleAndEnabled = false)
         {
-            services = commandServicesContainer;
+            Services = commandServicesContainer;
 
             CreateAndAddCommand(commandId, commandSet, isDynamicallyVisibleAndEnabled);
         }
 
         private void CreateAndAddCommand(int commandId, Guid commandSet, bool isDynamicallyVisibleAndEnabled)
         {
-            if (services.MenuCommandService == null) return;
+            if (Services.MenuCommandService == null) return;
 
             ThreadHelper.ThrowIfNotOnUIThread();
 
@@ -35,7 +34,7 @@ namespace Sharpen.VisualStudioExtension.Commands
                 ? new OleMenuCommand(async (sender, e) => await OnExecuteAsync(), null, OnBeforeQueryStatus, menuCommandId)
                 : new MenuCommand(async (sender, e) => await OnExecuteAsync(), menuCommandId);
 
-            services.MenuCommandService.AddCommand(menuItem);
+            Services.MenuCommandService.AddCommand(menuItem);
         }
 
         private void OnBeforeQueryStatus(object sender, EventArgs e)
@@ -50,7 +49,7 @@ namespace Sharpen.VisualStudioExtension.Commands
 
         protected async Task ShowSharpenResultsToolWindowAsync()
         {
-            ToolWindowPane window = services.Package.FindToolWindow(typeof(SharpenResultsToolWindow), 0, true);
+            ToolWindowPane window = Services.Package.FindToolWindow(typeof(SharpenResultsToolWindow), 0, true);
             if (window?.Frame == null)
                 throw new NotSupportedException($"Cannot create the '{typeof(SharpenResultsToolWindow)}' tool window.");
 

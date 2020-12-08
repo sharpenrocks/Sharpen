@@ -39,7 +39,8 @@
     <LangVersion>9.0</LangVersion>
     <Nullable>enable</Nullable>
     <!-- https://github.com/dotnet/project-system/issues/5551 -->
-    <NoWarn>$(NoWarn);CS8632</NoWarn> <!-- The annotation for nullable reference types should only be used in code within a ‘#nullable’ annotations context -->
+    <NoWarn>$(NoWarn);CS8632</NoWarn>
+    <!-- The annotation for nullable reference types should only be used in code within a ‘#nullable’ annotations context -->
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -77,6 +78,7 @@
     <Compile Include="Converters\NullToCollapsedConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Commands\AnalyzeSolutionCommand.cs" />
+    <Compile Include="SharpenEngineCreator.cs" />
     <Compile Include="SharpenExtensionService.cs" />
     <Compile Include="SharpenPackage.cs" />
     <Compile Include="ToolWindows\AnalysisResultTreeViewBuilders\BaseAnalysisResultTreeViewBuilder.cs" />
@@ -370,6 +372,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\Sharpen.Engine.2_4_0_0\bin\$(Configuration)\netstandard2.0\Sharpen.Engine.2_4_0_0.dll">
+      <Link>Sharpen.Engine.2_4_0_0.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="LICENSE.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -404,9 +411,9 @@
     <Analyzer Include="..\..\packages\Microsoft.VisualStudio.Threading.Analyzers.15.7.18\analyzers\cs\Microsoft.VisualStudio.Threading.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sharpen.Engine\Sharpen.Engine.csproj">
-      <Project>{1549b343-59f2-488c-8bca-1b69b5257a3d}</Project>
-      <Name>Sharpen.Engine</Name>
+    <ProjectReference Include="..\Sharpen.Engine.Abstractions\Sharpen.Engine.Abstractions.csproj">
+      <Project>{d611d161-814e-4d7b-91a7-2a2bd2fdea6a}</Project>
+      <Name>Sharpen.Engine.Abstractions</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

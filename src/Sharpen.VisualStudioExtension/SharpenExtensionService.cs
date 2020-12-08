@@ -64,7 +64,7 @@ namespace Sharpen.VisualStudioExtension
             }
         }
 
-        private static IEnumerable<BaseTreeViewItem> CreateAnalysisResultsTreeViewItemsFrom(IEnumerable<AnalysisResult> analysisResult)
+        private static IEnumerable<BaseTreeViewItem> CreateAnalysisResultsTreeViewItemsFrom(IEnumerable<IAnalysisResult> analysisResult)
         {
             var treeViewBuilder = new CSharpVersionSuggestionFilePathTreeViewBuilder(analysisResult);
             return treeViewBuilder.BuildRootTreeViewItems();

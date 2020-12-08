@@ -8,11 +8,13 @@ namespace Sharpen.VisualStudioExtension.Commands
         where TAnalyzeCommand : BaseSharpenCommand<TAnalyzeCommand>
     {
         protected SharpenExtensionService SharpenExtensionService { get; }
+        protected IScopeAnalyzerCreator ScopeAnalyzerCreator { get; }
 
         protected BaseAnalyzeCommand(ICommandServicesContainer commandServicesContainer, int commandId, Guid commandSet, bool isDynamicallyVisibleAndEnabled = false)
             : base(commandServicesContainer, commandId, commandSet, isDynamicallyVisibleAndEnabled)
         {
             SharpenExtensionService = commandServicesContainer.SharpenExtensionService;
+            ScopeAnalyzerCreator = commandServicesContainer.ScopeAnalyzerCreator;
         }
 
         protected override async Task OnExecuteAsync()
@@ -41,6 +43,6 @@ namespace Sharpen.VisualStudioExtension.Commands
 
         // Derived classes can cancel analysis without any additional message displayed to the
         // user by returning null here.
-        protected abstract IScopeAnalyzer GetScopeAnalyzer();
+        protected abstract IScopeAnalyzer? GetScopeAnalyzer();
     }
 }

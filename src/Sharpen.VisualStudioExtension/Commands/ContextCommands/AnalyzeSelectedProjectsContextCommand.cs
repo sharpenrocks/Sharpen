@@ -31,7 +31,7 @@ namespace Sharpen.VisualStudioExtension.Commands.ContextCommands
 
             var projects = Workspace.GetRoslynProjectsFromVisualStudioProjects(selectedCSharpProjects);
 
-            return new MultipleProjectsScopeAnalyzer(true, projects.ToArray());
+            return ScopeAnalyzerCreator.CreateMultipleProjectsScopeAnalyzer(true, projects.ToArray());
         }
     }
 }

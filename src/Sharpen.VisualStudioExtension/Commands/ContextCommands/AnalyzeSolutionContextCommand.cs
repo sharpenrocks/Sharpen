@@ -24,7 +24,7 @@ namespace Sharpen.VisualStudioExtension.Commands.ContextCommands
 
         protected override IScopeAnalyzer GetScopeAnalyzer()
         {
-            return new SolutionScopeAnalyzer(Workspace.CurrentSolution);
+            return ScopeAnalyzerCreator.CreateSolutionScopeAnalyzer(Workspace.CurrentSolution);
         }
     }
 }
