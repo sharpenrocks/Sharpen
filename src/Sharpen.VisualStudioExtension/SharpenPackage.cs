@@ -44,6 +44,7 @@ namespace Sharpen.VisualStudioExtension
 
                 ShowOptionsDialogCommand.Initialize(commandServicesContainer);
                 ShowSharpenResultsToolWindowCommand.Initialize(commandServicesContainer);
+                ShowAboutDialogCommand.Initialize(commandServicesContainer);
 
                 AnalyzeCurrentDocumentContextCommand.Initialize(commandServicesContainer);
                 AnalyzeSolutionContextCommand.Initialize(commandServicesContainer);

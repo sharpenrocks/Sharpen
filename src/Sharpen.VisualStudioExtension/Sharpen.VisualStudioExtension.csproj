@@ -73,6 +73,7 @@
     <Compile Include="Commands\ContextCommands\AnalyzeCurrentDocumentContextCommand.cs" />
     <Compile Include="Commands\BaseAnalyzeCommand.cs" />
     <Compile Include="Commands\ICommandServicesContainer.cs" />
+    <Compile Include="Commands\ShowAboutDialogCommand.cs" />
     <Compile Include="Commands\ShowOptionsDialogCommand.cs" />
     <Compile Include="Commands\BaseSharpenCommand.cs" />
     <Compile Include="Converters\NullToCollapsedConverter.cs" />

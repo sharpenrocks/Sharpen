@@ -6,6 +6,10 @@ The format of the file is based on [Keep a Changelog](http://keepachangelog.com/
 Numbers in round brackets represent corresponding GitHub issues, if available.<br/>
 Mentions in square brackets represent contributors.
 
+## [Unreleased]
+### Added
+- Simple "About Sharpen" dialog with diagnostic info.
+
 ## [0.10.1] - 2019-10-12
 ### Fixed
 - Navigating with keyboard (up, down, left, right, ...) does not work in the Sharpen Results view (#29) [@tom-englert].
