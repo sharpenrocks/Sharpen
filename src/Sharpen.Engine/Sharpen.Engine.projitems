@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>22041bc0-5882-463e-b548-e25f6265def9</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Sharpen.Engine</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Analysis\AnalysisResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Analysis\BaseScopeAnalyzer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Analysis\ISingleSyntaxTreeAnalyzer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Analysis\MultipleDocumentsScopeAnalyzer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Analysis\MultipleProjectsScopeAnalyzer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Analysis\ScopeAnalyzerCreator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Analysis\SharpenAnalyzersHolder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Analysis\SolutionScopeAnalyzer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CodeDetection\GeneratedCodeDetector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CSharpFeatures\AsyncAwait.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CSharpFeatures\AsynchronousStreams.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CSharpFeatures\DefaultExpressions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CSharpFeatures\ExpressionBodiedMembers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CSharpFeatures\ImplicitlyTypedLocalVariables.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CSharpFeatures\IndicesAndRanges.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CSharpFeatures\NameofExpressions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CSharpFeatures\NullableReferenceTypes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CSharpFeatures\NullCoalescingAssignments.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CSharpFeatures\OutVariables.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CSharpFeatures\SwitchExpressions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CSharpFeatures\UsingDeclarations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DisplayText.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\CodeDetection\GeneratedCodeDetection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\CodeDetection\UnitTestingDetection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\EnumerableExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\InvocationExpressionSyntaxExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\MethodDeclarationSyntaxExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\NamespaceSymbolExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\SymbolExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\SyntaxNodeExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\SyntaxTokenExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\TextSpanExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\TypeSymbolExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Facts\SyntaxNodeFacts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)KnownTypeInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenEngine.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\Common\AsyncAwaitAndAsyncStreams\BaseAwaitingEquivalentAsynchronousMethod.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\Common\AsyncAwaitAndAsyncStreams\EquivalentAsynchronousMethodFinder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\Common\AsyncAwaitAndAsyncStreams\HardcodedLookupBasedEquivalentAsynchronousMethodFinder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp30\ImplicitlyTypedLocalVariables\UseVarKeywordInVariableDeclarationWithObjectCreation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp50\AsyncAwait\AwaitEquivalentAsynchronousMethod.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp50\AsyncAwait\AwaitTaskDelayInsteadOfCallingThreadSleep.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp50\AsyncAwait\AwaitTaskInsteadOfCallingTaskResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp50\AsyncAwait\AwaitTaskInsteadOfCallingTaskWait.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp50\AsyncAwait\AwaitTaskWhenAllInsteadOfCallingTaskWaitAll.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp50\AsyncAwait\AwaitTaskWhenAnyInsteadOfCallingTaskWaitAny.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp50\AsyncAwait\BaseAwaitKnownAsynchronousEquivalentInsteadOfCallingSynchronousMember.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp50\AsyncAwait\ConsiderAwaitingEquivalentAsynchronousMethodAndMakingTheCallerAsynchronous.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp60\ExpressionBodiedMembers\BaseUseExpressionBodyForGetOnlyMembers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp60\ExpressionBodiedMembers\UseExpressionBodyForGetOnlyIndexers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp60\ExpressionBodiedMembers\UseExpressionBodyForGetOnlyProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp60\NameofExpressions\UseNameofExpressionForThrowingArgumentExceptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp60\NameofExpressions\UseNameofExpressionInDependencyPropertyDeclarations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp70\ExpressionBodiedMembers\BaseUseExpressionBodyForGetAccessors.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp70\ExpressionBodiedMembers\BaseUseExpressionBodyForSetAccessors.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp70\ExpressionBodiedMembers\UseExpressionBodyForConstructors.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp70\ExpressionBodiedMembers\UseExpressionBodyForDestructors.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp70\ExpressionBodiedMembers\UseExpressionBodyForGetAccessorsInIndexers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp70\ExpressionBodiedMembers\UseExpressionBodyForGetAccessorsInProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp70\ExpressionBodiedMembers\UseExpressionBodyForLocalFunctions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp70\ExpressionBodiedMembers\UseExpressionBodyForSetAccessorsInIndexers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp70\ExpressionBodiedMembers\UseExpressionBodyForSetAccessorsInProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp70\OutVariables\BaseUseOutVariables.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp70\OutVariables\DiscardOutVariablesInMethodInvocations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp70\OutVariables\DiscardOutVariablesInObjectCreations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp70\OutVariables\UseOutVariablesInMethodInvocations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp70\OutVariables\UseOutVariablesInObjectCreations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp71\DefaultExpressions\BaseUseDefaultExpressionInOptionalParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp71\DefaultExpressions\UseDefaultExpressionInOptionalConstructorParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp71\DefaultExpressions\UseDefaultExpressionInOptionalMethodParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp71\DefaultExpressions\UseDefaultExpressionInReturnStatements.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp80\AsynchronousStreams\Analyzers\ConsiderAwaitingEquivalentAsynchronousMethodAndYieldingIAsyncEnumerableAnalyzer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp80\AsynchronousStreams\Suggestions\ConsiderAwaitingEquivalentAsynchronousMethodAndYieldingIAsyncEnumerable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp80\IndicesAndRanges\Analyzers\UseIndexFromTheEndAnalyzer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp80\IndicesAndRanges\Suggestions\UseIndexFromTheEndHeadNInsteadOfLengthMinusNInIndexerCall.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp80\IndicesAndRanges\Suggestions\UseIndexFromTheEndHeadNInsteadOfLengthMinusNInMethodCall.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp80\NullableReferenceTypes\Analyzers\EnableNullableContextAndDeclareIdentifierAsNullableAnalyzer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp80\NullableReferenceTypes\Suggestions\BaseEnableNullableContextAndDeclareIdentifierAsNullableSuggestion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp80\NullableReferenceTypes\Suggestions\EnableNullableContextAndDeclareAnonymousDelegateParameterAsNullable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp80\NullableReferenceTypes\Suggestions\EnableNullableContextAndDeclareConstructorParameterAsNullable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp80\NullableReferenceTypes\Suggestions\EnableNullableContextAndDeclareFieldAsNullable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp80\NullableReferenceTypes\Suggestions\EnableNullableContextAndDeclareLambdaParameterAsNullable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp80\NullableReferenceTypes\Suggestions\EnableNullableContextAndDeclareLocalFunctionParameterAsNullable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp80\NullableReferenceTypes\Suggestions\EnableNullableContextAndDeclareLocalVariableAsNullable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp80\NullableReferenceTypes\Suggestions\EnableNullableContextAndDeclareMethodParameterAsNullable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp80\NullableReferenceTypes\Suggestions\EnableNullableContextAndDeclarePropertyAsNullable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp80\NullCoalescingAssignments\Analyzers\UseNullCoalescingAssignmentOperatorInsteadOfAssigningResultOfTheNullCoalescingOperatorAnalyzer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp80\NullCoalescingAssignments\Suggestions\ConsiderUsingNullCoalescingAssignmentOperatorInsteadOfAssigningResultOfTheNullCoalescingOperator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp80\NullCoalescingAssignments\Suggestions\UseNullCoalescingAssignmentOperatorInsteadOfAssigningResultOfTheNullCoalescingOperator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp80\SwitchExpressions\Analyzers\ReplaceSwitchStatementWithSwitchExpressionAnalyzer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp80\SwitchExpressions\Suggestions\ConsiderReplacingSwitchStatementContainingOnlyAssignmentsWithSwitchExpression.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp80\SwitchExpressions\Suggestions\ConsiderReplacingSwitchStatementContainingOnlyReturnsWithSwitchExpression.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp80\SwitchExpressions\Suggestions\ReplaceSwitchStatementContainingOnlyAssignmentsWithSwitchExpression.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp80\SwitchExpressions\Suggestions\ReplaceSwitchStatementContainingOnlyReturnsWithSwitchExpression.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp80\UsingDeclarations\Analyzers\ReplaceUsingStatementWithUsingDeclarationAnalyzer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp80\UsingDeclarations\Suggestions\ConsiderReplacingUsingStatementWithUsingDeclaration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp80\UsingDeclarations\Suggestions\ReplaceUsingStatementWithUsingDeclaration.cs" />
+  </ItemGroup>
+</Project>

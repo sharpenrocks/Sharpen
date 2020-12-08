@@ -24,4 +24,9 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Sharpen.Engine.2_4_0_0\Sharpen.Engine.2_4_0_0.csproj" />
+    <ProjectReference Include="..\Sharpen.Engine.Abstractions\Sharpen.Engine.Abstractions.csproj" />
+  </ItemGroup>
+
 </Project>

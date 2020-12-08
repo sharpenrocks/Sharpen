@@ -377,6 +377,16 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="..\Sharpen.Engine.3_0_0_0\bin\$(Configuration)\netstandard2.0\Sharpen.Engine.3_0_0_0.dll">
+      <Link>Sharpen.Engine.3_0_0_0.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="..\Sharpen.Engine.3_8_0_0\bin\$(Configuration)\netstandard2.0\Sharpen.Engine.3_8_0_0.dll">
+      <Link>Sharpen.Engine.3_8_0_0.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="LICENSE.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>

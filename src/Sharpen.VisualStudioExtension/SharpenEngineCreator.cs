@@ -28,17 +28,18 @@ namespace Sharpen.VisualStudioExtension
         }
 
         private static readonly Version version_2_4_0_0 = new Version(2, 4, 0, 0);
-        private static readonly Version version_2_10_0_0 = new Version(2, 10, 0, 0);
         private static readonly Version version_3_0_0_0 = new Version(3, 0, 0, 0);
+        private static readonly Version version_3_8_0_0 = new Version(3, 8, 0, 0);
         private static ISharpenEngine CreateSharpenEngineImplementation()
         {
             var version = typeof(SyntaxTree).Assembly.GetName().Version;
 
-            if (version >= version_3_0_0_0)
+            if (version >= version_3_8_0_0)
+                return GetSharpenEngineFromAssembly(GetVersionDependentAssembly(version_3_8_0_0));
+            else if (version >= version_3_0_0_0)
+                return GetSharpenEngineFromAssembly(GetVersionDependentAssembly(version_3_0_0_0));
+            else 
                 return GetSharpenEngineFromAssembly(GetVersionDependentAssembly(version_2_4_0_0));
-            else if (version >= version_2_10_0_0)
-                return GetSharpenEngineFromAssembly(GetVersionDependentAssembly(version_2_4_0_0));
-            else return GetSharpenEngineFromAssembly(GetVersionDependentAssembly(version_2_4_0_0));
         }
 
         private static Assembly GetVersionDependentAssembly(Version version)
