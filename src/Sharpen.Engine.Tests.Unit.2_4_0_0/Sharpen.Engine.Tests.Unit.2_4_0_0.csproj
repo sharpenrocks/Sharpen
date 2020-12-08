@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+
+    <AssemblyName>Sharpen.Engine.Tests.Unit</AssemblyName>
+
+    <RootNamespace>Sharpen.Engine.Tests.Unit</RootNamespace>
+
+    <SignAssembly>true</SignAssembly>
+
+    <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
+
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="nunit" Version="3.11.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.11.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sharpen.Engine.2_4_0_0\Sharpen.Engine.2_4_0_0.csproj" />
+    <ProjectReference Include="..\Sharpen.Engine.Abstractions\Sharpen.Engine.Abstractions.csproj" />
+  </ItemGroup>
+
+  <Import Project="..\Sharpen.Engine.Tests.Unit\Sharpen.Engine.Tests.Unit.projitems" Label="Shared" />
+
+</Project>

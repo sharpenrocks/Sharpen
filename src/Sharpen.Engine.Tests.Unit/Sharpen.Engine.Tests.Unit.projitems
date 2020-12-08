@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>873d4e0f-3520-48d7-8a2d-3a240a52dc66</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Sharpen.Engine.Tests.Unit</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp30\ImplicitlyTypedLocalVariables\UseVarKeywordInVariableDeclarationWithObjectCreationTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharpenSuggestions\CSharp70\OutVariables\UseOutVariablesInMethodInvocationsTests.cs" />
+  </ItemGroup>
+</Project>
